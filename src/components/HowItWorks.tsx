@@ -5,19 +5,19 @@ const steps = [
     number: "01",
     icon: MessageCircle,
     title: "Tell Us Your Goals",
-    description: "Share your business vision and we'll map out exactly what you need.",
+    description: "Share what you do and where you want to go.",
   },
   {
     number: "02",
     icon: FileCheck,
-    title: "We Handle the Work",
-    description: "Our team takes care of registrations, filings, and all the complex paperwork.",
+    title: "We Set Everything Up",
+    description: "Legal, digital, and foundational systems handled.",
   },
   {
     number: "03",
     icon: Rocket,
-    title: "Launch & Grow",
-    description: "Your business is official. Start operating with full legitimacy and confidence.",
+    title: "Launch & Operate Confidently",
+    description: "Run your business with legitimacy and trust.",
   },
 ];
 
@@ -29,9 +29,6 @@ const HowItWorks = () => {
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
             Simple Process, Powerful Results
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Three steps to transform your idea into a fully operational business.
-          </p>
         </div>
 
         <div className="max-w-4xl mx-auto">

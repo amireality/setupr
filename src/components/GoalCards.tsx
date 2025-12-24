@@ -6,19 +6,19 @@ const goals = [
     id: "start",
     icon: Rocket,
     title: "Starting Fresh",
-    description: "I'm launching a new business and need help setting up everything from scratch.",
+    description: "You have a skill or idea and want to start officially, the right way.",
   },
   {
     id: "formalize",
     icon: Briefcase,
     title: "Going Legit",
-    description: "I've been freelancing and want to formalize my operations properly.",
+    description: "You're already working but want legal identity and a professional presence.",
   },
   {
     id: "scale",
     icon: TrendingUp,
     title: "Ready to Scale",
-    description: "My business is growing and I need better structure to handle it.",
+    description: "Your business is growing and you need structure, compliance, and credibility.",
   },
 ];
 
@@ -33,7 +33,7 @@ const GoalCards = () => {
             Where Are You on Your Journey?
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Select your current stage and we'll tailor our approach to your needs.
+            Select your current stage and we'll guide you forward.
           </p>
         </div>
 

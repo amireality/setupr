@@ -4,20 +4,20 @@ const services = [
   {
     icon: FileText,
     title: "Business Formation",
-    description: "LLC setup, EIN registration, operating agreements, and all the paperwork handled for you.",
-    features: ["Entity Selection", "State Registration", "EIN Filing"],
+    description: "Proprietorship, LLP, or Private Limited setup with all registrations handled professionally.",
+    features: ["GST & MSME Registration", "PAN / TAN Assistance", "Entity Selection & Setup"],
   },
   {
     icon: Globe,
     title: "Digital Presence",
-    description: "Professional website, domain setup, business email, and branded digital assets.",
-    features: ["Custom Website", "Domain & Email", "Brand Assets"],
+    description: "Professional website, domain setup, business email, and basic brand assets to establish credibility.",
+    features: ["Professional Website", "Domain & Business Email", "Basic Brand Assets"],
   },
   {
     icon: Shield,
-    title: "Compliance & Growth",
-    description: "Stay compliant with annual filings, tax prep guidance, and ongoing business support.",
-    features: ["Annual Reports", "Tax Guidance", "Ongoing Support"],
+    title: "Foundational Compliance",
+    description: "Mandatory registrations, annual filing guidance, and expansion readiness support.",
+    features: ["Mandatory Registrations", "Annual Filing Guidance", "Expansion Readiness"],
   },
 ];
 
@@ -30,7 +30,7 @@ const ServicePillars = () => {
             Everything You Need to Operate
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Three core pillars that cover every aspect of building a legitimate business.
+            Three core pillars that cover the foundation of a legitimate business.
           </p>
         </div>
 
@@ -73,6 +73,11 @@ const ServicePillars = () => {
             );
           })}
         </div>
+
+        {/* Bottom note */}
+        <p className="text-center text-muted-foreground mt-12 text-lg">
+          Choose what you need today. Combine services as your business grows.
+        </p>
       </div>
     </section>
   );
