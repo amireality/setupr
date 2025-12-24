@@ -43,7 +43,7 @@ const Services = () => {
           selectedServices={selectedServices}
           onApply={applyRecommendation} 
         />
-        <ServicesCTA selectedCount={selectedServices.size} />
+        <ServicesCTA selectedServices={selectedServices} />
       </main>
       <Footer />
     </div>
