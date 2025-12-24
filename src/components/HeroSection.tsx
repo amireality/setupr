@@ -21,19 +21,19 @@ const HeroSection = () => {
 
           {/* Headline */}
           <h1 className="animate-fade-up-delay-1 font-display text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-6">
-            Turn Your Vision Into a{" "}
+            Turn Your Skills Into a{" "}
             <span className="gradient-text">Legitimate Business</span>
           </h1>
 
           {/* Subheadline */}
           <p className="animate-fade-up-delay-2 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            We help entrepreneurs, freelancers, and creators establish their businesses with proper structure, compliance, and digital presence.
+            We help professionals and small teams become registered, credible businesses with legal setup, digital presence, and zero vendor chaos.
           </p>
 
           {/* CTA Buttons */}
           <div className="animate-fade-up-delay-3 flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero" size="xl">
-              Get Started Today
+              Get Started
               <ArrowRight className="w-5 h-5" />
             </Button>
             <Button variant="heroOutline" size="xl">
