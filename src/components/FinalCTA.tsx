@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const FinalCTA = () => {
   return (
@@ -18,9 +19,11 @@ const FinalCTA = () => {
           <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed">
             Build your business the right way, from day one.
           </p>
-          <Button variant="hero" size="xl">
-            Start Your Journey
-            <ArrowRight className="w-5 h-5" />
+          <Button variant="hero" size="xl" asChild>
+            <Link to="/services">
+              Start Your Journey
+              <ArrowRight className="w-5 h-5" />
+            </Link>
           </Button>
         </div>
       </div>
