@@ -1,11 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import type { ServiceId } from "@/pages/Services";
 
 interface ServicesCTAProps {
-  selectedCount: number;
+  selectedServices: Set<ServiceId>;
 }
 
-const ServicesCTA = ({ selectedCount }: ServicesCTAProps) => {
+const ServicesCTA = ({ selectedServices }: ServicesCTAProps) => {
+  const navigate = useNavigate();
+  const selectedCount = selectedServices.size;
+
+  const handleContinue = () => {
+    const servicesParam = Array.from(selectedServices).join(",");
+    navigate(`/intake${servicesParam ? `?services=${servicesParam}` : ""}`);
+  };
+
   return (
     <section className="py-20 bg-secondary/30">
       <div className="container px-4 md:px-6">
@@ -21,6 +31,7 @@ const ServicesCTA = ({ selectedCount }: ServicesCTAProps) => {
               variant="hero" 
               size="xl" 
               className="w-full sm:w-auto mb-4"
+              onClick={handleContinue}
             >
               Continue
               <ArrowRight className="w-5 h-5 ml-2" />
