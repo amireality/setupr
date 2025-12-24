@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import IntakeProgress from "@/components/intake/IntakeProgress";
 import StepCurrentStage from "@/components/intake/StepCurrentStage";
@@ -8,7 +8,6 @@ import StepServicesReview from "@/components/intake/StepServicesReview";
 import StepExistingSetup from "@/components/intake/StepExistingSetup";
 import StepTimeline from "@/components/intake/StepTimeline";
 import StepContact from "@/components/intake/StepContact";
-import IntakeConfirmation from "@/components/intake/IntakeConfirmation";
 import type { ServiceId } from "./Services";
 
 export interface IntakeData {
@@ -29,8 +28,8 @@ const TOTAL_STEPS = 6;
 
 const Intake = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<IntakeData>({
     currentStage: "",
     workTypes: [],
@@ -71,19 +70,8 @@ const Intake = () => {
 
   const handleSubmit = () => {
     console.log("Form submitted:", formData);
-    setIsSubmitted(true);
+    navigate("/pricing-summary", { state: { intakeData: formData } });
   };
-
-  if (isSubmitted) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <main className="pt-16">
-          <IntakeConfirmation data={formData} />
-        </main>
-      </div>
-    );
-  }
 
   const renderStep = () => {
     switch (currentStep) {
