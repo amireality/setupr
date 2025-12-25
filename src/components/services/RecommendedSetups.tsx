@@ -46,10 +46,15 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
   };
 
   return (
-    <section className="py-20">
-      <div className="container px-4 md:px-6">
+    <section className="py-24 relative">
+      {/* Background accent */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[400px] bg-primary/3 rounded-full blur-[150px]" />
+      </div>
+
+      <div className="container px-4 md:px-6 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
             Recommended Setups
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -65,19 +70,19 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
                 key={rec.title}
                 onClick={() => onApply(rec.services)}
                 className={`
-                  p-6 rounded-2xl border-2 text-left transition-all duration-300 group
+                  p-6 rounded-2xl text-left transition-all duration-300 group glass-card
                   ${isActive 
-                    ? "border-primary bg-primary/5 shadow-card-hover" 
-                    : "border-border bg-card hover:border-primary/30 shadow-card hover:shadow-card-hover"
+                    ? "border-primary/50 shadow-glow" 
+                    : "glass-card-hover"
                   }
                   animate-fade-up-delay-${index + 1}
                 `}
               >
                 <div className={`
-                  w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300
+                  w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-300
                   ${isActive 
-                    ? "gradient-accent" 
-                    : "bg-secondary group-hover:bg-primary/10"
+                    ? "gradient-accent shadow-glow" 
+                    : "bg-secondary group-hover:bg-secondary/80"
                   }
                 `}>
                   <rec.icon className={`w-6 h-6 ${isActive ? "text-primary-foreground" : "text-primary"}`} />
@@ -86,14 +91,14 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
                 <h3 className="font-display text-lg font-semibold text-foreground mb-2">
                   {rec.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-sm text-muted-foreground mb-5">
                   {rec.description}
                 </p>
                 
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {rec.highlights.map((highlight) => (
                     <li key={highlight} className="text-xs text-muted-foreground flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-primary" />
+                      <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />
                       {highlight}
                     </li>
                   ))}

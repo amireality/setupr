@@ -17,12 +17,15 @@ const ServicesCTA = ({ selectedServices }: ServicesCTAProps) => {
   };
 
   return (
-    <section className="py-20 bg-secondary/30">
-      <div className="container px-4 md:px-6">
+    <section className="py-20 relative">
+      {/* Background */}
+      <div className="absolute inset-0 bg-secondary/20" />
+
+      <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="bg-card border border-border rounded-2xl p-8 shadow-card">
+          <div className="glass-card rounded-2xl p-8">
             {selectedCount > 0 && (
-              <p className="text-sm text-primary font-medium mb-4">
+              <p className="text-sm text-primary font-semibold mb-5">
                 {selectedCount} service{selectedCount !== 1 ? "s" : ""} selected
               </p>
             )}
@@ -30,7 +33,7 @@ const ServicesCTA = ({ selectedServices }: ServicesCTAProps) => {
             <Button 
               variant="hero" 
               size="xl" 
-              className="w-full sm:w-auto mb-4"
+              className="w-full sm:w-auto mb-5"
               onClick={handleContinue}
             >
               Continue
