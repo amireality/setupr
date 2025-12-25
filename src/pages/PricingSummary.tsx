@@ -26,7 +26,7 @@ const PricingSummary = () => {
         <SelectedServicesSummary services={intakeData.selectedServices} />
         <PricingBreakdown services={intakeData.selectedServices} />
         <WhatsIncluded />
-        <PricingCTA contactName={intakeData.contact.fullName} />
+        <PricingCTA contactName={intakeData.contact.fullName} intakeData={intakeData} />
         <TrustNote />
       </main>
       <Footer />
