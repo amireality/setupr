@@ -23,19 +23,27 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section id="how-it-works" className="py-24 bg-background">
-      <div className="container px-4 md:px-6">
+    <section id="how-it-works" className="py-28 bg-background relative">
+      {/* Background accent */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/2 right-0 w-[400px] h-[600px] bg-primary/3 rounded-full blur-[150px]" />
+      </div>
+
+      <div className="container px-4 md:px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-5 text-balance">
             Simple Process, Powerful Results
           </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Three steps to transform your skills into a legitimate business.
+          </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
           {/* Steps container */}
           <div className="relative">
             {/* Connecting line */}
-            <div className="absolute left-8 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent hidden md:block" />
+            <div className="absolute left-8 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent hidden md:block" />
 
             {steps.map((step, index) => {
               const Icon = step.icon;
@@ -51,11 +59,11 @@ const HowItWorks = () => {
                   {/* Content */}
                   <div className={`flex-1 ${isEven ? "md:text-right" : "md:text-left"}`}>
                     <div
-                      className={`inline-block bg-card rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-all duration-300 ${
+                      className={`inline-block rounded-2xl p-8 glass-card glass-card-hover transition-all duration-300 ${
                         isEven ? "md:mr-8" : "md:ml-8"
                       }`}
                     >
-                      <span className="font-display text-4xl font-bold text-primary/20 mb-4 block">
+                      <span className="font-display text-5xl font-bold text-primary/20 mb-4 block">
                         {step.number}
                       </span>
                       <h3 className="font-display text-xl font-semibold text-foreground mb-3">
@@ -68,7 +76,7 @@ const HowItWorks = () => {
                   </div>
 
                   {/* Center icon */}
-                  <div className="relative z-10 w-16 h-16 rounded-full gradient-accent flex items-center justify-center shadow-lg flex-shrink-0">
+                  <div className="relative z-10 w-16 h-16 rounded-2xl gradient-accent flex items-center justify-center shadow-lg flex-shrink-0">
                     <Icon className="w-7 h-7 text-primary-foreground" />
                   </div>
 

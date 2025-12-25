@@ -26,10 +26,15 @@ const GoalCards = () => {
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
 
   return (
-    <section className="py-24 bg-background">
-      <div className="container px-4 md:px-6">
+    <section className="py-28 bg-background relative">
+      {/* Subtle background accent */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/3 rounded-full blur-[150px]" />
+      </div>
+
+      <div className="container px-4 md:px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-5 text-balance">
             Where Are You on Your Journey?
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -46,16 +51,16 @@ const GoalCards = () => {
               <button
                 key={goal.id}
                 onClick={() => setSelectedGoal(goal.id)}
-                className={`group relative p-8 rounded-2xl border-2 text-left transition-all duration-300 ${
+                className={`group relative p-8 rounded-2xl text-left transition-all duration-300 glass-card glass-card-hover ${
                   isSelected
-                    ? "border-primary bg-primary/5 shadow-card-hover"
-                    : "border-border bg-card hover:border-primary/30 hover:shadow-card"
+                    ? "border-primary/50 shadow-glow"
+                    : ""
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Selection indicator */}
                 <div
-                  className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                  className={`absolute top-5 right-5 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
                     isSelected
                       ? "border-primary bg-primary"
                       : "border-muted-foreground/30"
@@ -69,7 +74,7 @@ const GoalCards = () => {
                   className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 ${
                     isSelected
                       ? "gradient-accent shadow-glow"
-                      : "bg-secondary group-hover:bg-primary/10"
+                      : "bg-secondary group-hover:bg-secondary/80"
                   }`}
                 >
                   <Icon

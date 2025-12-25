@@ -52,16 +52,20 @@ interface ServiceCategoriesProps {
 
 const ServiceCategories = ({ selectedServices, onToggle }: ServiceCategoriesProps) => {
   return (
-    <section className="py-16 bg-secondary/30">
-      <div className="container px-4 md:px-6">
+    <section className="py-16 relative">
+      {/* Background */}
+      <div className="absolute inset-0 bg-secondary/20" />
+
+      <div className="container px-4 md:px-6 relative z-10">
         <div className="grid gap-8 lg:grid-cols-3">
           {categories.map((category, categoryIndex) => (
             <div 
               key={category.title}
               className={`animate-fade-up-delay-${categoryIndex + 1}`}
             >
+              {/* Category header */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg gradient-accent flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl gradient-accent flex items-center justify-center shadow-lg">
                   <category.icon className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <h2 className="font-display text-xl font-semibold text-foreground">
@@ -69,6 +73,7 @@ const ServiceCategories = ({ selectedServices, onToggle }: ServiceCategoriesProp
                 </h2>
               </div>
               
+              {/* Services list */}
               <div className="space-y-3">
                 {category.services.map((service) => {
                   const isSelected = selectedServices.has(service.id);
@@ -77,10 +82,10 @@ const ServiceCategories = ({ selectedServices, onToggle }: ServiceCategoriesProp
                       key={service.id}
                       onClick={() => onToggle(service.id)}
                       className={`
-                        w-full p-4 rounded-xl border-2 text-left transition-all duration-200
+                        w-full p-4 rounded-xl text-left transition-all duration-300 glass-card
                         ${isSelected 
-                          ? "border-primary bg-primary/5 shadow-card-hover" 
-                          : "border-border bg-card hover:border-primary/30 hover:bg-card/80 shadow-card"
+                          ? "border-primary/50 shadow-glow" 
+                          : "glass-card-hover"
                         }
                       `}
                     >

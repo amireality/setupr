@@ -47,10 +47,10 @@ const PricingBreakdown = ({ services }: PricingBreakdownProps) => {
             Pricing Breakdown
           </h2>
           
-          <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-card">
+          <div className="glass-card rounded-2xl overflow-hidden">
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/50">
+                <TableRow className="border-border/50 hover:bg-transparent">
                   <TableHead className="font-semibold text-foreground">Service</TableHead>
                   <TableHead className="text-right font-semibold text-foreground">One-time Fee</TableHead>
                 </TableRow>
@@ -60,7 +60,7 @@ const PricingBreakdown = ({ services }: PricingBreakdownProps) => {
                   const service = servicePricing[serviceId];
                   if (!service) return null;
                   return (
-                    <TableRow key={serviceId}>
+                    <TableRow key={serviceId} className="border-border/50 hover:bg-secondary/30">
                       <TableCell className="text-foreground">{service.name}</TableCell>
                       <TableCell className="text-right">
                         <span className="flex items-center justify-end gap-1 text-foreground">
@@ -72,8 +72,8 @@ const PricingBreakdown = ({ services }: PricingBreakdownProps) => {
                   );
                 })}
               </TableBody>
-              <TableFooter>
-                <TableRow className="bg-primary/5">
+              <TableFooter className="bg-primary/5 border-t border-border/50">
+                <TableRow className="hover:bg-transparent">
                   <TableCell className="font-semibold text-foreground">Total</TableCell>
                   <TableCell className="text-right">
                     <span className="flex items-center justify-end gap-1 font-bold text-lg text-primary">
@@ -86,7 +86,7 @@ const PricingBreakdown = ({ services }: PricingBreakdownProps) => {
             </Table>
           </div>
 
-          <p className="mt-4 text-sm text-muted-foreground text-center">
+          <p className="mt-5 text-sm text-muted-foreground text-center">
             No hidden charges. No recurring fees unless stated.
           </p>
         </div>
