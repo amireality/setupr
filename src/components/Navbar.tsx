@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import setuprLogo from "@/assets/setupr-logo.svg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,11 +13,14 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
       <div className="container px-4 md:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl gradient-accent shadow-lg group-hover:shadow-glow transition-shadow duration-300" />
-            <span className="font-display text-xl font-bold text-foreground tracking-tight">LegitBiz</span>
+          <Link to="/" className="flex items-center group">
+            <img 
+              src={setuprLogo} 
+              alt="Setupr" 
+              className="h-[30px] md:h-[40px] w-auto"
+            />
           </Link>
 
           {/* Desktop Nav */}

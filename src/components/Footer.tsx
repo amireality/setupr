@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import setuprLogo from "@/assets/setupr-logo.svg";
 
 const Footer = () => {
   return (
@@ -6,9 +7,12 @@ const Footer = () => {
       <div className="container px-4 md:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg gradient-accent shadow-md group-hover:shadow-glow transition-shadow duration-300" />
-            <span className="font-display text-lg font-bold text-foreground">LegitBiz</span>
+          <Link to="/" className="flex items-center group">
+            <img 
+              src={setuprLogo} 
+              alt="Setupr" 
+              className="h-[30px] md:h-[36px] w-auto"
+            />
           </Link>
 
           {/* Nav links */}
@@ -29,7 +33,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} LegitBiz. All rights reserved.
+            © {new Date().getFullYear()} Setupr. All rights reserved.
           </p>
         </div>
       </div>
