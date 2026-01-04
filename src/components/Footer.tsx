@@ -26,8 +26,16 @@ const Footer = () => {
             <a href="/#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               How It Works
             </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Privacy
+            <a 
+              href="https://www.instagram.com/setuprhq?igsh=cWUwbjZlZWVtbGY4" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Instagram
+            </a>
+            <a href="mailto:info@setupr.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              info@setupr.com
             </a>
           </nav>
 
