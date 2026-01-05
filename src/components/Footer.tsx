@@ -3,7 +3,7 @@ import setuprLogo from "@/assets/setupr-logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-secondary/20 border-t border-border/30 py-8 relative overflow-hidden">
+    <footer className="bg-secondary/20 border-t border-transparent py-8 relative overflow-hidden before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-primary/50 before:to-transparent before:shadow-[0_0_8px_hsl(var(--primary)/0.4)]">
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -38,8 +38,8 @@ const Footer = () => {
           </nav>
 
           {/* Email */}
-          <a href="mailto:email@setupr.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            email@setupr.com
+          <a href="mailto:info@setupr.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            info@setupr.com
           </a>
         </div>
       </div>

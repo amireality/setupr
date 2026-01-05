@@ -75,7 +75,7 @@ const GoalCards = () => {
             {/* Title - top left, takes 2 columns */}
             <div className="md:col-span-2 flex items-center">
               <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
-                Where Are You on Your Journey?
+                Where are you on your journey?
               </h2>
             </div>
 
