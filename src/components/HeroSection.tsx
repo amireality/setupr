@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import tileClusterBg from "@/assets/tile-cluster-hero-bg.png";
+import { ThreeDMarquee } from "@/components/ui/3d-marquee";
+
 const HeroSection = () => {
   const scrollToHowItWorks = () => {
     const element = document.getElementById("how-it-works");
@@ -9,23 +10,44 @@ const HeroSection = () => {
       behavior: "smooth"
     });
   };
-  return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
-      {/* Tile cluster background - full cover */}
-      <div className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20" style={{
-      backgroundImage: `url(${tileClusterBg})`
-    }} />
+
+  // Business-themed images for the marquee
+  const images = [
+    "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop",
+  ];
+
+  return (
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
+      {/* 3D Marquee Background */}
+      <div className="absolute inset-0 overflow-hidden opacity-30">
+        <ThreeDMarquee images={images} />
+      </div>
       
       {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-background/60" />
+      <div className="absolute inset-0 bg-background/70" />
       
       {/* Central warm glow overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/15 via-primary/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-radial from-primary/20 via-primary/5 to-transparent" />
       
       {/* Bottom fade to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
 
-
-      <div className="container relative z-10 px-4 md:px-6 py-20 md:py-24 opacity-90">
+      <div className="container relative z-10 px-4 md:px-6 py-20 md:py-24">
         <div className="max-w-3xl mx-auto text-center">
           {/* Headline */}
           <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-5 text-balance animate-fade-up">
@@ -52,6 +74,8 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default HeroSection;
