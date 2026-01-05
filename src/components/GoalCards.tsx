@@ -1,38 +1,71 @@
-import { useState } from "react";
 import { Rocket, Briefcase, TrendingUp } from "lucide-react";
-import glassCardBg from "@/assets/glass-card-bg.png";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 
-const goals = [
+const Skeleton = ({ variant }: { variant: "start" | "formalize" | "scale" }) => {
+  const gradients = {
+    start: "from-primary/20 via-primary/10 to-transparent",
+    formalize: "from-primary/15 via-transparent to-primary/10",
+    scale: "from-transparent via-primary/15 to-primary/20",
+  };
+
+  return (
+    <div
+      className={`flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br ${gradients[variant]} border border-border/20 relative overflow-hidden`}
+    >
+      {/* Animated dot pattern */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, hsl(var(--primary) / 0.3) 1px, transparent 1px)",
+          backgroundSize: "16px 16px",
+        }}
+      />
+      {/* Warm glow */}
+      <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/20 rounded-full blur-3xl group-hover/bento:w-32 group-hover/bento:h-32 transition-all duration-500" />
+    </div>
+  );
+};
+
+const items = [
   {
-    id: "start",
-    icon: Rocket,
     title: "Starting Fresh",
-    description: "Starting Fresh optimizes on innovation. Fresh and then refine.",
+    description:
+      "Launch your business the right way. We handle the setup so you can focus on what matters — building your vision.",
+    header: <Skeleton variant="start" />,
+    className: "md:col-span-2",
+    icon: <Rocket className="h-5 w-5 text-primary" />,
   },
   {
-    id: "formalize",
-    icon: Briefcase,
     title: "Going Legit",
-    description: "Unexeverers to going legit to nolytonew arovs in activities & realtions.",
+    description:
+      "Formalize your operations with proper structure, compliance, and professional systems.",
+    header: <Skeleton variant="formalize" />,
+    className: "md:col-span-1",
+    icon: <Briefcase className="h-5 w-5 text-primary" />,
   },
   {
-    id: "scale",
-    icon: TrendingUp,
     title: "Ready to Scale",
-    description: "Ready to scale about strategies and deverlontion and prentices.",
+    description:
+      "Optimize and expand with strategies designed for sustainable growth.",
+    header: <Skeleton variant="scale" />,
+    className: "md:col-span-1",
+    icon: <TrendingUp className="h-5 w-5 text-primary" />,
   },
 ];
 
 const GoalCards = () => {
-  const [selectedGoal, setSelectedGoal] = useState<string>("start");
-
   return (
     <section className="py-20 md:py-28 relative bg-background">
       {/* Subtle grid continuation */}
-      <div className="absolute inset-0 opacity-5" style={{
-        backgroundImage: 'linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)',
-        backgroundSize: '60px 60px'
-      }} />
+      <div
+        className="absolute inset-0 opacity-5"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
@@ -41,78 +74,19 @@ const GoalCards = () => {
             Where Are You on Your Journey?
           </h2>
 
-          {/* Vertical cards with glass effect */}
-          <div className="grid md:grid-cols-3 gap-5">
-            {goals.map((goal) => {
-              const Icon = goal.icon;
-              const isSelected = selectedGoal === goal.id;
-
-              return (
-                <button
-                  key={goal.id}
-                  onClick={() => setSelectedGoal(goal.id)}
-                  className="w-full text-left group"
-                >
-                  <div 
-                    className="relative rounded-2xl p-6 md:p-8 h-full transition-all duration-300 overflow-hidden"
-                    style={{
-                      backgroundImage: `url(${glassCardBg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }}
-                  >
-                    {/* Glass overlay */}
-                    <div className={`absolute inset-0 backdrop-blur-sm transition-all duration-300 ${
-                      isSelected 
-                        ? 'bg-secondary/60 border border-primary/40' 
-                        : 'bg-secondary/40 border border-border/20'
-                    } rounded-2xl`} />
-                    
-                    {/* Warm glow on selection */}
-                    {isSelected && (
-                      <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
-                    )}
-
-                    <div className="relative z-10">
-                      {/* Icon */}
-                      <div
-                        className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 ${
-                          isSelected
-                            ? "gradient-accent shadow-glow"
-                            : "bg-primary/20"
-                        }`}
-                      >
-                        <Icon
-                          className={`w-6 h-6 transition-colors duration-300 ${
-                            isSelected ? "text-primary-foreground" : "text-primary"
-                          }`}
-                        />
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="font-display text-lg font-semibold text-foreground mb-3">
-                        {goal.title}
-                      </h3>
-                      
-                      {/* Description */}
-                      <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                        {goal.description}
-                      </p>
-
-                      {/* Selection indicator */}
-                      <div
-                        className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                          isSelected
-                            ? "bg-primary shadow-glow"
-                            : "bg-muted-foreground/30"
-                        }`}
-                      />
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+          {/* Bento Grid */}
+          <BentoGrid className="md:auto-rows-[20rem]">
+            {items.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+                icon={item.icon}
+              />
+            ))}
+          </BentoGrid>
         </div>
       </div>
     </section>
