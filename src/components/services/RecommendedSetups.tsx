@@ -1,5 +1,6 @@
 import { Rocket, Briefcase, Zap } from "lucide-react";
 import type { ServiceId } from "@/pages/Services";
+import { cn } from "@/lib/utils";
 
 interface Recommendation {
   title: string;
@@ -7,6 +8,7 @@ interface Recommendation {
   icon: React.ElementType;
   services: ServiceId[];
   highlights: string[];
+  gradient: string;
 }
 
 const recommendations: Recommendation[] = [
@@ -16,6 +18,7 @@ const recommendations: Recommendation[] = [
     icon: Rocket,
     services: ["proprietorship", "website", "google-business"],
     highlights: ["Company Registration", "Website", "Google Business Profile"],
+    gradient: "from-primary/20 via-primary/10 to-transparent",
   },
   {
     title: "Professional Presence Stack",
@@ -23,6 +26,7 @@ const recommendations: Recommendation[] = [
     icon: Briefcase,
     services: ["website", "domain-hosting", "email", "brand-identity"],
     highlights: ["Website", "Domain & Email", "Brand Basics"],
+    gradient: "from-accent/20 via-accent/10 to-transparent",
   },
   {
     title: "Single Service",
@@ -30,6 +34,7 @@ const recommendations: Recommendation[] = [
     icon: Zap,
     services: [],
     highlights: ["Pick exactly what you need", "Add more anytime", "No pressure"],
+    gradient: "from-secondary/40 via-secondary/20 to-transparent",
   },
 ];
 
@@ -37,6 +42,15 @@ interface RecommendedSetupsProps {
   selectedServices: Set<ServiceId>;
   onApply: (services: ServiceId[]) => void;
 }
+
+const RecommendationSkeleton = ({ gradient }: { gradient: string }) => (
+  <div className={cn(
+    "flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br",
+    gradient
+  )}>
+    <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.15)_0%,transparent_60%)]" />
+  </div>
+);
 
 const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps) => {
   const isRecommendationActive = (services: ServiceId[]) => {
@@ -62,47 +76,54 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
-          {recommendations.map((rec, index) => {
+        <div className="grid gap-4 md:grid-cols-3 max-w-5xl mx-auto md:auto-rows-[20rem]">
+          {recommendations.map((rec) => {
             const isActive = isRecommendationActive(rec.services);
             return (
               <button
                 key={rec.title}
                 onClick={() => onApply(rec.services)}
-                className={`
-                  p-6 rounded-2xl text-left transition-all duration-300 group glass-card
-                  ${isActive 
+                className={cn(
+                  "row-span-1 rounded-2xl group/bento transition-all duration-300 p-4 text-left",
+                  "bg-secondary/40 backdrop-blur-sm border border-border/20",
+                  "flex flex-col overflow-hidden",
+                  isActive 
                     ? "border-primary/50 shadow-glow" 
-                    : "glass-card-hover"
-                  }
-                  animate-fade-up-delay-${index + 1}
-                `}
+                    : "hover:shadow-glow hover:border-primary/40"
+                )}
               >
-                <div className={`
-                  w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-300
-                  ${isActive 
-                    ? "gradient-accent shadow-glow" 
-                    : "bg-secondary group-hover:bg-secondary/80"
-                  }
-                `}>
-                  <rec.icon className={`w-6 h-6 ${isActive ? "text-primary-foreground" : "text-primary"}`} />
+                {/* Header skeleton */}
+                <RecommendationSkeleton gradient={rec.gradient} />
+                
+                <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
+                  <div className={cn(
+                    "w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300",
+                    isActive 
+                      ? "gradient-accent shadow-glow" 
+                      : "bg-background/50 group-hover/bento:bg-primary/20"
+                  )}>
+                    <rec.icon className={cn(
+                      "w-6 h-6",
+                      isActive ? "text-primary-foreground" : "text-primary"
+                    )} />
+                  </div>
+                  
+                  <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+                    {rec.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {rec.description}
+                  </p>
+                  
+                  <ul className="space-y-2">
+                    {rec.highlights.map((highlight) => (
+                      <li key={highlight} className="text-xs text-muted-foreground flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                  {rec.title}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-5">
-                  {rec.description}
-                </p>
-                
-                <ul className="space-y-2">
-                  {rec.highlights.map((highlight) => (
-                    <li key={highlight} className="text-xs text-muted-foreground flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
               </button>
             );
           })}
