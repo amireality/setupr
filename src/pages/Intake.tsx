@@ -69,7 +69,6 @@ const Intake = () => {
   };
 
   const handleSubmit = () => {
-    console.log("Form submitted:", formData);
     navigate("/pricing-summary", { state: { intakeData: formData } });
   };
 
