@@ -18,7 +18,7 @@ const FinalCTA = () => {
           }}
           className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-center"
         >
-          Ready to make it official?
+          Ready to get started?
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 50 }}
@@ -30,7 +30,7 @@ const FinalCTA = () => {
           }}
           className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed max-w-lg mx-auto text-center"
         >
-          Forget your worries, and let us build the strategy that will shape the rise of your business.
+          Tell us what you need. We'll take it from there.
         </motion.p>
 
         <motion.div
@@ -44,7 +44,7 @@ const FinalCTA = () => {
         >
           <Button variant="hero" size="xl" asChild className="shadow-glow">
             <Link to="/services">
-              Start Your Journey
+              Get started
               <ArrowRight className="w-5 h-5" />
             </Link>
           </Button>

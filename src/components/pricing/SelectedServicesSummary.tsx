@@ -27,7 +27,7 @@ const SelectedServicesSummary = ({ services }: SelectedServicesSummaryProps) => 
       <div className="container px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-display text-xl md:text-2xl font-semibold text-foreground mb-6">
-            Selected Services
+            Selected services
           </h2>
           <div className="bg-card border border-border rounded-2xl p-6 shadow-card">
             <ul className="space-y-3">

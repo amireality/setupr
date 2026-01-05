@@ -29,25 +29,25 @@ const Skeleton = ({ variant }: { variant: "start" | "formalize" | "scale" }) => 
 
 const items = [
   {
-    title: "Starting Fresh",
+    title: "Starting fresh",
     description:
-      "Launch your business the right way. We handle the setup so you can focus on what matters — building your vision.",
+      "You have a skill or an idea. You want to begin properly from day one.",
     header: <Skeleton variant="start" />,
     className: "md:col-span-2",
     icon: <Rocket className="h-5 w-5 text-primary" />,
   },
   {
-    title: "Going Legit",
+    title: "Already working",
     description:
-      "Formalize your operations with proper structure, compliance, and professional systems.",
+      "You're freelancing or running something informal. Time to make it official.",
     header: <Skeleton variant="formalize" />,
     className: "md:col-span-1",
     icon: <Briefcase className="h-5 w-5 text-primary" />,
   },
   {
-    title: "Ready to Scale",
+    title: "Ready to grow",
     description:
-      "Optimize and expand with strategies designed for sustainable growth.",
+      "You have a registered business. Now you need better systems and structure.",
     header: <Skeleton variant="scale" />,
     className: "md:col-span-1",
     icon: <TrendingUp className="h-5 w-5 text-primary" />,

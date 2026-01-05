@@ -13,10 +13,10 @@ const PricingConfirmation = () => {
             <FileCheck className="w-8 h-8 text-primary-foreground" />
           </div>
           <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-5 animate-fade-up-delay-1 text-balance">
-            Your Business Setup Plan Is Ready
+            Here's your setup plan
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground animate-fade-up-delay-2">
-            Based on your selections, here's a clear breakdown of what we'll set up for you.
+            A clear breakdown of what we'll set up for you.
           </p>
         </div>
       </div>

@@ -9,11 +9,11 @@ interface StepWorkTypeProps {
 }
 
 const options = [
-  { id: "service", label: "Service-based business", icon: Wrench },
-  { id: "product", label: "Product-based business", icon: Package },
-  { id: "agency", label: "Agency / studio", icon: Users },
+  { id: "service", label: "Service-based", icon: Wrench },
+  { id: "product", label: "Product-based", icon: Package },
+  { id: "agency", label: "Agency or studio", icon: Users },
   { id: "local", label: "Local business", icon: MapPin },
-  { id: "other", label: "Other", icon: HelpCircle },
+  { id: "other", label: "Something else", icon: HelpCircle },
 ];
 
 const StepWorkType = ({ values, onChange, onNext, onBack }: StepWorkTypeProps) => {
@@ -28,7 +28,7 @@ const StepWorkType = ({ values, onChange, onNext, onBack }: StepWorkTypeProps) =
   return (
     <div className="animate-fade-up">
       <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
-        What best describes what you do?
+        What kind of work do you do?
       </h1>
       <p className="text-muted-foreground mb-8">
         Select all that apply.

@@ -34,10 +34,10 @@ const StepExistingSetup = ({ values, onChange, onNext, onBack }: StepExistingSet
   return (
     <div className="animate-fade-up">
       <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
-        Do you already have any of the following?
+        Do you already have any of these?
       </h1>
       <p className="text-muted-foreground mb-8">
-        This helps us avoid duplicating what you already have.
+        So we don't duplicate what you've already set up.
       </p>
 
       <div className="space-y-3 mb-8">

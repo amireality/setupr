@@ -13,27 +13,27 @@ interface Recommendation {
 
 const recommendations: Recommendation[] = [
   {
-    title: "Business Launch Stack",
-    description: "Everything to launch your registered business online",
+    title: "New business",
+    description: "Registration, website, and Google presence",
     icon: Rocket,
     services: ["proprietorship", "website", "google-business"],
-    highlights: ["Company Registration", "Website", "Google Business Profile"],
+    highlights: ["Company registration", "Website", "Google Business"],
     gradient: "from-primary/20 via-primary/10 to-transparent",
   },
   {
-    title: "Professional Presence Stack",
-    description: "Build a credible digital identity",
+    title: "Professional online presence",
+    description: "Website, email, and brand basics",
     icon: Briefcase,
     services: ["website", "domain-hosting", "email", "brand-identity"],
-    highlights: ["Website", "Domain & Email", "Brand Basics"],
+    highlights: ["Website", "Domain & email", "Brand identity"],
     gradient: "from-accent/20 via-accent/10 to-transparent",
   },
   {
-    title: "Single Service",
-    description: "I only need one service right now",
+    title: "Just one thing",
+    description: "Pick exactly what you need",
     icon: Zap,
     services: [],
-    highlights: ["Pick exactly what you need", "Add more anytime", "No pressure"],
+    highlights: ["Choose one service", "Add more later", "No pressure"],
     gradient: "from-secondary/40 via-secondary/20 to-transparent",
   },
 ];
@@ -69,10 +69,10 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
       <div className="container px-4 md:px-6 relative z-10">
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
-            Recommended Setups
+            Common combinations
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Popular combinations to get you started faster
+            Or select individual services above
           </p>
         </div>
 

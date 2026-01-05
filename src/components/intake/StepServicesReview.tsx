@@ -38,10 +38,10 @@ const StepServicesReview = ({ selectedServices, onChange, onNext, onBack }: Step
   return (
     <div className="animate-fade-up">
       <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
-        Review your selected services
+        Your selected services
       </h1>
       <p className="text-muted-foreground mb-8">
-        Confirm or adjust your selections.
+        You can add or remove services here.
       </p>
 
       {selectedList.length > 0 && (

@@ -17,13 +17,13 @@ const ServiceIntro = () => {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-up text-balance">
-            Build Your Business Setup
+            Choose what you need
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-up-delay-1">
-            Choose the services you need today. Add more as your business grows.
+            Pick individual services or use a recommended combination.
           </p>
           <p className="text-sm text-muted-foreground/70 animate-fade-up-delay-2">
-            No forced packages. No long-term commitments.
+            No packages. No commitments. Add more anytime.
           </p>
         </div>
       </div>

@@ -77,10 +77,10 @@ const PricingCTA = ({ contactName, intakeData }: PricingCTAProps) => {
         <div className="container px-4 md:px-6">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Ready to Proceed?
+              Ready to proceed?
             </h2>
             <p className="text-muted-foreground mb-8">
-              Once confirmed, our team will contact you to start the setup.
+              Once you confirm, our team will reach out to begin the setup.
             </p>
             <Button 
               variant="hero" 

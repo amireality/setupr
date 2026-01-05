@@ -11,12 +11,11 @@ const TrustNote = () => {
             </div>
             <div>
               <h3 className="font-display font-semibold text-foreground mb-2">
-                Quality You Can Trust
+                Done right, every time
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                We take pride in doing things right. Every registration, every document, 
-                every setup is handled with care and attention to detail. Your business 
-                deserves a proper foundation, and we're here to make that happen.
+                Every registration and document is handled carefully. 
+                Your business gets a proper foundation.
               </p>
             </div>
           </div>

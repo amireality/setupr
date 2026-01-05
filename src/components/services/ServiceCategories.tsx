@@ -17,35 +17,35 @@ interface Category {
 
 const categories: Category[] = [
   {
-    title: "Business Formation",
+    title: "Business formation",
     icon: Building2,
     gradient: "from-primary/20 via-primary/10 to-transparent",
     services: [
-      { id: "proprietorship", name: "Proprietorship / LLP / Private Limited", description: "Company registration based on your needs" },
-      { id: "gst", name: "GST Registration", description: "Tax compliance setup" },
-      { id: "msme", name: "MSME (Udyam) Registration", description: "Government benefits & schemes access" },
-      { id: "pan-tan", name: "PAN / TAN Assistance", description: "Tax identity numbers" },
+      { id: "proprietorship", name: "Company registration", description: "Proprietorship, LLP, or Private Limited" },
+      { id: "gst", name: "GST registration", description: "Required for invoicing and tax compliance" },
+      { id: "msme", name: "MSME registration", description: "Access to government schemes" },
+      { id: "pan-tan", name: "PAN / TAN", description: "Tax identity for your business" },
     ],
   },
   {
-    title: "Digital Presence",
+    title: "Digital presence",
     icon: Globe,
     gradient: "from-accent/20 via-accent/10 to-transparent",
     services: [
-      { id: "website", name: "Professional Website", description: "Your online home" },
-      { id: "domain-hosting", name: "Domain & Hosting Setup", description: "Your own web address" },
-      { id: "email", name: "Business Email Setup", description: "Professional communication" },
-      { id: "brand-identity", name: "Basic Brand Identity", description: "Logo & visual basics" },
+      { id: "website", name: "Website", description: "A simple, professional website" },
+      { id: "domain-hosting", name: "Domain & hosting", description: "Your own web address" },
+      { id: "email", name: "Business email", description: "Email with your domain name" },
+      { id: "brand-identity", name: "Brand basics", description: "Logo and visual identity" },
     ],
   },
   {
-    title: "Visibility Setup",
+    title: "Visibility",
     icon: Eye,
     gradient: "from-secondary/40 via-secondary/20 to-transparent",
     services: [
-      { id: "social-media", name: "Social Media Profile Setup", description: "Platform presence" },
-      { id: "google-business", name: "Google Business Profile Setup", description: "Local discoverability" },
-      { id: "trust-assets", name: "Basic Trust Assets", description: "Credibility foundations" },
+      { id: "social-media", name: "Social media setup", description: "Profiles on key platforms" },
+      { id: "google-business", name: "Google Business", description: "Appear in local search results" },
+      { id: "trust-assets", name: "Trust assets", description: "Testimonials, case studies, credentials" },
     ],
   },
 ];

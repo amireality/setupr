@@ -42,11 +42,11 @@ const FeatureChips = ({ features }: { features: string[] }) => (
 
 const items = [
   {
-    title: "Business Formation",
+    title: "Business formation",
     description: (
       <>
-        Launch with proper legal structure and essential registrations.
-        <FeatureChips features={["GST & MSME Registration", "FSSAI / PAN Assistance", "Entity Selection"]} />
+        Get your business registered with the right structure and tax setup.
+        <FeatureChips features={["Company Registration", "GST", "MSME"]} />
       </>
     ),
     header: <Skeleton variant="formation" />,
@@ -54,11 +54,11 @@ const items = [
     icon: <FileText className="h-5 w-5 text-primary" />,
   },
   {
-    title: "Digital Presence",
+    title: "Digital presence",
     description: (
       <>
-        Establish your online identity with professional assets.
-        <FeatureChips features={["Website", "Domain", "Brand Assets"]} />
+        Your website, domain, and email — set up professionally.
+        <FeatureChips features={["Website", "Domain", "Email"]} />
       </>
     ),
     header: <Skeleton variant="digital" />,
@@ -66,11 +66,11 @@ const items = [
     icon: <Globe className="h-5 w-5 text-primary" />,
   },
   {
-    title: "Foundational Compliance",
+    title: "Basic compliance",
     description: (
       <>
-        Stay compliant from day one with proper filings.
-        <FeatureChips features={["Registrations", "Filing Guidance"]} />
+        The registrations and filings you need to operate legally.
+        <FeatureChips features={["PAN / TAN", "Filing support"]} />
       </>
     ),
     header: <Skeleton variant="compliance" />,
@@ -78,11 +78,11 @@ const items = [
     icon: <Shield className="h-5 w-5 text-primary" />,
   },
   {
-    title: "Ongoing Support",
+    title: "Ongoing help",
     description: (
       <>
-        Continuous assistance as your business grows and evolves.
-        <FeatureChips features={["Advisory", "Updates", "Renewals"]} />
+        We stay available for questions, updates, and renewals.
+        <FeatureChips features={["Support", "Updates", "Renewals"]} />
       </>
     ),
     header: <Skeleton variant="support" />,
@@ -105,7 +105,7 @@ const ServicePillars = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
-            Everything you need to operate
+            What we help with
           </h2>
 
           {/* Bento Grid */}
