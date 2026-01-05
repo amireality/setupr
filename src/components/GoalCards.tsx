@@ -72,15 +72,15 @@ const GoalCards = () => {
           {/* Custom Grid Layout matching sketch: 2x2 grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {/* Row 1 */}
-            {/* Title - top left */}
-            <div className="md:col-span-1 flex items-center">
+            {/* Title - top left, takes 2 columns */}
+            <div className="md:col-span-2 flex items-center">
               <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
                 Where Are You on Your Journey?
               </h2>
             </div>
 
-            {/* Card 1 (Starting Fresh) - top right */}
-            <div className="md:col-span-2">
+            {/* Card 1 (Starting Fresh) - top right, same size as Going Legit */}
+            <div className="md:col-span-1">
               <BentoGridItem
                 title={items[0].title}
                 description={items[0].description}
