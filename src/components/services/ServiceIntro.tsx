@@ -10,7 +10,7 @@ const ServiceIntro = () => {
         rangeY={200}
         particleCount={400}
         baseSpeed={0.0}
-        rangeSpeed={0.4}
+        rangeSpeed={0.2}
         className="flex items-center justify-center py-24 md:py-32"
         containerClassName="min-h-[50vh]"
       >
