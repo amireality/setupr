@@ -90,9 +90,9 @@ export const ThreeDMarquee = ({
     const sizes: Array<"small" | "normal" | "large"> = ["normal", "large", "normal", "large", "normal", "large"];
     
     // More tiles for better coverage
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < 80; i++) {
       tileList.push({
-        delay: (i % 12) * 0.1,
+        delay: (i % 10) * 0.12,
         size: sizes[i % sizes.length],
         intensity: 0.8 + (Math.sin(i * 0.5) * 0.3),
         randomSeed: i * 1.37,
@@ -101,11 +101,11 @@ export const ThreeDMarquee = ({
     return tileList;
   }, []);
 
-  // Split into 10 columns for full coverage
+  // Split into 8 columns for denser layout
   const columns = useMemo(() => {
     const cols = [];
-    const tilesPerColumn = Math.ceil(tiles.length / 10);
-    for (let i = 0; i < 10; i++) {
+    const tilesPerColumn = Math.ceil(tiles.length / 8);
+    for (let i = 0; i < 8; i++) {
       cols.push(tiles.slice(i * tilesPerColumn, (i + 1) * tilesPerColumn));
     }
     return cols;
@@ -118,17 +118,13 @@ export const ThreeDMarquee = ({
         style={{ perspective: "1200px" }}
       >
         <div 
-          className="absolute flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center"
           style={{
             transform: "rotateX(55deg) rotateZ(-45deg)",
             transformStyle: "preserve-3d",
-            width: "400%",
-            height: "400%",
-            left: "-150%",
-            top: "-150%",
           }}
         >
-          <div className="grid grid-cols-10 gap-1 w-full h-full">
+          <div className="grid grid-cols-8 gap-1 w-[300%] h-[300%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex + "marquee"}
