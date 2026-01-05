@@ -1,86 +1,90 @@
 import { FileText, Globe, Shield } from "lucide-react";
+import layeredEdgeBg from "@/assets/layered-edge-bg.png";
+import glassCardBg from "@/assets/glass-card-bg.png";
 
 const services = [
   {
     icon: FileText,
     title: "Business Formation",
-    description: "Proprietorship, LLP, or Private Limited — all registrations handled professionally.",
-    features: ["GST & MSME Registration", "PAN / TAN Assistance", "Entity Selection"],
+    features: ["GST & MSME Registration", "FSSAI / PAN Assistance", "Entity Selection"],
   },
   {
     icon: Globe,
     title: "Digital Presence",
-    description: "Website, domain, business email, and brand assets for instant credibility.",
-    features: ["Professional Website", "Domain & Email", "Brand Assets"],
+    features: ["Website", "Domain", "Brand Assets", "Pownd External Compliance"],
   },
   {
     icon: Shield,
     title: "Foundational Compliance",
-    description: "Mandatory registrations and annual filing guidance to stay compliant.",
-    features: ["Registrations", "Filing Guidance", "Expansion Ready"],
+    features: ["Registrations", "Filing Guidance", "Filing Guidance", "Foundational Guidance"],
   },
 ];
 
 const ServicePillars = () => {
   return (
-    <section className="py-16 md:py-20 relative">
-      {/* Subtle ambient glow */}
-      <div className="absolute top-1/2 left-1/3 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2" />
+    <section className="py-20 md:py-28 relative overflow-hidden">
+      {/* Layered geometric background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${layeredEdgeBg})` }}
+      />
+      <div className="absolute inset-0 bg-background/80" />
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <div className="mb-10">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
-              Everything You Need to Operate
-            </h2>
-            <p className="text-muted-foreground text-sm md:text-base">
-              Three pillars covering the foundation of a legitimate business.
-            </p>
-          </div>
+          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
+            Everything You Need to Operate
+          </h2>
 
-          {/* Cards */}
-          <div className="grid md:grid-cols-3 gap-4">
+          {/* Service Cards */}
+          <div className="grid md:grid-cols-3 gap-5">
             {services.map((service) => {
               const Icon = service.icon;
 
               return (
                 <div
                   key={service.title}
-                  className="group relative rounded-xl p-6 bg-secondary/40 border border-border/30 backdrop-blur-sm transition-all duration-300 hover:border-border/50 hover:bg-secondary/50"
+                  className="relative rounded-2xl overflow-hidden"
+                  style={{
+                    backgroundImage: `url(${glassCardBg})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
                 >
-                  {/* Icon */}
-                  <div className="w-11 h-11 rounded-xl gradient-accent flex items-center justify-center mb-5 shadow-lg group-hover:shadow-glow transition-shadow duration-300">
-                    <Icon className="w-5 h-5 text-primary-foreground" />
-                  </div>
+                  {/* Glass overlay */}
+                  <div className="absolute inset-0 backdrop-blur-sm bg-secondary/50 border border-border/30 rounded-2xl" />
+                  
+                  {/* Warm corner glow */}
+                  <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/15 rounded-full blur-2xl" />
 
-                  <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-                    {service.description}
-                  </p>
+                  <div className="relative z-10 p-6 md:p-7">
+                    {/* Icon and title row */}
+                    <div className="flex items-center gap-4 mb-5">
+                      <div className="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center shadow-lg">
+                        <Icon className="w-5 h-5 text-primary-foreground" />
+                      </div>
+                      <h3 className="font-display text-lg font-semibold text-foreground">
+                        {service.title}
+                      </h3>
+                    </div>
 
-                  {/* Feature pills */}
-                  <div className="flex flex-wrap gap-2">
-                    {service.features.map((feature) => (
-                      <span 
-                        key={feature} 
-                        className="px-3 py-1 text-xs font-medium text-foreground/70 bg-background/50 rounded-full border border-border/30"
-                      >
-                        {feature}
-                      </span>
-                    ))}
+                    {/* Feature chips */}
+                    <div className="flex flex-wrap gap-2">
+                      {service.features.map((feature, idx) => (
+                        <span 
+                          key={idx}
+                          className="px-3 py-1.5 text-xs font-medium text-foreground/80 bg-secondary/60 backdrop-blur-sm rounded-lg border border-border/30"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
-
-          {/* Bottom note */}
-          <p className="text-muted-foreground text-sm mt-8 text-center md:text-right">
-            Choose what you need today. Combine services as your business grows.
-          </p>
         </div>
       </div>
     </section>
