@@ -20,27 +20,30 @@ const FinalCTA = () => {
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent" />
 
       <div className="container relative z-10 px-4 md:px-6">
-        <div className="max-w-3xl mx-auto text-center relative">
-          {/* Tile cluster accent - bottom right */}
-          <img 
-            src={tileClusterAccent} 
-            alt="" 
-            className="absolute -bottom-8 -right-8 md:right-0 w-32 md:w-44 opacity-90 pointer-events-none"
-          />
-
+        <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Ready to Make It Official?
           </h2>
           <p className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed max-w-lg mx-auto">
-            Fasret your orroá, and congratula make strategy, and will chass the rise of your business.
+            Forget your worries, and let us build the strategy that will shape the rise of your business.
           </p>
+
           
-          <Button variant="hero" size="xl" asChild className="shadow-glow">
-            <Link to="/services">
-              Start Your Journey
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Button variant="hero" size="xl" asChild className="shadow-glow">
+              <Link to="/services">
+                Start Your Journey
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </Button>
+            
+            {/* Tile cluster positioned next to button */}
+            <img 
+              src={tileClusterAccent} 
+              alt="" 
+              className="w-24 md:w-32 opacity-80 pointer-events-none"
+            />
+          </div>
         </div>
       </div>
     </section>
