@@ -17,9 +17,9 @@ const Tile = ({
   randomSeed?: number;
 }) => {
   const sizeClasses = {
-    small: "w-8 h-8 md:w-12 md:h-12",
-    normal: "w-10 h-10 md:w-16 md:h-16",
-    large: "w-12 h-12 md:w-20 md:h-20"
+    small: "w-14 h-14 md:w-20 md:h-20",
+    normal: "w-16 h-16 md:w-24 md:h-24",
+    large: "w-20 h-20 md:w-28 md:h-28"
   };
 
   // Generate random movement values based on seed
@@ -87,24 +87,25 @@ export const ThreeDMarquee = ({
   // Create a dense grid of tiles with random properties
   const tiles = useMemo(() => {
     const tileList = [];
-    const sizes: Array<"small" | "normal" | "large"> = ["small", "normal", "large", "small", "normal"];
+    const sizes: Array<"small" | "normal" | "large"> = ["normal", "large", "normal", "large", "normal", "large"];
     
-    for (let i = 0; i < 48; i++) {
+    // More tiles for better coverage
+    for (let i = 0; i < 80; i++) {
       tileList.push({
-        delay: (i % 8) * 0.15,
+        delay: (i % 10) * 0.12,
         size: sizes[i % sizes.length],
-        intensity: 0.7 + (Math.sin(i * 0.5) * 0.4),
+        intensity: 0.8 + (Math.sin(i * 0.5) * 0.3),
         randomSeed: i * 1.37,
       });
     }
     return tileList;
   }, []);
 
-  // Split into 6 columns for denser layout
+  // Split into 8 columns for denser layout
   const columns = useMemo(() => {
     const cols = [];
-    const tilesPerColumn = Math.ceil(tiles.length / 6);
-    for (let i = 0; i < 6; i++) {
+    const tilesPerColumn = Math.ceil(tiles.length / 8);
+    for (let i = 0; i < 8; i++) {
       cols.push(tiles.slice(i * tilesPerColumn, (i + 1) * tilesPerColumn));
     }
     return cols;
@@ -123,11 +124,11 @@ export const ThreeDMarquee = ({
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-6 gap-2 md:gap-3 w-[250%] h-[250%]">
+          <div className="grid grid-cols-8 gap-1 w-[300%] h-[300%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex + "marquee"}
-                className="flex flex-col items-center gap-2 md:gap-3"
+                className="flex flex-col items-center gap-1"
               >
                 {column.map((tile, tileIndex) => (
                   <Tile 
