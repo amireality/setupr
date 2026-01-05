@@ -3,23 +3,23 @@ import { Headphones, FileText, Shield, Key } from "lucide-react";
 const inclusions = [
   {
     icon: FileText,
-    title: "End-to-end setup assistance",
-    description: "We handle the entire setup process from start to finish",
+    title: "Full setup handling",
+    description: "We manage the entire process from start to finish",
   },
   {
     icon: Headphones,
-    title: "Documentation guidance",
-    description: "Clear instructions for all required documents",
+    title: "Document guidance",
+    description: "Clear instructions for what you need to provide",
   },
   {
     icon: Shield,
-    title: "Direct support during setup",
-    description: "Dedicated assistance throughout the process",
+    title: "Direct support",
+    description: "Reach us with questions throughout the process",
   },
   {
     icon: Key,
-    title: "Secure handover of credentials",
-    description: "All access details handed over safely to you",
+    title: "Secure handover",
+    description: "All credentials and access handed over to you safely",
   },
 ];
 
@@ -29,7 +29,7 @@ const WhatsIncluded = () => {
       <div className="container px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-display text-xl md:text-2xl font-semibold text-foreground mb-6">
-            What's Included
+            What's included
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

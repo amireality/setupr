@@ -33,13 +33,13 @@ const HeroSection = () => {
         <div className="max-w-3xl mx-auto text-center">
           {/* Headline */}
           <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-5 text-balance animate-fade-up">
-            Turn your skills into a{" "}
-            <span className="gradient-text">legitimate business</span>
+            Set up your business.{" "}
+            <span className="gradient-text">The right way.</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed animate-fade-up-delay-1">
-            Legal setup, digital presence, and foundational systems — handled for you, without the chaos.
+            We handle registrations, digital setup, and the paperwork so you can focus on your work.
           </p>
 
           {/* CTA Buttons */}

@@ -44,7 +44,7 @@ const PricingBreakdown = ({ services }: PricingBreakdownProps) => {
       <div className="container px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-display text-xl md:text-2xl font-semibold text-foreground mb-6">
-            Pricing Breakdown
+            Pricing breakdown
           </h2>
           
           <div className="glass-card rounded-2xl overflow-hidden">

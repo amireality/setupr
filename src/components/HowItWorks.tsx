@@ -14,25 +14,25 @@ const StepSkeleton = ({ step }: { step: string }) => {
 
 const items = [
   {
-    title: "Tell Us Your Goals",
+    title: "Tell us what you need",
     description:
-      "Share your vision and requirements. We'll understand your business needs and craft the perfect setup plan.",
+      "Answer a few questions about your business. We'll understand your situation and recommend services.",
     header: <StepSkeleton step="01" />,
     className: "md:col-span-1",
     icon: <MessageCircle className="h-5 w-5 text-primary" />,
   },
   {
-    title: "We Set Everything Up",
+    title: "We handle the setup",
     description:
-      "Our team handles all the paperwork, registrations, and technical setup while keeping you informed.",
+      "Our team takes care of the paperwork, registrations, and technical work. You stay informed throughout.",
     header: <StepSkeleton step="02" />,
     className: "md:col-span-1",
     icon: <FileCheck className="h-5 w-5 text-primary" />,
   },
   {
-    title: "Launch Confidently",
+    title: "You're ready to operate",
     description:
-      "Go live with everything in place — legal, digital, and operational. Focus on growth, not admin.",
+      "Everything is in place — legal, digital, and administrative. You can focus on your actual work.",
     header: <StepSkeleton step="03" />,
     className: "md:col-span-1",
     icon: <Rocket className="h-5 w-5 text-primary" />,
@@ -49,7 +49,7 @@ const HowItWorks = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
-            Simple process, powerful results
+            How it works
           </h2>
 
           {/* Bento Grid */}

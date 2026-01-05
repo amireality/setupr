@@ -41,7 +41,7 @@ const ServicesCTA = ({ selectedServices }: ServicesCTAProps) => {
             </Button>
             
             <p className="text-sm text-muted-foreground">
-              You'll answer a few questions next. No payment required.
+              Next, we'll ask a few questions. No payment needed yet.
             </p>
           </div>
         </div>

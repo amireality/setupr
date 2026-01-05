@@ -10,20 +10,20 @@ interface StepCurrentStageProps {
 const options = [
   { 
     id: "starting", 
-    label: "Just starting", 
-    description: "I have a skill or idea and want to begin officially",
+    label: "Starting fresh", 
+    description: "I have a skill or idea and want to set things up properly",
     icon: Sprout 
   },
   { 
     id: "going-legit", 
-    label: "Already working, want to go legit", 
-    description: "I'm freelancing but need legal structure",
+    label: "Already working", 
+    description: "I'm freelancing or running something informal",
     icon: Briefcase 
   },
   { 
     id: "registered", 
-    label: "Registered, want better structure", 
-    description: "I have a business but need better systems",
+    label: "Have a business", 
+    description: "I'm registered but need better systems",
     icon: Building 
   },
 ];

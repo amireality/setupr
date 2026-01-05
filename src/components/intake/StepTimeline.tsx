@@ -11,20 +11,20 @@ interface StepTimelineProps {
 const options = [
   { 
     id: "immediately", 
-    label: "Immediately", 
-    description: "Ready to start right away",
+    label: "Right away", 
+    description: "I'm ready to start now",
     icon: Zap 
   },
   { 
     id: "1-2-weeks", 
-    label: "Within 1–2 weeks", 
-    description: "Just need a bit of time",
+    label: "In a week or two", 
+    description: "I need a little time first",
     icon: Clock 
   },
   { 
     id: "exploring", 
-    label: "Just exploring", 
-    description: "Gathering information for now",
+    label: "Just looking", 
+    description: "I'm gathering information",
     icon: Search 
   },
 ];
@@ -33,10 +33,10 @@ const StepTimeline = ({ value, onChange, onNext, onBack }: StepTimelineProps) =>
   return (
     <div className="animate-fade-up">
       <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
-        When do you want to start?
+        When would you like to start?
       </h1>
       <p className="text-muted-foreground mb-8">
-        No pressure — we'll work with your timeline.
+        There's no pressure — we'll work with your timeline.
       </p>
 
       <div className="space-y-3 mb-8">

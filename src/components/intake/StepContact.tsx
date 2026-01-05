@@ -54,10 +54,10 @@ const StepContact = ({ values, onChange, onSubmit, onBack }: StepContactProps) =
   return (
     <div className="animate-fade-up">
       <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
-        Almost there! How can we reach you?
+        How can we reach you?
       </h1>
       <p className="text-muted-foreground mb-8">
-        We'll use this to share your next steps.
+        We'll use this to send your summary and next steps.
       </p>
 
       <div className="space-y-5 mb-8">
