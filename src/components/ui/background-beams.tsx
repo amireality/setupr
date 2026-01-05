@@ -100,21 +100,21 @@ export const BackgroundBeams = React.memo(
                 }}
                 animate={{
                   x1: ["0%", "100%"],
-                  x2: ["0%", "95%"],
+                  x2: ["0%", "15%"],
                   y1: ["0%", "100%"],
-                  y2: ["0%", `${93 + Math.random() * 8}%`],
+                  y2: ["0%", `${10 + Math.random() * 5}%`],
                 }}
                 transition={{
-                  duration: Math.random() * 10 + 10,
-                  ease: "easeInOut",
+                  duration: Math.random() * 15 + 20,
+                  ease: "linear",
                   repeat: Infinity,
-                  delay: Math.random() * 10,
+                  delay: Math.random() * 15,
                 }}
               >
                 <stop stopColor="hsl(var(--primary))" stopOpacity="0" />
-                <stop offset="10%" stopColor="hsl(var(--primary))" stopOpacity="1" />
+                <stop offset="40%" stopColor="hsl(var(--primary))" stopOpacity="1" />
                 <stop offset="50%" stopColor="hsl(25 95% 53%)" stopOpacity="1" />
-                <stop offset="90%" stopColor="hsl(35 95% 60%)" stopOpacity="1" />
+                <stop offset="60%" stopColor="hsl(35 95% 60%)" stopOpacity="1" />
                 <stop offset="100%" stopColor="hsl(35 95% 60%)" stopOpacity="0" />
               </motion.linearGradient>
             ))}
