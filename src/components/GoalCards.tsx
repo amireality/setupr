@@ -66,7 +66,7 @@ const GoalCards = () => {
                   className="w-full group relative"
                 >
                   <div 
-                    className={`relative rounded-xl p-4 md:p-5 text-left transition-all duration-300 overflow-hidden ${
+                    className={`relative rounded-2xl p-6 md:p-8 text-left transition-all duration-300 overflow-hidden ${
                       isSelected ? "ring-2 ring-primary/50" : ""
                     }`}
                     style={{
@@ -86,17 +86,17 @@ const GoalCards = () => {
                     }`} />
 
                     {/* Content */}
-                    <div className="relative z-10 flex items-center gap-4">
+                    <div className="relative z-10 flex items-center gap-6">
                       {/* Icon */}
                       <div
-                        className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                        className={`w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                           isSelected
                             ? "gradient-accent shadow-glow"
                             : "bg-secondary/80 group-hover:bg-secondary"
                         }`}
                       >
                         <Icon
-                          className={`w-5 h-5 transition-colors duration-300 ${
+                          className={`w-7 h-7 transition-colors duration-300 ${
                             isSelected ? "text-primary-foreground" : "text-primary"
                           }`}
                         />
