@@ -8,9 +8,9 @@ const ServiceIntro = () => {
         baseHue={25}
         rangeHue={20}
         rangeY={200}
-        particleCount={500}
-        baseSpeed={0.1}
-        rangeSpeed={1.2}
+        particleCount={400}
+        baseSpeed={0.0}
+        rangeSpeed={0.4}
         className="flex items-center justify-center py-24 md:py-32"
         containerClassName="min-h-[50vh]"
       >
