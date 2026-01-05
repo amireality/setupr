@@ -69,42 +69,46 @@ const GoalCards = () => {
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
-          {/* Custom Grid Layout matching sketch */}
+          {/* Custom Grid Layout matching sketch: 2x2 grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            {/* Left column: Title + Starting Fresh card */}
-            <div className="md:col-span-1 flex flex-col gap-4 md:gap-6">
-              {/* Header - left aligned */}
+            {/* Row 1 */}
+            {/* Title - top left */}
+            <div className="md:col-span-1 flex items-center">
               <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
                 Where Are You on Your Journey?
               </h2>
+            </div>
 
-              {/* Starting Fresh Card */}
+            {/* Card 1 (Starting Fresh) - top right */}
+            <div className="md:col-span-2">
               <BentoGridItem
                 title={items[0].title}
                 description={items[0].description}
                 header={items[0].header}
-                className="h-full"
+                className="h-full min-h-[14rem]"
                 icon={items[0].icon}
               />
             </div>
 
-            {/* Right column: Two stacked cards */}
-            <div className="md:col-span-2 grid grid-rows-2 gap-4 md:gap-6">
-              {/* Going Legit - top right */}
+            {/* Row 2 */}
+            {/* Card 2 (Going Legit) - bottom left, same size as Card 1 */}
+            <div className="md:col-span-1">
               <BentoGridItem
                 title={items[1].title}
                 description={items[1].description}
                 header={items[1].header}
-                className="h-full"
+                className="h-full min-h-[14rem]"
                 icon={items[1].icon}
               />
+            </div>
 
-              {/* Ready to Scale - bottom right */}
+            {/* Card 3 (Ready to Scale) - bottom right, wider */}
+            <div className="md:col-span-2">
               <BentoGridItem
                 title={items[2].title}
                 description={items[2].description}
                 header={items[2].header}
-                className="h-full"
+                className="h-full min-h-[14rem]"
                 icon={items[2].icon}
               />
             </div>
