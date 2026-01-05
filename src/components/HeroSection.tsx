@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import gridGlowBg from "@/assets/grid-glow-bg.png";
-import tileClusterAccent from "@/assets/tile-cluster-accent.png";
 
 const HeroSection = () => {
   const scrollToHowItWorks = () => {
@@ -24,12 +23,6 @@ const HeroSection = () => {
       {/* Bottom fade to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
 
-      {/* Tile cluster accent - positioned next to headline */}
-      <img 
-        src={tileClusterAccent} 
-        alt="" 
-        className="absolute top-[18%] right-2 w-16 sm:w-24 md:top-[22%] md:right-[6%] md:w-36 lg:w-44 opacity-75 pointer-events-none"
-      />
 
       <div className="container relative z-10 px-4 md:px-6 py-20 md:py-24">
         <div className="max-w-3xl mx-auto text-center">
