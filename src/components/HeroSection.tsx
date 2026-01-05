@@ -24,11 +24,11 @@ const HeroSection = () => {
       {/* Bottom fade to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
 
-      {/* Tile cluster accent - positioned near headline on desktop only */}
+      {/* Tile cluster accent - decorative element in top right area */}
       <img 
         src={tileClusterAccent} 
         alt="" 
-        className="hidden md:block absolute top-1/2 right-[10%] -translate-y-1/2 w-28 lg:w-36 opacity-70 pointer-events-none"
+        className="absolute top-[15%] right-[5%] md:top-[20%] md:right-[8%] w-20 md:w-32 lg:w-40 opacity-60 pointer-events-none"
       />
 
       <div className="container relative z-10 px-4 md:px-6 py-20 md:py-24">
@@ -41,7 +41,7 @@ const HeroSection = () => {
 
           {/* Subheadline */}
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed animate-fade-up-delay-1">
-            Setupr advises you want to leave metamorphism and ensure your skills into a legitimate business
+            Legal setup, digital presence, and foundational systems — handled for you, without the chaos.
           </p>
 
           {/* CTA Buttons */}
