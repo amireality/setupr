@@ -45,7 +45,7 @@ interface RecommendedSetupsProps {
 
 const RecommendationSkeleton = ({ gradient }: { gradient: string }) => (
   <div className={cn(
-    "flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br",
+    "w-full h-24 rounded-xl bg-gradient-to-br shrink-0",
     gradient
   )}>
     <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.15)_0%,transparent_60%)]" />
@@ -76,7 +76,7 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3 max-w-5xl mx-auto md:auto-rows-[20rem]">
+        <div className="grid gap-4 md:grid-cols-3 max-w-5xl mx-auto">
           {recommendations.map((rec) => {
             const isActive = isRecommendationActive(rec.services);
             return (
