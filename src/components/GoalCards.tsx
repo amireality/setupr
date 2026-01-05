@@ -1,52 +1,48 @@
 import { useState } from "react";
-import { Rocket, Briefcase, TrendingUp, Check } from "lucide-react";
+import { Rocket, Briefcase, TrendingUp } from "lucide-react";
+import glassCardBg from "@/assets/glass-card-bg.png";
 
 const goals = [
   {
     id: "start",
     icon: Rocket,
     title: "Starting Fresh",
-    description: "You have a skill or idea and want to start officially.",
+    description: "Starting Fresh optimizes on innovation. Fresh and then refine.",
   },
   {
     id: "formalize",
     icon: Briefcase,
     title: "Going Legit",
-    description: "Already working but need legal identity and presence.",
+    description: "Unexeverers to going legit to nolytonew arovs in activities & realtions.",
   },
   {
     id: "scale",
     icon: TrendingUp,
     title: "Ready to Scale",
-    description: "Growing and need structure, compliance, and credibility.",
+    description: "Ready to scale about strategies and deverlontion and prentices.",
   },
 ];
 
 const GoalCards = () => {
-  const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
+  const [selectedGoal, setSelectedGoal] = useState<string>("start");
 
   return (
-    <section className="py-16 md:py-20 relative">
-      {/* Subtle section tint */}
-      <div className="absolute inset-0 bg-secondary/20" />
-      
-      {/* Top divider */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
+    <section className="py-20 md:py-28 relative bg-background">
+      {/* Subtle grid continuation */}
+      <div className="absolute inset-0 opacity-5" style={{
+        backgroundImage: 'linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)',
+        backgroundSize: '60px 60px'
+      }} />
 
       <div className="container px-4 md:px-6 relative z-10">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="mb-10">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
-              Where Are You on Your Journey?
-            </h2>
-            <p className="text-muted-foreground text-sm md:text-base">
-              Select your current stage and we'll guide you forward.
-            </p>
-          </div>
+          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
+            Where Are You on Your Journey?
+          </h2>
 
-          {/* Cards */}
-          <div className="grid md:grid-cols-3 gap-4">
+          {/* Vertical cards with glass effect */}
+          <div className="grid md:grid-cols-3 gap-5">
             {goals.map((goal) => {
               const Icon = goal.icon;
               const isSelected = selectedGoal === goal.id;
@@ -55,51 +51,62 @@ const GoalCards = () => {
                 <button
                   key={goal.id}
                   onClick={() => setSelectedGoal(goal.id)}
-                  className="w-full group text-left"
+                  className="w-full text-left group"
                 >
                   <div 
-                    className={`relative rounded-xl p-5 md:p-6 transition-all duration-300 bg-secondary/40 border backdrop-blur-sm ${
-                      isSelected 
-                        ? "border-primary/50 bg-secondary/60" 
-                        : "border-border/30 hover:border-border/50 hover:bg-secondary/50"
-                    }`}
+                    className="relative rounded-2xl p-6 md:p-8 h-full transition-all duration-300 overflow-hidden"
+                    style={{
+                      backgroundImage: `url(${glassCardBg})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
                   >
-                    <div className="flex items-start gap-4">
+                    {/* Glass overlay */}
+                    <div className={`absolute inset-0 backdrop-blur-sm transition-all duration-300 ${
+                      isSelected 
+                        ? 'bg-secondary/60 border border-primary/40' 
+                        : 'bg-secondary/40 border border-border/20'
+                    } rounded-2xl`} />
+                    
+                    {/* Warm glow on selection */}
+                    {isSelected && (
+                      <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
+                    )}
+
+                    <div className="relative z-10">
                       {/* Icon */}
                       <div
-                        className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                        className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 ${
                           isSelected
                             ? "gradient-accent shadow-glow"
-                            : "bg-secondary group-hover:bg-secondary/80"
+                            : "bg-primary/20"
                         }`}
                       >
                         <Icon
-                          className={`w-5 h-5 transition-colors duration-300 ${
+                          className={`w-6 h-6 transition-colors duration-300 ${
                             isSelected ? "text-primary-foreground" : "text-primary"
                           }`}
                         />
                       </div>
 
-                      {/* Text */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-display text-base font-semibold text-foreground mb-1">
-                          {goal.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                          {goal.description}
-                        </p>
-                      </div>
+                      {/* Title */}
+                      <h3 className="font-display text-lg font-semibold text-foreground mb-3">
+                        {goal.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                        {goal.description}
+                      </p>
 
                       {/* Selection indicator */}
                       <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all duration-300 mt-0.5 ${
+                        className={`w-4 h-4 rounded-full transition-all duration-300 ${
                           isSelected
-                            ? "border-primary bg-primary"
-                            : "border-muted-foreground/30"
+                            ? "bg-primary shadow-glow"
+                            : "bg-muted-foreground/30"
                         }`}
-                      >
-                        {isSelected && <Check className="w-3 h-3 text-primary-foreground" />}
-                      </div>
+                      />
                     </div>
                   </div>
                 </button>
@@ -108,9 +115,6 @@ const GoalCards = () => {
           </div>
         </div>
       </div>
-      
-      {/* Bottom divider */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
     </section>
   );
 };
