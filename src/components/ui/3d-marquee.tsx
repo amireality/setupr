@@ -18,36 +18,37 @@ export const ThreeDMarquee = ({
   });
 
   return (
-    <div className={cn("mx-auto block h-full w-full rounded-2xl", className)}>
-      <div className="flex size-full items-center justify-center">
-        <div className="size-[1920px] shrink-0 scale-50 sm:scale-75 lg:scale-100">
-          <div
-            style={{
-              transform: "rotateX(55deg) rotateY(0deg) rotateZ(-45deg)",
-            }}
-            className="relative top-96 right-[50%] grid size-full origin-top-left grid-cols-4 gap-8 transform-3d"
-          >
+    <div className={cn("mx-auto block h-full w-full", className)}>
+      <div 
+        className="relative flex h-full w-full items-center justify-center"
+        style={{ perspective: "1000px" }}
+      >
+        <div 
+          className="absolute inset-0 flex items-center justify-center"
+          style={{
+            transform: "rotateX(55deg) rotateZ(-45deg)",
+            transformStyle: "preserve-3d",
+          }}
+        >
+          <div className="grid grid-cols-4 gap-4 w-[200%] h-[200%]">
             {chunks.map((subarray, colIndex) => (
               <motion.div
-                animate={{ y: colIndex % 2 === 0 ? [0, "-50%"] : ["-50%", "0%"] }}
+                animate={{ y: colIndex % 2 === 0 ? ["0%", "-50%"] : ["-50%", "0%"] }}
                 transition={{
-                  duration: 20,
+                  duration: 25,
                   repeat: Infinity,
                   ease: "linear",
                 }}
                 key={colIndex + "marquee"}
-                className="flex flex-col items-start gap-8"
+                className="flex flex-col gap-4"
               >
-                <GridLineVertical className="-left-4" offset="80px" />
-                {subarray.map((image, imageIndex) => (
-                  <div className="relative" key={imageIndex + image}>
-                    <GridLineHorizontal className="-top-4" offset="20px" />
+                {/* Duplicate images for seamless loop */}
+                {[...subarray, ...subarray].map((image, imageIndex) => (
+                  <div className="relative shrink-0" key={imageIndex + image}>
                     <img
                       src={image}
                       alt={`marquee-${colIndex}-${imageIndex}`}
-                      className="aspect-[970/700] size-full rounded-lg object-cover ring-1 ring-white/5"
-                      width={970}
-                      height={700}
+                      className="w-full aspect-[4/3] rounded-lg object-cover ring-1 ring-white/10 shadow-lg"
                     />
                   </div>
                 ))}
