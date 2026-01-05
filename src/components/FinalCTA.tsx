@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import gridGlowBg from "@/assets/grid-glow-bg.png";
-import tileClusterAccent from "@/assets/tile-cluster-accent.png";
 
 const FinalCTA = () => {
   return (
@@ -28,22 +27,12 @@ const FinalCTA = () => {
             Forget your worries, and let us build the strategy that will shape the rise of your business.
           </p>
 
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Button variant="hero" size="xl" asChild className="shadow-glow">
-              <Link to="/services">
-                Start Your Journey
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-            
-            {/* Tile cluster positioned next to button */}
-            <img 
-              src={tileClusterAccent} 
-              alt="" 
-              className="w-24 md:w-32 opacity-80 pointer-events-none"
-            />
-          </div>
+          <Button variant="hero" size="xl" asChild className="shadow-glow">
+            <Link to="/services">
+              Start Your Journey
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
