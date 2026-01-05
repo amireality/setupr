@@ -1,24 +1,41 @@
 import { MessageCircle, FileCheck, Rocket } from "lucide-react";
-import glassCardBg from "@/assets/glass-card-bg.png";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 
-const steps = [
+const StepSkeleton = ({ step }: { step: string }) => {
+  return (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-primary/15 via-transparent to-primary/10 border border-border/20 relative overflow-hidden items-center justify-center">
+      <span className="font-display text-6xl md:text-7xl font-bold text-primary/20">
+        {step}
+      </span>
+      <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/20 rounded-full blur-3xl group-hover/bento:w-32 group-hover/bento:h-32 transition-all duration-500" />
+    </div>
+  );
+};
+
+const items = [
   {
-    number: "01",
-    icon: MessageCircle,
     title: "Tell Us Your Goals",
-    description: "We will leavo yn our nononamened and tell us your goals.",
+    description:
+      "Share your vision and requirements. We'll understand your business needs and craft the perfect setup plan.",
+    header: <StepSkeleton step="01" />,
+    className: "md:col-span-1",
+    icon: <MessageCircle className="h-5 w-5 text-primary" />,
   },
   {
-    number: "02",
-    icon: FileCheck,
     title: "We Set Everything Up",
-    description: "We set everything up and melite counting ua communication.",
+    description:
+      "Our team handles all the paperwork, registrations, and technical setup while keeping you informed.",
+    header: <StepSkeleton step="02" />,
+    className: "md:col-span-1",
+    icon: <FileCheck className="h-5 w-5 text-primary" />,
   },
   {
-    number: "03",
-    icon: Rocket,
     title: "Launch Confidently",
-    description: "Launch confidently to orbinmasence and renck, powerful results.",
+    description:
+      "Go live with everything in place — legal, digital, and operational. Focus on growth, not admin.",
+    header: <StepSkeleton step="03" />,
+    className: "md:col-span-1",
+    icon: <Rocket className="h-5 w-5 text-primary" />,
   },
 ];
 
@@ -29,74 +46,25 @@ const HowItWorks = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-background" />
 
       <div className="container px-4 md:px-6 relative z-10">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Header */}
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
             Simple Process, Powerful Results
           </h2>
 
-          {/* Step cards with connecting line */}
-          <div className="relative">
-            {/* Connecting line on desktop */}
-            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px -translate-y-1/2">
-              <svg className="w-full h-12" viewBox="0 0 900 48" fill="none" preserveAspectRatio="none">
-                <path 
-                  d="M 50 24 Q 225 44, 450 24 Q 675 4, 850 24" 
-                  stroke="url(#lineGradient)" 
-                  strokeWidth="2" 
-                  fill="none"
-                  className="opacity-40"
-                />
-                <defs>
-                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="hsl(24, 95%, 53%)" stopOpacity="0.3" />
-                    <stop offset="50%" stopColor="hsl(24, 95%, 53%)" stopOpacity="0.6" />
-                    <stop offset="100%" stopColor="hsl(24, 95%, 53%)" stopOpacity="0.3" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-5 relative z-10">
-              {steps.map((step) => {
-                const Icon = step.icon;
-
-                return (
-                  <div
-                    key={step.number}
-                    className="relative rounded-2xl overflow-hidden"
-                    style={{
-                      backgroundImage: `url(${glassCardBg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }}
-                  >
-                    {/* Glass overlay */}
-                    <div className="absolute inset-0 backdrop-blur-sm bg-secondary/50 border border-border/30 rounded-2xl" />
-                    
-                    {/* Warm corner glow */}
-                    <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/15 rounded-full blur-2xl" />
-
-                    <div className="relative z-10 p-6 md:p-7">
-                      {/* Large step number */}
-                      <span className="font-display text-5xl md:text-6xl font-bold text-primary/20 absolute top-4 left-6">
-                        {step.number}
-                      </span>
-
-                      <div className="pt-12">
-                        <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                          {step.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          {/* Bento Grid */}
+          <BentoGrid className="md:auto-rows-[20rem]">
+            {items.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+                icon={item.icon}
+              />
+            ))}
+          </BentoGrid>
         </div>
       </div>
     </section>

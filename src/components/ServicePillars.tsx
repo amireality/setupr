@@ -1,22 +1,93 @@
-import { FileText, Globe, Shield } from "lucide-react";
+import { FileText, Globe, Shield, Layers } from "lucide-react";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import layeredEdgeBg from "@/assets/layered-edge-bg.png";
-import glassCardBg from "@/assets/glass-card-bg.png";
 
-const services = [
+const Skeleton = ({ variant }: { variant: "formation" | "digital" | "compliance" | "support" }) => {
+  const patterns = {
+    formation: "from-primary/20 via-primary/5 to-transparent",
+    digital: "from-transparent via-primary/15 to-primary/10",
+    compliance: "from-primary/10 via-transparent to-primary/15",
+    support: "from-primary/15 via-primary/10 to-transparent",
+  };
+
+  return (
+    <div
+      className={`flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br ${patterns[variant]} border border-border/20 relative overflow-hidden`}
+    >
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, hsl(var(--primary) / 0.4) 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+        }}
+      />
+      <div className="absolute bottom-0 right-0 w-20 h-20 bg-primary/25 rounded-full blur-3xl group-hover/bento:w-28 group-hover/bento:h-28 transition-all duration-500" />
+    </div>
+  );
+};
+
+const FeatureChips = ({ features }: { features: string[] }) => (
+  <div className="flex flex-wrap gap-2 mt-3">
+    {features.map((feature, idx) => (
+      <span
+        key={idx}
+        className="px-2.5 py-1 text-xs font-medium text-foreground/80 bg-secondary/60 backdrop-blur-sm rounded-lg border border-border/30"
+      >
+        {feature}
+      </span>
+    ))}
+  </div>
+);
+
+const items = [
   {
-    icon: FileText,
     title: "Business Formation",
-    features: ["GST & MSME Registration", "FSSAI / PAN Assistance", "Entity Selection"],
+    description: (
+      <>
+        Launch with proper legal structure and essential registrations.
+        <FeatureChips features={["GST & MSME Registration", "FSSAI / PAN Assistance", "Entity Selection"]} />
+      </>
+    ),
+    header: <Skeleton variant="formation" />,
+    className: "md:col-span-2",
+    icon: <FileText className="h-5 w-5 text-primary" />,
   },
   {
-    icon: Globe,
     title: "Digital Presence",
-    features: ["Website", "Domain", "Brand Assets", "Pownd External Compliance"],
+    description: (
+      <>
+        Establish your online identity with professional assets.
+        <FeatureChips features={["Website", "Domain", "Brand Assets"]} />
+      </>
+    ),
+    header: <Skeleton variant="digital" />,
+    className: "md:col-span-1",
+    icon: <Globe className="h-5 w-5 text-primary" />,
   },
   {
-    icon: Shield,
     title: "Foundational Compliance",
-    features: ["Registrations", "Filing Guidance", "Filing Guidance", "Foundational Guidance"],
+    description: (
+      <>
+        Stay compliant from day one with proper filings.
+        <FeatureChips features={["Registrations", "Filing Guidance"]} />
+      </>
+    ),
+    header: <Skeleton variant="compliance" />,
+    className: "md:col-span-1",
+    icon: <Shield className="h-5 w-5 text-primary" />,
+  },
+  {
+    title: "Ongoing Support",
+    description: (
+      <>
+        Continuous assistance as your business grows and evolves.
+        <FeatureChips features={["Advisory", "Updates", "Renewals"]} />
+      </>
+    ),
+    header: <Skeleton variant="support" />,
+    className: "md:col-span-2",
+    icon: <Layers className="h-5 w-5 text-primary" />,
   },
 ];
 
@@ -24,67 +95,32 @@ const ServicePillars = () => {
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
       {/* Layered geometric background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-30"
         style={{ backgroundImage: `url(${layeredEdgeBg})` }}
       />
       <div className="absolute inset-0 bg-background/80" />
 
       <div className="container px-4 md:px-6 relative z-10">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Header */}
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
             Everything You Need to Operate
           </h2>
 
-          {/* Service Cards */}
-          <div className="grid md:grid-cols-3 gap-5">
-            {services.map((service) => {
-              const Icon = service.icon;
-
-              return (
-                <div
-                  key={service.title}
-                  className="relative rounded-2xl overflow-hidden"
-                  style={{
-                    backgroundImage: `url(${glassCardBg})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                >
-                  {/* Glass overlay */}
-                  <div className="absolute inset-0 backdrop-blur-sm bg-secondary/50 border border-border/30 rounded-2xl" />
-                  
-                  {/* Warm corner glow */}
-                  <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/15 rounded-full blur-2xl" />
-
-                  <div className="relative z-10 p-6 md:p-7">
-                    {/* Icon and title row */}
-                    <div className="flex items-center gap-4 mb-5">
-                      <div className="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center shadow-lg">
-                        <Icon className="w-5 h-5 text-primary-foreground" />
-                      </div>
-                      <h3 className="font-display text-lg font-semibold text-foreground">
-                        {service.title}
-                      </h3>
-                    </div>
-
-                    {/* Feature chips */}
-                    <div className="flex flex-wrap gap-2">
-                      {service.features.map((feature, idx) => (
-                        <span 
-                          key={idx}
-                          className="px-3 py-1.5 text-xs font-medium text-foreground/80 bg-secondary/60 backdrop-blur-sm rounded-lg border border-border/30"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {/* Bento Grid */}
+          <BentoGrid className="md:auto-rows-[18rem]">
+            {items.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+                icon={item.icon}
+              />
+            ))}
+          </BentoGrid>
         </div>
       </div>
     </section>
