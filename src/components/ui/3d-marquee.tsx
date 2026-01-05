@@ -2,22 +2,35 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useMemo } from "react";
 
-// Individual 3D Tile component
+// Individual 3D Tile component with random movement
 const Tile = ({ 
   delay = 0, 
   size = "normal",
-  intensity = 1
+  intensity = 1,
+  randomSeed = 0,
 }: { 
   delay?: number; 
   size?: "small" | "normal" | "large";
   intensity?: number;
+  randomSeed?: number;
 }) => {
   const sizeClasses = {
-    small: "w-12 h-12 md:w-16 md:h-16",
-    normal: "w-16 h-16 md:w-24 md:h-24",
-    large: "w-20 h-20 md:w-32 md:h-32"
+    small: "w-8 h-8 md:w-12 md:h-12",
+    normal: "w-10 h-10 md:w-16 md:h-16",
+    large: "w-12 h-12 md:w-20 md:h-20"
   };
+
+  // Generate random movement values based on seed
+  const randomMovement = useMemo(() => {
+    const xRange = (Math.sin(randomSeed * 1.5) * 30) + (Math.cos(randomSeed * 2.3) * 20);
+    const yRange = (Math.cos(randomSeed * 1.8) * 25) + (Math.sin(randomSeed * 2.1) * 15);
+    const rotateRange = Math.sin(randomSeed * 2.7) * 15;
+    const duration = 3 + (Math.sin(randomSeed * 3.2) * 2);
+    
+    return { xRange, yRange, rotateRange, duration };
+  }, [randomSeed]);
 
   return (
     <motion.div
@@ -34,20 +47,17 @@ const Tile = ({
         `,
         transformStyle: "preserve-3d",
       }}
-      initial={{ 
-        opacity: 0, 
-        scale: 0.5,
-        rotateX: -20,
-        rotateY: 20
-      }}
       animate={{ 
-        opacity: [0.6, 1, 0.6],
-        scale: [0.95, 1, 0.95],
-        rotateX: [-5, 5, -5],
-        rotateY: [-5, 5, -5],
+        x: [0, randomMovement.xRange, -randomMovement.xRange * 0.5, 0],
+        y: [0, -randomMovement.yRange, randomMovement.yRange * 0.7, 0],
+        opacity: [0.5, 0.9, 0.7, 0.5],
+        scale: [0.9, 1.05, 0.95, 0.9],
+        rotateX: [-5, randomMovement.rotateRange, -randomMovement.rotateRange * 0.5, -5],
+        rotateY: [-5, -randomMovement.rotateRange * 0.8, randomMovement.rotateRange, -5],
+        rotateZ: [0, randomMovement.rotateRange * 0.3, -randomMovement.rotateRange * 0.2, 0],
       }}
       transition={{
-        duration: 4,
+        duration: randomMovement.duration + 2,
         delay,
         repeat: Infinity,
         ease: "easeInOut",
@@ -71,44 +81,34 @@ const Tile = ({
 export const ThreeDMarquee = ({
   className,
 }: {
-  images?: string[]; // Keep prop for compatibility but won't use it
+  images?: string[];
   className?: string;
 }) => {
-  // Create a grid of tiles that represent building blocks coming together
-  const tileConfig = [
-    // Row 1
-    { delay: 0, size: "large" as const, intensity: 1.2 },
-    { delay: 0.2, size: "normal" as const, intensity: 1 },
-    { delay: 0.4, size: "small" as const, intensity: 0.8 },
-    { delay: 0.6, size: "normal" as const, intensity: 1.1 },
-    { delay: 0.8, size: "large" as const, intensity: 1 },
-    // Row 2
-    { delay: 0.3, size: "normal" as const, intensity: 0.9 },
-    { delay: 0.5, size: "large" as const, intensity: 1.3 },
-    { delay: 0.7, size: "normal" as const, intensity: 1 },
-    { delay: 0.9, size: "small" as const, intensity: 0.7 },
-    { delay: 1.1, size: "normal" as const, intensity: 1.2 },
-    // Row 3
-    { delay: 0.6, size: "small" as const, intensity: 0.8 },
-    { delay: 0.8, size: "normal" as const, intensity: 1.1 },
-    { delay: 1.0, size: "large" as const, intensity: 1 },
-    { delay: 1.2, size: "normal" as const, intensity: 0.9 },
-    { delay: 1.4, size: "large" as const, intensity: 1.2 },
-    // Row 4
-    { delay: 0.9, size: "normal" as const, intensity: 1 },
-    { delay: 1.1, size: "small" as const, intensity: 0.8 },
-    { delay: 1.3, size: "normal" as const, intensity: 1.1 },
-    { delay: 1.5, size: "large" as const, intensity: 1.3 },
-    { delay: 1.7, size: "normal" as const, intensity: 0.9 },
-  ];
+  // Create a dense grid of tiles with random properties
+  const tiles = useMemo(() => {
+    const tileList = [];
+    const sizes: Array<"small" | "normal" | "large"> = ["small", "normal", "large", "small", "normal"];
+    
+    for (let i = 0; i < 48; i++) {
+      tileList.push({
+        delay: (i % 8) * 0.15,
+        size: sizes[i % sizes.length],
+        intensity: 0.7 + (Math.sin(i * 0.5) * 0.4),
+        randomSeed: i * 1.37,
+      });
+    }
+    return tileList;
+  }, []);
 
-  // Split into 4 columns
-  const columns = [
-    tileConfig.slice(0, 5),
-    tileConfig.slice(5, 10),
-    tileConfig.slice(10, 15),
-    tileConfig.slice(15, 20),
-  ];
+  // Split into 6 columns for denser layout
+  const columns = useMemo(() => {
+    const cols = [];
+    const tilesPerColumn = Math.ceil(tiles.length / 6);
+    for (let i = 0; i < 6; i++) {
+      cols.push(tiles.slice(i * tilesPerColumn, (i + 1) * tilesPerColumn));
+    }
+    return cols;
+  }, [tiles]);
 
   return (
     <div className={cn("mx-auto block h-full w-full", className)}>
@@ -123,30 +123,22 @@ export const ThreeDMarquee = ({
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-4 gap-4 md:gap-6 w-[200%] h-[200%]">
+          <div className="grid grid-cols-6 gap-2 md:gap-3 w-[250%] h-[250%]">
             {columns.map((column, colIndex) => (
-              <motion.div
-                animate={{ 
-                  y: colIndex % 2 === 0 ? ["0%", "-50%"] : ["-50%", "0%"] 
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
+              <div
                 key={colIndex + "marquee"}
-                className="flex flex-col items-center gap-4 md:gap-6"
+                className="flex flex-col items-center gap-2 md:gap-3"
               >
-                {/* Duplicate tiles for seamless loop */}
-                {[...column, ...column].map((tile, tileIndex) => (
+                {column.map((tile, tileIndex) => (
                   <Tile 
                     key={`${colIndex}-${tileIndex}`}
-                    delay={tile.delay + (colIndex * 0.2)}
+                    delay={tile.delay + (colIndex * 0.1)}
                     size={tile.size}
                     intensity={tile.intensity}
+                    randomSeed={tile.randomSeed + colIndex}
                   />
                 ))}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
