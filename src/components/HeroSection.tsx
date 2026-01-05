@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import gridGlowBg from "@/assets/grid-glow-bg.png";
+import tileClusterBg from "@/assets/tile-cluster-hero-bg.png";
 
 const HeroSection = () => {
   const scrollToHowItWorks = () => {
@@ -10,15 +10,18 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-      {/* Background with grid and central glow */}
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
+      {/* Tile cluster background - full cover */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${gridGlowBg})` }}
+        className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20"
+        style={{ backgroundImage: `url(${tileClusterBg})` }}
       />
       
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-background/60" />
+      
       {/* Central warm glow overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/8 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-radial from-primary/15 via-primary/5 to-transparent" />
       
       {/* Bottom fade to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
