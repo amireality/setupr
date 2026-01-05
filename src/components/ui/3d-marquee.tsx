@@ -3,25 +3,118 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+// Individual 3D Tile component
+const Tile = ({ 
+  delay = 0, 
+  size = "normal",
+  intensity = 1
+}: { 
+  delay?: number; 
+  size?: "small" | "normal" | "large";
+  intensity?: number;
+}) => {
+  const sizeClasses = {
+    small: "w-12 h-12 md:w-16 md:h-16",
+    normal: "w-16 h-16 md:w-24 md:h-24",
+    large: "w-20 h-20 md:w-32 md:h-32"
+  };
+
+  return (
+    <motion.div
+      className={cn(
+        sizeClasses[size],
+        "rounded-lg relative shrink-0"
+      )}
+      style={{
+        background: `linear-gradient(135deg, hsl(24 95% ${50 + intensity * 10}%) 0%, hsl(30 100% ${45 + intensity * 8}%) 50%, hsl(24 90% ${35 + intensity * 5}%) 100%)`,
+        boxShadow: `
+          0 4px 16px -2px hsl(24 95% 40% / 0.4),
+          inset 0 1px 0 hsl(24 100% 70% / 0.3),
+          inset 0 -2px 4px hsl(24 80% 25% / 0.3)
+        `,
+        transformStyle: "preserve-3d",
+      }}
+      initial={{ 
+        opacity: 0, 
+        scale: 0.5,
+        rotateX: -20,
+        rotateY: 20
+      }}
+      animate={{ 
+        opacity: [0.6, 1, 0.6],
+        scale: [0.95, 1, 0.95],
+        rotateX: [-5, 5, -5],
+        rotateY: [-5, 5, -5],
+      }}
+      transition={{
+        duration: 4,
+        delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      {/* Glossy highlight */}
+      <div 
+        className="absolute inset-0 rounded-lg"
+        style={{
+          background: "linear-gradient(135deg, hsl(0 0% 100% / 0.2) 0%, transparent 50%)",
+        }}
+      />
+      {/* Edge highlight */}
+      <div 
+        className="absolute inset-0 rounded-lg ring-1 ring-white/10"
+      />
+    </motion.div>
+  );
+};
+
 export const ThreeDMarquee = ({
-  images,
   className,
 }: {
-  images: string[];
+  images?: string[]; // Keep prop for compatibility but won't use it
   className?: string;
 }) => {
-  // Split the images array into 4 equal parts
-  const chunkSize = Math.ceil(images.length / 4);
-  const chunks = Array.from({ length: 4 }, (_, colIndex) => {
-    const start = colIndex * chunkSize;
-    return images.slice(start, start + chunkSize);
-  });
+  // Create a grid of tiles that represent building blocks coming together
+  const tileConfig = [
+    // Row 1
+    { delay: 0, size: "large" as const, intensity: 1.2 },
+    { delay: 0.2, size: "normal" as const, intensity: 1 },
+    { delay: 0.4, size: "small" as const, intensity: 0.8 },
+    { delay: 0.6, size: "normal" as const, intensity: 1.1 },
+    { delay: 0.8, size: "large" as const, intensity: 1 },
+    // Row 2
+    { delay: 0.3, size: "normal" as const, intensity: 0.9 },
+    { delay: 0.5, size: "large" as const, intensity: 1.3 },
+    { delay: 0.7, size: "normal" as const, intensity: 1 },
+    { delay: 0.9, size: "small" as const, intensity: 0.7 },
+    { delay: 1.1, size: "normal" as const, intensity: 1.2 },
+    // Row 3
+    { delay: 0.6, size: "small" as const, intensity: 0.8 },
+    { delay: 0.8, size: "normal" as const, intensity: 1.1 },
+    { delay: 1.0, size: "large" as const, intensity: 1 },
+    { delay: 1.2, size: "normal" as const, intensity: 0.9 },
+    { delay: 1.4, size: "large" as const, intensity: 1.2 },
+    // Row 4
+    { delay: 0.9, size: "normal" as const, intensity: 1 },
+    { delay: 1.1, size: "small" as const, intensity: 0.8 },
+    { delay: 1.3, size: "normal" as const, intensity: 1.1 },
+    { delay: 1.5, size: "large" as const, intensity: 1.3 },
+    { delay: 1.7, size: "normal" as const, intensity: 0.9 },
+  ];
+
+  // Split into 4 columns
+  const columns = [
+    tileConfig.slice(0, 5),
+    tileConfig.slice(5, 10),
+    tileConfig.slice(10, 15),
+    tileConfig.slice(15, 20),
+  ];
 
   return (
     <div className={cn("mx-auto block h-full w-full", className)}>
       <div 
         className="relative flex h-full w-full items-center justify-center"
-        style={{ perspective: "1000px" }}
+        style={{ perspective: "1200px" }}
       >
         <div 
           className="absolute inset-0 flex items-center justify-center"
@@ -30,27 +123,28 @@ export const ThreeDMarquee = ({
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-4 gap-4 w-[200%] h-[200%]">
-            {chunks.map((subarray, colIndex) => (
+          <div className="grid grid-cols-4 gap-4 md:gap-6 w-[200%] h-[200%]">
+            {columns.map((column, colIndex) => (
               <motion.div
-                animate={{ y: colIndex % 2 === 0 ? ["0%", "-50%"] : ["-50%", "0%"] }}
+                animate={{ 
+                  y: colIndex % 2 === 0 ? ["0%", "-50%"] : ["-50%", "0%"] 
+                }}
                 transition={{
-                  duration: 25,
+                  duration: 20,
                   repeat: Infinity,
                   ease: "linear",
                 }}
                 key={colIndex + "marquee"}
-                className="flex flex-col gap-4"
+                className="flex flex-col items-center gap-4 md:gap-6"
               >
-                {/* Duplicate images for seamless loop */}
-                {[...subarray, ...subarray].map((image, imageIndex) => (
-                  <div className="relative shrink-0" key={imageIndex + image}>
-                    <img
-                      src={image}
-                      alt={`marquee-${colIndex}-${imageIndex}`}
-                      className="w-full aspect-[4/3] rounded-lg object-cover ring-1 ring-white/10 shadow-lg"
-                    />
-                  </div>
+                {/* Duplicate tiles for seamless loop */}
+                {[...column, ...column].map((tile, tileIndex) => (
+                  <Tile 
+                    key={`${colIndex}-${tileIndex}`}
+                    delay={tile.delay + (colIndex * 0.2)}
+                    size={tile.size}
+                    intensity={tile.intensity}
+                  />
                 ))}
               </motion.div>
             ))}
@@ -58,74 +152,5 @@ export const ThreeDMarquee = ({
         </div>
       </div>
     </div>
-  );
-};
-
-const GridLineHorizontal = ({
-  className,
-  offset,
-}: {
-  className?: string;
-  offset?: string;
-}) => {
-  return (
-    <div
-      style={
-        {
-          "--background": "hsl(var(--background))",
-          "--color": "hsl(var(--primary) / 0.3)",
-          "--height": "1px",
-          "--width": "5px",
-          "--fade-stop": "90%",
-          "--offset": offset || "200px",
-          "--color-dark": "hsl(var(--primary) / 0.3)",
-          maskComposite: "exclude",
-        } as React.CSSProperties
-      }
-      className={cn(
-        "absolute left-0 h-[var(--height)] w-full",
-        "[background:linear-gradient(to_right,var(--color),var(--color)_50%,transparent_0,transparent)]",
-        "[background-size:var(--width)_var(--height)]",
-        "[mask:linear-gradient(to_left,var(--background)_var(--fade-stop),transparent),linear-gradient(to_right,var(--background)_var(--fade-stop),transparent),linear-gradient(black,black)]",
-        "[mask-composite:exclude]",
-        "z-30",
-        "dark:[background:linear-gradient(to_right,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)]",
-        className
-      )}
-    ></div>
-  );
-};
-
-const GridLineVertical = ({
-  className,
-  offset,
-}: {
-  className?: string;
-  offset?: string;
-}) => {
-  return (
-    <div
-      style={
-        {
-          "--background": "hsl(var(--background))",
-          "--color": "hsl(var(--primary) / 0.3)",
-          "--height": "5px",
-          "--width": "1px",
-          "--fade-stop": "90%",
-          "--offset": offset || "150px",
-          "--color-dark": "hsl(var(--primary) / 0.3)",
-        } as React.CSSProperties
-      }
-      className={cn(
-        "absolute top-[calc(var(--offset))] h-full w-[var(--width)]",
-        "[background:linear-gradient(to_bottom,var(--color),var(--color)_50%,transparent_0,transparent)]",
-        "[background-size:var(--width)_var(--height)]",
-        "[mask:linear-gradient(to_top,var(--background)_var(--fade-stop),transparent),linear-gradient(to_bottom,var(--background)_var(--fade-stop),transparent),linear-gradient(black,black)]",
-        "[mask-composite:exclude]",
-        "z-30",
-        "dark:[background:linear-gradient(to_bottom,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)]",
-        className
-      )}
-    ></div>
   );
 };
