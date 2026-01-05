@@ -2,20 +2,18 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import tileClusterBg from "@/assets/tile-cluster-hero-bg.png";
-
 const HeroSection = () => {
   const scrollToHowItWorks = () => {
     const element = document.getElementById("how-it-works");
-    element?.scrollIntoView({ behavior: "smooth" });
+    element?.scrollIntoView({
+      behavior: "smooth"
+    });
   };
-
-  return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
+  return <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Tile cluster background - full cover */}
-      <div 
-        className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20"
-        style={{ backgroundImage: `url(${tileClusterBg})` }}
-      />
+      <div className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20" style={{
+      backgroundImage: `url(${tileClusterBg})`
+    }} />
       
       {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 bg-background/60" />
@@ -27,7 +25,7 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
 
 
-      <div className="container relative z-10 px-4 md:px-6 py-20 md:py-24">
+      <div className="container relative z-10 px-4 md:px-6 py-20 md:py-24 opacity-90">
         <div className="max-w-3xl mx-auto text-center">
           {/* Headline */}
           <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-5 text-balance animate-fade-up">
@@ -48,19 +46,12 @@ const HeroSection = () => {
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
-            <Button 
-              variant="heroOutline" 
-              size="xl" 
-              onClick={scrollToHowItWorks}
-              className="glass border-primary/30 hover:border-primary/50"
-            >
+            <Button variant="heroOutline" size="xl" onClick={scrollToHowItWorks} className="glass border-primary/30 hover:border-primary/50">
               See How It Works
             </Button>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
