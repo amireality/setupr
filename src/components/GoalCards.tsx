@@ -28,10 +28,13 @@ const GoalCards = () => {
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
 
   return (
-    <section className="py-32 bg-secondary/20 relative overflow-hidden">
+    <section className="py-16 md:py-20 relative overflow-hidden">
+      {/* Grounding surface - darker base */}
+      <div className="absolute inset-0 bg-secondary/40" />
+      
       {/* Tile cluster accent - decorative, positioned asymmetrically */}
       <div 
-        className="absolute -right-32 top-1/2 -translate-y-1/2 w-[400px] h-[400px] opacity-[0.08] pointer-events-none"
+        className="absolute -right-20 top-1/3 w-[300px] h-[300px] opacity-[0.06] pointer-events-none"
         style={{
           backgroundImage: `url(${tileClusterAccent})`,
           backgroundSize: 'contain',
@@ -39,97 +42,112 @@ const GoalCards = () => {
           backgroundPosition: 'center',
         }}
       />
+      
+      {/* Top boundary */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
 
       <div className="container px-4 md:px-6 relative z-10">
         {/* Two-column layout on large screens */}
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
           {/* Left column - header */}
           <div className="lg:col-span-4 lg:sticky lg:top-32">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
               Where Are You on Your Journey?
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm md:text-base">
               Select your current stage and we'll guide you forward.
             </p>
           </div>
 
-          {/* Right column - cards */}
-          <div className="lg:col-span-8 space-y-4">
-            {goals.map((goal) => {
-              const Icon = goal.icon;
-              const isSelected = selectedGoal === goal.id;
+          {/* Right column - cards with grounding surface */}
+          <div className="lg:col-span-8">
+            <div className="relative">
+              {/* Grounding surface behind cards */}
+              <div className="absolute -inset-3 md:-inset-4 rounded-2xl bg-background/50 -z-10" />
+              
+              <div className="space-y-3">
+                {goals.map((goal, index) => {
+                  const Icon = goal.icon;
+                  const isSelected = selectedGoal === goal.id;
+                  // Intentional slight offset for visual rhythm
+                  const offsetClass = index === 1 ? "ml-2 md:ml-4" : "";
 
-              return (
-                <button
-                  key={goal.id}
-                  onClick={() => setSelectedGoal(goal.id)}
-                  className="w-full group relative"
-                >
-                  <div 
-                    className={`relative rounded-2xl p-6 md:p-8 text-left transition-all duration-300 overflow-hidden ${
-                      isSelected ? "ring-2 ring-primary/50" : ""
-                    }`}
-                    style={{
-                      backgroundImage: `url(${glassCardBg})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }}
-                  >
-                    {/* Glass overlay */}
-                    <div className={`absolute inset-0 backdrop-blur-sm transition-colors duration-300 ${
-                      isSelected ? "bg-background/50" : "bg-background/70 group-hover:bg-background/60"
-                    }`} />
-                    
-                    {/* Border */}
-                    <div className={`absolute inset-0 rounded-2xl border transition-colors duration-300 ${
-                      isSelected ? "border-primary/30" : "border-border/30 group-hover:border-border/50"
-                    }`} />
-
-                    {/* Content */}
-                    <div className="relative z-10 flex items-center gap-6">
-                      {/* Icon */}
-                      <div
-                        className={`w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                          isSelected
-                            ? "gradient-accent shadow-glow"
-                            : "bg-secondary/80 group-hover:bg-secondary"
+                  return (
+                    <button
+                      key={goal.id}
+                      onClick={() => setSelectedGoal(goal.id)}
+                      className={`w-full group relative ${offsetClass}`}
+                    >
+                      <div 
+                        className={`relative rounded-xl p-5 md:p-6 text-left transition-all duration-300 overflow-hidden ${
+                          isSelected ? "ring-2 ring-primary/50" : ""
                         }`}
+                        style={{
+                          backgroundImage: `url(${glassCardBg})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                        }}
                       >
-                        <Icon
-                          className={`w-7 h-7 transition-colors duration-300 ${
-                            isSelected ? "text-primary-foreground" : "text-primary"
-                          }`}
-                        />
-                      </div>
+                        {/* Glass overlay */}
+                        <div className={`absolute inset-0 backdrop-blur-sm transition-colors duration-300 ${
+                          isSelected ? "bg-background/50" : "bg-background/70 group-hover:bg-background/60"
+                        }`} />
+                        
+                        {/* Border */}
+                        <div className={`absolute inset-0 rounded-xl border transition-colors duration-300 ${
+                          isSelected ? "border-primary/40" : "border-border/40 group-hover:border-border/60"
+                        }`} />
 
-                      {/* Text */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-display text-lg font-semibold text-foreground mb-1">
-                          {goal.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm">
-                          {goal.description}
-                        </p>
-                      </div>
+                        {/* Content */}
+                        <div className="relative z-10 flex items-center gap-5">
+                          {/* Icon */}
+                          <div
+                            className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                              isSelected
+                                ? "gradient-accent shadow-glow"
+                                : "bg-secondary/80 group-hover:bg-secondary"
+                            }`}
+                          >
+                            <Icon
+                              className={`w-6 h-6 transition-colors duration-300 ${
+                                isSelected ? "text-primary-foreground" : "text-primary"
+                              }`}
+                            />
+                          </div>
 
-                      {/* Selection indicator */}
-                      <div
-                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                          isSelected
-                            ? "border-primary bg-primary"
-                            : "border-muted-foreground/30"
-                        }`}
-                      >
-                        {isSelected && <Check className="w-4 h-4 text-primary-foreground" />}
+                          {/* Text */}
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-display text-base md:text-lg font-semibold text-foreground mb-0.5">
+                              {goal.title}
+                            </h3>
+                            <p className="text-muted-foreground text-xs md:text-sm">
+                              {goal.description}
+                            </p>
+                          </div>
+
+                          {/* Selection indicator */}
+                          <div
+                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                              isSelected
+                                ? "border-primary bg-primary"
+                                : "border-muted-foreground/30"
+                            }`}
+                          >
+                            {isSelected && <Check className="w-3 h-3 text-primary-foreground" />}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      
+      {/* Bottom boundary */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
     </section>
   );
 };
