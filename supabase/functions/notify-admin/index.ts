@@ -1,7 +1,14 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const adminEmail = Deno.env.get("ADMIN_EMAIL");
+const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+
+// Rate limiting: max submissions per email within time window
+const RATE_LIMIT_WINDOW_MINUTES = 60;
+const MAX_SUBMISSIONS_PER_WINDOW = 3;
 
 // Allowed origins for CORS
 const allowedOrigins = [
@@ -82,7 +89,7 @@ function validateSubmission(data: unknown): { valid: boolean; error?: string; su
     valid: true, 
     submission: {
       fullName: (submission.fullName as string).trim().slice(0, 200),
-      email: (submission.email as string).trim().slice(0, 255),
+      email: (submission.email as string).trim().toLowerCase().slice(0, 255),
       phone: (submission.phone as string).trim().slice(0, 50),
       city: (submission.city as string).trim().slice(0, 100),
       currentStage: (submission.currentStage as string).trim().slice(0, 100),
@@ -104,6 +111,32 @@ function escapeHtml(text: string): string {
     .replace(/'/g, '&#039;');
 }
 
+// Check rate limit using database
+async function checkRateLimit(supabaseUrl: string, supabaseKey: string, email: string): Promise<{ allowed: boolean; remaining: number }> {
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  const windowStart = new Date(Date.now() - RATE_LIMIT_WINDOW_MINUTES * 60 * 1000).toISOString();
+  
+  const { count, error } = await supabase
+    .from('intake_submissions')
+    .select('*', { count: 'exact', head: true })
+    .eq('email', email.toLowerCase())
+    .gte('created_at', windowStart);
+
+  if (error) {
+    console.error("Rate limit check error:", error.message);
+    // Allow on error to not block legitimate users
+    return { allowed: true, remaining: MAX_SUBMISSIONS_PER_WINDOW };
+  }
+
+  const currentCount = count || 0;
+  const remaining = Math.max(0, MAX_SUBMISSIONS_PER_WINDOW - currentCount);
+  
+  return { 
+    allowed: currentCount < MAX_SUBMISSIONS_PER_WINDOW,
+    remaining 
+  };
+}
+
 const handler = async (req: Request): Promise<Response> => {
   const corsHeaders = getCorsHeaders(req);
 
@@ -120,10 +153,10 @@ const handler = async (req: Request): Promise<Response> => {
     );
   }
 
-  // Validate origin
+  // Validate origin (defense in depth for browser-based attacks)
   const origin = req.headers.get("origin") || "";
   const isValidOrigin = allowedOrigins.includes(origin) || isLovablePreview(origin);
-  if (!isValidOrigin) {
+  if (origin && !isValidOrigin) {
     console.error("Request from unauthorized origin:", origin);
     return new Response(
       JSON.stringify({ error: "Unauthorized" }),
@@ -145,6 +178,27 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const submission = validation.submission;
+
+    // Check rate limit
+    const rateLimit = await checkRateLimit(supabaseUrl, supabaseServiceKey, submission.email);
+    if (!rateLimit.allowed) {
+      console.log("Rate limit exceeded for email:", submission.email);
+      return new Response(
+        JSON.stringify({ 
+          error: "Too many submissions. Please try again later.",
+          retryAfter: RATE_LIMIT_WINDOW_MINUTES * 60
+        }),
+        { 
+          status: 429, 
+          headers: { 
+            "Content-Type": "application/json",
+            "Retry-After": String(RATE_LIMIT_WINDOW_MINUTES * 60),
+            ...corsHeaders 
+          } 
+        }
+      );
+    }
+
     console.log("Processing submission notification for:", submission.email);
 
     if (!adminEmail) {
