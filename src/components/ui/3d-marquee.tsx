@@ -90,7 +90,7 @@ export const ThreeDMarquee = ({
     const sizes: Array<"small" | "normal" | "large"> = ["normal", "large", "normal", "large", "normal", "large"];
     
     // More tiles for better coverage
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 180; i++) {
       tileList.push({
         delay: (i % 10) * 0.12,
         size: sizes[i % sizes.length],
@@ -124,7 +124,7 @@ export const ThreeDMarquee = ({
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-9 gap-1 w-[300%] h-[300%]">
+          <div className="grid grid-cols-9 gap-1 w-[350%] h-[350%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex + "marquee"}
