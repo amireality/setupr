@@ -24,11 +24,11 @@ const HeroSection = () => {
       {/* Bottom fade to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
 
-      {/* Tile cluster accent - top right */}
+      {/* Tile cluster accent - positioned near headline on desktop only */}
       <img 
         src={tileClusterAccent} 
         alt="" 
-        className="absolute top-16 right-8 md:right-16 w-24 md:w-36 opacity-80 pointer-events-none"
+        className="hidden md:block absolute top-1/2 right-[10%] -translate-y-1/2 w-28 lg:w-36 opacity-70 pointer-events-none"
       />
 
       <div className="container relative z-10 px-4 md:px-6 py-20 md:py-24">
