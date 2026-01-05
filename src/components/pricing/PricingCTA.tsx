@@ -61,7 +61,6 @@ const PricingCTA = ({ contactName, intakeData }: PricingCTAProps) => {
 
       setShowConfirmation(true);
     } catch (error) {
-      console.error("Error confirming:", error);
       toast({
         title: "Something went wrong",
         description: "Please try again or contact us directly.",
