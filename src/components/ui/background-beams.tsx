@@ -60,7 +60,7 @@ export const BackgroundBeams = React.memo(
     return (
       <div
         className={cn(
-          "absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]",
+          "absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden",
           className
         )}
       >
@@ -75,16 +75,16 @@ export const BackgroundBeams = React.memo(
           <path
             d="M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875"
             stroke="url(#paint0_radial)"
-            strokeOpacity="0.15"
-            strokeWidth="0.5"
+            strokeOpacity="0.4"
+            strokeWidth="1.5"
           />
           {paths.map((path, index) => (
             <path
               key={`path-${index}`}
               d={path}
               stroke={`url(#linearGradient-${index})`}
-              strokeOpacity="0.08"
-              strokeWidth="0.5"
+              strokeOpacity="0.3"
+              strokeWidth="1"
             />
           ))}
           <defs>
@@ -112,8 +112,9 @@ export const BackgroundBeams = React.memo(
                 }}
               >
                 <stop stopColor="hsl(var(--primary))" stopOpacity="0" />
-                <stop stopColor="hsl(var(--primary))" />
-                <stop offset="32.5%" stopColor="hsl(25 95% 53%)" />
+                <stop offset="10%" stopColor="hsl(var(--primary))" stopOpacity="1" />
+                <stop offset="50%" stopColor="hsl(25 95% 53%)" stopOpacity="1" />
+                <stop offset="90%" stopColor="hsl(35 95% 60%)" stopOpacity="1" />
                 <stop offset="100%" stopColor="hsl(35 95% 60%)" stopOpacity="0" />
               </motion.linearGradient>
             ))}
