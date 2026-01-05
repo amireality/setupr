@@ -5,7 +5,8 @@ const ServiceIntro = () => {
     <section className="relative overflow-hidden">
       <Vortex
         backgroundColor="hsl(var(--background))"
-        baseHue={30}
+        baseHue={25}
+        rangeHue={20}
         rangeY={200}
         particleCount={500}
         baseSpeed={0.1}
