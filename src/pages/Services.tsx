@@ -5,6 +5,7 @@ import ServiceIntro from "@/components/services/ServiceIntro";
 import ServiceCategories from "@/components/services/ServiceCategories";
 import RecommendedSetups from "@/components/services/RecommendedSetups";
 import ServicesCTA from "@/components/services/ServicesCTA";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export type ServiceId = 
   | "proprietorship" | "llp" | "pvt-ltd" | "gst" | "msme" | "pan-tan"
@@ -31,9 +32,12 @@ const Services = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Shooting star beams across entire page */}
+      <BackgroundBeams className="fixed inset-0 z-0" />
+      
       <Navbar />
-      <main className="pt-16">
+      <main className="pt-16 relative z-10">
         <ServiceIntro />
         <ServiceCategories 
           selectedServices={selectedServices} 

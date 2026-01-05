@@ -1,5 +1,3 @@
-import { BackgroundBeams } from "@/components/ui/background-beams";
-
 const ServiceIntro = () => {
   return (
     <section className="relative py-24 md:py-32 overflow-hidden">
@@ -21,8 +19,6 @@ const ServiceIntro = () => {
           </p>
         </div>
       </div>
-
-      <BackgroundBeams />
     </section>
   );
 };
