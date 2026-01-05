@@ -11,7 +11,7 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-transparent relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/50 after:to-transparent after:shadow-[0_0_8px_hsl(var(--primary)/0.4)]">
       <div className="container px-4 md:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -45,12 +45,6 @@ const Navbar = () => {
             >
               Services
             </Link>
-            <a 
-              href="/#how-it-works" 
-              className="px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-all duration-200"
-            >
-              How It Works
-            </a>
           </div>
 
           {/* CTA */}
@@ -95,13 +89,6 @@ const Navbar = () => {
               >
                 Services
               </Link>
-              <a 
-                href="/#how-it-works" 
-                className="px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-all duration-200"
-                onClick={() => setIsOpen(false)}
-              >
-                How It Works
-              </a>
               <div className="pt-4 mt-2 border-t border-border/50">
                 <Button variant="default" size="sm" className="w-full" asChild>
                   <Link to="/services" onClick={() => setIsOpen(false)}>Get Started</Link>

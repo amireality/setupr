@@ -105,7 +105,7 @@ const ServicePillars = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
-            Everything You Need to Operate
+            Everything you need to operate
           </h2>
 
           {/* Bento Grid */}

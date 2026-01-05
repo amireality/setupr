@@ -33,8 +33,8 @@ const HeroSection = () => {
         <div className="max-w-3xl mx-auto text-center">
           {/* Headline */}
           <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-5 text-balance animate-fade-up">
-            Turn Your Skills Into a{" "}
-            <span className="gradient-text">Legitimate Business</span>
+            Turn your skills into a{" "}
+            <span className="gradient-text">legitimate business</span>
           </h1>
 
           {/* Subheadline */}

@@ -18,7 +18,7 @@ const FinalCTA = () => {
           }}
           className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-center"
         >
-          Ready to Make It Official?
+          Ready to make it official?
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 50 }}
