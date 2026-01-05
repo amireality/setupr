@@ -101,11 +101,11 @@ export const ThreeDMarquee = ({
     return tileList;
   }, []);
 
-  // Split into 9 columns for denser layout
+  // Split into 11 columns for denser layout
   const columns = useMemo(() => {
     const cols = [];
-    const tilesPerColumn = Math.ceil(tiles.length / 9);
-    for (let i = 0; i < 9; i++) {
+    const tilesPerColumn = Math.ceil(tiles.length / 11);
+    for (let i = 0; i < 11; i++) {
       cols.push(tiles.slice(i * tilesPerColumn, (i + 1) * tilesPerColumn));
     }
     return cols;
@@ -124,7 +124,7 @@ export const ThreeDMarquee = ({
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-9 gap-1 w-[300%] h-[300%]">
+          <div className="grid grid-cols-11 gap-1 w-[300%] h-[300%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex + "marquee"}
