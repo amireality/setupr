@@ -21,6 +21,71 @@ interface SubmissionNotification {
   timeline: string;
 }
 
+// Input validation
+function validateSubmission(data: unknown): { valid: boolean; error?: string; submission?: SubmissionNotification } {
+  if (!data || typeof data !== 'object') {
+    return { valid: false, error: 'Invalid request body' };
+  }
+
+  const submission = data as Record<string, unknown>;
+
+  // Required string fields
+  const requiredStrings = ['fullName', 'email', 'phone', 'city', 'currentStage', 'timeline'];
+  for (const field of requiredStrings) {
+    if (typeof submission[field] !== 'string' || submission[field].length === 0) {
+      return { valid: false, error: `Missing or invalid field: ${field}` };
+    }
+    if ((submission[field] as string).length > 500) {
+      return { valid: false, error: `Field too long: ${field}` };
+    }
+  }
+
+  // Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(submission.email as string)) {
+    return { valid: false, error: 'Invalid email format' };
+  }
+
+  // Required array fields
+  const requiredArrays = ['workTypes', 'selectedServices', 'existingSetup'];
+  for (const field of requiredArrays) {
+    if (!Array.isArray(submission[field])) {
+      return { valid: false, error: `Missing or invalid field: ${field}` };
+    }
+    // Validate array contents
+    for (const item of submission[field] as unknown[]) {
+      if (typeof item !== 'string' || item.length > 200) {
+        return { valid: false, error: `Invalid item in ${field}` };
+      }
+    }
+  }
+
+  return { 
+    valid: true, 
+    submission: {
+      fullName: (submission.fullName as string).trim().slice(0, 200),
+      email: (submission.email as string).trim().slice(0, 255),
+      phone: (submission.phone as string).trim().slice(0, 50),
+      city: (submission.city as string).trim().slice(0, 100),
+      currentStage: (submission.currentStage as string).trim().slice(0, 100),
+      timeline: (submission.timeline as string).trim().slice(0, 100),
+      workTypes: (submission.workTypes as string[]).map(s => s.trim().slice(0, 100)),
+      selectedServices: (submission.selectedServices as string[]).map(s => s.trim().slice(0, 100)),
+      existingSetup: (submission.existingSetup as string[]).map(s => s.trim().slice(0, 100)),
+    }
+  };
+}
+
+// Escape HTML to prevent XSS in email
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -28,9 +93,20 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const submission: SubmissionNotification = await req.json();
+    const rawData = await req.json();
     
-    console.log("Received submission notification request:", submission);
+    // Validate input
+    const validation = validateSubmission(rawData);
+    if (!validation.valid || !validation.submission) {
+      console.error("Validation failed:", validation.error);
+      return new Response(
+        JSON.stringify({ error: validation.error }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    const submission = validation.submission;
+    console.log("Processing submission notification for:", submission.email);
 
     if (!adminEmail) {
       console.error("ADMIN_EMAIL not configured");
@@ -53,17 +129,17 @@ const handler = async (req: Request): Promise<Response> => {
         <h1 style="color: #1a1a2e;">New Business Setup Request</h1>
         
         <h2 style="color: #4a4a68; border-bottom: 1px solid #eee; padding-bottom: 8px;">Contact Details</h2>
-        <p><strong>Name:</strong> ${submission.fullName}</p>
-        <p><strong>Email:</strong> ${submission.email}</p>
-        <p><strong>Phone:</strong> ${submission.phone}</p>
-        <p><strong>City:</strong> ${submission.city}</p>
+        <p><strong>Name:</strong> ${escapeHtml(submission.fullName)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(submission.email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(submission.phone)}</p>
+        <p><strong>City:</strong> ${escapeHtml(submission.city)}</p>
         
         <h2 style="color: #4a4a68; border-bottom: 1px solid #eee; padding-bottom: 8px;">Business Information</h2>
-        <p><strong>Current Stage:</strong> ${submission.currentStage}</p>
-        <p><strong>Work Types:</strong> ${submission.workTypes.join(", ") || "Not specified"}</p>
-        <p><strong>Selected Services:</strong> ${submission.selectedServices.join(", ") || "None"}</p>
-        <p><strong>Existing Setup:</strong> ${submission.existingSetup.join(", ") || "None"}</p>
-        <p><strong>Timeline:</strong> ${submission.timeline}</p>
+        <p><strong>Current Stage:</strong> ${escapeHtml(submission.currentStage)}</p>
+        <p><strong>Work Types:</strong> ${submission.workTypes.map(escapeHtml).join(", ") || "Not specified"}</p>
+        <p><strong>Selected Services:</strong> ${submission.selectedServices.map(escapeHtml).join(", ") || "None"}</p>
+        <p><strong>Existing Setup:</strong> ${submission.existingSetup.map(escapeHtml).join(", ") || "None"}</p>
+        <p><strong>Timeline:</strong> ${escapeHtml(submission.timeline)}</p>
         
         <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
         <p style="color: #888; font-size: 12px;">This is an automated notification from your Business Setup Platform.</p>
@@ -79,22 +155,22 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "Business Setup <onboarding@resend.dev>",
         to: [adminEmail],
-        subject: `New Business Setup Request from ${submission.fullName}`,
+        subject: `New Business Setup Request from ${escapeHtml(submission.fullName)}`,
         html: emailHtml,
       }),
     });
 
     const emailResult = await emailResponse.json();
-    console.log("Email sent successfully:", emailResult);
+    console.log("Email notification sent successfully");
 
-    return new Response(JSON.stringify({ success: true, emailResult }), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   } catch (error: any) {
-    console.error("Error in notify-admin function:", error);
+    console.error("Error in notify-admin function:", error.message);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Internal server error" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },

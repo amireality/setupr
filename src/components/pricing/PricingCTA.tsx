@@ -39,14 +39,11 @@ const PricingCTA = ({ contactName, intakeData }: PricingCTAProps) => {
         });
 
       if (dbError) {
-        console.error("Database error:", dbError);
         throw new Error("Failed to save submission");
       }
 
-      console.log("Submission saved to database");
-
-      // Send admin notification
-      const { error: notifyError } = await supabase.functions.invoke("notify-admin", {
+      // Send admin notification (non-blocking, don't fail if this errors)
+      await supabase.functions.invoke("notify-admin", {
         body: {
           fullName: intakeData.contact.fullName,
           email: intakeData.contact.email,
@@ -58,12 +55,9 @@ const PricingCTA = ({ contactName, intakeData }: PricingCTAProps) => {
           existingSetup: intakeData.existingSetup,
           timeline: intakeData.timeline,
         },
+      }).catch(() => {
+        // Notification is secondary - don't fail the submission
       });
-
-      if (notifyError) {
-        console.error("Notification error:", notifyError);
-        // Don't throw - submission was saved, notification is secondary
-      }
 
       setShowConfirmation(true);
     } catch (error) {
