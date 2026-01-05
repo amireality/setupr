@@ -124,7 +124,7 @@ export const ThreeDMarquee = ({
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-8 gap-1 w-[300%] h-[300%]">
+          <div className="grid grid-cols-8 gap-1 w-[400%] h-[400%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex + "marquee"}
