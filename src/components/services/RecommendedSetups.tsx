@@ -1,42 +1,17 @@
-import { Rocket, Briefcase, Zap } from "lucide-react";
-import type { ServiceId } from "@/pages/Services";
+import { Rocket, Globe, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { 
+  bundles, 
+  calculateTotal, 
+  formatPrice,
+  type ServiceId 
+} from "@/data/services";
 
-interface Recommendation {
-  title: string;
-  description: string;
-  icon: React.ElementType;
-  services: ServiceId[];
-  highlights: string[];
-  gradient: string;
-}
-
-const recommendations: Recommendation[] = [
-  {
-    title: "New business",
-    description: "Registration, website, and Google presence",
-    icon: Rocket,
-    services: ["proprietorship", "website", "google-business"],
-    highlights: ["Company registration", "Website", "Google Business"],
-    gradient: "from-primary/20 via-primary/10 to-transparent",
-  },
-  {
-    title: "Professional online presence",
-    description: "Website, email, and brand basics",
-    icon: Briefcase,
-    services: ["website", "domain-hosting", "email", "brand-identity"],
-    highlights: ["Website", "Domain & email", "Brand identity"],
-    gradient: "from-accent/20 via-accent/10 to-transparent",
-  },
-  {
-    title: "Just one thing",
-    description: "Pick exactly what you need",
-    icon: Zap,
-    services: [],
-    highlights: ["Choose one service", "Add more later", "No pressure"],
-    gradient: "from-secondary/40 via-secondary/20 to-transparent",
-  },
-];
+const iconMap: Record<string, React.ElementType> = {
+  Rocket,
+  Globe,
+  Zap,
+};
 
 interface RecommendedSetupsProps {
   selectedServices: Set<ServiceId>;
@@ -53,15 +28,14 @@ const RecommendationSkeleton = ({ gradient }: { gradient: string }) => (
 );
 
 const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps) => {
-  const isRecommendationActive = (services: ServiceId[]) => {
-    if (services.length === 0) return selectedServices.size <= 1;
-    return services.every(s => selectedServices.has(s)) && 
-           services.length === selectedServices.size;
+  const isRecommendationActive = (serviceIds: ServiceId[]) => {
+    if (serviceIds.length === 0) return selectedServices.size <= 1;
+    return serviceIds.every(s => selectedServices.has(s)) && 
+           serviceIds.length === selectedServices.size;
   };
 
   return (
     <section className="py-24 relative">
-      {/* Background accent */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute bottom-0 left-1/4 w-[500px] h-[400px] bg-primary/3 rounded-full blur-[150px]" />
       </div>
@@ -77,12 +51,16 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
         </div>
 
         <div className="grid gap-4 md:grid-cols-3 max-w-5xl mx-auto">
-          {recommendations.map((rec) => {
-            const isActive = isRecommendationActive(rec.services);
+          {bundles.map((bundle) => {
+            const Icon = iconMap[bundle.icon] || Rocket;
+            const isActive = isRecommendationActive(bundle.included_service_ids);
+            const individualTotal = calculateTotal(bundle.included_service_ids);
+            const savings = individualTotal - bundle.bundle_setupr_fee;
+            
             return (
               <button
-                key={rec.title}
-                onClick={() => onApply(rec.services)}
+                key={bundle.bundle_id}
+                onClick={() => onApply(bundle.included_service_ids)}
                 className={cn(
                   "row-span-1 rounded-2xl group/bento transition-all duration-300 p-4 text-left",
                   "bg-secondary/40 backdrop-blur-sm border border-border/20",
@@ -92,8 +70,7 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
                     : "hover:shadow-glow hover:border-primary/40"
                 )}
               >
-                {/* Header skeleton */}
-                <RecommendationSkeleton gradient={rec.gradient} />
+                <RecommendationSkeleton gradient={bundle.gradient} />
                 
                 <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
                   <div className={cn(
@@ -102,27 +79,37 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
                       ? "gradient-accent shadow-glow" 
                       : "bg-background/50 group-hover/bento:bg-primary/20"
                   )}>
-                    <rec.icon className={cn(
+                    <Icon className={cn(
                       "w-6 h-6",
                       isActive ? "text-primary-foreground" : "text-primary"
                     )} />
                   </div>
                   
                   <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                    {rec.title}
+                    {bundle.bundle_name}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    {rec.description}
+                    {bundle.who_its_for}
                   </p>
                   
-                  <ul className="space-y-2">
-                    {rec.highlights.map((highlight) => (
-                      <li key={highlight} className="text-xs text-muted-foreground flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
+                  {bundle.bundle_setupr_fee > 0 && (
+                    <div className="space-y-1 mb-3">
+                      <p className="text-lg font-semibold text-foreground">
+                        ₹{formatPrice(bundle.bundle_setupr_fee)}
+                      </p>
+                      {savings > 0 && (
+                        <p className="text-xs text-muted-foreground">
+                          Save ₹{formatPrice(savings)} vs individual
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  
+                  {bundle.included_service_ids.length > 0 && (
+                    <p className="text-xs text-muted-foreground">
+                      {bundle.govt_fee_note}
+                    </p>
+                  )}
                 </div>
               </button>
             );

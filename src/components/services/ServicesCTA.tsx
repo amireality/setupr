@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import type { ServiceId } from "@/pages/Services";
+import type { ServiceId } from "@/data/services";
 
 interface ServicesCTAProps {
   selectedServices: Set<ServiceId>;

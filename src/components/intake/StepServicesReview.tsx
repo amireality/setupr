@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, Check, Plus } from "lucide-react";
-import type { ServiceId } from "@/pages/Services";
+import { services, type ServiceId } from "@/data/services";
 
 interface StepServicesReviewProps {
   selectedServices: ServiceId[];
@@ -9,19 +9,14 @@ interface StepServicesReviewProps {
   onBack: () => void;
 }
 
-const allServices: { id: ServiceId; name: string; category: string }[] = [
-  { id: "proprietorship", name: "Company Registration", category: "Formation" },
-  { id: "gst", name: "GST Registration", category: "Formation" },
-  { id: "msme", name: "MSME (Udyam) Registration", category: "Formation" },
-  { id: "pan-tan", name: "PAN / TAN Assistance", category: "Formation" },
-  { id: "website", name: "Professional Website", category: "Digital" },
-  { id: "domain-hosting", name: "Domain & Hosting", category: "Digital" },
-  { id: "email", name: "Business Email", category: "Digital" },
-  { id: "brand-identity", name: "Brand Identity", category: "Digital" },
-  { id: "social-media", name: "Social Media Setup", category: "Visibility" },
-  { id: "google-business", name: "Google Business Profile", category: "Visibility" },
-  { id: "trust-assets", name: "Trust Assets", category: "Visibility" },
-];
+// Get public services for the review step
+const allServices = services
+  .filter(s => s.visibility === "public")
+  .map(s => ({
+    id: s.service_id,
+    name: s.service_name,
+    category: s.category,
+  }));
 
 const StepServicesReview = ({ selectedServices, onChange, onNext, onBack }: StepServicesReviewProps) => {
   const toggleService = (id: ServiceId) => {
