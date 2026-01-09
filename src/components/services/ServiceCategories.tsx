@@ -1,10 +1,6 @@
-import { Check, Building2, Globe, Eye, Shield, Settings } from "lucide-react";
+import { Check, Building2, Globe, Eye, Shield, Settings, GitCompare } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { 
-  serviceCategories, 
-  getServicesByCategory,
-  type ServiceId 
-} from "@/data/services";
+import type { DbService, DbCategory } from "@/hooks/useServices";
 
 const iconMap: Record<string, React.ElementType> = {
   Building2,
@@ -15,8 +11,14 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 interface ServiceCategoriesProps {
-  selectedServices: Set<ServiceId>;
-  onToggle: (serviceId: ServiceId) => void;
+  selectedServices: Set<string>;
+  onToggle: (serviceId: string) => void;
+  compareList: string[];
+  onToggleCompare: (serviceId: string) => void;
+  services: DbService[];
+  categories: DbCategory[];
+  searchQuery: string;
+  selectedCategory: string | null;
 }
 
 const CategorySkeleton = ({ gradient }: { gradient: string }) => (
@@ -28,14 +30,44 @@ const CategorySkeleton = ({ gradient }: { gradient: string }) => (
   </div>
 );
 
-const ServiceCategories = ({ selectedServices, onToggle }: ServiceCategoriesProps) => {
+const ServiceCategories = ({ 
+  selectedServices, 
+  onToggle, 
+  compareList, 
+  onToggleCompare,
+  services,
+  categories,
+  searchQuery,
+  selectedCategory 
+}: ServiceCategoriesProps) => {
+  
+  const getServicesByCategory = (categoryId: string) => {
+    return services.filter(s => s.category === categoryId);
+  };
+
+  // Filter categories to only show those with matching services
+  const visibleCategories = categories.filter(category => {
+    if (selectedCategory && selectedCategory !== category.category_id) return false;
+    return getServicesByCategory(category.category_id).length > 0;
+  });
+
+  if (visibleCategories.length === 0) {
+    return (
+      <section className="py-16 relative">
+        <div className="container px-4 md:px-6 text-center">
+          <p className="text-muted-foreground">No services found matching your search.</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-16 relative">
+    <section className="py-16 relative pb-32">
       <div className="absolute inset-0 bg-secondary/10" />
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-          {serviceCategories.map((category) => {
+          {visibleCategories.map((category) => {
             const Icon = iconMap[category.icon] || Building2;
             const categoryServices = getServicesByCategory(category.category_id);
             
@@ -67,10 +99,11 @@ const ServiceCategories = ({ selectedServices, onToggle }: ServiceCategoriesProp
                 <div className="space-y-2 mt-2 flex-1">
                   {categoryServices.map((service) => {
                     const isSelected = selectedServices.has(service.service_id);
+                    const isInCompare = compareList.includes(service.service_id);
+                    
                     return (
-                      <button
+                      <div
                         key={service.service_id}
-                        onClick={() => onToggle(service.service_id)}
                         className={cn(
                           "w-full p-3 rounded-xl text-left transition-all duration-300",
                           "bg-background/50 border border-border/30",
@@ -80,15 +113,18 @@ const ServiceCategories = ({ selectedServices, onToggle }: ServiceCategoriesProp
                         )}
                       >
                         <div className="flex items-start gap-3">
-                          <div className={cn(
-                            "w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-200",
-                            isSelected 
-                              ? "border-primary bg-primary" 
-                              : "border-muted-foreground/30"
-                          )}>
+                          <button
+                            onClick={() => onToggle(service.service_id)}
+                            className={cn(
+                              "w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-200",
+                              isSelected 
+                                ? "border-primary bg-primary" 
+                                : "border-muted-foreground/30 hover:border-primary/50"
+                            )}
+                          >
                             {isSelected && <Check className="w-3 h-3 text-primary-foreground" />}
-                          </div>
-                          <div>
+                          </button>
+                          <div className="flex-1 min-w-0">
                             <h3 className="font-medium text-foreground text-sm">
                               {service.service_name}
                             </h3>
@@ -96,8 +132,20 @@ const ServiceCategories = ({ selectedServices, onToggle }: ServiceCategoriesProp
                               {service.description_short}
                             </p>
                           </div>
+                          <button
+                            onClick={() => onToggleCompare(service.service_id)}
+                            className={cn(
+                              "p-1.5 rounded-lg transition-all flex-shrink-0",
+                              isInCompare
+                                ? "bg-primary/20 text-primary"
+                                : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                            )}
+                            title={isInCompare ? "Remove from compare" : "Add to compare"}
+                          >
+                            <GitCompare className="w-3.5 h-3.5" />
+                          </button>
                         </div>
-                      </button>
+                      </div>
                     );
                   })}
                 </div>
