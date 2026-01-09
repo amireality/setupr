@@ -1,11 +1,7 @@
 import { Rocket, Globe, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { 
-  bundles, 
-  calculateTotal, 
-  formatPrice,
-  type ServiceId 
-} from "@/data/services";
+import type { DbBundle, DbService } from "@/hooks/useServices";
+import { formatPrice, calculateDbTotal } from "@/hooks/useServices";
 
 const iconMap: Record<string, React.ElementType> = {
   Rocket,
@@ -14,8 +10,10 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 interface RecommendedSetupsProps {
-  selectedServices: Set<ServiceId>;
-  onApply: (services: ServiceId[]) => void;
+  selectedServices: Set<string>;
+  onApply: (services: string[]) => void;
+  bundles: DbBundle[];
+  services: DbService[];
 }
 
 const RecommendationSkeleton = ({ gradient }: { gradient: string }) => (
@@ -27,8 +25,8 @@ const RecommendationSkeleton = ({ gradient }: { gradient: string }) => (
   </div>
 );
 
-const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps) => {
-  const isRecommendationActive = (serviceIds: ServiceId[]) => {
+const RecommendedSetups = ({ selectedServices, onApply, bundles, services }: RecommendedSetupsProps) => {
+  const isRecommendationActive = (serviceIds: string[]) => {
     if (serviceIds.length === 0) return selectedServices.size <= 1;
     return serviceIds.every(s => selectedServices.has(s)) && 
            serviceIds.length === selectedServices.size;
@@ -54,7 +52,7 @@ const RecommendedSetups = ({ selectedServices, onApply }: RecommendedSetupsProps
           {bundles.map((bundle) => {
             const Icon = iconMap[bundle.icon] || Rocket;
             const isActive = isRecommendationActive(bundle.included_service_ids);
-            const individualTotal = calculateTotal(bundle.included_service_ids);
+            const individualTotal = calculateDbTotal(services, bundle.included_service_ids);
             const savings = individualTotal - bundle.bundle_setupr_fee;
             
             return (
