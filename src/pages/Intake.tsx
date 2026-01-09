@@ -8,7 +8,7 @@ import StepServicesReview from "@/components/intake/StepServicesReview";
 import StepExistingSetup from "@/components/intake/StepExistingSetup";
 import StepTimeline from "@/components/intake/StepTimeline";
 import StepContact from "@/components/intake/StepContact";
-import type { ServiceId } from "./Services";
+import type { ServiceId } from "@/data/services";
 
 export interface IntakeData {
   currentStage: string;

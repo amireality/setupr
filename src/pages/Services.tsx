@@ -6,11 +6,7 @@ import ServiceCategories from "@/components/services/ServiceCategories";
 import RecommendedSetups from "@/components/services/RecommendedSetups";
 import ServicesCTA from "@/components/services/ServicesCTA";
 import { AuroraBackground } from "@/components/ui/aurora-background";
-
-export type ServiceId = 
-  | "proprietorship" | "llp" | "pvt-ltd" | "gst" | "msme" | "pan-tan"
-  | "website" | "domain-hosting" | "email" | "brand-identity"
-  | "social-media" | "google-business" | "trust-assets";
+import type { ServiceId } from "@/data/services";
 
 const Services = () => {
   const [selectedServices, setSelectedServices] = useState<Set<ServiceId>>(new Set());

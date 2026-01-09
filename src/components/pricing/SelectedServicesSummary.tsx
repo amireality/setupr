@@ -1,25 +1,9 @@
 import { CheckCircle2 } from "lucide-react";
-import type { ServiceId } from "@/pages/Services";
+import { getServiceById, type ServiceId } from "@/data/services";
 
 interface SelectedServicesSummaryProps {
   services: ServiceId[];
 }
-
-const serviceNames: Record<ServiceId, string> = {
-  "proprietorship": "Proprietorship Registration",
-  "llp": "LLP Registration",
-  "pvt-ltd": "Private Limited Registration",
-  "gst": "GST Registration",
-  "msme": "MSME (Udyam) Registration",
-  "pan-tan": "PAN / TAN Assistance",
-  "website": "Professional Website",
-  "domain-hosting": "Domain & Hosting Setup",
-  "email": "Business Email Setup",
-  "brand-identity": "Basic Brand Identity",
-  "social-media": "Social Media Profile Setup",
-  "google-business": "Google Business Profile Setup",
-  "trust-assets": "Basic Trust Assets",
-};
 
 const SelectedServicesSummary = ({ services }: SelectedServicesSummaryProps) => {
   return (
@@ -31,12 +15,15 @@ const SelectedServicesSummary = ({ services }: SelectedServicesSummaryProps) => 
           </h2>
           <div className="bg-card border border-border rounded-2xl p-6 shadow-card">
             <ul className="space-y-3">
-              {services.map((serviceId) => (
-                <li key={serviceId} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground">{serviceNames[serviceId]}</span>
-                </li>
-              ))}
+              {services.map((serviceId) => {
+                const service = getServiceById(serviceId);
+                return (
+                  <li key={serviceId} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-foreground">{service?.service_name || serviceId}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

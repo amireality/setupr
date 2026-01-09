@@ -1,5 +1,4 @@
 import { IndianRupee } from "lucide-react";
-import type { ServiceId } from "@/pages/Services";
 import {
   Table,
   TableBody,
@@ -9,35 +8,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { 
+  getServiceById, 
+  formatPrice, 
+  formatGovtFee,
+  calculateTotal,
+  type ServiceId 
+} from "@/data/services";
 
 interface PricingBreakdownProps {
   services: ServiceId[];
 }
 
-const servicePricing: Record<ServiceId, { name: string; price: number }> = {
-  "proprietorship": { name: "Proprietorship Registration", price: 2999 },
-  "llp": { name: "LLP Registration", price: 7999 },
-  "pvt-ltd": { name: "Private Limited Registration", price: 12999 },
-  "gst": { name: "GST Registration", price: 1999 },
-  "msme": { name: "MSME (Udyam) Registration", price: 999 },
-  "pan-tan": { name: "PAN / TAN Assistance", price: 1499 },
-  "website": { name: "Professional Website", price: 14999 },
-  "domain-hosting": { name: "Domain & Hosting Setup", price: 2999 },
-  "email": { name: "Business Email Setup", price: 1999 },
-  "brand-identity": { name: "Basic Brand Identity", price: 4999 },
-  "social-media": { name: "Social Media Profile Setup", price: 2499 },
-  "google-business": { name: "Google Business Profile Setup", price: 1499 },
-  "trust-assets": { name: "Basic Trust Assets", price: 3999 },
-};
-
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('en-IN').format(price);
-};
-
 const PricingBreakdown = ({ services }: PricingBreakdownProps) => {
-  const total = services.reduce((sum, serviceId) => {
-    return sum + (servicePricing[serviceId]?.price || 0);
-  }, 0);
+  const total = calculateTotal(services);
+  const hasActuals = services.some(id => {
+    const service = getServiceById(id);
+    return service?.govt_or_third_party_fee === "actuals";
+  });
 
   return (
     <section className="py-12 md:py-16">
@@ -52,21 +40,25 @@ const PricingBreakdown = ({ services }: PricingBreakdownProps) => {
               <TableHeader>
                 <TableRow className="border-border/50 hover:bg-transparent">
                   <TableHead className="font-semibold text-foreground">Service</TableHead>
-                  <TableHead className="text-right font-semibold text-foreground">One-time Fee</TableHead>
+                  <TableHead className="text-right font-semibold text-foreground">Setupr Fee</TableHead>
+                  <TableHead className="text-right font-semibold text-foreground">Govt / Other</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {services.map((serviceId) => {
-                  const service = servicePricing[serviceId];
+                  const service = getServiceById(serviceId);
                   if (!service) return null;
                   return (
                     <TableRow key={serviceId} className="border-border/50 hover:bg-secondary/30">
-                      <TableCell className="text-foreground">{service.name}</TableCell>
+                      <TableCell className="text-foreground">{service.service_name}</TableCell>
                       <TableCell className="text-right">
                         <span className="flex items-center justify-end gap-1 text-foreground">
                           <IndianRupee className="w-4 h-4" />
-                          {formatPrice(service.price)}
+                          {formatPrice(service.setupr_fee_inr)}
                         </span>
+                      </TableCell>
+                      <TableCell className="text-right text-muted-foreground text-sm">
+                        {formatGovtFee(service.govt_or_third_party_fee)}
                       </TableCell>
                     </TableRow>
                   );
@@ -74,20 +66,21 @@ const PricingBreakdown = ({ services }: PricingBreakdownProps) => {
               </TableBody>
               <TableFooter className="bg-primary/5 border-t border-border/50">
                 <TableRow className="hover:bg-transparent">
-                  <TableCell className="font-semibold text-foreground">Total</TableCell>
+                  <TableCell className="font-semibold text-foreground">Total (Setupr fees)</TableCell>
                   <TableCell className="text-right">
                     <span className="flex items-center justify-end gap-1 font-bold text-lg text-primary">
                       <IndianRupee className="w-5 h-5" />
                       {formatPrice(total)}
                     </span>
                   </TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableFooter>
             </Table>
           </div>
 
           <p className="mt-5 text-sm text-muted-foreground text-center">
-            No hidden charges. No recurring fees unless stated.
+            No hidden charges. {hasActuals && "Government and third-party fees charged at actuals."}
           </p>
         </div>
       </div>
