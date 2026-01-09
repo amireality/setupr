@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      bundles: {
+        Row: {
+          bundle_id: string
+          bundle_name: string
+          bundle_setupr_fee: number
+          created_at: string | null
+          govt_fee_note: string
+          gradient: string
+          icon: string
+          id: string
+          included_service_ids: string[]
+          sort_order: number
+          updated_at: string | null
+          who_its_for: string
+        }
+        Insert: {
+          bundle_id: string
+          bundle_name: string
+          bundle_setupr_fee: number
+          created_at?: string | null
+          govt_fee_note?: string
+          gradient?: string
+          icon?: string
+          id?: string
+          included_service_ids?: string[]
+          sort_order?: number
+          updated_at?: string | null
+          who_its_for: string
+        }
+        Update: {
+          bundle_id?: string
+          bundle_name?: string
+          bundle_setupr_fee?: number
+          created_at?: string | null
+          govt_fee_note?: string
+          gradient?: string
+          icon?: string
+          id?: string
+          included_service_ids?: string[]
+          sort_order?: number
+          updated_at?: string | null
+          who_its_for?: string
+        }
+        Relationships: []
+      }
       intake_submissions: {
         Row: {
           city: string
@@ -56,6 +101,96 @@ export type Database = {
           status?: string
           timeline?: string
           work_types?: string[]
+        }
+        Relationships: []
+      }
+      service_categories: {
+        Row: {
+          category_id: string
+          created_at: string | null
+          gradient: string
+          icon: string
+          id: string
+          intro: string
+          sort_order: number
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category_id: string
+          created_at?: string | null
+          gradient?: string
+          icon?: string
+          id?: string
+          intro: string
+          sort_order?: number
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category_id?: string
+          created_at?: string | null
+          gradient?: string
+          icon?: string
+          id?: string
+          intro?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          category: string
+          created_at: string | null
+          default_selected: boolean
+          delivery_type: string
+          description_short: string
+          govt_or_third_party_fee: string
+          id: string
+          service_id: string
+          service_name: string
+          setupr_fee_inr: number
+          sort_order: number
+          sub_category: string
+          updated_at: string | null
+          visibility: string
+          who_its_for: string
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          default_selected?: boolean
+          delivery_type: string
+          description_short: string
+          govt_or_third_party_fee?: string
+          id?: string
+          service_id: string
+          service_name: string
+          setupr_fee_inr: number
+          sort_order?: number
+          sub_category: string
+          updated_at?: string | null
+          visibility?: string
+          who_its_for: string
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          default_selected?: boolean
+          delivery_type?: string
+          description_short?: string
+          govt_or_third_party_fee?: string
+          id?: string
+          service_id?: string
+          service_name?: string
+          setupr_fee_inr?: number
+          sort_order?: number
+          sub_category?: string
+          updated_at?: string | null
+          visibility?: string
+          who_its_for?: string
         }
         Relationships: []
       }
