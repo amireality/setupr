@@ -7,6 +7,9 @@ import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Intake from "./pages/Intake";
 import PricingSummary from "./pages/PricingSummary";
+import Calculator from "./pages/Calculator";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
@@ -24,6 +27,9 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/intake" element={<Intake />} />
           <Route path="/pricing-summary" element={<PricingSummary />} />
+          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
