@@ -20,6 +20,9 @@ const Navbar = () => {
               src={setuprLogo} 
               alt="Setupr" 
               className="h-[30px] md:h-[40px] w-auto"
+              width={84}
+              height={30}
+              fetchPriority="high"
             />
           </Link>
 
