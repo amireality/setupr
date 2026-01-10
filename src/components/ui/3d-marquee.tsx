@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo } from "react";
 
 // Individual 3D Tile component with random movement
 const Tile = ({ 
@@ -78,71 +78,38 @@ const Tile = ({
   );
 };
 
-// Static placeholder shown before animation loads
-const StaticPlaceholder = () => (
-  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
-);
-
 export const ThreeDMarquee = ({
   className,
 }: {
   images?: string[];
   className?: string;
 }) => {
-  const [isReady, setIsReady] = useState(false);
-
-  // Defer heavy animation initialization until browser is idle
-  useEffect(() => {
-    const startAnimation = () => setIsReady(true);
-    
-    if ('requestIdleCallback' in window) {
-      const id = requestIdleCallback(startAnimation, { timeout: 2000 });
-      return () => cancelIdleCallback(id);
-    } else {
-      // Fallback for Safari
-      const timeout = setTimeout(startAnimation, 100);
-      return () => clearTimeout(timeout);
-    }
-  }, []);
-
-  // Create a reduced number of tiles for better performance
+  // Create a dense grid of tiles with random properties
   const tiles = useMemo(() => {
-    if (!isReady) return [];
-    
     const tileList = [];
     const sizes: Array<"small" | "normal" | "large"> = ["normal", "large", "normal", "large", "normal", "large"];
     
-    // Reduced from 180 to 72 tiles for better FID
-    for (let i = 0; i < 72; i++) {
+    // More tiles for better coverage
+    for (let i = 0; i < 180; i++) {
       tileList.push({
-        delay: (i % 8) * 0.15,
+        delay: (i % 10) * 0.12,
         size: sizes[i % sizes.length],
         intensity: 0.8 + (Math.sin(i * 0.5) * 0.3),
         randomSeed: i * 1.37,
       });
     }
     return tileList;
-  }, [isReady]);
+  }, []);
 
-  // Split into 6 columns for layout
+  // Split into 9 columns for denser layout
   const columns = useMemo(() => {
-    if (!isReady) return [];
-    
     const cols = [];
-    const tilesPerColumn = Math.ceil(tiles.length / 6);
-    for (let i = 0; i < 6; i++) {
+    const tilesPerColumn = Math.ceil(tiles.length / 9);
+    for (let i = 0; i < 9; i++) {
       cols.push(tiles.slice(i * tilesPerColumn, (i + 1) * tilesPerColumn));
     }
     return cols;
-  }, [tiles, isReady]);
-
-  if (!isReady) {
-    return (
-      <div className={cn("mx-auto block h-full w-full", className)}>
-        <StaticPlaceholder />
-      </div>
-    );
-  }
+  }, [tiles]);
 
   return (
     <div className={cn("mx-auto block h-full w-full", className)}>
@@ -157,11 +124,11 @@ export const ThreeDMarquee = ({
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-6 gap-2 w-[300%] h-[300%]">
+          <div className="grid grid-cols-9 gap-1 w-[350%] h-[350%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex + "marquee"}
-                className="flex flex-col items-center gap-2"
+                className="flex flex-col items-center gap-1"
               >
                 {column.map((tile, tileIndex) => (
                   <Tile 
