@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_posts: {
+        Row: {
+          author_name: string
+          category: string
+          content: string
+          created_at: string | null
+          excerpt: string
+          featured_image_url: string | null
+          id: string
+          is_published: boolean
+          published_at: string | null
+          read_time_minutes: number
+          slug: string
+          sort_order: number
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author_name?: string
+          category: string
+          content: string
+          created_at?: string | null
+          excerpt: string
+          featured_image_url?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string | null
+          read_time_minutes?: number
+          slug: string
+          sort_order?: number
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author_name?: string
+          category?: string
+          content?: string
+          created_at?: string | null
+          excerpt?: string
+          featured_image_url?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string | null
+          read_time_minutes?: number
+          slug?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       bundles: {
         Row: {
           bundle_id: string
@@ -191,6 +242,42 @@ export type Database = {
           updated_at?: string | null
           visibility?: string
           who_its_for?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          business_type: string
+          client_name: string
+          created_at: string | null
+          id: string
+          is_featured: boolean
+          quote: string
+          rating: number
+          service_used: string
+          sort_order: number
+        }
+        Insert: {
+          business_type: string
+          client_name: string
+          created_at?: string | null
+          id?: string
+          is_featured?: boolean
+          quote: string
+          rating?: number
+          service_used: string
+          sort_order?: number
+        }
+        Update: {
+          business_type?: string
+          client_name?: string
+          created_at?: string | null
+          id?: string
+          is_featured?: boolean
+          quote?: string
+          rating?: number
+          service_used?: string
+          sort_order?: number
         }
         Relationships: []
       }

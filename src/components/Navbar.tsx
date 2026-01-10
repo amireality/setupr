@@ -47,6 +47,26 @@ const Navbar = () => {
             >
               Services
             </Link>
+            <Link 
+              to="/calculator" 
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                isActive('/calculator') 
+                  ? 'text-foreground bg-secondary' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+              }`}
+            >
+              Calculator
+            </Link>
+            <Link 
+              to="/blog" 
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                isActive('/blog') || location.pathname.startsWith('/blog/') 
+                  ? 'text-foreground bg-secondary' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+              }`}
+            >
+              Resources
+            </Link>
           </div>
 
           {/* CTA */}
