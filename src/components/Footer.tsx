@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import setuprLogo from "@/assets/setupr-logo.svg";
 
 const Footer = () => {
   return (
@@ -10,7 +9,7 @@ const Footer = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center group">
             <img 
-              src={setuprLogo} 
+              src="/setupr-logo.svg" 
               alt="Setupr" 
               className="h-[28px] md:h-[32px] w-auto"
               width={78}

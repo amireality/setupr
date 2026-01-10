@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import setuprLogo from "@/assets/setupr-logo.svg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +16,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center group">
             <img 
-              src={setuprLogo} 
+              src="/setupr-logo.svg" 
               alt="Setupr" 
               className="h-[30px] md:h-[40px] w-auto"
               width={84}
