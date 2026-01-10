@@ -13,6 +13,8 @@ const Footer = () => {
               src={setuprLogo} 
               alt="Setupr" 
               className="h-[28px] md:h-[32px] w-auto"
+              width={78}
+              height={28}
             />
           </Link>
 
