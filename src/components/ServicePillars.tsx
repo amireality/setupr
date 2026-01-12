@@ -2,7 +2,7 @@ import { FileText, Globe, Shield, Layers } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import layeredEdgeBg from "@/assets/layered-edge-bg.png";
 
-const Skeleton = ({ variant }: { variant: "formation" | "digital" | "compliance" | "support" }) => {
+const Skeleton = ({ variant, label, sublabel }: { variant: "formation" | "digital" | "compliance" | "support"; label: string; sublabel: string }) => {
   const patterns = {
     formation: "from-primary/20 via-primary/5 to-transparent",
     digital: "from-transparent via-primary/15 to-primary/10",
@@ -23,6 +23,12 @@ const Skeleton = ({ variant }: { variant: "formation" | "digital" | "compliance"
         }}
       />
       <div className="absolute bottom-0 right-0 w-20 h-20 bg-primary/25 rounded-full blur-3xl group-hover/bento:w-28 group-hover/bento:h-28 transition-all duration-500" />
+      
+      {/* Content overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+        <span className="text-2xl md:text-3xl font-bold font-display text-primary">{label}</span>
+        <span className="text-xs md:text-sm text-muted-foreground mt-1">{sublabel}</span>
+      </div>
     </div>
   );
 };
@@ -45,11 +51,11 @@ const items = [
     title: "Business formation",
     description: (
       <>
-        Get your business registered with the right structure and tax setup.
-        <FeatureChips features={["Company Registration", "GST", "MSME"]} />
+        Get your business registered with the right structure. We handle Pvt Ltd, LLP, OPC, and Proprietorship registrations with GST, PAN/TAN, and MSME.
+        <FeatureChips features={["Company Registration", "GST", "MSME", "PAN/TAN"]} />
       </>
     ),
-    header: <Skeleton variant="formation" />,
+    header: <Skeleton variant="formation" label="7-15 Days" sublabel="Typical registration time" />,
     className: "md:col-span-2",
     icon: <FileText className="h-5 w-5 text-primary" />,
   },
@@ -57,11 +63,11 @@ const items = [
     title: "Digital presence",
     description: (
       <>
-        Your website, domain, and email — set up professionally.
-        <FeatureChips features={["Website", "Domain", "Email"]} />
+        Your professional website, domain, and business email — all set up and ready. Mobile-responsive design with hosting included.
+        <FeatureChips features={["Website", "Domain", "Email", "Hosting"]} />
       </>
     ),
-    header: <Skeleton variant="digital" />,
+    header: <Skeleton variant="digital" label="24-48 Hrs" sublabel="Website setup time" />,
     className: "md:col-span-1",
     icon: <Globe className="h-5 w-5 text-primary" />,
   },
@@ -69,11 +75,11 @@ const items = [
     title: "Basic compliance",
     description: (
       <>
-        The registrations and filings you need to operate legally.
-        <FeatureChips features={["PAN / TAN", "Filing support"]} />
+        Never miss a deadline. We handle annual filings, GST returns, and keep you 100% compliant with government requirements.
+        <FeatureChips features={["Annual Filings", "GST Returns", "Reminders"]} />
       </>
     ),
-    header: <Skeleton variant="compliance" />,
+    header: <Skeleton variant="compliance" label="100%" sublabel="Compliance rate" />,
     className: "md:col-span-1",
     icon: <Shield className="h-5 w-5 text-primary" />,
   },
@@ -81,11 +87,11 @@ const items = [
     title: "Ongoing help",
     description: (
       <>
-        We stay available for questions, updates, and renewals.
-        <FeatureChips features={["Support", "Updates", "Renewals"]} />
+        We stay available for questions, updates, and renewals. Direct liaison with government departments and expert CA/CS assistance.
+        <FeatureChips features={["365 Days Support", "Expert CA/CS", "Renewals"]} />
       </>
     ),
-    header: <Skeleton variant="support" />,
+    header: <Skeleton variant="support" label="365 Days" sublabel="Year-round support" />,
     className: "md:col-span-2",
     icon: <Layers className="h-5 w-5 text-primary" />,
   },

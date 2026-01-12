@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
-import { Instagram, Twitter, Linkedin } from "lucide-react";
+import { Instagram, Linkedin, Mail } from "lucide-react";
+
+// Custom X (Twitter) icon since lucide doesn't have the new X logo
+const XIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
 
 const Footer = () => {
   return (
@@ -109,6 +116,13 @@ const Footer = () => {
           {/* Social Icons */}
           <div className="flex items-center gap-4">
             <a 
+              href="mailto:info@setupr.com" 
+              className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
+              aria-label="Email"
+            >
+              <Mail className="w-5 h-5" />
+            </a>
+            <a 
               href="https://www.instagram.com/setuprhq" 
               target="_blank" 
               rel="noopener noreferrer"
@@ -118,13 +132,13 @@ const Footer = () => {
               <Instagram className="w-5 h-5" />
             </a>
             <a 
-              href="https://twitter.com/setuprhq" 
+              href="https://x.com/setuprhq" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
-              aria-label="Twitter"
+              aria-label="X (Twitter)"
             >
-              <Twitter className="w-5 h-5" />
+              <XIcon />
             </a>
             <a 
               href="https://linkedin.com/company/setupr" 

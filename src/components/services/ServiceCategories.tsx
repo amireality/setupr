@@ -21,14 +21,32 @@ interface ServiceCategoriesProps {
   selectedCategory: string | null;
 }
 
-const CategorySkeleton = ({ gradient }: { gradient: string }) => (
-  <div className={cn(
-    "flex flex-1 w-full h-full min-h-[4rem] rounded-xl bg-gradient-to-br",
-    gradient
-  )}>
-    <div className="w-full h-full bg-[radial-gradient(circle_at_30%_30%,hsl(var(--primary)/0.1)_0%,transparent_50%)]" />
-  </div>
-);
+// Category-specific content for the glow area
+const categoryGlowContent: Record<string, { label: string; sublabel: string }> = {
+  "business-formation": { label: "7-15 Days", sublabel: "Start your legal journey" },
+  "digital-presence": { label: "Live in 48 Hrs", sublabel: "Professional online identity" },
+  "trust-compliance": { label: "100% Compliant", sublabel: "Peace of mind guaranteed" },
+};
+
+const CategorySkeleton = ({ gradient, categoryId }: { gradient: string; categoryId: string }) => {
+  const content = categoryGlowContent[categoryId] || { label: "Expert Help", sublabel: "Professional assistance" };
+  
+  return (
+    <div className={cn(
+      "flex flex-1 w-full h-full min-h-[4rem] rounded-xl bg-gradient-to-br relative overflow-hidden",
+      gradient
+    )}>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,hsl(var(--primary)/0.1)_0%,transparent_50%)]" />
+      <div className="absolute bottom-0 right-0 w-16 h-16 bg-primary/20 rounded-full blur-2xl" />
+      
+      {/* Content overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
+        <span className="text-xl md:text-2xl font-bold font-display text-primary">{content.label}</span>
+        <span className="text-xs text-muted-foreground mt-0.5">{content.sublabel}</span>
+      </div>
+    </div>
+  );
+};
 
 const ServiceCategories = ({ 
   selectedServices, 
@@ -80,7 +98,7 @@ const ServiceCategories = ({
                   "flex flex-col overflow-hidden"
                 )}
               >
-                <CategorySkeleton gradient={category.gradient} />
+                <CategorySkeleton gradient={category.gradient} categoryId={category.category_id} />
                 
                 <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
                   <div className="flex items-center gap-3 mb-2">
