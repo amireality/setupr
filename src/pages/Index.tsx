@@ -8,20 +8,23 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import { ScrollStackContainer } from "@/components/ui/scroll-stack-section";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        <HeroSection />
-        <TrustBadges />
-        <GoalCards />
-        <ServicePillars />
-        <HowItWorks />
-        <Testimonials />
-        <FAQ />
-        <FinalCTA />
+        <ScrollStackContainer>
+          <HeroSection />
+          <TrustBadges />
+          <GoalCards />
+          <ServicePillars />
+          <HowItWorks />
+          <Testimonials />
+          <FAQ />
+          <FinalCTA />
+        </ScrollStackContainer>
       </main>
       <Footer />
     </div>
