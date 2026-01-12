@@ -112,7 +112,7 @@ const Footer = () => {
               href="https://www.instagram.com/setuprhq" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+              className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
               aria-label="Instagram"
             >
               <Instagram className="w-5 h-5" />
@@ -121,7 +121,7 @@ const Footer = () => {
               href="https://twitter.com/setuprhq" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+              className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
               aria-label="Twitter"
             >
               <Twitter className="w-5 h-5" />
@@ -130,7 +130,7 @@ const Footer = () => {
               href="https://linkedin.com/company/setupr" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-lg bg-secondary/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+              className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
