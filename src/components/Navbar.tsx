@@ -1,13 +1,31 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { useDbCategories, useDbServices } from "@/hooks/useServices";
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { data: categories = [] } = useDbCategories();
+  const { data: services = [] } = useDbServices();
 
   const isActive = (path: string) => location.pathname === path;
+
+  const publicServices = services.filter(s => s.visibility === 'public');
+
+  const getServicesByCategory = (categoryId: string) => {
+    return publicServices.filter(s => s.category === categoryId).slice(0, 6);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-transparent relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/50 after:to-transparent after:shadow-[0_0_8px_hsl(var(--primary)/0.4)]">
@@ -37,26 +55,63 @@ const Navbar = () => {
             >
               Home
             </Link>
-            <Link 
-              to="/services" 
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                isActive('/services') 
-                  ? 'text-foreground bg-secondary' 
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-              }`}
-            >
-              Services
-            </Link>
-            <Link 
-              to="/calculator" 
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                isActive('/calculator') 
-                  ? 'text-foreground bg-secondary' 
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-              }`}
-            >
-              Calculator
-            </Link>
+            
+            {/* Services Mega Menu */}
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger 
+                    className={cn(
+                      "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-transparent",
+                      isActive('/services') 
+                        ? 'text-foreground bg-secondary' 
+                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
+                      "data-[state=open]:bg-secondary/50"
+                    )}
+                  >
+                    Services
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-[600px] p-4 bg-card border border-border rounded-xl shadow-xl">
+                      <div className="grid grid-cols-3 gap-4">
+                        {categories.slice(0, 6).map((category) => (
+                          <div key={category.id} className="group">
+                            <h4 className="font-semibold text-sm text-foreground mb-2 flex items-center gap-2">
+                              {category.title}
+                            </h4>
+                            <ul className="space-y-1">
+                              {getServicesByCategory(category.category_id).map((service) => (
+                                <li key={service.id}>
+                                  <NavigationMenuLink asChild>
+                                    <Link
+                                      to="/services"
+                                      className="block text-xs text-muted-foreground hover:text-foreground transition-colors py-1"
+                                    >
+                                      {service.service_name}
+                                    </Link>
+                                  </NavigationMenuLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <NavigationMenuLink asChild>
+                          <Link 
+                            to="/services" 
+                            className="text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+                          >
+                            View all services →
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
             <Link 
               to="/blog" 
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
@@ -110,17 +165,6 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Services
-              </Link>
-              <Link 
-                to="/calculator" 
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive('/calculator') 
-                    ? 'text-foreground bg-secondary' 
-                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                }`}
-                onClick={() => setIsOpen(false)}
-              >
-                Calculator
               </Link>
               <Link 
                 to="/blog" 
