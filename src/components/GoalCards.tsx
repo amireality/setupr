@@ -1,7 +1,7 @@
 import { Rocket, Briefcase, TrendingUp } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 
-const Skeleton = ({ variant }: { variant: "start" | "formalize" | "scale" }) => {
+const Skeleton = ({ variant, label, sublabel }: { variant: "start" | "formalize" | "scale"; label: string; sublabel: string }) => {
   const gradients = {
     start: "from-primary/20 via-primary/10 to-transparent",
     formalize: "from-primary/15 via-transparent to-primary/10",
@@ -23,6 +23,12 @@ const Skeleton = ({ variant }: { variant: "start" | "formalize" | "scale" }) => 
       />
       {/* Warm glow */}
       <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/20 rounded-full blur-3xl group-hover/bento:w-32 group-hover/bento:h-32 transition-all duration-500" />
+      
+      {/* Content overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+        <span className="text-2xl md:text-3xl font-bold font-display text-primary">{label}</span>
+        <span className="text-xs md:text-sm text-muted-foreground mt-1">{sublabel}</span>
+      </div>
     </div>
   );
 };
@@ -31,24 +37,24 @@ const items = [
   {
     title: "Starting fresh",
     description:
-      "You have a skill or an idea. You want to begin properly from day one.",
-    header: <Skeleton variant="start" />,
+      "You have a skill or an idea. You want to begin properly from day one — with the right registration, bank account, and digital presence.",
+    header: <Skeleton variant="start" label="₹0 → ₹1L" sublabel="Your first revenue milestone" />,
     className: "md:col-span-2",
     icon: <Rocket className="h-5 w-5 text-primary" />,
   },
   {
     title: "Already working",
     description:
-      "You're freelancing or running something informal. Time to make it official.",
-    header: <Skeleton variant="formalize" />,
+      "You're freelancing or running something informal. Time to go legit — get GST, a current account, and proper invoicing.",
+    header: <Skeleton variant="formalize" label="Going Legal" sublabel="From informal to official" />,
     className: "md:col-span-1",
     icon: <Briefcase className="h-5 w-5 text-primary" />,
   },
   {
     title: "Ready to grow",
     description:
-      "You have a registered business. Now you need better systems and structure.",
-    header: <Skeleton variant="scale" />,
+      "You have a registered business. Now you need better systems — compliance, trademark protection, and professional infrastructure.",
+    header: <Skeleton variant="scale" label="Scale Up" sublabel="Systems for 10x growth" />,
     className: "md:col-span-1",
     icon: <TrendingUp className="h-5 w-5 text-primary" />,
   },
