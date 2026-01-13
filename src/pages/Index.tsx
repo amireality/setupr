@@ -2,7 +2,8 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import TrustBadges from "@/components/TrustBadges";
 import GoalCards from "@/components/GoalCards";
-import ServicePillars from "@/components/ServicePillars";
+import RecommendedBundles from "@/components/RecommendedBundles";
+import CollapsibleServices from "@/components/CollapsibleServices";
 import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
@@ -17,7 +18,8 @@ const Index = () => {
         <HeroSection />
         <TrustBadges />
         <GoalCards />
-        <ServicePillars />
+        <RecommendedBundles />
+        <CollapsibleServices />
         <HowItWorks />
         <Testimonials />
         <FAQ />

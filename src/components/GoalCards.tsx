@@ -1,33 +1,52 @@
-import { Rocket, Briefcase, TrendingUp } from "lucide-react";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { Lightbulb, FileCheck, TrendingUp } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const Skeleton = ({ variant, label, sublabel }: { variant: "start" | "formalize" | "scale"; label: string; sublabel: string }) => {
+const Skeleton = ({
+  variant = "default",
+  title,
+  subtitle,
+}: {
+  variant?: "purple" | "orange" | "green" | "default";
+  title: string;
+  subtitle: string;
+}) => {
   const gradients = {
-    start: "from-primary/20 via-primary/10 to-transparent",
-    formalize: "from-primary/15 via-transparent to-primary/10",
-    scale: "from-transparent via-primary/15 to-primary/20",
+    purple: "from-primary/25 via-primary/15 to-transparent",
+    orange: "from-primary/30 via-primary/15 to-transparent",
+    green: "from-primary/25 via-primary/15 to-transparent",
+    default: "from-primary/20 via-transparent to-transparent",
   };
 
   return (
     <div
-      className={`flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br ${gradients[variant]} border border-border/20 relative overflow-hidden`}
+      className={cn(
+        "flex flex-1 w-full h-full min-h-[8rem] rounded-xl bg-gradient-to-br border border-border/20 relative overflow-hidden",
+        gradients[variant]
+      )}
     >
       {/* Animated dot pattern */}
       <div
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage:
-            "radial-gradient(circle, hsl(var(--primary) / 0.3) 1px, transparent 1px)",
-          backgroundSize: "16px 16px",
+            "radial-gradient(circle, hsl(var(--primary) / 0.5) 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
         }}
       />
-      {/* Warm glow */}
-      <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/20 rounded-full blur-3xl group-hover/bento:w-32 group-hover/bento:h-32 transition-all duration-500" />
+
+      {/* Warm glow effect */}
+      <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/30 rounded-full blur-3xl group-hover/bento:w-40 group-hover/bento:h-40 transition-all duration-500" />
       
-      {/* Content overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-        <span className="text-2xl md:text-3xl font-bold font-display text-primary">{label}</span>
-        <span className="text-xs md:text-sm text-muted-foreground mt-1">{sublabel}</span>
+      {/* Title and subtitle content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+        <span className="font-display text-2xl md:text-3xl font-bold text-foreground mb-1">
+          {title}
+        </span>
+        <span className="text-sm text-muted-foreground">
+          {subtitle}
+        </span>
       </div>
     </div>
   );
@@ -35,89 +54,88 @@ const Skeleton = ({ variant, label, sublabel }: { variant: "start" | "formalize"
 
 const items = [
   {
-    title: "Starting fresh",
+    title: "Thinking of starting",
     description:
-      "You have a skill or an idea. You want to begin properly from day one — with the right registration, bank account, and digital presence.",
-    header: <Skeleton variant="start" label="₹0 → ₹1L" sublabel="Your first revenue milestone" />,
-    className: "md:col-span-2",
-    icon: <Rocket className="h-5 w-5 text-primary" />,
+      "Not registered yet. Just exploring your options and figuring out what's needed to start a business.",
+    header: <Skeleton variant="purple" title="₹0 → ₹1L" subtitle="Your first revenue milestone" />,
+    icon: <Lightbulb className="h-5 w-5 text-primary" />,
+    link: "/intake?stage=thinking",
   },
   {
-    title: "Already working",
+    title: "Going legal",
     description:
-      "You're freelancing or running something informal. Time to go legit — get GST, a current account, and proper invoicing.",
-    header: <Skeleton variant="formalize" label="Going Legal" sublabel="From informal to official" />,
-    className: "md:col-span-1",
-    icon: <Briefcase className="h-5 w-5 text-primary" />,
+      "Ready to register and formalize. You know what you want to do, now it's time to make it official.",
+    header: <Skeleton variant="orange" title="Going Legal" subtitle="From informal to official" />,
+    icon: <FileCheck className="h-5 w-5 text-primary" />,
+    link: "/intake?stage=legal",
   },
   {
-    title: "Ready to grow",
+    title: "Ready to scale",
     description:
-      "You have a registered business. Now you need better systems — compliance, trademark protection, and professional infrastructure.",
-    header: <Skeleton variant="scale" label="Scale Up" sublabel="Systems for 10x growth" />,
-    className: "md:col-span-1",
+      "Already registered. Need systems, compliance, and growth tools to take your business to the next level.",
+    header: <Skeleton variant="green" title="Scale Up" subtitle="Systems for 10x growth" />,
     icon: <TrendingUp className="h-5 w-5 text-primary" />,
+    link: "/intake?stage=scale",
   },
 ];
 
 const GoalCards = () => {
   return (
-    <section className="py-20 md:py-28 relative bg-background">
-      {/* Subtle grid continuation */}
+    <section id="journey-cards" className="py-20 md:py-28 relative bg-background">
+      {/* Background grid */}
       <div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-[0.03]"
         style={{
-          backgroundImage:
-            "linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px)",
+          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
+                           linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
-          {/* Custom Grid Layout matching sketch: 2x2 grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            {/* Row 1 */}
-            {/* Title - top left, takes 2 columns */}
-            <div className="md:col-span-2 flex items-center">
-              <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
-                Where are you on your journey?
+          {/* Custom grid for title + 3 cards */}
+          <div className="grid md:grid-cols-4 gap-4 md:gap-6">
+            {/* Title card */}
+            <div className="md:col-span-1 flex flex-col justify-center mb-6 md:mb-0">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3 text-balance">
+                Where are you in your business journey?
               </h2>
+              <p className="text-muted-foreground text-sm">
+                Pick your stage. We'll guide you from there.
+              </p>
             </div>
 
-            {/* Card 1 (Starting Fresh) - top right, same size as Going Legit */}
-            <div className="md:col-span-1">
-              <BentoGridItem
-                title={items[0].title}
-                description={items[0].description}
-                header={items[0].header}
-                className="h-full min-h-[14rem]"
-                icon={items[0].icon}
-              />
-            </div>
-
-            {/* Row 2 */}
-            {/* Card 2 (Going Legit) - bottom left, same size as Card 1 */}
-            <div className="md:col-span-1">
-              <BentoGridItem
-                title={items[1].title}
-                description={items[1].description}
-                header={items[1].header}
-                className="h-full min-h-[14rem]"
-                icon={items[1].icon}
-              />
-            </div>
-
-            {/* Card 3 (Ready to Scale) - bottom right, wider */}
-            <div className="md:col-span-2">
-              <BentoGridItem
-                title={items[2].title}
-                description={items[2].description}
-                header={items[2].header}
-                className="h-full min-h-[14rem]"
-                icon={items[2].icon}
-              />
-            </div>
+            {/* Journey cards */}
+            {items.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+              >
+                <Link
+                  to={item.link}
+                  className="block group h-full"
+                >
+                  <div className="row-span-1 rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-4 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col justify-between h-full overflow-hidden cursor-pointer">
+                    {item.header}
+                    <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        {item.icon}
+                        <h3 className="font-display text-lg font-semibold text-foreground">
+                          {item.title}
+                        </h3>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

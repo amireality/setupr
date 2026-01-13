@@ -122,12 +122,23 @@ const Navbar = () => {
             >
               Resources
             </Link>
+
+            <Link 
+              to="/contact" 
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                isActive('/contact') 
+                  ? 'text-foreground bg-secondary' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+              }`}
+            >
+              Contact
+            </Link>
           </div>
 
           {/* CTA */}
           <div className="hidden md:flex items-center">
             <Button variant="default" size="sm" asChild>
-              <Link to="/services">Get Started</Link>
+              <Link to="/intake">Get Started</Link>
             </Button>
           </div>
 
@@ -177,9 +188,20 @@ const Navbar = () => {
               >
                 Resources
               </Link>
+              <Link 
+                to="/contact" 
+                className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  isActive('/contact')
+                    ? 'text-foreground bg-secondary' 
+                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                Contact
+              </Link>
               <div className="pt-4 mt-2 border-t border-border/50">
                 <Button variant="default" size="sm" className="w-full" asChild>
-                  <Link to="/services" onClick={() => setIsOpen(false)}>Get Started</Link>
+                  <Link to="/intake" onClick={() => setIsOpen(false)}>Get Started</Link>
                 </Button>
               </div>
             </div>
