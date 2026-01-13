@@ -1,26 +1,21 @@
-import { Shield, CheckCircle, Users, Lock } from "lucide-react";
+import { Wallet, Map, HeadphonesIcon } from "lucide-react";
 import { motion } from "framer-motion";
 
 const badges = [
   {
-    icon: Shield,
-    label: "MCA Registered",
-    description: "Official registration partner",
+    icon: Wallet,
+    label: "Transparent Pricing",
+    description: "No hidden costs",
   },
   {
-    icon: CheckCircle,
-    label: "100+ Businesses",
-    description: "Successfully registered",
+    icon: Map,
+    label: "Guided Setup",
+    description: "Step-by-step process",
   },
   {
-    icon: Lock,
-    label: "Secure & Encrypted",
-    description: "Your data is protected",
-  },
-  {
-    icon: Users,
-    label: "Expert Support",
-    description: "Dedicated team assistance",
+    icon: HeadphonesIcon,
+    label: "Human Support",
+    description: "Expert team assistance",
   },
 ];
 

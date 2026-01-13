@@ -14,25 +14,25 @@ const StepSkeleton = ({ step }: { step: string }) => {
 
 const items = [
   {
-    title: "Tell us what you need",
+    title: "Tell us where you are",
     description:
-      "Answer a few questions about your business. We'll understand your situation and recommend services.",
+      "We understand your stage and needs. Answer a few quick questions about your business journey.",
     header: <StepSkeleton step="01" />,
     className: "md:col-span-1",
     icon: <MessageCircle className="h-5 w-5 text-primary" />,
   },
   {
-    title: "We handle the setup",
+    title: "We map the setup",
     description:
-      "Our team takes care of the paperwork, registrations, and technical work. You stay informed throughout.",
+      "You get a clear checklist and timeline. No guesswork — just a straightforward plan tailored to you.",
     header: <StepSkeleton step="02" />,
     className: "md:col-span-1",
     icon: <FileCheck className="h-5 w-5 text-primary" />,
   },
   {
-    title: "You're ready to operate",
+    title: "We execute with you",
     description:
-      "Everything is in place — legal, digital, and administrative. You can focus on your actual work.",
+      "Experts handle the paperwork. You stay in control and informed at every step of the way.",
     header: <StepSkeleton step="03" />,
     className: "md:col-span-1",
     icon: <Rocket className="h-5 w-5 text-primary" />,

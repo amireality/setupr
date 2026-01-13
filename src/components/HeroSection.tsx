@@ -39,14 +39,14 @@ const HeroSection = () => {
 
           {/* Subheadline */}
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed animate-fade-up-delay-1">
-            We handle registrations, digital setup, and the paperwork so you can focus on your work.
+            From legal registration to digital presence — we guide you step by step so you don't have to figure it out alone.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center animate-fade-up-delay-2">
             <Button variant="hero" size="xl" asChild className="shadow-glow">
-              <Link to="/services">
-                Get Started
+              <Link to="/intake">
+                Start with your journey
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
