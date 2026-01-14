@@ -106,13 +106,14 @@ const CollapsibleServices = () => {
                     <AccordionContent className="pb-5">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
                         {categoryServices.slice(0, 8).map((service) => (
-                          <div
+                          <Link
                             key={service.id}
-                            className="flex items-center gap-2 p-2 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors"
+                            to={`/services/${service.service_id}`}
+                            className="flex items-center gap-2 p-2 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors group"
                           >
-                            <ChevronRight className="w-4 h-4 text-primary flex-shrink-0" />
-                            <span className="text-sm text-foreground">{service.service_name}</span>
-                          </div>
+                            <ChevronRight className="w-4 h-4 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                            <span className="text-sm text-foreground group-hover:text-primary transition-colors">{service.service_name}</span>
+                          </Link>
                         ))}
                       </div>
                       {categoryServices.length > 8 && (

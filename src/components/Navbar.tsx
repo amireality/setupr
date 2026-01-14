@@ -60,16 +60,25 @@ const Navbar = () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger 
+                  <Link 
+                    to="/services"
                     className={cn(
-                      "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-transparent",
-                      isActive('/services') 
+                      "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                      isActive('/services') || location.pathname.startsWith('/services/')
                         ? 'text-foreground bg-secondary' 
-                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50',
-                      "data-[state=open]:bg-secondary/50"
+                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
                     )}
                   >
                     Services
+                  </Link>
+                  <NavigationMenuTrigger 
+                    className={cn(
+                      "px-1 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-transparent -ml-2",
+                      "text-muted-foreground hover:text-foreground",
+                      "data-[state=open]:bg-secondary/50"
+                    )}
+                  >
+                    <span className="sr-only">Open services menu</span>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="w-[600px] p-4 bg-card border border-border rounded-xl shadow-xl">
@@ -84,8 +93,8 @@ const Navbar = () => {
                                 <li key={service.id}>
                                   <NavigationMenuLink asChild>
                                     <Link
-                                      to="/services"
-                                      className="block text-xs text-muted-foreground hover:text-foreground transition-colors py-1"
+                                      to={`/services/${service.service_id}`}
+                                      className="block text-xs text-muted-foreground hover:text-primary transition-colors py-1"
                                     >
                                       {service.service_name}
                                     </Link>
