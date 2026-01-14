@@ -24,9 +24,9 @@ const BundleSkeleton = ({ gradient, title, subtitle }: { gradient: string; title
 );
 
 const bundleHighlights: Record<string, { title: string; subtitle: string }> = {
-  "starter": { title: "From ₹2,999", subtitle: "Complete registration" },
-  "presence": { title: "Live in 48 Hrs", subtitle: "Professional presence" },
-  "legal-only": { title: "Essentials Only", subtitle: "Just the paperwork" },
+  "starter": { title: "Start Right", subtitle: "Everything to launch legally" },
+  "presence": { title: "Get Noticed", subtitle: "Build credibility fast" },
+  "legal-only": { title: "Stay Compliant", subtitle: "Focus on what matters" },
 };
 
 const RecommendedBundles = () => {
@@ -98,41 +98,45 @@ const RecommendedBundles = () => {
                   <BundleSkeleton gradient={bundle.gradient} title={highlight.title} subtitle={highlight.subtitle} />
                   
                   <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
-                    <div className={cn(
-                      "w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300",
-                      "bg-background/50 group-hover/bento:bg-primary/20"
-                    )}>
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className={cn(
+                        "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300",
+                        "bg-background/50 group-hover/bento:bg-primary/20"
+                      )}>
+                        <Icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-display text-lg font-semibold text-foreground">
+                          {bundle.bundle_name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {bundle.who_its_for}
+                        </p>
+                      </div>
                     </div>
                     
-                    <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                      {bundle.bundle_name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      {bundle.who_its_for}
-                    </p>
-                    
-                    {bundle.bundle_setupr_fee > 0 && (
-                      <div className="space-y-1 mb-3">
-                        <p className="text-lg font-semibold text-foreground">
-                          ₹{formatPrice(bundle.bundle_setupr_fee)}
-                        </p>
-                        {savings > 0 && (
-                          <p className="text-xs text-muted-foreground">
-                            Save ₹{formatPrice(savings)} vs individual
-                          </p>
-                        )}
-                      </div>
-                    )}
-                    
                     {bundle.included_service_ids.length > 0 && (
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-muted-foreground mb-3">
                         {bundle.govt_fee_note}
                       </p>
                     )}
 
-                    <div className="mt-4 flex items-center gap-2 text-primary text-sm font-medium">
-                      View bundle <ArrowRight className="w-4 h-4 group-hover/bento:translate-x-1 transition-transform" />
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/20">
+                      {bundle.bundle_setupr_fee > 0 && (
+                        <div>
+                          <p className="text-lg font-semibold text-foreground">
+                            ₹{formatPrice(bundle.bundle_setupr_fee)}
+                          </p>
+                          {savings > 0 && (
+                            <p className="text-xs text-primary">
+                              Save ₹{formatPrice(savings)}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1 text-primary text-sm font-medium">
+                        View <ArrowRight className="w-4 h-4 group-hover/bento:translate-x-1 transition-transform" />
+                      </div>
                     </div>
                   </div>
                 </Link>

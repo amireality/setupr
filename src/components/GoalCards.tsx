@@ -57,7 +57,7 @@ const items = [
     title: "Thinking of starting",
     description:
       "Not registered yet. Just exploring your options and figuring out what's needed to start a business.",
-    header: <Skeleton variant="purple" title="₹0 → ₹1L" subtitle="Your first revenue milestone" />,
+    header: <Skeleton variant="purple" title="Dream It" subtitle="Turn your idea into reality" />,
     icon: <Lightbulb className="h-5 w-5 text-primary" />,
     link: "/intake?stage=thinking",
   },
@@ -65,7 +65,7 @@ const items = [
     title: "Going legal",
     description:
       "Ready to register and formalize. You know what you want to do, now it's time to make it official.",
-    header: <Skeleton variant="orange" title="Going Legal" subtitle="From informal to official" />,
+    header: <Skeleton variant="orange" title="Own It" subtitle="Make it legally yours" />,
     icon: <FileCheck className="h-5 w-5 text-primary" />,
     link: "/intake?stage=legal",
   },
@@ -73,7 +73,7 @@ const items = [
     title: "Ready to scale",
     description:
       "Already registered. Need systems, compliance, and growth tools to take your business to the next level.",
-    header: <Skeleton variant="green" title="Scale Up" subtitle="Systems for 10x growth" />,
+    header: <Skeleton variant="green" title="Grow It" subtitle="Build systems for 10x" />,
     icon: <TrendingUp className="h-5 w-5 text-primary" />,
     link: "/intake?stage=scale",
   },
