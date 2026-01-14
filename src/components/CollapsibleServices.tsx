@@ -17,11 +17,11 @@ const iconMap: Record<string, React.ElementType> = {
   Users,
 };
 
-const categoryDescriptions: Record<string, string> = {
-  "formation": "Company registration, GST, PAN, legal identity setup",
-  "digital": "Website, domain, business email, branding essentials",
-  "compliance": "Annual filings, GST returns, statutory compliance",
-  "expert": "CA/CS consultation, renewals, ongoing support",
+const categoryHighlights: Record<string, { title: string; subtitle: string; description: string }> = {
+  "formation": { title: "Build Foundation", subtitle: "Legal identity first", description: "Company registration, GST, PAN, legal identity setup" },
+  "digital": { title: "Go Online", subtitle: "Be found everywhere", description: "Website, domain, business email, branding essentials" },
+  "compliance": { title: "Stay Safe", subtitle: "Zero penalty risk", description: "Annual filings, GST returns, statutory compliance" },
+  "expert": { title: "Get Help", subtitle: "Experts on demand", description: "CA/CS consultation, renewals, ongoing support" },
 };
 
 const CollapsibleServices = () => {
@@ -71,7 +71,7 @@ const CollapsibleServices = () => {
             {categories.map((category, index) => {
               const Icon = iconMap[category.icon] || Building2;
               const categoryServices = getServicesByCategory(category.category_id);
-              const description = categoryDescriptions[category.category_id] || category.intro;
+              const highlight = categoryHighlights[category.category_id] || { title: category.title, subtitle: "", description: category.intro };
 
               return (
                 <motion.div
@@ -83,33 +83,45 @@ const CollapsibleServices = () => {
                 >
                   <AccordionItem
                     value={category.category_id}
-                    className="glass-card rounded-xl px-6 border-border/50 data-[state=open]:border-primary/30 transition-colors overflow-hidden"
+                    className="rounded-2xl border border-border/30 bg-secondary/40 backdrop-blur-sm data-[state=open]:border-primary/40 data-[state=open]:shadow-glow transition-all duration-300 overflow-hidden"
                   >
-                    <AccordionTrigger className="py-5 hover:no-underline group">
-                      <div className="flex items-center gap-4 text-left">
+                    <AccordionTrigger className="py-0 hover:no-underline group">
+                      <div className="flex items-stretch gap-0 w-full">
+                        {/* Glow header with psychological title */}
                         <div className={cn(
-                          "w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300",
-                          "bg-primary/10 group-hover:bg-primary/20"
+                          "w-28 md:w-36 flex flex-col items-center justify-center p-4 rounded-l-2xl bg-gradient-to-br shrink-0 relative overflow-hidden",
+                          category.gradient
                         )}>
-                          <Icon className="w-6 h-6 text-primary" />
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.25)_0%,transparent_60%)]" />
+                          <span className="font-display text-sm md:text-base font-bold text-foreground text-center relative z-10">{highlight.title}</span>
+                          <span className="text-xs text-muted-foreground text-center relative z-10">{highlight.subtitle}</span>
                         </div>
-                        <div>
-                          <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                            {category.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {description}
-                          </p>
+                        {/* Content */}
+                        <div className="flex-1 flex items-center gap-4 p-4 pl-5 text-left">
+                          <div className={cn(
+                            "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
+                            "bg-background/50 group-hover:bg-primary/20"
+                          )}>
+                            <Icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-display text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                              {category.title}
+                            </h3>
+                            <p className="text-xs md:text-sm text-muted-foreground truncate">
+                              {highlight.description}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-5">
+                    <AccordionContent className="px-6 pb-5">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
                         {categoryServices.slice(0, 8).map((service) => (
                           <Link
                             key={service.id}
                             to={`/services/${service.service_id}`}
-                            className="flex items-center gap-2 p-2 rounded-lg bg-secondary/30 hover:bg-secondary/50 transition-colors group"
+                            className="flex items-center gap-2 p-2.5 rounded-lg bg-background/50 hover:bg-primary/10 border border-border/20 hover:border-primary/30 transition-all group"
                           >
                             <ChevronRight className="w-4 h-4 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
                             <span className="text-sm text-foreground group-hover:text-primary transition-colors">{service.service_name}</span>
