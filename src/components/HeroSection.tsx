@@ -39,7 +39,7 @@ const HeroSection = () => {
 
           {/* Subheadline */}
           <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed animate-fade-up-delay-1">
-            From legal registration to digital presence — we guide you step by step so you don't have to figure it out alone.
+            From legal registration to digital presence. We guide you step by step so you don't have to figure it out alone.
           </p>
 
           {/* CTA Buttons */}
