@@ -232,10 +232,11 @@ const ServiceDetail = () => {
                 {/* Pricing Card */}
                 <div className="glass-card rounded-2xl p-6 border border-primary/20">
                   <div className="text-center mb-6">
-                    <p className="text-sm text-muted-foreground mb-2">Setupr Fee</p>
+                    <p className="text-sm text-muted-foreground mb-2">Setupr Fee + GST</p>
                     <p className="text-4xl font-display font-bold text-foreground">
                       ₹{formatPrice(service.setupr_fee_inr)}
                     </p>
+                    <p className="text-xs text-muted-foreground mt-1">+ 18% GST</p>
                     {service.govt_or_third_party_fee && service.govt_or_third_party_fee !== '-' && (
                       <p className="text-sm text-muted-foreground mt-2">
                         + {service.govt_or_third_party_fee} (Govt Fee)

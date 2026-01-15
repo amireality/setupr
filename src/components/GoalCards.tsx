@@ -119,7 +119,7 @@ const GoalCards = () => {
                   to={item.link}
                   className="block group h-full"
                 >
-                  <div className="row-span-1 rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-4 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col justify-between h-full overflow-hidden cursor-pointer">
+                  <div className="row-span-1 rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-4 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col justify-between h-full overflow-hidden cursor-pointer hover:scale-[1.02] hover:-translate-y-1">
                     {item.header}
                     <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
                       <div className="flex items-center gap-2 mb-2">
