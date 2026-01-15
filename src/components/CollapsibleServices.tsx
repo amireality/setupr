@@ -66,62 +66,63 @@ const CollapsibleServices = () => {
           </p>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {categories.map((category, index) => {
-              const Icon = iconMap[category.icon] || Building2;
-              const categoryServices = getServicesByCategory(category.category_id);
-              const highlight = categoryHighlights[category.category_id] || { title: category.title, subtitle: "", description: category.intro };
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+          {categories.map((category, index) => {
+            const Icon = iconMap[category.icon] || Building2;
+            const categoryServices = getServicesByCategory(category.category_id);
+            const highlight = categoryHighlights[category.category_id] || { title: category.title, subtitle: "", description: category.intro };
 
-              return (
-                <motion.div
-                  key={category.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                >
+            return (
+              <motion.div
+                key={category.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
+                <Accordion type="single" collapsible>
                   <AccordionItem
                     value={category.category_id}
-                    className="rounded-2xl border border-border/30 bg-secondary/40 backdrop-blur-sm data-[state=open]:border-primary/40 data-[state=open]:shadow-glow transition-all duration-300 overflow-hidden"
+                    className="rounded-2xl border border-border/30 bg-secondary/40 backdrop-blur-sm data-[state=open]:border-primary/40 data-[state=open]:shadow-glow transition-all duration-300 overflow-hidden hover:border-primary/30 hover:shadow-[0_0_40px_-15px_hsl(var(--primary)/0.3)] group/bento"
                   >
                     <AccordionTrigger className="py-0 hover:no-underline group">
-                      <div className="flex items-stretch gap-0 w-full">
+                      <div className="flex flex-col w-full">
                         {/* Glow header with psychological title */}
                         <div className={cn(
-                          "w-28 md:w-36 flex flex-col items-center justify-center p-4 rounded-l-2xl bg-gradient-to-br shrink-0 relative overflow-hidden",
+                          "w-full flex flex-col items-center justify-center p-4 md:p-6 rounded-t-2xl bg-gradient-to-br relative overflow-hidden",
                           category.gradient
                         )}>
                           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.25)_0%,transparent_60%)]" />
-                          <span className="font-display text-sm md:text-base font-bold text-foreground text-center relative z-10">{highlight.title}</span>
-                          <span className="text-xs text-muted-foreground text-center relative z-10">{highlight.subtitle}</span>
+                          <span className="font-display text-xl md:text-2xl font-bold text-foreground text-center relative z-10">{highlight.title}</span>
+                          <span className="text-sm text-muted-foreground text-center relative z-10">{highlight.subtitle}</span>
                         </div>
                         {/* Content */}
-                        <div className="flex-1 flex items-center gap-4 p-4 pl-5 text-left">
+                        <div className="flex items-center gap-4 p-4 text-left">
                           <div className={cn(
-                            "w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
+                            "w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
                             "bg-background/50 group-hover:bg-primary/20"
                           )}>
-                            <Icon className="w-5 h-5 text-primary" />
+                            <Icon className="w-6 h-6 text-primary" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <h3 className="font-display text-base md:text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                               {category.title}
                             </h3>
-                            <p className="text-xs md:text-sm text-muted-foreground truncate">
+                            <p className="text-xs md:text-sm text-muted-foreground line-clamp-2">
                               {highlight.description}
                             </p>
                           </div>
                         </div>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="px-6 pb-5">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                    <AccordionContent className="px-4 pb-5">
+                      <div className="grid grid-cols-1 gap-2 mt-2">
                         {categoryServices.slice(0, 8).map((service) => (
                           <Link
                             key={service.id}
                             to={`/services/${service.service_id}`}
-                            className="flex items-center gap-2 p-2.5 rounded-lg bg-background/50 hover:bg-primary/10 border border-border/20 hover:border-primary/30 transition-all group"
+                            className="flex items-center gap-2 p-3 rounded-xl bg-background/50 hover:bg-primary/10 border border-border/20 hover:border-primary/30 transition-all group"
                           >
                             <ChevronRight className="w-4 h-4 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
                             <span className="text-sm text-foreground group-hover:text-primary transition-colors">{service.service_name}</span>
@@ -142,10 +143,10 @@ const CollapsibleServices = () => {
                       </Link>
                     </AccordionContent>
                   </AccordionItem>
-                </motion.div>
-              );
-            })}
-          </Accordion>
+                </Accordion>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

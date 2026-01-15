@@ -92,6 +92,7 @@ const RecommendedBundles = () => {
                     "block rounded-2xl group/bento transition-all duration-300 p-4",
                     "bg-secondary/40 backdrop-blur-sm border border-border/20",
                     "hover:shadow-glow hover:border-primary/40",
+                    "hover:scale-[1.02] hover:-translate-y-1",
                     "h-full"
                   )}
                 >
