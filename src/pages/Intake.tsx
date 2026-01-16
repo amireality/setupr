@@ -45,10 +45,15 @@ const Intake = () => {
   });
 
   useEffect(() => {
+    // Handle both singular (from ServiceDetail) and plural (from Services page) params
     const servicesParam = searchParams.get("services");
+    const singleServiceParam = searchParams.get("service");
+    
     if (servicesParam) {
       const services = servicesParam.split(",") as ServiceId[];
       setFormData(prev => ({ ...prev, selectedServices: services }));
+    } else if (singleServiceParam) {
+      setFormData(prev => ({ ...prev, selectedServices: [singleServiceParam as ServiceId] }));
     }
   }, [searchParams]);
 
