@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import TrustBadges from "@/components/TrustBadges";
+import TrustStats from "@/components/TrustStats";
 import GoalCards from "@/components/GoalCards";
 import RecommendedBundles from "@/components/RecommendedBundles";
 import CollapsibleServices from "@/components/CollapsibleServices";
@@ -16,7 +16,7 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
-        <TrustBadges />
+        <TrustStats />
         <GoalCards />
         <RecommendedBundles />
         <CollapsibleServices />

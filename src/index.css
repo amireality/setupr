@@ -216,6 +216,28 @@
     animation: fade-up 0.6s ease-out 0.4s forwards;
     opacity: 0;
   }
+
+  /* Card hover lift effect */
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--glass-shadow-hover);
+  }
+
+  /* Link arrow animation */
+  .arrow-animate {
+    @apply inline-block transition-transform duration-200;
+  }
+  .group:hover .arrow-animate {
+    transform: translateX(4px);
+  }
+
+  /* Glow pulse effect */
+  .glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
 }
 
 @keyframes fade-up {
@@ -226,6 +248,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(24 95% 53% / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(24 95% 53% / 0.4);
   }
 }
 
