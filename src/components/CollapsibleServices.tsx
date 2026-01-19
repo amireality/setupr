@@ -1,13 +1,8 @@
-import { Building2, Globe, Shield, Users, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { Building2, Globe, Shield, Users, ChevronRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { useDbCategories, useDbServices } from "@/hooks/useServices";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -19,15 +14,16 @@ const iconMap: Record<string, React.ElementType> = {
 
 // Unique psychological titles and subtitles for each category
 const categoryHighlights: Record<string, { title: string; subtitle: string; description: string }> = {
-  "formation": { title: "Build Foundation", subtitle: "Legal identity first", description: "Registration, GST, PAN — your business exists officially" },
-  "digital": { title: "Go Online", subtitle: "Be seen everywhere", description: "Website, domain, email — your digital storefront" },
-  "compliance": { title: "Stay Protected", subtitle: "Zero penalty risk", description: "Filings, returns, renewals — peace of mind included" },
-  "expert": { title: "Get Backed", subtitle: "Pro help anytime", description: "CA/CS on call when you need expert guidance" },
+  "formation": { title: "Business Formation & Legal Identity", subtitle: "", description: "Get your business registered and legally recognized." },
+  "digital": { title: "Digital Presence & Business Identity", subtitle: "", description: "Your website, domain, and email — set up professionally." },
+  "compliance": { title: "Trust, Compliance & Risk Reduction", subtitle: "", description: "The registrations and filings you need to operate legally." },
+  "expert": { title: "Visibility & Discoverability Setup", subtitle: "", description: "Get found online with profiles and listings." },
 };
 
 const CollapsibleServices = () => {
   const { data: categories = [], isLoading: categoriesLoading } = useDbCategories();
   const { data: services = [], isLoading: servicesLoading } = useDbServices();
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
 
   if (categoriesLoading || servicesLoading) {
     return (
@@ -46,6 +42,19 @@ const CollapsibleServices = () => {
   const getServicesByCategory = (categoryId: string) => {
     return publicServices.filter(s => s.category === categoryId);
   };
+
+  const toggleCategory = (categoryId: string) => {
+    setOpenCategory(prev => prev === categoryId ? null : categoryId);
+  };
+
+  // Define bento grid layout - matching reference image
+  const gridClasses = [
+    "md:col-span-1", // Formation - left column
+    "md:col-span-1", // Digital - right column
+    "md:col-span-1", // Compliance - wide
+    "md:col-span-1", // Expert - right
+    "md:col-span-1", // Operations - bottom left
+  ];
 
   return (
     <section className="py-20 md:py-28 relative bg-background">
@@ -67,20 +76,13 @@ const CollapsibleServices = () => {
           </p>
         </motion.div>
 
-        {/* True Bento Grid Layout - asymmetric spanning */}
-        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[minmax(140px,auto)] gap-3 md:gap-4 max-w-5xl mx-auto">
+        {/* Clean 2-column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
           {categories.map((category, index) => {
             const Icon = iconMap[category.icon] || Building2;
             const categoryServices = getServicesByCategory(category.category_id);
             const highlight = categoryHighlights[category.category_id] || { title: category.title, subtitle: "", description: category.intro };
-
-            // Asymmetric span classes for bento effect
-            const spanClasses = [
-              "col-span-2 md:col-span-2 row-span-1", // formation - wide
-              "col-span-2 md:col-span-2 row-span-1", // digital - wide  
-              "col-span-2 md:col-span-3 row-span-1", // compliance - extra wide
-              "col-span-2 md:col-span-1 row-span-1", // expert - small
-            ];
+            const isOpen = openCategory === category.category_id;
 
             return (
               <motion.div
@@ -89,71 +91,98 @@ const CollapsibleServices = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className={spanClasses[index % 4]}
+                className={cn(gridClasses[index % 5])}
               >
-                <Accordion type="single" collapsible className="h-full">
-                  <AccordionItem
-                    value={category.category_id}
-                    className="rounded-2xl border border-border/30 bg-secondary/40 backdrop-blur-sm data-[state=open]:border-primary/40 data-[state=open]:shadow-glow transition-all duration-300 overflow-hidden hover:border-primary/30 hover:shadow-[0_0_40px_-15px_hsl(var(--primary)/0.3)] group/bento h-full flex flex-col"
+                <div
+                  className={cn(
+                    "rounded-2xl border border-border/30 bg-secondary/40 backdrop-blur-sm transition-all duration-300 overflow-hidden group/bento h-full",
+                    isOpen ? "border-primary/40 shadow-glow" : "hover:border-primary/30 hover:shadow-[0_0_40px_-15px_hsl(var(--primary)/0.3)]"
+                  )}
+                >
+                  {/* Clickable Header */}
+                  <button
+                    onClick={() => toggleCategory(category.category_id)}
+                    className="w-full text-left focus:outline-none"
                   >
-                    <AccordionTrigger className="py-0 hover:no-underline group flex-1">
-                      <div className="flex flex-col w-full h-full">
-                        {/* Glow header with unique psychological title */}
+                    <div className="flex flex-col">
+                      {/* Glow header */}
+                      <div className={cn(
+                        "w-full flex items-center justify-between p-4 md:p-5 rounded-t-2xl bg-gradient-to-br relative overflow-hidden",
+                        category.gradient
+                      )}>
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.25)_0%,transparent_60%)]" />
+                        <span className="font-display text-base md:text-xl font-bold text-foreground relative z-10">
+                          {highlight.title}
+                        </span>
+                        <ChevronDown className={cn(
+                          "w-5 h-5 text-muted-foreground transition-transform duration-300 relative z-10",
+                          isOpen && "rotate-180"
+                        )} />
+                      </div>
+                      
+                      {/* Summary content - always visible */}
+                      <div className="flex items-center gap-3 p-4">
                         <div className={cn(
-                          "w-full flex flex-col items-center justify-center p-3 md:p-5 rounded-t-2xl bg-gradient-to-br relative overflow-hidden flex-1",
-                          category.gradient
+                          "w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
+                          isOpen ? "bg-primary/20" : "bg-background/50 group-hover/bento:bg-primary/20"
                         )}>
-                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.25)_0%,transparent_60%)]" />
-                          <span className="font-display text-lg md:text-2xl font-bold text-foreground text-center relative z-10">{highlight.title}</span>
-                          <span className="text-xs md:text-sm text-muted-foreground text-center relative z-10">{highlight.subtitle}</span>
+                          <Icon className="w-5 h-5 text-primary" />
                         </div>
-                        {/* Content */}
-                        <div className="flex items-center gap-3 p-3 md:p-4 text-left">
-                          <div className={cn(
-                            "w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
-                            "bg-background/50 group-hover:bg-primary/20"
+                        <div className="flex-1 min-w-0">
+                          <h3 className={cn(
+                            "font-display text-sm md:text-base font-semibold transition-colors",
+                            isOpen ? "text-primary" : "text-foreground group-hover/bento:text-primary"
                           )}>
-                            <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-display text-sm md:text-base font-semibold text-foreground group-hover:text-primary transition-colors">
-                              {category.title}
-                            </h3>
-                            <p className="text-xs text-muted-foreground line-clamp-2 hidden sm:block">
-                              {highlight.description}
-                            </p>
-                          </div>
+                            {category.title}
+                          </h3>
+                          <p className="text-xs text-muted-foreground line-clamp-2">
+                            {highlight.description}
+                          </p>
                         </div>
                       </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-3 md:px-4 pb-4">
-                      <div className="grid grid-cols-1 gap-2 mt-2">
-                        {categoryServices.slice(0, 6).map((service) => (
-                          <Link
-                            key={service.id}
-                            to={`/services/${service.service_id}`}
-                            className="flex items-center gap-2 p-2 md:p-3 rounded-xl bg-background/50 hover:bg-primary/10 border border-border/20 hover:border-primary/30 transition-all group"
-                          >
-                            <ChevronRight className="w-3 h-3 md:w-4 md:h-4 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                            <span className="text-xs md:text-sm text-foreground group-hover:text-primary transition-colors">{service.service_name}</span>
-                          </Link>
-                        ))}
-                      </div>
-                      {categoryServices.length > 6 && (
-                        <p className="text-xs text-muted-foreground mt-2">
-                          +{categoryServices.length - 6} more services
-                        </p>
-                      )}
-                      <Link
-                        to="/services"
-                        className="inline-flex items-center gap-2 mt-3 text-xs md:text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+                    </div>
+                  </button>
+
+                  {/* Expandable Content */}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
                       >
-                        View all {category.title.toLowerCase()} services
-                        <ChevronRight className="w-3 h-3 md:w-4 md:h-4" />
-                      </Link>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                        <div className="px-4 pb-4">
+                          <div className="grid grid-cols-1 gap-2">
+                            {categoryServices.slice(0, 6).map((service) => (
+                              <Link
+                                key={service.id}
+                                to={`/services/${service.service_id}`}
+                                className="flex items-center gap-2 p-3 rounded-xl bg-background/50 hover:bg-primary/10 border border-border/20 hover:border-primary/30 transition-all group"
+                              >
+                                <ChevronRight className="w-4 h-4 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                                <span className="text-sm text-foreground group-hover:text-primary transition-colors">{service.service_name}</span>
+                              </Link>
+                            ))}
+                          </div>
+                          {categoryServices.length > 6 && (
+                            <p className="text-xs text-muted-foreground mt-3">
+                              +{categoryServices.length - 6} more services
+                            </p>
+                          )}
+                          <Link
+                            to="/services"
+                            className="inline-flex items-center gap-2 mt-4 text-sm text-primary hover:text-primary/80 font-medium transition-colors"
+                          >
+                            View all {category.title.toLowerCase()} services
+                            <ChevronRight className="w-4 h-4" />
+                          </Link>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </motion.div>
             );
           })}
