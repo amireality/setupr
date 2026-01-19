@@ -22,7 +22,7 @@ const Skeleton = ({
   return (
     <div
       className={cn(
-        "flex flex-1 w-full h-full min-h-[6rem] md:min-h-[8rem] rounded-xl bg-gradient-to-br border border-border/20 relative overflow-hidden",
+        "flex flex-1 w-full h-full min-h-[100px] md:min-h-[120px] rounded-xl bg-gradient-to-br border border-border/20 relative overflow-hidden",
         gradients[variant]
       )}
     >
@@ -94,37 +94,40 @@ const GoalCards = () => {
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
-          {/* True Bento Grid - asymmetric layout */}
-          <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[minmax(120px,auto)] gap-3 md:gap-4">
-            {/* Title card - spans 2 cols on mobile, 1 on desktop */}
-            <div className="col-span-2 md:col-span-1 flex flex-col justify-center mb-4 md:mb-0 row-span-1 md:row-span-2">
-              <h2 className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-2 md:mb-3 text-balance">
+          {/* Bento Grid Layout matching reference: 
+              Row 1: [Heading] [Card 1]
+              Row 2: [Card 2] [Card 3 - wide]
+          */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            {/* Row 1 */}
+            <div className="md:col-span-1 flex flex-col justify-center py-4 md:py-0">
+              <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">
                 Where are you in your journey?
               </h2>
-              <p className="text-muted-foreground text-xs md:text-sm">
+              <p className="text-muted-foreground text-sm md:text-base">
                 Pick your stage. We'll guide you from there.
               </p>
             </div>
 
-            {/* First card - spans 2 cols */}
+            {/* Card 1 - Next to heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 0.5 }}
-              className="col-span-2 row-span-1"
+              className="md:col-span-2"
             >
               <Link to={items[0].link} className="block group h-full">
-                <div className="row-span-1 rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-3 md:p-4 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col justify-between h-full overflow-hidden cursor-pointer hover:scale-[1.02] hover:-translate-y-1">
+                <div className="rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-4 md:p-5 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col h-full overflow-hidden cursor-pointer hover:scale-[1.02] hover:-translate-y-1">
                   {items[0].header}
-                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-3 md:mt-4">
-                    <div className="flex items-center gap-2 mb-1 md:mb-2">
+                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
+                    <div className="flex items-center gap-2 mb-2">
                       {items[0].icon}
-                      <h3 className="font-display text-sm md:text-lg font-semibold text-foreground">
+                      <h3 className="font-display text-base md:text-lg font-semibold text-foreground">
                         {items[0].title}
                       </h3>
                     </div>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {items[0].description}
                     </p>
                   </div>
@@ -132,25 +135,26 @@ const GoalCards = () => {
               </Link>
             </motion.div>
 
-            {/* Second card - spans 1 col on desktop */}
+            {/* Row 2 */}
+            {/* Card 2 - Small, below heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="col-span-1 row-span-1 md:row-span-2"
+              className="md:col-span-1"
             >
               <Link to={items[1].link} className="block group h-full">
-                <div className="row-span-1 rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-3 md:p-4 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col justify-between h-full overflow-hidden cursor-pointer hover:scale-[1.02] hover:-translate-y-1">
+                <div className="rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-4 md:p-5 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col h-full overflow-hidden cursor-pointer hover:scale-[1.02] hover:-translate-y-1">
                   {items[1].header}
-                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-3 md:mt-4">
-                    <div className="flex items-center gap-2 mb-1 md:mb-2">
+                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
+                    <div className="flex items-center gap-2 mb-2">
                       {items[1].icon}
-                      <h3 className="font-display text-sm md:text-lg font-semibold text-foreground">
+                      <h3 className="font-display text-base md:text-lg font-semibold text-foreground">
                         {items[1].title}
                       </h3>
                     </div>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {items[1].description}
                     </p>
                   </div>
@@ -158,25 +162,25 @@ const GoalCards = () => {
               </Link>
             </motion.div>
 
-            {/* Third card - spans 2 cols */}
+            {/* Card 3 - Wide, next to Card 2 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="col-span-1 md:col-span-2 row-span-1"
+              className="md:col-span-2"
             >
               <Link to={items[2].link} className="block group h-full">
-                <div className="row-span-1 rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-3 md:p-4 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col justify-between h-full overflow-hidden cursor-pointer hover:scale-[1.02] hover:-translate-y-1">
+                <div className="rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-4 md:p-5 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col h-full overflow-hidden cursor-pointer hover:scale-[1.02] hover:-translate-y-1">
                   {items[2].header}
-                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-3 md:mt-4">
-                    <div className="flex items-center gap-2 mb-1 md:mb-2">
+                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4">
+                    <div className="flex items-center gap-2 mb-2">
                       {items[2].icon}
-                      <h3 className="font-display text-sm md:text-lg font-semibold text-foreground">
+                      <h3 className="font-display text-base md:text-lg font-semibold text-foreground">
                         {items[2].title}
                       </h3>
                     </div>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {items[2].description}
                     </p>
                   </div>

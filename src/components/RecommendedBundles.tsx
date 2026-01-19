@@ -12,22 +12,16 @@ const iconMap: Record<string, React.ElementType> = {
 
 const BundleSkeleton = ({ gradient, title, subtitle }: { gradient: string; title: string; subtitle: string }) => (
   <div className={cn(
-    "w-full h-20 md:h-24 rounded-xl bg-gradient-to-br shrink-0 relative overflow-hidden",
+    "w-full h-24 md:h-28 rounded-xl bg-gradient-to-br shrink-0 relative overflow-hidden",
     gradient
   )}>
     <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.2)_0%,transparent_60%)]" />
     <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
-      <span className="font-display text-base md:text-xl font-bold text-foreground">{title}</span>
+      <span className="font-display text-lg md:text-2xl font-bold text-foreground">{title}</span>
       <span className="text-xs text-muted-foreground">{subtitle}</span>
     </div>
   </div>
 );
-
-const bundleHighlights: Record<string, { title: string; subtitle: string }> = {
-  "starter": { title: "Start Right", subtitle: "Everything to launch legally" },
-  "presence": { title: "Get Noticed", subtitle: "Build credibility fast" },
-  "legal-only": { title: "Stay Compliant", subtitle: "Focus on what matters" },
-};
 
 const RecommendedBundles = () => {
   const { data: bundles = [], isLoading: bundlesLoading } = useDbBundles();
@@ -49,13 +43,6 @@ const RecommendedBundles = () => {
     return null;
   }
 
-  // Bento span patterns for asymmetric layout
-  const spanClasses = [
-    "col-span-2 md:col-span-2 row-span-1", // starter - wide
-    "col-span-2 md:col-span-1 row-span-1 md:row-span-2", // presence - tall on desktop
-    "col-span-2 md:col-span-1 row-span-1", // legal-only - small
-  ];
-
   return (
     <section className="py-16 md:py-28 relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -68,7 +55,7 @@ const RecommendedBundles = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8 md:mb-12"
+          className="text-center mb-10 md:mb-14"
         >
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">
             Most founders start here
@@ -78,13 +65,22 @@ const RecommendedBundles = () => {
           </p>
         </motion.div>
 
-        {/* True Bento Grid - asymmetric layout */}
-        <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[minmax(180px,auto)] gap-3 md:gap-4 max-w-5xl mx-auto">
+        {/* Bento Grid Layout matching reference:
+            Row 1: [Bundle 1 - wide] [Bundle 2 - tall, spans 2 rows]
+            Row 2: [Bundle 3 - small]
+        */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
           {bundles.map((bundle, index) => {
             const Icon = iconMap[bundle.icon] || Rocket;
             const individualTotal = calculateDbTotal(services, bundle.included_service_ids);
             const savings = individualTotal - bundle.bundle_setupr_fee;
-            const highlight = bundleHighlights[bundle.bundle_id] || { title: `₹${formatPrice(bundle.bundle_setupr_fee)}`, subtitle: "Bundle price" };
+            
+            // Define grid positions
+            const gridClasses = [
+              "md:col-span-2 md:row-span-1", // Bundle 1 - wide
+              "md:col-span-1 md:row-span-2", // Bundle 2 - tall
+              "md:col-span-1 md:row-span-1", // Bundle 3 - small
+            ];
             
             return (
               <motion.div
@@ -93,48 +89,52 @@ const RecommendedBundles = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className={spanClasses[index % 3]}
+                className={gridClasses[index % 3]}
               >
                 <Link
                   to={`/services?bundle=${bundle.bundle_id}`}
                   className={cn(
-                    "block rounded-2xl group/bento transition-all duration-300 p-3 md:p-4",
+                    "block rounded-2xl group/bento transition-all duration-300 p-4 md:p-5",
                     "bg-secondary/40 backdrop-blur-sm border border-border/20",
                     "hover:shadow-glow hover:border-primary/40",
                     "hover:scale-[1.02] hover:-translate-y-1",
                     "h-full flex flex-col"
                   )}
                 >
-                  <BundleSkeleton gradient={bundle.gradient} title={highlight.title} subtitle={highlight.subtitle} />
+                  <BundleSkeleton 
+                    gradient={bundle.gradient} 
+                    title={`₹${formatPrice(bundle.bundle_setupr_fee)}`} 
+                    subtitle="Bundle price" 
+                  />
                   
-                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-3 md:mt-4 flex-1 flex flex-col">
-                    <div className="flex items-start gap-2 md:gap-3 mb-2 md:mb-3">
+                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-4 flex-1 flex flex-col">
+                    <div className="flex items-start gap-3 mb-3">
                       <div className={cn(
-                        "w-8 h-8 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300",
+                        "w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300",
                         "bg-background/50 group-hover/bento:bg-primary/20"
                       )}>
-                        <Icon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+                        <Icon className="w-5 h-5 text-primary" />
                       </div>
-                      <div className="min-w-0">
-                        <h3 className="font-display text-sm md:text-lg font-semibold text-foreground">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-display text-base md:text-lg font-semibold text-foreground">
                           {bundle.bundle_name}
                         </h3>
-                        <p className="text-xs md:text-sm text-muted-foreground line-clamp-2">
+                        <p className="text-sm text-muted-foreground line-clamp-2">
                           {bundle.who_its_for}
                         </p>
                       </div>
                     </div>
                     
                     {bundle.included_service_ids.length > 0 && (
-                      <p className="text-xs text-muted-foreground mb-2 md:mb-3 line-clamp-2">
+                      <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
                         {bundle.govt_fee_note}
                       </p>
                     )}
 
-                    <div className="flex items-center justify-between mt-auto pt-2 md:pt-3 border-t border-border/20">
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/20">
                       {bundle.bundle_setupr_fee > 0 && (
                         <div>
-                          <p className="text-sm md:text-lg font-semibold text-foreground">
+                          <p className="text-base md:text-lg font-semibold text-foreground">
                             ₹{formatPrice(bundle.bundle_setupr_fee)}
                           </p>
                           {savings > 0 && (
@@ -144,8 +144,8 @@ const RecommendedBundles = () => {
                           )}
                         </div>
                       )}
-                      <div className="flex items-center gap-1 text-primary text-xs md:text-sm font-medium">
-                        View <ArrowRight className="w-3 h-3 md:w-4 md:h-4 group-hover/bento:translate-x-1 transition-transform" />
+                      <div className="flex items-center gap-1 text-primary text-sm font-medium">
+                        View <ArrowRight className="w-4 h-4 group-hover/bento:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </div>
