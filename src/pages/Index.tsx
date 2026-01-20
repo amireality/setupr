@@ -9,12 +9,16 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Global Animated Background */}
+      <AnimatedGridBackground />
+      
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <HeroSection />
         <TrustStats />
         <GoalCards />
