@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlogCard from "@/components/blog/BlogCard";
+import BlogThumbnail from "@/components/blog/BlogThumbnail";
+import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { useBlogPosts, useBlogCategories } from "@/hooks/useBlogPosts";
 
 const Blog = () => {
@@ -35,9 +37,10 @@ const Blog = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <AnimatedGridBackground />
         <Navbar />
-        <main className="pt-24 pb-16">
+        <main className="pt-24 pb-16 relative z-10">
           <div className="container px-4 md:px-6 flex justify-center items-center min-h-[60vh]">
             <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
@@ -48,14 +51,15 @@ const Blog = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <AnimatedGridBackground />
       <Navbar />
-      <main className="pt-24 pb-16">
+      <main className="pt-24 pb-16 relative z-10">
         <div className="container px-4 md:px-6">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
@@ -73,8 +77,8 @@ const Blog = () => {
 
           {/* Search & Filter */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ delay: 0.1, duration: 0.5 }}
             className="flex flex-col md:flex-row gap-4 mb-10"
           >
@@ -96,6 +100,7 @@ const Blog = () => {
                 variant={selectedCategory === null ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedCategory(null)}
+                className={selectedCategory === null ? "shadow-[0_0_20px_-5px_hsl(24_95%_53%/0.4)]" : ""}
               >
                 All
               </Button>
@@ -105,6 +110,7 @@ const Blog = () => {
                   variant={selectedCategory === category ? "default" : "outline"}
                   size="sm"
                   onClick={() => setSelectedCategory(category)}
+                  className={selectedCategory === category ? "shadow-[0_0_20px_-5px_hsl(24_95%_53%/0.4)]" : ""}
                 >
                   {category}
                 </Button>
@@ -122,38 +128,46 @@ const Blog = () => {
               {/* Featured Post */}
               {featuredPost && (
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   transition={{ delay: 0.2, duration: 0.5 }}
                   className="mb-12"
                 >
                   <Link
                     to={`/blog/${featuredPost.slug}`}
-                    className="group block glass-card glass-card-hover rounded-2xl overflow-hidden"
+                    className="group block rounded-2xl overflow-hidden relative"
                   >
-                    <div className="grid md:grid-cols-2 gap-0">
-                      {/* Image */}
-                      <div className="aspect-video md:aspect-auto bg-gradient-to-br from-primary/20 via-primary/10 to-transparent flex items-center justify-center min-h-[250px]">
-                        <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                          <span className="text-4xl">📄</span>
+                    {/* Gradient border effect on hover */}
+                    <div 
+                      className="absolute -inset-[1px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{
+                        background: "linear-gradient(135deg, hsl(24 95% 53% / 0.5) 0%, transparent 40%, transparent 60%, hsl(30 100% 50% / 0.3) 100%)",
+                      }}
+                    />
+                    
+                    <div className="relative glass-card rounded-2xl overflow-hidden transition-all duration-500 group-hover:shadow-[0_0_60px_-12px_hsl(24_95%_53%/0.3)] group-hover:border-primary/30">
+                      <div className="grid md:grid-cols-2 gap-0">
+                        {/* Custom Thumbnail Graphic */}
+                        <div className="aspect-video md:aspect-auto min-h-[250px]">
+                          <BlogThumbnail category={featuredPost.category} className="w-full h-full" />
                         </div>
-                      </div>
 
-                      {/* Content */}
-                      <div className="p-8 flex flex-col justify-center">
-                        <span className="inline-block w-fit px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-full border border-primary/20 mb-4">
-                          {featuredPost.category}
-                        </span>
-                        <h2 className="text-2xl md:text-3xl font-bold font-display mb-3 group-hover:text-primary transition-colors">
-                          {featuredPost.title}
-                        </h2>
-                        <p className="text-muted-foreground mb-4 line-clamp-3">
-                          {featuredPost.excerpt}
-                        </p>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                          <span>{featuredPost.author_name}</span>
-                          <span>•</span>
-                          <span>{featuredPost.read_time_minutes} min read</span>
+                        {/* Content */}
+                        <div className="p-8 flex flex-col justify-center">
+                          <span className="inline-block w-fit px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-full border border-primary/30 mb-4">
+                            {featuredPost.category}
+                          </span>
+                          <h2 className="text-2xl md:text-3xl font-bold font-display text-foreground mb-3 group-hover:text-primary transition-colors">
+                            {featuredPost.title}
+                          </h2>
+                          <p className="text-muted-foreground mb-4 line-clamp-3">
+                            {featuredPost.excerpt}
+                          </p>
+                          <div className="flex items-center gap-4 text-sm text-muted-foreground/60">
+                            <span>{featuredPost.author_name}</span>
+                            <span>•</span>
+                            <span>{featuredPost.read_time_minutes} min read</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -174,21 +188,30 @@ const Blog = () => {
 
           {/* CTA Section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mt-16 text-center glass-card rounded-2xl p-8 md:p-12"
+            className="mt-16 text-center relative"
           >
-            <h2 className="text-2xl md:text-3xl font-bold font-display mb-4">
-              Ready to Start Your Business?
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Let Setupr handle the paperwork while you focus on building your dream business.
-            </p>
-            <Button asChild size="lg">
-              <Link to="/services">Explore Services</Link>
-            </Button>
+            {/* Gradient border */}
+            <div 
+              className="absolute -inset-[1px] rounded-2xl"
+              style={{
+                background: "linear-gradient(135deg, hsl(24 95% 53% / 0.3) 0%, transparent 40%, transparent 60%, hsl(30 100% 50% / 0.2) 100%)",
+              }}
+            />
+            <div className="relative glass-card rounded-2xl p-8 md:p-12">
+              <h2 className="text-2xl md:text-3xl font-bold font-display mb-4">
+                Ready to Start Your Business?
+              </h2>
+              <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+                Let Setupr handle the paperwork while you focus on building your dream business.
+              </p>
+              <Button asChild size="lg" className="shadow-[0_0_30px_-8px_hsl(24_95%_53%/0.5)]">
+                <Link to="/services">Explore Services</Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </main>
