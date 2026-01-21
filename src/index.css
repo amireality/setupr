@@ -147,8 +147,16 @@
   .gradient-text {
     background: var(--gradient-accent);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* Fallback for browsers where background-clip:text isn't applied */
+    color: hsl(var(--primary));
+  }
+
+  /* Only make text transparent when the clipping is actually supported */
+  @supports (-webkit-background-clip: text) {
+    .gradient-text {
+      -webkit-text-fill-color: transparent;
+    }
   }
 
   .glass {
