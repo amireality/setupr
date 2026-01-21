@@ -20,7 +20,7 @@ export const TyperEffect = ({ words, className = "" }: TyperEffectProps) => {
   }, [words.length]);
 
   return (
-    <span className={className}>
+    <span className={`inline-flex items-baseline ${className}`} style={{ minWidth: '180px' }}>
       <AnimatePresence mode="wait">
         <motion.span
           key={currentIndex}
