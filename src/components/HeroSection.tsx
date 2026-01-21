@@ -74,8 +74,8 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Set up your{" "}
-            <TyperEffect words={businessTypes} className="gradient-text" />.{" "}
+          Set up your{" "}
+            <TyperEffect words={businessTypes} className="gradient-text" />{" "}
             <span className="gradient-text">The right way.</span>
           </motion.h1>
 
