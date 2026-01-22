@@ -112,19 +112,19 @@ export const ThreeDMarquee = ({
   }, [tiles]);
 
   return (
-    <div className={cn("mx-auto block h-full w-full", className)}>
+    <div className={cn("mx-auto block h-full w-full overflow-hidden", className)}>
       <div 
         className="relative flex h-full w-full items-center justify-center"
         style={{ perspective: "1200px" }}
       >
         <div 
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center overflow-hidden"
           style={{
             transform: "rotateX(55deg) rotateZ(-45deg)",
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="grid grid-cols-9 gap-1 w-[350%] h-[350%]">
+          <div className="grid grid-cols-5 md:grid-cols-9 gap-1 w-[200%] md:w-[350%] h-[200%] md:h-[350%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex + "marquee"}

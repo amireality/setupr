@@ -44,13 +44,13 @@ export const AnimatedGridBackground = ({ className }: { className?: string }) =>
         }}
       />
 
-      {/* Mesh Gradient Orbs - Much more visible */}
+      {/* Mesh Gradient Orbs - Responsive sizing for mobile */}
       {/* Top-left warm orb */}
       <div 
-        className="absolute -top-[15%] -left-[5%] w-[70%] h-[70%] rounded-full"
+        className="absolute -top-[10%] md:-top-[15%] -left-[5%] w-[50%] md:w-[70%] h-[50%] md:h-[70%] rounded-full"
         style={{
           background: 'radial-gradient(circle, hsl(24 95% 53% / 0.5) 0%, hsl(30 100% 45% / 0.25) 40%, transparent 65%)',
-          filter: 'blur(80px)',
+          filter: 'blur(60px)',
           opacity: 0.6,
           animation: 'meshFloat1 12s ease-in-out infinite',
         }}
@@ -58,10 +58,10 @@ export const AnimatedGridBackground = ({ className }: { className?: string }) =>
       
       {/* Center-right amber orb */}
       <div 
-        className="absolute top-[25%] -right-[10%] w-[55%] h-[55%] rounded-full"
+        className="absolute top-[25%] -right-[5%] md:-right-[10%] w-[40%] md:w-[55%] h-[40%] md:h-[55%] rounded-full"
         style={{
           background: 'radial-gradient(circle, hsl(30 100% 50% / 0.45) 0%, hsl(24 90% 40% / 0.2) 45%, transparent 65%)',
-          filter: 'blur(100px)',
+          filter: 'blur(80px)',
           opacity: 0.5,
           animation: 'meshFloat2 15s ease-in-out infinite',
         }}
@@ -69,18 +69,18 @@ export const AnimatedGridBackground = ({ className }: { className?: string }) =>
       
       {/* Bottom warm glow */}
       <div 
-        className="absolute -bottom-[5%] left-[15%] w-[70%] h-[50%] rounded-full"
+        className="absolute -bottom-[5%] left-[10%] md:left-[15%] w-[50%] md:w-[70%] h-[35%] md:h-[50%] rounded-full"
         style={{
           background: 'radial-gradient(circle, hsl(24 95% 50% / 0.4) 0%, hsl(24 80% 40% / 0.15) 45%, transparent 65%)',
-          filter: 'blur(90px)',
+          filter: 'blur(70px)',
           opacity: 0.55,
           animation: 'meshFloat3 10s ease-in-out infinite',
         }}
       />
       
-      {/* Extra center pulsing orb for more presence */}
+      {/* Extra center pulsing orb - hidden on mobile for performance */}
       <div 
-        className="absolute top-[40%] left-[30%] w-[40%] h-[40%] rounded-full"
+        className="absolute top-[40%] left-[30%] w-[30%] md:w-[40%] h-[30%] md:h-[40%] rounded-full hidden sm:block"
         style={{
           background: 'radial-gradient(circle, hsl(24 100% 55% / 0.3) 0%, transparent 60%)',
           filter: 'blur(60px)',

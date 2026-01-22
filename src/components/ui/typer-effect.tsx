@@ -23,7 +23,7 @@ export const TyperEffect = ({ words, className = "" }: TyperEffectProps) => {
   }, [words.length]);
 
   return (
-    <span className="inline-flex items-baseline" style={{ minWidth: 180 }}>
+    <span className="inline-flex items-baseline justify-center min-w-[100px] sm:min-w-[140px] md:min-w-[180px]">
       <AnimatePresence mode="wait">
         <motion.span
           key={currentIndex}
@@ -31,7 +31,6 @@ export const TyperEffect = ({ words, className = "" }: TyperEffectProps) => {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          // NOTE: apply gradient-text to the actual text element (text-fill isn't reliably inherited)
           className={`inline-block ${className}`}
         >
           {words[currentIndex]}

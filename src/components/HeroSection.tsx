@@ -17,7 +17,7 @@ const HeroSection = () => {
   const businessTypes = ["Business", "Agency", "Startup", "Venture", "Company"];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
       {/* 3D Marquee Background with orange tiles */}
       <div className="absolute inset-0 overflow-hidden opacity-30">
         <ThreeDMarquee />
@@ -65,17 +65,19 @@ const HeroSection = () => {
         <GlassShape variant="browser" size="md" delay={0.2} />
       </motion.div>
 
-      <div className="container relative z-10 px-4 md:px-6 py-20 md:py-24">
-        <div className="max-w-3xl mx-auto text-center">
+      <div className="container relative z-10 px-4 md:px-6 py-16 md:py-24">
+        <div className="max-w-[95%] sm:max-w-xl md:max-w-3xl mx-auto text-center">
           {/* Headline with Typer Effect */}
           <motion.h1 
-            className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-5 text-balance"
+            className="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] mb-5 text-balance"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-          Set up your{" "}
-            <TyperEffect words={businessTypes} className="gradient-text" />{" "}
+            Set up your{" "}
+            <TyperEffect words={businessTypes} className="gradient-text" />
+            <br className="sm:hidden" />
+            <span className="hidden sm:inline">{" "}</span>
             <span className="gradient-text">The right way.</span>
           </motion.h1>
 
