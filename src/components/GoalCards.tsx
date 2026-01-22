@@ -81,7 +81,7 @@ const items = [
 
 const GoalCards = () => {
   return (
-    <section id="journey-cards" className="py-16 md:py-28 relative bg-background">
+    <section id="journey-cards" className="py-12 md:py-28 relative bg-background">
       {/* Background grid */}
       <div
         className="absolute inset-0 opacity-[0.03]"
