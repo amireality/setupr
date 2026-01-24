@@ -89,10 +89,10 @@ export const ThreeDMarquee = ({
     const tileList = [];
     const sizes: Array<"small" | "normal" | "large"> = ["normal", "large", "normal", "large", "normal", "large"];
     
-    // More tiles for full coverage - 16 columns x 30 rows = 480 tiles
-    for (let i = 0; i < 480; i++) {
+    // More tiles for full coverage - 12 columns x 25 rows = 300 tiles
+    for (let i = 0; i < 300; i++) {
       tileList.push({
-        delay: (i % 16) * 0.08,
+        delay: (i % 12) * 0.1,
         size: sizes[i % sizes.length],
         intensity: 0.8 + (Math.sin(i * 0.5) * 0.3),
         randomSeed: i * 1.37,
@@ -101,11 +101,11 @@ export const ThreeDMarquee = ({
     return tileList;
   }, []);
 
-  // Split into 16 columns for maximum coverage
+  // Split into 12 columns for fuller coverage
   const columns = useMemo(() => {
     const cols = [];
-    const tilesPerColumn = Math.ceil(tiles.length / 16);
-    for (let i = 0; i < 16; i++) {
+    const tilesPerColumn = Math.ceil(tiles.length / 12);
+    for (let i = 0; i < 12; i++) {
       cols.push(tiles.slice(i * tilesPerColumn, (i + 1) * tilesPerColumn));
     }
     return cols;
@@ -114,21 +114,17 @@ export const ThreeDMarquee = ({
   return (
     <div className={cn("mx-auto block h-full w-full overflow-hidden", className)}>
       <div 
-        className="relative h-full w-full"
+        className="relative flex h-full w-full items-center justify-center"
         style={{ perspective: "1200px" }}
       >
         <div 
-          className="absolute overflow-hidden"
+          className="absolute inset-0 flex items-center justify-center overflow-hidden"
           style={{
-            transform: "rotateX(50deg) rotateZ(-45deg)",
+            transform: "rotateX(55deg) rotateZ(-45deg)",
             transformStyle: "preserve-3d",
-            top: "-200%",
-            left: "-200%",
-            width: "600%",
-            height: "600%",
           }}
         >
-          <div className="grid grid-cols-8 md:grid-cols-16 gap-1 w-full h-full">
+          <div className="grid grid-cols-6 md:grid-cols-12 gap-1 w-[350%] md:w-[500%] h-[350%] md:h-[500%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex + "marquee"}
