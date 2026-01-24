@@ -10,7 +10,11 @@ const XIcon = () => (
 
 const Footer = () => {
   return (
-    <footer className="bg-background border-t border-border/30 py-12 md:py-16 relative z-20">
+    <footer className="bg-background py-12 md:py-16 relative z-20">
+      {/* Gradient glow border at top */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+      <div className="absolute top-0 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
+      
       <div className="container px-4 md:px-6 relative z-10">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
