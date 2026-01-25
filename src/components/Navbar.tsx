@@ -192,6 +192,25 @@ const Navbar = () => {
             </Link>
 
             <Link 
+              to="/career" 
+              className={cn(
+                "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                isActive('/career') 
+                  ? 'text-foreground bg-secondary' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+              )}
+            >
+              Careers
+              {isActive('/career') && (
+                <motion.div
+                  layoutId="navbar-indicator"
+                  className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+            </Link>
+
+            <Link 
               to="/contact" 
               className={cn(
                 "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
@@ -311,6 +330,20 @@ const Navbar = () => {
                       onClick={() => setIsOpen(false)}
                     >
                       Resources
+                    </Link>
+                  </motion.div>
+                  <motion.div variants={mobileItemVariants}>
+                    <Link 
+                      to="/career" 
+                      className={cn(
+                        "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block",
+                        isActive('/career')
+                          ? 'text-foreground bg-secondary' 
+                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Careers
                     </Link>
                   </motion.div>
                   <motion.div variants={mobileItemVariants}>
