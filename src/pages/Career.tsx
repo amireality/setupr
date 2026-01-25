@@ -36,6 +36,8 @@ const fellowshipSchema = z.object({
   cityState: z.string().max(100).optional(),
   currentStatus: z.string().min(1, "Please select your current status"),
   educationBackground: z.string().max(500).optional(),
+  socialProfile: z.string().url("Please enter a valid URL").max(500).optional().or(z.literal("")),
+  resumeLink: z.string().url("Please enter a valid URL").max(500).optional().or(z.literal("")),
   
   // Section 2: Fellowship Track
   preferredTracks: z.array(z.string()).optional(),
@@ -125,6 +127,8 @@ const Career = () => {
       cityState: "",
       currentStatus: "",
       educationBackground: "",
+      socialProfile: "",
+      resumeLink: "",
       preferredTracks: [],
       trackInterestReason: "",
       businessPerspective: "",
@@ -157,6 +161,8 @@ const Career = () => {
         city_state: data.cityState || "",
         current_status: data.currentStatus,
         education_background: data.educationBackground || "",
+        social_profile: data.socialProfile || "",
+        resume_link: data.resumeLink || "",
         preferred_tracks: data.preferredTracks?.join(", ") || "",
         track_interest_reason: data.trackInterestReason,
         business_perspective: data.businessPerspective,
@@ -172,16 +178,14 @@ const Career = () => {
       };
 
       // TODO: Replace with your Power Automate webhook URL
-      const POWER_AUTOMATE_WEBHOOK_URL = "YOUR_POWER_AUTOMATE_WEBHOOK_URL";
+      const POWER_AUTOMATE_WEBHOOK_URL = "https://default3eadbd7f1fe143198a39f6b70f729b.76.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/8d7074f85691414cb9ed550f0e7fd4c3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WBpnjHNMI45UU-d8D7Fk7NiFWIWFCfdZ88MSDQVCe3U";
       
-      if (POWER_AUTOMATE_WEBHOOK_URL !== "YOUR_POWER_AUTOMATE_WEBHOOK_URL") {
-        await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          mode: "no-cors",
-          body: JSON.stringify(formattedData),
-        });
-      }
+      await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        mode: "no-cors",
+        body: JSON.stringify(formattedData),
+      });
 
       setIsSubmitted(true);
       toast({
@@ -398,6 +402,42 @@ const Career = () => {
                                     ))}
                                   </SelectContent>
                                 </Select>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="socialProfile"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Social Profile Link</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="url"
+                                    placeholder="Add LinkedIn, Instagram, X, etc."
+                                    className="bg-secondary/50 border-border/30 rounded-xl"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="resumeLink"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Resume / Portfolio Link</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="url"
+                                    placeholder="Your resume link with access"
+                                    className="bg-secondary/50 border-border/30 rounded-xl"
+                                    {...field}
+                                  />
+                                </FormControl>
                                 <FormMessage />
                               </FormItem>
                             )}
