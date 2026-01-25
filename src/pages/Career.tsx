@@ -177,15 +177,24 @@ const Career = () => {
         submitted_at: new Date().toISOString(),
       };
 
-      // TODO: Replace with your Power Automate webhook URL
-      const POWER_AUTOMATE_WEBHOOK_URL = "https://default3eadbd7f1fe143198a39f6b70f729b.76.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/8d7074f85691414cb9ed550f0e7fd4c3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WBpnjHNMI45UU-d8D7Fk7NiFWIWFCfdZ88MSDQVCe3U";
-      
-      await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        mode: "no-cors",
-        body: JSON.stringify(formattedData),
-      });
+      // Submit via backend function for proper verification
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-fellowship`,
+        {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`
+          },
+          body: JSON.stringify(formattedData),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Submission failed");
+      }
 
       setIsSubmitted(true);
       toast({
