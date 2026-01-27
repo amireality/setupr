@@ -39,6 +39,23 @@
     <priority>0.6</priority>
   </url>
   
+  <!-- Guide Pages -->
+  <url>
+    <loc>https://setupr.com/guides</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/guides/starting-business-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/guides/business-types</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <!-- Author Pages -->
   <url>
     <loc>https://setupr.com/author/amir-khan</loc>
