@@ -111,46 +111,12 @@ const BlogPost = () => {
     );
   }
 
-  // Simple markdown-like rendering for content with link support
+  // Simple markdown-like rendering for content
   const renderContent = (content: string) => {
     const lines = content.split("\n");
     const elements: JSX.Element[] = [];
     let currentList: string[] = [];
     let listType: "ul" | "ol" | null = null;
-
-    // Parse inline markdown links [text](url)
-    const parseLinks = (text: string): (string | JSX.Element)[] => {
-      const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-      const parts: (string | JSX.Element)[] = [];
-      let lastIndex = 0;
-      let match;
-
-      while ((match = linkRegex.exec(text)) !== null) {
-        if (match.index > lastIndex) {
-          parts.push(text.slice(lastIndex, match.index));
-        }
-        const [, linkText, url] = match;
-        const isInternal = url.startsWith("/");
-        parts.push(
-          isInternal ? (
-            <Link key={match.index} to={url} className="text-primary hover:underline">
-              {linkText}
-            </Link>
-          ) : (
-            <a key={match.index} href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              {linkText}
-            </a>
-          )
-        );
-        lastIndex = match.index + match[0].length;
-      }
-
-      if (lastIndex < text.length) {
-        parts.push(text.slice(lastIndex));
-      }
-
-      return parts.length > 0 ? parts : [text];
-    };
 
     const flushList = () => {
       if (currentList.length > 0 && listType) {
@@ -158,7 +124,7 @@ const BlogPost = () => {
         elements.push(
           <ListTag key={elements.length} className={`${listType === "ul" ? "list-disc" : "list-decimal"} list-inside space-y-2 my-4 text-muted-foreground`}>
             {currentList.map((item, i) => (
-              <li key={i}>{parseLinks(item)}</li>
+              <li key={i}>{item}</li>
             ))}
           </ListTag>
         );
@@ -200,21 +166,16 @@ const BlogPost = () => {
         listType = "ul";
         currentList.push(trimmedLine.replace("- ", ""));
       }
-      // Table headers (simple detection)
-      else if (trimmedLine.startsWith("|") && trimmedLine.endsWith("|")) {
-        flushList();
-        // Skip table rendering for now - just show as text
-      }
       // Empty lines
       else if (trimmedLine === "") {
         flushList();
       }
       // Regular paragraphs
-      else if (!trimmedLine.startsWith("---")) {
+      else {
         flushList();
         elements.push(
           <p key={index} className="text-muted-foreground leading-relaxed my-4">
-            {parseLinks(trimmedLine)}
+            {trimmedLine}
           </p>
         );
       }

@@ -173,25 +173,6 @@ const Navbar = () => {
             </NavigationMenu>
 
             <Link 
-              to="/about" 
-              className={cn(
-                "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
-                isActive('/about') 
-                  ? 'text-foreground bg-secondary' 
-                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-              )}
-            >
-              About
-              {isActive('/about') && (
-                <motion.div
-                  layoutId="navbar-indicator"
-                  className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
-                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                />
-              )}
-            </Link>
-
-            <Link 
               to="/blog" 
               className={cn(
                 "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
@@ -339,20 +320,6 @@ const Navbar = () => {
                   </motion.div>
                   <motion.div variants={mobileItemVariants}>
                     <Link 
-                      to="/about" 
-                      className={cn(
-                        "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block",
-                        isActive('/about')
-                          ? 'text-foreground bg-secondary' 
-                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
-                      )}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      About
-                    </Link>
-                  </motion.div>
-                  <motion.div variants={mobileItemVariants}>
-                    <Link 
                       to="/blog" 
                       className={cn(
                         "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block",
@@ -366,7 +333,7 @@ const Navbar = () => {
                     </Link>
                   </motion.div>
                   <motion.div variants={mobileItemVariants}>
-                    <Link
+                    <Link 
                       to="/career" 
                       className={cn(
                         "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block",
