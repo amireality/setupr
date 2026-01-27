@@ -4,8 +4,10 @@ import { ArrowLeft, Clock, User, Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AuthorBio from "@/components/blog/AuthorBio";
 import { useBlogPost, useBlogPosts } from "@/hooks/useBlogPosts";
 import { format } from "date-fns";
+import { Helmet } from "react-helmet-async";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -17,6 +19,62 @@ const BlogPost = () => {
   const relatedPosts = allPosts
     .filter(p => p.slug !== slug && p.category === post?.category)
     .slice(0, 2);
+
+  // Generate Article schema
+  const articleSchema = post ? {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "author": {
+      "@type": "Person",
+      "name": post.author_name,
+      "url": "https://setupr.com/author/amir-khan"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Setupr",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://setupr.com/favicon.png"
+      }
+    },
+    "datePublished": post.published_at,
+    "dateModified": post.updated_at || post.published_at,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://setupr.com/blog/${post.slug}`
+    },
+    "articleSection": post.category,
+    "wordCount": post.content.split(/\s+/).length,
+    "timeRequired": `PT${post.read_time_minutes}M`
+  } : null;
+
+  // Generate BreadcrumbList schema
+  const breadcrumbSchema = post ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://setupr.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://setupr.com/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.title,
+        "item": `https://setupr.com/blog/${post.slug}`
+      }
+    ]
+  } : null;
 
   if (isLoading) {
     return (
@@ -129,6 +187,28 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{post.title} | Setupr Blog</title>
+        <meta name="description" content={post.excerpt} />
+        <meta name="author" content={post.author_name} />
+        <link rel="canonical" href={`https://setupr.com/blog/${post.slug}`} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://setupr.com/blog/${post.slug}`} />
+        <meta property="article:author" content={post.author_name} />
+        <meta property="article:section" content={post.category} />
+        {post.published_at && (
+          <meta property="article:published_time" content={post.published_at} />
+        )}
+        <script type="application/ld+json">
+          {JSON.stringify(articleSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
       <Navbar />
       <main className="pt-24 pb-16">
         <article className="container px-4 md:px-6 max-w-4xl mx-auto">
@@ -160,10 +240,13 @@ const BlogPost = () => {
               {post.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
+              <Link 
+                to="/author/amir-khan" 
+                className="flex items-center gap-1.5 hover:text-primary transition-colors"
+              >
                 <User className="w-4 h-4" />
-                {post.author_name}
-              </span>
+                <span className="text-primary">{post.author_name}</span>
+              </Link>
               {post.published_at && (
                 <span className="flex items-center gap-1.5">
                   <Calendar className="w-4 h-4" />
@@ -199,6 +282,16 @@ const BlogPost = () => {
             {renderContent(post.content)}
           </motion.div>
 
+          {/* Author Bio */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <AuthorBio authorName={post.author_name} />
+          </motion.div>
+
           {/* CTA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -211,11 +304,11 @@ const BlogPost = () => {
               Need Help with {post.category}?
             </h2>
             <p className="text-muted-foreground mb-6">
-              Our experts are ready to guide you through every step.
+              Setupr helps freelancers, startups, and small businesses in India with business registration, compliance, and digital presence.
             </p>
             <Button asChild>
               <Link to="/services">
-                Get Started
+                Explore Services
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>

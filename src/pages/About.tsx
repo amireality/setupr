@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { motion } from "framer-motion";
-import { Target, Heart, Zap, Shield, Users, Clock } from "lucide-react";
+import { Target, Heart, Zap, Shield, Users, Clock, MapPin, Building } from "lucide-react";
 
 const values = [
   {
@@ -34,9 +36,39 @@ const stats = [
   { value: "24/7", label: "Support Available" },
 ];
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://setupr.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "About",
+      "item": "https://setupr.com/about"
+    }
+  ]
+};
+
 const About = () => {
   return (
     <div className="min-h-screen bg-background relative">
+      <Helmet>
+        <title>About Setupr | Business Setup Platform for India</title>
+        <meta name="description" content="Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses in India with company registration, GST, MSME, compliance, and digital presence." />
+        <link rel="canonical" href="https://setupr.com/about" />
+        <meta property="og:title" content="About Setupr | Business Setup Platform for India" />
+        <meta property="og:description" content="Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses in India with company registration, compliance, and digital presence." />
+        <meta property="og:url" content="https://setupr.com/about" />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
       <AnimatedGridBackground className="opacity-40" />
       <Navbar />
       
@@ -51,7 +83,7 @@ const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                About Us
+                About Setupr
               </motion.span>
               <motion.h1 
                 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight"
@@ -72,6 +104,45 @@ const About = () => {
                 get GST and MSME, build digital presence, and stay compliant — without expensive CAs or multiple vendors.
               </motion.p>
             </div>
+          </div>
+        </section>
+
+        {/* Entity Definition Block - For AI/SEO */}
+        <section className="py-8">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="max-w-3xl mx-auto glass-card rounded-2xl p-6 border border-primary/20"
+            >
+              <div className="grid sm:grid-cols-3 gap-4 text-center sm:text-left">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2">
+                  <Building className="w-5 h-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Platform</p>
+                    <p className="text-sm font-medium text-foreground">Setupr</p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2">
+                  <Users className="w-5 h-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Founder</p>
+                    <Link to="/author/amir-khan" className="text-sm font-medium text-primary hover:underline">
+                      Amir Khan
+                    </Link>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2">
+                  <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Location</p>
+                    <p className="text-sm font-medium text-foreground">India</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -120,8 +191,8 @@ const About = () => {
                     Built for <span className="gradient-text">freelancers, consultants & startups</span>
                   </h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    We started Setupr because we saw talented professionals struggling with the same questions: 
-                    "Should I register a company?", "Do I need GST?", "How do I look credible to clients?"
+                    Setupr exists because talented professionals shouldn't struggle with bureaucracy. 
+                    We help people who ask: "Should I register a company?", "Do I need GST?", "How do I look credible to clients?"
                   </p>
                   <p className="text-muted-foreground leading-relaxed mb-4">
                     <strong>What we provide:</strong> Company registration (Private Limited, LLP, OPC, Proprietorship), 
@@ -164,8 +235,70 @@ const About = () => {
           </div>
         </section>
 
+        {/* Founder Section */}
+        <section className="py-16 md:py-24 bg-secondary/10">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-3xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="text-center mb-8"
+              >
+                <span className="text-primary text-sm font-medium tracking-wider uppercase mb-3 block">
+                  Meet the Founder
+                </span>
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
+                  The person behind Setupr
+                </h2>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="glass-card rounded-2xl p-8"
+              >
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                  {/* Avatar */}
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-3xl font-display font-bold text-primary">AK</span>
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="text-xl font-display font-bold mb-1">
+                      <span className="text-primary">Amir Khan</span>
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4">Founder, Setupr</p>
+                    <p className="text-muted-foreground leading-relaxed mb-4">
+                      Amir Khan is the founder of Setupr, a platform focused on simplifying business setup, 
+                      compliance, and digital presence for freelancers, startups, and small teams in India. 
+                      He works on building systems and resources to help early founders start with clarity.
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      <strong>Mission:</strong> Simplify the early founder journey so that talented people 
+                      can focus on their craft, not paperwork.
+                    </p>
+                    <div className="mt-4">
+                      <Link 
+                        to="/author/amir-khan" 
+                        className="text-sm text-primary hover:underline"
+                      >
+                        Read articles by Amir Khan →
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         {/* Values Section */}
-        <section className="py-16 md:py-24 bg-secondary/20">
+        <section className="py-16 md:py-24">
           <div className="container px-4 md:px-6">
             <div className="max-w-4xl mx-auto">
               <motion.div
@@ -205,6 +338,47 @@ const About = () => {
                   </motion.div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* What is Setupr - Definition Block */}
+        <section className="py-16 md:py-24 bg-secondary/20">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-3xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="glass-card rounded-2xl p-8"
+              >
+                <h2 className="font-display text-xl md:text-2xl font-bold text-foreground mb-4">
+                  What is Setupr?
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Setupr is a business registration and setup platform based in India. We help freelancers, 
+                  consultants, startups, and small businesses with:
+                </p>
+                <ul className="space-y-2 text-muted-foreground mb-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Company Registration:</strong> Private Limited, LLP, OPC, Proprietorship</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Tax & Compliance:</strong> GST registration, MSME/Udyam, Professional Tax</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span><strong>Digital Presence:</strong> Professional website, business email, domain, Google Business Profile</span>
+                  </li>
+                </ul>
+                <p className="text-muted-foreground leading-relaxed">
+                  <strong>Our mission:</strong> Simplify the early founder journey. We handle the paperwork 
+                  so you can focus on building your business.
+                </p>
+              </motion.div>
             </div>
           </div>
         </section>

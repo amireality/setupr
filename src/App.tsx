@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import Career from "./pages/Career";
+import AuthorPage from "./pages/AuthorPage";
 
 const queryClient = new QueryClient();
 
@@ -67,6 +68,7 @@ const AnimatedRoutes = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/career" element={<Career />} />
+          <Route path="/author/:authorSlug" element={<AuthorPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { BookOpen, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -10,6 +11,25 @@ import BlogCard from "@/components/blog/BlogCard";
 import BlogThumbnail from "@/components/blog/BlogThumbnail";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { useBlogPosts, useBlogCategories } from "@/hooks/useBlogPosts";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://setupr.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://setupr.com/blog"
+    }
+  ]
+};
 
 const Blog = () => {
   const { data: posts = [], isLoading: postsLoading } = useBlogPosts();
@@ -52,6 +72,17 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background relative">
+      <Helmet>
+        <title>Business Guides & Resources | Setupr Blog</title>
+        <meta name="description" content="Expert guides on company registration, GST, MSME, compliance, and building credibility for freelancers, consultants, and startup founders in India." />
+        <link rel="canonical" href="https://setupr.com/blog" />
+        <meta property="og:title" content="Business Guides & Resources | Setupr Blog" />
+        <meta property="og:description" content="Expert guides on company registration, GST, MSME, compliance, and building credibility for freelancers, consultants, and startup founders in India." />
+        <meta property="og:url" content="https://setupr.com/blog" />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
       <AnimatedGridBackground />
       <Navbar />
       <main className="pt-24 pb-16 relative z-10">

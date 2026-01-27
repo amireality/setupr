@@ -55,6 +55,16 @@
           "alternateName": "Setupr India",
           "url": "https://setupr.com",
           "description": "Setupr is a business registration and setup platform that helps freelancers, consultants, and startups in India register their companies, get GST and MSME, build digital presence, and stay compliant.",
+          "founder": {
+            "@type": "Person",
+            "@id": "https://setupr.com/#founder",
+            "name": "Amir Khan",
+            "url": "https://setupr.com/author/amir-khan",
+            "jobTitle": "Founder",
+            "worksFor": {
+              "@id": "https://setupr.com/#organization"
+            }
+          },
           "logo": {
             "@type": "ImageObject",
             "url": "https://setupr.com/favicon.png",
@@ -82,7 +92,24 @@
             "GST Registration",
             "MSME Registration",
             "Startup Compliance",
-            "Business Website Development"
+            "Business Website Development",
+            "Freelancer Business Setup",
+            "Small Business Compliance India"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://setupr.com/#founder",
+          "name": "Amir Khan",
+          "url": "https://setupr.com/author/amir-khan",
+          "jobTitle": "Founder",
+          "description": "Amir Khan is the founder of Setupr, a platform focused on simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams in India.",
+          "worksFor": {
+            "@id": "https://setupr.com/#organization"
+          },
+          "sameAs": [
+            "https://x.com/setuprhq",
+            "https://linkedin.com/company/setupr"
           ]
         },
         {
@@ -94,6 +121,9 @@
           "image": "https://setupr.com/favicon.png",
           "telephone": "+91-98765-43210",
           "email": "info@setupr.com",
+          "founder": {
+            "@id": "https://setupr.com/#founder"
+          },
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Mumbai",
@@ -130,6 +160,18 @@
             "target": "https://setupr.com/services?q={search_term_string}",
             "query-input": "required name=search_term_string"
           }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://setupr.com/#breadcrumb-home",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://setupr.com/"
+            }
+          ]
         },
         {
           "@type": "Service",
@@ -252,6 +294,22 @@
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "Yes. Setupr provides end-to-end business setup — from legal registration (company formation, GST, MSME) to digital presence (professional website, business email, domain, Google Business Profile)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is business registration?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Business registration is the legal process of officially registering your business entity with government authorities in India. This includes choosing a structure (Proprietorship, LLP, Private Limited), filing incorporation documents, and obtaining necessary certificates to operate legally."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What does compliance mean for startups?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Compliance for startups means fulfilling all legal and regulatory requirements — including GST filings, annual ROC returns, professional tax, and maintaining proper records. Staying compliant helps avoid penalties and builds credibility with clients and investors."
               }
             }
           ]
