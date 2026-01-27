@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
@@ -13,18 +14,30 @@ const faqGroups = {
     faqs: [
       {
         question: "How do I register a business in India?",
-        answer:
-          "To register a business in India, you need to choose a business structure (Proprietorship, LLP, or Private Limited), obtain a Digital Signature Certificate (DSC), apply for Director Identification Number (DIN) if needed, reserve your company name, and file incorporation documents with MCA. Setupr handles all these steps for you — you just provide basic documents like PAN, Aadhaar, and address proof.",
+        answer: (
+          <>
+            To register a business in India, you need to choose a business structure (Proprietorship, LLP, or Private Limited), obtain a Digital Signature Certificate (DSC), apply for Director Identification Number (DIN) if needed, reserve your company name, and file incorporation documents with MCA. Setupr handles all these steps for you — you just provide basic documents like PAN, Aadhaar, and address proof.{" "}
+            <Link to="/services/pvt-ltd" className="text-primary hover:underline">Learn more about Pvt Ltd registration →</Link>
+          </>
+        ),
       },
       {
         question: "Do freelancers need GST registration?",
-        answer:
-          "Yes, if your annual turnover exceeds ₹20 lakh (₹10 lakh for special category states) or if you provide services to clients outside India. Even below this threshold, voluntary GST registration helps you look professional, claim input tax credits, and work with larger clients who require GST invoices. Setupr can help you register for GST in 3-5 working days.",
+        answer: (
+          <>
+            Yes, if your annual turnover exceeds ₹20 lakh (₹10 lakh for special category states) or if you provide services to clients outside India. Even below this threshold, voluntary GST registration helps you look professional, claim input tax credits, and work with larger clients who require GST invoices.{" "}
+            <Link to="/services/gst" className="text-primary hover:underline">Get GST registration →</Link>
+          </>
+        ),
       },
       {
         question: "Can I start a business without a CA or lawyer?",
-        answer:
-          "Yes. While CAs and lawyers are helpful for complex matters, basic business registration, GST filing, and compliance can be handled without them. Setupr provides expert guidance and handles all documentation, filings, and follow-ups — so you get professional-grade setup without expensive retainers.",
+        answer: (
+          <>
+            Yes. While CAs and lawyers are helpful for complex matters, basic business registration, GST filing, and compliance can be handled without them. Setupr provides expert guidance and handles all documentation, filings, and follow-ups — so you get professional-grade setup without expensive retainers.{" "}
+            <Link to="/blog/freelancer-to-registered-business-guide" className="text-primary hover:underline">Read our freelancer guide →</Link>
+          </>
+        ),
       },
     ],
   },
@@ -33,8 +46,12 @@ const faqGroups = {
     faqs: [
       {
         question: "What is the cost of company registration in India?",
-        answer:
-          "The cost varies by business type. Private Limited registration typically costs ₹7,000-15,000 (Setupr fee) plus ₹5,000-10,000 government fees. LLP registration costs ₹5,000-10,000 plus government fees. Proprietorship is the most affordable at ₹1,500-3,000. Setupr shows all fees upfront with no hidden charges — you'll see both our service fee and government fees before you proceed.",
+        answer: (
+          <>
+            The cost varies by business type. Private Limited registration typically costs ₹7,000-15,000 (Setupr fee) plus ₹5,000-10,000 government fees. LLP registration costs ₹5,000-10,000 plus government fees. Proprietorship is the most affordable at ₹1,500-3,000. Setupr shows all fees upfront with no hidden charges.{" "}
+            <Link to="/services" className="text-primary hover:underline">View all services & pricing →</Link>
+          </>
+        ),
       },
       {
         question: "How long does it take to register a Private Limited company?",
@@ -53,13 +70,21 @@ const faqGroups = {
     faqs: [
       {
         question: "What services are required after company registration?",
-        answer:
-          "After registration, you'll need: GST registration (if applicable), professional tax registration, opening a current bank account, MSME/Udyam registration (for benefits), and setting up your digital presence (website, business email, Google listing). For companies, annual ROC filings and compliance are mandatory. Setupr offers all these as add-on services.",
+        answer: (
+          <>
+            After registration, you'll need: GST registration (if applicable), professional tax registration, opening a current bank account, MSME/Udyam registration (for benefits), and setting up your digital presence (website, business email, Google listing). For companies, annual ROC filings and compliance are mandatory.{" "}
+            <Link to="/blog/compliance-checklist-after-company-registration" className="text-primary hover:underline">View compliance checklist →</Link>
+          </>
+        ),
       },
       {
         question: "Can Setupr handle both legal setup and digital presence?",
-        answer:
-          "Yes. Setupr provides end-to-end business setup — from legal registration (company formation, GST, MSME) to digital presence (professional website, business email, domain, Google Business Profile). This means one partner for everything instead of coordinating with multiple vendors.",
+        answer: (
+          <>
+            Yes. Setupr provides end-to-end business setup — from legal registration (company formation, GST, MSME) to digital presence (professional website, business email, domain, Google Business Profile). This means one partner for everything instead of coordinating with multiple vendors.{" "}
+            <Link to="/services/website" className="text-primary hover:underline">Explore website setup →</Link>
+          </>
+        ),
       },
       {
         question: "Do you provide ongoing compliance support after registration?",
@@ -129,7 +154,7 @@ const FAQ = () => {
                         {faq.question}
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground pb-5 text-base leading-relaxed">
-                        {faq.answer}
+                        {typeof faq.answer === "string" ? faq.answer : faq.answer}
                       </AccordionContent>
                     </AccordionItem>
                   ))}
