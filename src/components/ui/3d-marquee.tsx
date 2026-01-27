@@ -32,8 +32,6 @@ const Tile = memo(({
           inset 0 1px 0 hsl(24 100% 70% / 0.2)
         `,
         animationDelay: `${animationDelay}s`,
-        contain: "layout style paint",
-        contentVisibility: "auto",
       }}
     >
       {/* Glossy highlight */}
@@ -102,23 +100,16 @@ export const ThreeDMarquee = memo(({
       `}</style>
       <div 
         className="relative flex h-full w-full items-center justify-center"
-        style={{ 
-          perspective: "1200px",
-          contain: "layout style",
-        }}
+        style={{ perspective: "1200px" }}
       >
         <div 
           className="absolute inset-0 flex items-center justify-center overflow-hidden"
           style={{
-            transform: "rotateX(55deg) rotateZ(-45deg) translateZ(0)",
+            transform: "rotateX(55deg) rotateZ(-45deg)",
             transformStyle: "preserve-3d",
-            backfaceVisibility: "hidden",
           }}
         >
-          <div 
-            className="grid grid-cols-4 md:grid-cols-8 gap-2 w-[200%] md:w-[350%] h-[200%] md:h-[350%]"
-            style={{ contain: "layout" }}
-          >
+          <div className="grid grid-cols-4 md:grid-cols-8 gap-2 w-[200%] md:w-[350%] h-[200%] md:h-[350%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex}
