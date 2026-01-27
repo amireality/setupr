@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { useMemo, memo } from "react";
 
-// High-performance static tile using GPU acceleration and containment
+// Simplified static tile - no framer-motion for performance
 const Tile = memo(({ 
   size = "normal",
   intensity = 1,
@@ -32,13 +32,11 @@ const Tile = memo(({
           inset 0 1px 0 hsl(24 100% 70% / 0.2)
         `,
         animationDelay: `${animationDelay}s`,
-        contain: "layout style paint",
-        contentVisibility: "auto",
       }}
     >
       {/* Glossy highlight */}
       <div 
-        className="absolute inset-0 rounded-lg pointer-events-none"
+        className="absolute inset-0 rounded-lg"
         style={{
           background: "linear-gradient(135deg, hsl(0 0% 100% / 0.15) 0%, transparent 50%)",
         }}
@@ -55,26 +53,26 @@ export const ThreeDMarquee = memo(({
   images?: string[];
   className?: string;
 }) => {
-  // Full 180 tiles for rich visual effect
+  // Reduced tile count for performance - 60 instead of 180
   const tiles = useMemo(() => {
     const tileList = [];
-    const sizes: Array<"small" | "normal" | "large"> = ["small", "normal", "large", "normal"];
+    const sizes: Array<"small" | "normal" | "large"> = ["normal", "large", "normal", "large"];
     
-    for (let i = 0; i < 180; i++) {
+    for (let i = 0; i < 60; i++) {
       tileList.push({
         size: sizes[i % sizes.length],
-        intensity: 0.7 + (Math.sin(i * 0.3) * 0.3),
-        animationDelay: (i % 12) * 0.4,
+        intensity: 0.8 + (Math.sin(i * 0.5) * 0.2),
+        animationDelay: (i % 8) * 0.5,
       });
     }
     return tileList;
   }, []);
 
-  // Split into 8 columns for richer layout
+  // Split into 6 columns for cleaner layout
   const columns = useMemo(() => {
     const cols = [];
-    const tilesPerColumn = Math.ceil(tiles.length / 8);
-    for (let i = 0; i < 8; i++) {
+    const tilesPerColumn = Math.ceil(tiles.length / 6);
+    for (let i = 0; i < 6; i++) {
       cols.push(tiles.slice(i * tilesPerColumn, (i + 1) * tilesPerColumn));
     }
     return cols;
@@ -85,40 +83,31 @@ export const ThreeDMarquee = memo(({
       <style>{`
         @keyframes tileFloat {
           0%, 100% { 
-            opacity: 0.5; 
-            transform: scale(0.95) translateY(0) translateZ(0);
+            opacity: 0.4; 
+            transform: scale(0.95) translateY(0);
           }
           50% { 
-            opacity: 0.85; 
-            transform: scale(1.02) translateY(-8px) translateZ(0);
+            opacity: 0.7; 
+            transform: scale(1) translateY(-5px);
           }
         }
         .tile-animate {
-          animation: tileFloat 5s ease-in-out infinite;
+          animation: tileFloat 4s ease-in-out infinite;
           will-change: transform, opacity;
-          backface-visibility: hidden;
-          transform: translateZ(0);
         }
       `}</style>
       <div 
         className="relative flex h-full w-full items-center justify-center"
-        style={{ 
-          perspective: "1200px",
-          contain: "layout style",
-        }}
+        style={{ perspective: "1000px" }}
       >
         <div 
           className="absolute inset-0 flex items-center justify-center overflow-hidden"
           style={{
-            transform: "rotateX(55deg) rotateZ(-45deg) translateZ(0)",
+            transform: "rotateX(55deg) rotateZ(-45deg)",
             transformStyle: "preserve-3d",
-            backfaceVisibility: "hidden",
           }}
         >
-          <div 
-            className="grid grid-cols-4 md:grid-cols-8 gap-2 w-[200%] md:w-[350%] h-[200%] md:h-[350%]"
-            style={{ contain: "layout" }}
-          >
+          <div className="grid grid-cols-4 md:grid-cols-6 gap-2 w-[180%] md:w-[300%] h-[180%] md:h-[300%]">
             {columns.map((column, colIndex) => (
               <div
                 key={colIndex}
@@ -129,7 +118,7 @@ export const ThreeDMarquee = memo(({
                     key={`${colIndex}-${tileIndex}`}
                     size={tile.size}
                     intensity={tile.intensity}
-                    animationDelay={tile.animationDelay + (colIndex * 0.25)}
+                    animationDelay={tile.animationDelay + (colIndex * 0.3)}
                   />
                 ))}
               </div>
