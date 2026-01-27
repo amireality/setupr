@@ -46,49 +46,108 @@
     <priority>0.6</priority>
   </url>
   
-  <!-- Service Detail Pages (dynamically generated) -->
+  <!-- Authority / Guide Pages (Blog) -->
   <url>
-    <loc>https://setupr.com/services/pvt-ltd-registration</loc>
+    <loc>https://setupr.com/blog/is-business-registration-mandatory-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://setupr.com/services/llp-registration</loc>
+    <loc>https://setupr.com/blog/how-to-build-credibility-as-new-business-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://setupr.com/services/opc-registration</loc>
+    <loc>https://setupr.com/blog/freelancer-to-registered-business-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://setupr.com/services/proprietorship-registration</loc>
+    <loc>https://setupr.com/blog/compliance-checklist-after-company-registration</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Service Detail Pages -->
+  <url>
+    <loc>https://setupr.com/services/pvt-ltd</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://setupr.com/services/gst-registration</loc>
+    <loc>https://setupr.com/services/llp</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://setupr.com/services/msme-registration</loc>
+    <loc>https://setupr.com/services/proprietorship</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://setupr.com/services/professional-website</loc>
+    <loc>https://setupr.com/services/partnership</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/services/gst</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/services/domain-hosting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://setupr.com/services/business-email</loc>
+    <loc>https://setupr.com/services/email</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://setupr.com/services/google-business-profile</loc>
+    <loc>https://setupr.com/services/website</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/services/google-business</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Existing Blog Posts -->
+  <url>
+    <loc>https://setupr.com/blog/complete-guide-to-llp-registration-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/blog/private-limited-vs-llp-which-is-right</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/blog/gst-registration-when-required</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/blog/annual-compliance-checklist-startups</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/blog/essential-website-pages-for-new-business</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/blog/why-every-business-needs-professional-email</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://setupr.com/blog/google-business-profile-optimization-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
