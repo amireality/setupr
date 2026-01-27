@@ -44,13 +44,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="/#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  How It Works
-                </a>
-              </li>
-              <li>
-                <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Resources
+                <Link to="/career" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Careers
                 </Link>
               </li>
               <li>
@@ -61,23 +56,50 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Resources Links */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground mb-4">Resources</h4>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Guides
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides/starting-business-india" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Starting a Business
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides/business-types" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Business Types
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Services Links */}
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4">Services</h4>
             <ul className="space-y-3">
               <li>
-                <Link to="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Business Formation
+                <Link to="/services/company-registration" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Company Registration
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Digital Presence
+                <Link to="/services/gst-registration" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  GST Registration
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Compliance
+                <Link to="/services/domain-email" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Domain & Email
                 </Link>
               </li>
               <li>

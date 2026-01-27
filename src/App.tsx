@@ -23,6 +23,9 @@ import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import Career from "./pages/Career";
 import AuthorPage from "./pages/AuthorPage";
+import GuidesIndex from "./pages/guides/GuidesIndex";
+import StartingBusinessGuide from "./pages/guides/StartingBusinessGuide";
+import BusinessTypesGuide from "./pages/guides/BusinessTypesGuide";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +72,9 @@ const AnimatedRoutes = () => {
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/career" element={<Career />} />
           <Route path="/author/:authorSlug" element={<AuthorPage />} />
+          <Route path="/guides" element={<GuidesIndex />} />
+          <Route path="/guides/starting-business-india" element={<StartingBusinessGuide />} />
+          <Route path="/guides/business-types" element={<BusinessTypesGuide />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
