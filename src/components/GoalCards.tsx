@@ -54,26 +54,26 @@ const Skeleton = ({
 
 const items = [
   {
-    title: "Thinking of starting",
+    title: "Thinking of starting a business?",
     description:
-      "Just exploring. Figuring out what's needed to start a business.",
-    header: <Skeleton variant="purple" title="Dream It" subtitle="Turn your idea into reality" />,
+      "Freelancer or consultant exploring what's needed to register a business in India? We'll guide you from idea to legal entity.",
+    header: <Skeleton variant="purple" title="Dream It" subtitle="From idea to registered business" />,
     icon: <Lightbulb className="h-4 w-4 text-primary" />,
     link: "/intake?stage=thinking",
   },
   {
-    title: "Going legal",
+    title: "Ready to register your company?",
     description:
-      "Ready to register. Time to make it official.",
-    header: <Skeleton variant="orange" title="Own It" subtitle="Make it legally yours" />,
+      "Get your Private Limited, LLP, or Proprietorship registered with GST, MSME, and compliance — all in one place.",
+    header: <Skeleton variant="orange" title="Own It" subtitle="Legal registration done right" />,
     icon: <FileCheck className="h-4 w-4 text-primary" />,
     link: "/intake?stage=legal",
   },
   {
-    title: "Ready to scale",
+    title: "Registered but need to scale?",
     description:
-      "Already registered. Need systems for 10x growth.",
-    header: <Skeleton variant="green" title="Grow It" subtitle="Build systems for scale" />,
+      "Already have a business? Add website, professional email, Google listing, and ongoing compliance support to build credibility.",
+    header: <Skeleton variant="green" title="Grow It" subtitle="Build trust and visibility" />,
     icon: <TrendingUp className="h-4 w-4 text-primary" />,
     link: "/intake?stage=scale",
   },
@@ -102,10 +102,10 @@ const GoalCards = () => {
             {/* Row 1: Heading + Dream It */}
             <div className="flex flex-col justify-center py-4 md:py-6">
               <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">
-                Where are you in your journey?
+                Whether you're a freelancer, consultant, or startup founder
               </h2>
               <p className="text-muted-foreground text-sm md:text-base">
-                Pick your stage. We'll guide you from there.
+                Select where you are. We'll show you exactly what you need to get legally set up in India.
               </p>
             </div>
 

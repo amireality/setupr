@@ -243,10 +243,10 @@ const Career = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-4">
-              A mentorship-driven, unpaid learning program designed to give real exposure to how startups, compliance platforms, and business ecosystems operate in India.
+              Learn how startups, business registration platforms, and compliance ecosystems work in India. A mentorship program for students, recent graduates, and aspiring entrepreneurs.
             </p>
             <p className="text-sm text-muted-foreground/80 bg-secondary/30 rounded-xl px-4 py-3 inline-block">
-              ⚠️ This is not a traditional internship. If you're here only for certificates or stipends, please do not apply.
+              ⚠️ This is a learning program, not a traditional internship. Focused on real startup exposure, not certificates.
             </p>
           </motion.div>
 

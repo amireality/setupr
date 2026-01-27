@@ -12,19 +12,19 @@ const faqGroups = {
     label: "Getting Started",
     faqs: [
       {
-        question: "How long does company registration take?",
+        question: "How do I register a business in India?",
         answer:
-          "Company registration typically takes 7-15 working days depending on the type of entity. Pvt Ltd registration usually takes 10-15 days, LLP takes 7-10 days, and Proprietorship/OPC can be completed within a week. We keep you updated throughout the process.",
+          "To register a business in India, you need to choose a business structure (Proprietorship, LLP, or Private Limited), obtain a Digital Signature Certificate (DSC), apply for Director Identification Number (DIN) if needed, reserve your company name, and file incorporation documents with MCA. Setupr handles all these steps for you — you just provide basic documents like PAN, Aadhaar, and address proof.",
       },
       {
-        question: "What documents do I need for registration?",
+        question: "Do freelancers need GST registration?",
         answer:
-          "The basic documents required are: PAN card, Aadhaar card, passport-size photographs, address proof (electricity bill/rent agreement), and bank statement. For Pvt Ltd/LLP, you'll also need Digital Signature Certificates (DSC) which we help you obtain.",
+          "Yes, if your annual turnover exceeds ₹20 lakh (₹10 lakh for special category states) or if you provide services to clients outside India. Even below this threshold, voluntary GST registration helps you look professional, claim input tax credits, and work with larger clients who require GST invoices. Setupr can help you register for GST in 3-5 working days.",
       },
       {
-        question: "Can I choose only specific services I need?",
+        question: "Can I start a business without a CA or lawyer?",
         answer:
-          "Of course! Our services are modular - you can pick exactly what you need. Whether it's just company registration, or a complete package with GST, website, and digital presence setup, you have full control over your selection.",
+          "Yes. While CAs and lawyers are helpful for complex matters, basic business registration, GST filing, and compliance can be handled without them. Setupr provides expert guidance and handles all documentation, filings, and follow-ups — so you get professional-grade setup without expensive retainers.",
       },
     ],
   },
@@ -32,34 +32,39 @@ const faqGroups = {
     label: "Pricing & Process",
     faqs: [
       {
-        question: "What's the difference between Setupr fees and government fees?",
+        question: "What is the cost of company registration in India?",
         answer:
-          "Setupr fees cover our professional services including document preparation, filing, follow-ups, and expert guidance. Government fees are mandatory charges payable to regulatory authorities like MCA, GST department, etc. Both are clearly displayed in our pricing with no hidden costs.",
+          "The cost varies by business type. Private Limited registration typically costs ₹7,000-15,000 (Setupr fee) plus ₹5,000-10,000 government fees. LLP registration costs ₹5,000-10,000 plus government fees. Proprietorship is the most affordable at ₹1,500-3,000. Setupr shows all fees upfront with no hidden charges — you'll see both our service fee and government fees before you proceed.",
       },
       {
-        question: "Can I track my application status?",
+        question: "How long does it take to register a Private Limited company?",
         answer:
-          "Yes! Once you submit your intake form, our team will keep you updated via WhatsApp and email at every stage. You'll receive notifications when documents are filed, when approvals are received, and when your registration is complete.",
+          "Private Limited company registration takes 10-15 working days from document submission. This includes DSC issuance (1-2 days), name approval (2-3 days), and incorporation certificate (5-7 days). LLP takes 7-10 days, while Proprietorship with MSME/GST can be done in 3-5 days. Setupr keeps you updated at every step via WhatsApp and email.",
       },
       {
-        question: "Is my data secure with Setupr?",
+        question: "What documents do I need to register a company?",
         answer:
-          "Yes, your data security is our priority. We use encrypted connections, secure document storage, and follow strict privacy protocols. Your documents are only shared with relevant government authorities as required for registration.",
+          "Basic documents include: PAN card, Aadhaar card, passport-size photographs, address proof (electricity bill/rent agreement within 2 months), and a bank statement. For Pvt Ltd/LLP, you'll also need Digital Signature Certificates which Setupr helps you obtain. We provide a complete checklist based on your chosen business structure.",
       },
     ],
   },
   "after-setup": {
-    label: "After Setup Support",
+    label: "After Registration",
     faqs: [
       {
-        question: "What if I need help after my business is set up?",
+        question: "What services are required after company registration?",
         answer:
-          "We offer ongoing support for compliance, renewals, and additional services. Whether you need GST filing, annual compliance, or want to add new services like trademark registration, our team is here to help. Many clients continue working with us for years.",
+          "After registration, you'll need: GST registration (if applicable), professional tax registration, opening a current bank account, MSME/Udyam registration (for benefits), and setting up your digital presence (website, business email, Google listing). For companies, annual ROC filings and compliance are mandatory. Setupr offers all these as add-on services.",
       },
       {
-        question: "Do you handle renewals and annual compliance?",
+        question: "Can Setupr handle both legal setup and digital presence?",
         answer:
-          "Absolutely! We provide reminders and assistance for all renewals including MSME registration, GST annual returns, company annual filings, and more. Our proactive approach ensures you never miss a deadline.",
+          "Yes. Setupr provides end-to-end business setup — from legal registration (company formation, GST, MSME) to digital presence (professional website, business email, domain, Google Business Profile). This means one partner for everything instead of coordinating with multiple vendors.",
+      },
+      {
+        question: "Do you provide ongoing compliance support after registration?",
+        answer:
+          "Absolutely. We provide reminders and assistance for all renewals including GST returns, company annual filings (ROC), professional tax, and MSME updates. Our proactive approach ensures you never miss a deadline or face penalties. Many clients continue working with us for years for their compliance needs.",
       },
     ],
   },
