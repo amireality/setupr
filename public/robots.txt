@@ -1,3 +1,6 @@
+# Setupr - Business Registration Platform for India
+# https://setupr.com
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +15,10 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://setupr.com/sitemap.xml
+
+# Disallow admin pages
+Disallow: /admin
+Disallow: /admin/login

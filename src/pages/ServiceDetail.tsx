@@ -1,4 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ArrowRight, Check, Clock, Users, Shield, ChevronRight, Star, Award } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -69,8 +70,73 @@ const ServiceDetail = () => {
     : service.category?.includes('compliance') ? 'compliance' 
     : 'default';
 
+  // Generate schemas
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.service_name,
+    "description": service.description_short,
+    "provider": {
+      "@type": "Organization",
+      "name": "Setupr",
+      "url": "https://setupr.com"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "audience": {
+      "@type": "Audience",
+      "audienceType": service.who_its_for
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "INR",
+      "price": service.setupr_fee_inr.toString()
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://setupr.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://setupr.com/services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": service.service_name,
+        "item": `https://setupr.com/services/${service.service_id}`
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{service.service_name} | Setupr India</title>
+        <meta name="description" content={`${service.description_short} For ${service.who_its_for}. Starting at ₹${formatPrice(service.setupr_fee_inr)}.`} />
+        <link rel="canonical" href={`https://setupr.com/services/${service.service_id}`} />
+        <meta property="og:title" content={`${service.service_name} | Setupr India`} />
+        <meta property="og:description" content={service.description_short} />
+        <meta property="og:url" content={`https://setupr.com/services/${service.service_id}`} />
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container px-4 md:px-6 max-w-6xl">

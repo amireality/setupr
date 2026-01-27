@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceIntro from "@/components/services/ServiceIntro";
@@ -11,6 +12,25 @@ import CompareModal from "@/components/services/CompareModal";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { useDbServices, useDbCategories, useDbBundles } from "@/hooks/useServices";
 import type { ServiceId } from "@/data/services";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://setupr.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://setupr.com/services"
+    }
+  ]
+};
 
 const Services = () => {
   const [selectedServices, setSelectedServices] = useState<Set<ServiceId>>(new Set());
@@ -74,6 +94,17 @@ const Services = () => {
 
   return (
     <AuroraBackground className="min-h-screen">
+      <Helmet>
+        <title>Business Registration Services in India | Setupr</title>
+        <meta name="description" content="Company registration, GST, MSME, compliance, website, and digital presence services for freelancers, consultants, and startups in India. Transparent pricing, no hidden fees." />
+        <link rel="canonical" href="https://setupr.com/services" />
+        <meta property="og:title" content="Business Registration Services in India | Setupr" />
+        <meta property="og:description" content="Company registration, GST, MSME, compliance, website, and digital presence services for freelancers, consultants, and startups in India." />
+        <meta property="og:url" content="https://setupr.com/services" />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
       <div className="w-full relative z-10">
         <Navbar />
         <main className="pt-16">
