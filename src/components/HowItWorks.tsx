@@ -14,25 +14,25 @@ const StepSkeleton = ({ step }: { step: string }) => {
 
 const items = [
   {
-    title: "Tell us where you are",
+    title: "Share your requirements",
     description:
-      "We understand your stage and needs. Answer a few quick questions about your business journey.",
+      "Tell us if you need company registration, GST, website, or compliance. Answer a few questions about your business type and goals.",
     header: <StepSkeleton step="01" />,
     className: "md:col-span-1",
     icon: <MessageCircle className="h-5 w-5 text-primary" />,
   },
   {
-    title: "We map the setup",
+    title: "Get a clear plan with pricing",
     description:
-      "You get a clear checklist and timeline. No guesswork — just a straightforward plan tailored to you.",
+      "We provide an exact checklist of services, documents needed, timeline, and transparent pricing — Setupr fee plus government fees, nothing hidden.",
     header: <StepSkeleton step="02" />,
     className: "md:col-span-1",
     icon: <FileCheck className="h-5 w-5 text-primary" />,
   },
   {
-    title: "We execute with you",
+    title: "We handle everything",
     description:
-      "Experts handle the paperwork. You stay in control and informed at every step of the way.",
+      "Our experts manage all filings, registrations, and follow-ups. You get updates via WhatsApp and email until your business is fully set up.",
     header: <StepSkeleton step="03" />,
     className: "md:col-span-1",
     icon: <Rocket className="h-5 w-5 text-primary" />,
@@ -48,11 +48,14 @@ const HowItWorks = () => {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-12 text-center">
-            How it works
-          </h2>
-
-          {/* Bento Grid */}
+          <div className="text-center mb-12">
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              How Setupr helps you register your business
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Simple 3-step process: Share your needs, get a clear plan with pricing, and we handle all the paperwork and filings.
+            </p>
+          </div>
           <BentoGrid className="md:auto-rows-[20rem]">
             {items.map((item, i) => (
               <BentoGridItem

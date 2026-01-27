@@ -17,13 +17,13 @@ const ServiceIntro = () => {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-up text-balance">
-            Choose what you need
+            Business registration services in India
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-up-delay-1">
-            Pick individual services or use a recommended combination.
+            Company registration, GST, MSME, compliance, website, and digital presence — for freelancers, consultants, and startups.
           </p>
           <p className="text-sm text-muted-foreground/70 animate-fade-up-delay-2">
-            No packages. No commitments. Add more anytime.
+            Pick individual services or choose a bundle. Transparent pricing. No hidden fees. Add more anytime.
           </p>
         </div>
       </div>

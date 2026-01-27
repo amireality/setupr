@@ -59,8 +59,8 @@ const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                We help founders{" "}
-                <span className="gradient-text">focus on building</span>
+                We help freelancers and startups{" "}
+                <span className="gradient-text">become legitimate businesses</span>
               </motion.h1>
               <motion.p 
                 className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
@@ -68,8 +68,8 @@ const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                Starting a business in India shouldn't mean drowning in paperwork. 
-                We handle the legal and compliance maze so you can do what you're best at—building something amazing.
+                Setupr is a business setup platform that helps professionals in India register their companies, 
+                get GST and MSME, build digital presence, and stay compliant — without expensive CAs or multiple vendors.
               </motion.p>
             </div>
           </div>
@@ -114,20 +114,23 @@ const About = () => {
                   transition={{ duration: 0.6 }}
                 >
                   <span className="text-primary text-sm font-medium tracking-wider uppercase mb-3 block">
-                    Our Mission
+                    Who We Help
                   </span>
                   <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                    Making business setup{" "}
-                    <span className="gradient-text">actually simple</span>
+                    Built for <span className="gradient-text">freelancers, consultants & startups</span>
                   </h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    We started Setupr because we experienced the frustration firsthand. 
-                    Endless government portals, confusing requirements, and expensive consultants 
-                    who speak in legalese.
+                    We started Setupr because we saw talented professionals struggling with the same questions: 
+                    "Should I register a company?", "Do I need GST?", "How do I look credible to clients?"
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    <strong>What we provide:</strong> Company registration (Private Limited, LLP, OPC, Proprietorship), 
+                    GST registration, MSME/Udyam registration, professional website, business email, domain setup, 
+                    Google Business Profile, and ongoing compliance support.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    We believe every entrepreneur deserves a clear, affordable path to getting 
-                    their business legally set up—without the headaches.
+                    <strong>The outcome:</strong> A fully registered, compliant business with professional digital presence — 
+                    ready to invoice clients, open a current account, and build credibility.
                   </p>
                 </motion.div>
                 

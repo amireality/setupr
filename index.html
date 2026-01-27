@@ -52,7 +52,9 @@
           "@type": "Organization",
           "@id": "https://setupr.com/#organization",
           "name": "Setupr",
+          "alternateName": "Setupr India",
           "url": "https://setupr.com",
+          "description": "Setupr is a business registration and setup platform that helps freelancers, consultants, and startups in India register their companies, get GST and MSME, build digital presence, and stay compliant.",
           "logo": {
             "@type": "ImageObject",
             "url": "https://setupr.com/favicon.png",
@@ -72,13 +74,22 @@
             "email": "info@setupr.com",
             "areaServed": "IN",
             "availableLanguage": ["English", "Hindi"]
-          }
+          },
+          "knowsAbout": [
+            "Business Registration in India",
+            "Private Limited Company Registration",
+            "LLP Registration",
+            "GST Registration",
+            "MSME Registration",
+            "Startup Compliance",
+            "Business Website Development"
+          ]
         },
         {
           "@type": "LocalBusiness",
           "@id": "https://setupr.com/#localbusiness",
           "name": "Setupr",
-          "description": "Business registration and compliance services in India",
+          "description": "Business registration, GST, MSME, compliance, and digital presence services for freelancers, consultants, and startups in India. We help professionals become registered, credible businesses.",
           "url": "https://setupr.com",
           "image": "https://setupr.com/favicon.png",
           "telephone": "+91-98765-43210",
@@ -90,14 +101,27 @@
             "addressCountry": "IN"
           },
           "priceRange": "₹999 - ₹50,000",
-          "openingHours": "Mo-Sa 09:00-18:00"
+          "openingHours": "Mo-Sa 09:00-18:00",
+          "areaServed": {
+            "@type": "Country",
+            "name": "India"
+          },
+          "serviceType": [
+            "Business Registration",
+            "Company Incorporation",
+            "GST Registration",
+            "MSME Registration",
+            "Compliance Services",
+            "Website Development"
+          ]
         },
         {
           "@type": "WebSite",
           "@id": "https://setupr.com/#website",
           "url": "https://setupr.com",
           "name": "Setupr",
-          "alternateName": "Setupr India",
+          "alternateName": "Setupr India - Business Registration Platform",
+          "description": "Platform for business registration, GST, MSME, compliance, and digital presence services in India",
           "publisher": {
             "@id": "https://setupr.com/#organization"
           },
@@ -106,6 +130,131 @@
             "target": "https://setupr.com/services?q={search_term_string}",
             "query-input": "required name=search_term_string"
           }
+        },
+        {
+          "@type": "Service",
+          "@id": "https://setupr.com/#company-registration",
+          "name": "Company Registration in India",
+          "description": "Register your Private Limited, LLP, OPC, or Proprietorship business in India. Includes DSC, DIN, name approval, and MCA filing. Completed in 7-15 working days.",
+          "provider": {
+            "@id": "https://setupr.com/#organization"
+          },
+          "serviceType": "Business Registration",
+          "areaServed": {
+            "@type": "Country",
+            "name": "India"
+          },
+          "audience": {
+            "@type": "Audience",
+            "audienceType": ["Freelancers", "Consultants", "Startups", "Small Businesses", "Solopreneurs"]
+          },
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "INR",
+            "price": "4999",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "INR",
+              "price": "4999",
+              "valueAddedTaxIncluded": false
+            }
+          }
+        },
+        {
+          "@type": "Service",
+          "@id": "https://setupr.com/#gst-registration",
+          "name": "GST Registration in India",
+          "description": "Get your GST registration done in 3-5 working days. Required for businesses with turnover above ₹20 lakh or those providing services outside India. Includes GSTIN certificate.",
+          "provider": {
+            "@id": "https://setupr.com/#organization"
+          },
+          "serviceType": "Tax Registration",
+          "areaServed": {
+            "@type": "Country",
+            "name": "India"
+          }
+        },
+        {
+          "@type": "Service",
+          "@id": "https://setupr.com/#msme-registration",
+          "name": "MSME/Udyam Registration",
+          "description": "Register for MSME/Udyam to access government benefits, priority lending, and subsidies. Free government registration with Setupr guidance.",
+          "provider": {
+            "@id": "https://setupr.com/#organization"
+          },
+          "serviceType": "Business Registration"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://setupr.com/#digital-presence",
+          "name": "Business Website and Digital Presence",
+          "description": "Professional website, custom domain, business email, and Google Business Profile for startups and freelancers. Build online credibility.",
+          "provider": {
+            "@id": "https://setupr.com/#organization"
+          },
+          "serviceType": "Website Development"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://setupr.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I register a business in India?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "To register a business in India, choose a business structure (Proprietorship, LLP, or Private Limited), obtain a Digital Signature Certificate (DSC), apply for Director Identification Number (DIN) if needed, reserve your company name, and file incorporation documents with MCA. Setupr handles all these steps for you."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do freelancers need GST registration?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, if your annual turnover exceeds ₹20 lakh (₹10 lakh for special category states) or if you provide services to clients outside India. Voluntary GST registration helps you look professional and claim input tax credits."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I start a business without a CA or lawyer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Basic business registration, GST filing, and compliance can be handled without expensive CAs or lawyers. Setupr provides expert guidance and handles all documentation, filings, and follow-ups."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the cost of company registration in India?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Private Limited registration typically costs ₹7,000-15,000 (service fee) plus ₹5,000-10,000 government fees. LLP costs ₹5,000-10,000 plus government fees. Proprietorship is most affordable at ₹1,500-3,000."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long does it take to register a Private Limited company?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Private Limited company registration takes 10-15 working days. This includes DSC issuance (1-2 days), name approval (2-3 days), and incorporation certificate (5-7 days). LLP takes 7-10 days."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What services are required after company registration?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "After registration, you'll need GST registration (if applicable), professional tax registration, current bank account, MSME/Udyam registration, and digital presence setup. For companies, annual ROC filings are mandatory."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can Setupr handle both legal setup and digital presence?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Setupr provides end-to-end business setup — from legal registration (company formation, GST, MSME) to digital presence (professional website, business email, domain, Google Business Profile)."
+              }
+            }
+          ]
         }
       ]
     }

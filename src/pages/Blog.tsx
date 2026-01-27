@@ -65,13 +65,13 @@ const Blog = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full border border-primary/20">
               <BookOpen className="w-3.5 h-3.5" />
-              RESOURCES
+              BUSINESS GUIDES & RESOURCES
             </span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
-              Business <span className="gradient-text">Insights</span>
+              How to <span className="gradient-text">register and grow</span> your business in India
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Expert guides, tips, and resources to help you start and grow your business.
+              Expert guides on company registration, GST, MSME, compliance, and building credibility — written for freelancers, consultants, and startup founders.
             </p>
           </motion.div>
 
@@ -203,10 +203,10 @@ const Blog = () => {
             />
             <div className="relative glass-card rounded-2xl p-8 md:p-12">
               <h2 className="text-2xl md:text-3xl font-bold font-display mb-4">
-                Ready to Start Your Business?
+                Ready to register your business?
               </h2>
               <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                Let Setupr handle the paperwork while you focus on building your dream business.
+                Setupr handles company registration, GST, MSME, website, and compliance for freelancers and startups in India.
               </p>
               <Button asChild size="lg" className="shadow-[0_0_30px_-8px_hsl(24_95%_53%/0.5)]">
                 <Link to="/services">Explore Services</Link>

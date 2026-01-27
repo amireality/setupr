@@ -14,10 +14,10 @@ const iconMap: Record<string, React.ElementType> = {
 
 // Unique psychological titles and subtitles for each category
 const categoryHighlights: Record<string, { title: string; subtitle: string; description: string }> = {
-  "formation": { title: "Business Formation & Legal Identity", subtitle: "", description: "Get your business registered and legally recognized." },
-  "digital": { title: "Digital Presence & Business Identity", subtitle: "", description: "Your website, domain, and email — set up professionally." },
-  "compliance": { title: "Trust, Compliance & Risk Reduction", subtitle: "", description: "The registrations and filings you need to operate legally." },
-  "expert": { title: "Visibility & Discoverability Setup", subtitle: "", description: "Get found online with profiles and listings." },
+  "formation": { title: "Company Registration Services", subtitle: "", description: "Register your Private Limited, LLP, OPC, or Proprietorship. Includes DSC, DIN, and MCA filing." },
+  "digital": { title: "Website & Digital Presence", subtitle: "", description: "Professional website, custom domain, business email, and brand assets for credibility." },
+  "compliance": { title: "GST, MSME & Compliance", subtitle: "", description: "GST registration, MSME/Udyam, professional tax, and ongoing filing support." },
+  "expert": { title: "Online Visibility & SEO", subtitle: "", description: "Google Business Profile, local SEO, and directory listings to get found by customers." },
 };
 
 const CollapsibleServices = () => {
@@ -173,7 +173,7 @@ const CollapsibleServices = () => {
           className="text-center mb-12"
         >
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-balance">
-            What we handle
+            Business registration and setup services we offer
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Everything you need to start, run, and grow your business — all in one place.

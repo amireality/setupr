@@ -117,7 +117,7 @@ const ServiceDetail = () => {
                 <p className="text-lg text-muted-foreground">{service.description_short}</p>
               </motion.div>
 
-              {/* Who It's For */}
+              {/* Who Is This Service For */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -128,12 +128,15 @@ const ServiceDetail = () => {
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                     <Users className="w-5 h-5 text-primary" />
                   </div>
-                  <h2 className="text-xl font-display font-semibold">Who It's For</h2>
+                  <h2 className="text-xl font-display font-semibold">Who is this service for?</h2>
                 </div>
-                <p className="text-muted-foreground">{service.who_its_for}</p>
+                <p className="text-muted-foreground mb-4">{service.who_its_for}</p>
+                <div className="text-sm text-muted-foreground/80 border-t border-border/30 pt-4 mt-4">
+                  <p><strong>Common scenarios:</strong> Freelancers going legit, consultants building credibility, startups needing compliance, small businesses scaling operations.</p>
+                </div>
               </motion.div>
 
-              {/* What's Included */}
+              {/* What Does Setupr Provide */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -144,26 +147,29 @@ const ServiceDetail = () => {
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                     <Check className="w-5 h-5 text-primary" />
                   </div>
-                  <h2 className="text-xl font-display font-semibold">What's Included</h2>
+                  <h2 className="text-xl font-display font-semibold">What does Setupr provide?</h2>
                 </div>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3 group">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">Complete documentation preparation and review</span>
+                    <span className="text-muted-foreground">Complete documentation preparation, review, and filing</span>
                   </li>
                   <li className="flex items-start gap-3 group">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">Expert guidance throughout the process</span>
+                    <span className="text-muted-foreground">Expert guidance from professionals who understand Indian regulations</span>
                   </li>
                   <li className="flex items-start gap-3 group">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">Government fee coordination and tracking</span>
+                    <span className="text-muted-foreground">Government fee coordination — we tell you exactly what to pay and when</span>
                   </li>
                   <li className="flex items-start gap-3 group">
                     <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">Status updates and timeline management</span>
+                    <span className="text-muted-foreground">Regular status updates via WhatsApp and email until completion</span>
                   </li>
                 </ul>
+                <div className="text-sm text-muted-foreground/80 border-t border-border/30 pt-4 mt-4">
+                  <p><strong>The outcome:</strong> A fully compliant, registered service with all necessary documentation — ready to operate legally and build credibility.</p>
+                </div>
               </motion.div>
 
               {/* Process Timeline */}

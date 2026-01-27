@@ -18,7 +18,7 @@ const FinalCTA = () => {
           }}
           className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-center"
         >
-          Ready to stop overthinking and start building?
+          Ready to make your business official?
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 50 }}
@@ -30,7 +30,7 @@ const FinalCTA = () => {
           }}
           className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed max-w-lg mx-auto text-center"
         >
-          Tell us where you are — we'll guide the rest.
+          From freelancer to registered business in India. Company registration, GST, website, and compliance — we handle it all.
         </motion.p>
 
         <motion.div

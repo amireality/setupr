@@ -88,7 +88,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            From legal registration to digital presence. We guide you step by step so you don't have to figure it out alone.
+            Company registration, GST, MSME, website, and compliance — all handled for freelancers, consultants, and startups in India. No CA needed. No vendor chaos.
           </motion.p>
 
           {/* CTA Buttons */}

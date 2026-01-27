@@ -72,11 +72,14 @@ const TrustStats = () => {
           className="text-center mb-12"
         >
           <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            Trusted by Founders
+            Trusted by Freelancers, Startups & Small Businesses
           </span>
           <h2 className="text-2xl md:text-3xl font-display font-bold mt-2">
-            Numbers That Speak for Themselves
+            500+ Businesses Registered Across India
           </h2>
+          <p className="text-muted-foreground text-sm mt-2 max-w-xl mx-auto">
+            From solo consultants to growing startups — we've helped entrepreneurs in 50+ cities get legally set up and build credibility.
+          </p>
         </motion.div>
 
         {/* Stats Grid */}
