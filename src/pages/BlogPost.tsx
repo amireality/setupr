@@ -111,6 +111,74 @@ const BlogPost = () => {
     );
   }
 
+  // Parse inline markdown (bold and links)
+  const parseInlineMarkdown = (text: string): React.ReactNode => {
+    const parts: React.ReactNode[] = [];
+    let remaining = text;
+    let keyIndex = 0;
+
+    while (remaining.length > 0) {
+      // Check for markdown link [text](url)
+      const linkMatch = remaining.match(/\[([^\]]+)\]\(([^)]+)\)/);
+      // Check for bold **text**
+      const boldMatch = remaining.match(/\*\*([^*]+)\*\*/);
+
+      // Find which comes first
+      const linkIndex = linkMatch ? remaining.indexOf(linkMatch[0]) : -1;
+      const boldIndex = boldMatch ? remaining.indexOf(boldMatch[0]) : -1;
+
+      if (linkIndex === -1 && boldIndex === -1) {
+        // No more markdown, add remaining text
+        parts.push(remaining);
+        break;
+      }
+
+      // Determine which match comes first
+      let firstMatchIndex: number;
+      let matchType: 'link' | 'bold';
+      
+      if (linkIndex === -1) {
+        firstMatchIndex = boldIndex;
+        matchType = 'bold';
+      } else if (boldIndex === -1) {
+        firstMatchIndex = linkIndex;
+        matchType = 'link';
+      } else {
+        firstMatchIndex = Math.min(linkIndex, boldIndex);
+        matchType = linkIndex < boldIndex ? 'link' : 'bold';
+      }
+
+      // Add text before the match
+      if (firstMatchIndex > 0) {
+        parts.push(remaining.substring(0, firstMatchIndex));
+      }
+
+      if (matchType === 'link' && linkMatch) {
+        const [fullMatch, linkText, linkUrl] = linkMatch;
+        parts.push(
+          <Link 
+            key={`link-${keyIndex++}`} 
+            to={linkUrl} 
+            className="text-primary hover:underline"
+          >
+            {linkText}
+          </Link>
+        );
+        remaining = remaining.substring(firstMatchIndex + fullMatch.length);
+      } else if (matchType === 'bold' && boldMatch) {
+        const [fullMatch, boldText] = boldMatch;
+        parts.push(
+          <strong key={`bold-${keyIndex++}`} className="font-semibold text-foreground">
+            {boldText}
+          </strong>
+        );
+        remaining = remaining.substring(firstMatchIndex + fullMatch.length);
+      }
+    }
+
+    return parts.length === 1 && typeof parts[0] === 'string' ? parts[0] : parts;
+  };
+
   // Simple markdown-like rendering for content
   const renderContent = (content: string) => {
     const lines = content.split("\n");
@@ -124,7 +192,7 @@ const BlogPost = () => {
         elements.push(
           <ListTag key={elements.length} className={`${listType === "ul" ? "list-disc" : "list-decimal"} list-inside space-y-2 my-4 text-muted-foreground`}>
             {currentList.map((item, i) => (
-              <li key={i}>{item}</li>
+              <li key={i}>{parseInlineMarkdown(item)}</li>
             ))}
           </ListTag>
         );
@@ -136,29 +204,27 @@ const BlogPost = () => {
     lines.forEach((line, index) => {
       const trimmedLine = line.trim();
 
+      // Skip horizontal rules
+      if (trimmedLine === "---" || trimmedLine === "***") {
+        flushList();
+        elements.push(<hr key={index} className="my-6 border-border/50" />);
+        return;
+      }
+
       // Headers
       if (trimmedLine.startsWith("## ")) {
         flushList();
         elements.push(
           <h2 key={index} className="text-2xl font-bold font-display mt-8 mb-4">
-            {trimmedLine.replace("## ", "")}
+            {parseInlineMarkdown(trimmedLine.replace("## ", ""))}
           </h2>
         );
       } else if (trimmedLine.startsWith("### ")) {
         flushList();
         elements.push(
           <h3 key={index} className="text-xl font-semibold font-display mt-6 mb-3">
-            {trimmedLine.replace("### ", "")}
+            {parseInlineMarkdown(trimmedLine.replace("### ", ""))}
           </h3>
-        );
-      }
-      // Bold text markers
-      else if (trimmedLine.startsWith("**") && trimmedLine.endsWith("**")) {
-        flushList();
-        elements.push(
-          <p key={index} className="font-semibold text-foreground my-2">
-            {trimmedLine.replace(/\*\*/g, "")}
-          </p>
         );
       }
       // List items
@@ -175,7 +241,7 @@ const BlogPost = () => {
         flushList();
         elements.push(
           <p key={index} className="text-muted-foreground leading-relaxed my-4">
-            {trimmedLine}
+            {parseInlineMarkdown(trimmedLine)}
           </p>
         );
       }
