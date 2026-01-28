@@ -239,6 +239,19 @@ const BlogPost = () => {
         listType = "ol";
         currentList.push(trimmedLine.replace(/^\d+\.\s/, ""));
       }
+      // Blockquotes
+      else if (trimmedLine.startsWith("> ")) {
+        flushList();
+        elements.push(
+          <blockquote 
+            key={index} 
+            className="border-l-4 border-primary/50 pl-4 my-6 italic text-muted-foreground bg-primary/5 py-3 pr-4 rounded-r-lg"
+          >
+            {parseInlineMarkdown(trimmedLine.replace("> ", ""))}
+          </blockquote>
+        );
+        currentList.push(trimmedLine.replace(/^\d+\.\s/, ""));
+      }
       // Empty lines
       else if (trimmedLine === "") {
         flushList();
