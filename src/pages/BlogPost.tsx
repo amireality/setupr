@@ -227,10 +227,17 @@ const BlogPost = () => {
           </h3>
         );
       }
-      // List items
+      // Unordered list items
       else if (trimmedLine.startsWith("- ")) {
+        if (listType === "ol") flushList();
         listType = "ul";
         currentList.push(trimmedLine.replace("- ", ""));
+      }
+      // Ordered list items (1. 2. 3. etc)
+      else if (/^\d+\.\s/.test(trimmedLine)) {
+        if (listType === "ul") flushList();
+        listType = "ol";
+        currentList.push(trimmedLine.replace(/^\d+\.\s/, ""));
       }
       // Empty lines
       else if (trimmedLine === "") {
