@@ -208,52 +208,44 @@ const Blog = () => {
 
               {/* Bento Grid Layout */}
               {remainingPosts.length > 0 && (
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-3 md:gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-3 md:gap-4 grid-flow-dense auto-rows-[minmax(180px,auto)] md:auto-rows-[minmax(200px,auto)]">
                   {remainingPosts.map((post, index) => {
-                    // Extended bento pattern with more variety - 10 card cycle
-                    const pattern = index % 10;
+                    // Dense-packed bento pattern - 8 card cycle for variety
+                    const pattern = index % 8;
                     let gridClass = "";
                     let variant: "default" | "large" | "wide" | "tall" = "default";
                     
                     switch (pattern) {
-                      case 0: // Hero large - spans 6 cols, 2 rows
+                      case 0: // Large hero - 6 cols, 2 rows
                         gridClass = "col-span-2 md:col-span-4 lg:col-span-6 row-span-2";
                         variant = "large";
                         break;
-                      case 1: // Tall right - spans 3 cols, 2 rows
-                        gridClass = "col-span-1 md:col-span-2 lg:col-span-3 row-span-2";
-                        variant = "tall";
-                        break;
-                      case 2: // Standard top right
+                      case 1: // Standard - fills beside hero top
                         gridClass = "col-span-1 md:col-span-2 lg:col-span-3";
                         variant = "default";
                         break;
-                      case 3: // Wide horizontal - spans 8 cols
+                      case 2: // Standard - fills beside hero top
+                        gridClass = "col-span-1 md:col-span-2 lg:col-span-3";
+                        variant = "default";
+                        break;
+                      case 3: // Standard - fills beside hero bottom
+                        gridClass = "col-span-1 md:col-span-2 lg:col-span-3";
+                        variant = "default";
+                        break;
+                      case 4: // Standard - fills beside hero bottom
+                        gridClass = "col-span-1 md:col-span-2 lg:col-span-3";
+                        variant = "default";
+                        break;
+                      case 5: // Wide horizontal
                         gridClass = "col-span-2 md:col-span-4 lg:col-span-8";
                         variant = "wide";
                         break;
-                      case 4: // Standard
-                        gridClass = "col-span-1 md:col-span-2 lg:col-span-4";
-                        variant = "default";
-                        break;
-                      case 5: // Medium - spans 4 cols, 2 rows
+                      case 6: // Tall - fills beside wide
                         gridClass = "col-span-2 md:col-span-2 lg:col-span-4 row-span-2";
                         variant = "tall";
                         break;
-                      case 6: // Standard
-                        gridClass = "col-span-1 md:col-span-2 lg:col-span-4";
-                        variant = "default";
-                        break;
-                      case 7: // Standard
-                        gridClass = "col-span-1 md:col-span-2 lg:col-span-4";
-                        variant = "default";
-                        break;
-                      case 8: // Wide bottom - spans 6 cols
-                        gridClass = "col-span-2 md:col-span-4 lg:col-span-6";
-                        variant = "wide";
-                        break;
-                      case 9: // Tall end - spans 6 cols
-                        gridClass = "col-span-2 md:col-span-4 lg:col-span-6";
+                      case 7: // Wide - fills below wide, beside tall
+                        gridClass = "col-span-2 md:col-span-4 lg:col-span-8";
                         variant = "wide";
                         break;
                       default:
