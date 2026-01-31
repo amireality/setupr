@@ -206,12 +206,47 @@ const Blog = () => {
                 </motion.div>
               )}
 
-              {/* Posts Grid */}
+              {/* Bento Grid Layout */}
               {remainingPosts.length > 0 && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {remainingPosts.map((post, index) => (
-                    <BlogCard key={post.id} post={post} index={index} />
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 auto-rows-[280px]">
+                  {remainingPosts.map((post, index) => {
+                    // Bento pattern: varying sizes based on position
+                    const pattern = index % 6;
+                    let gridClass = "";
+                    
+                    switch (pattern) {
+                      case 0: // Large - spans 2 cols, 2 rows
+                        gridClass = "md:col-span-2 md:row-span-2";
+                        break;
+                      case 1: // Medium tall - spans 2 rows
+                        gridClass = "md:col-span-2 md:row-span-1 lg:col-span-2";
+                        break;
+                      case 2: // Standard
+                        gridClass = "md:col-span-2 lg:col-span-2";
+                        break;
+                      case 3: // Wide - spans 2 cols
+                        gridClass = "md:col-span-2 lg:col-span-2 lg:row-span-2";
+                        break;
+                      case 4: // Standard
+                        gridClass = "md:col-span-2 lg:col-span-2";
+                        break;
+                      case 5: // Tall
+                        gridClass = "md:col-span-2 lg:col-span-2";
+                        break;
+                      default:
+                        gridClass = "md:col-span-2";
+                    }
+                    
+                    return (
+                      <BlogCard 
+                        key={post.id} 
+                        post={post} 
+                        index={index} 
+                        className={gridClass}
+                        variant={pattern === 0 || pattern === 3 ? "large" : "default"}
+                      />
+                    );
+                  })}
                 </div>
               )}
             </>
