@@ -180,12 +180,54 @@ const BlogPost = () => {
     return parts.length === 1 && typeof parts[0] === 'string' ? parts[0] : parts;
   };
 
+  // Render a markdown table
+  const renderTable = (tableLines: string[], startIndex: number): JSX.Element => {
+    const rows = tableLines.filter(line => !line.match(/^\|[-:|\s]+\|$/)); // Filter out separator rows
+    const headers = rows[0]?.split('|').filter(cell => cell.trim()).map(cell => cell.trim()) || [];
+    const bodyRows = rows.slice(1);
+
+    return (
+      <div key={startIndex} className="my-8 overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b border-primary/30 bg-primary/5">
+              {headers.map((header, i) => (
+                <th key={i} className="px-4 py-3 text-left text-sm font-semibold text-foreground">
+                  {parseInlineMarkdown(header)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {bodyRows.map((row, rowIndex) => {
+              const cells = row.split('|').filter(cell => cell.trim() !== '' || cell.includes(' ')).map(cell => cell.trim());
+              return (
+                <tr 
+                  key={rowIndex} 
+                  className={`border-b border-border/30 ${rowIndex % 2 === 0 ? 'bg-card/30' : 'bg-card/10'} hover:bg-primary/5 transition-colors`}
+                >
+                  {cells.map((cell, cellIndex) => (
+                    <td key={cellIndex} className="px-4 py-3 text-sm text-muted-foreground">
+                      {parseInlineMarkdown(cell)}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+
   // Simple markdown-like rendering for content
   const renderContent = (content: string) => {
     const lines = content.split("\n");
     const elements: JSX.Element[] = [];
     let currentList: string[] = [];
     let listType: "ul" | "ol" | null = null;
+    let tableLines: string[] = [];
+    let inTable = false;
 
     const flushList = () => {
       if (currentList.length > 0 && listType) {
@@ -202,8 +244,28 @@ const BlogPost = () => {
       }
     };
 
+    const flushTable = () => {
+      if (tableLines.length > 0) {
+        elements.push(renderTable(tableLines, elements.length));
+        tableLines = [];
+        inTable = false;
+      }
+    };
+
     lines.forEach((line, index) => {
       const trimmedLine = line.trim();
+
+      // Check if this is a table row (starts and ends with |)
+      const isTableRow = trimmedLine.startsWith('|') && trimmedLine.endsWith('|');
+      
+      if (isTableRow) {
+        flushList();
+        inTable = true;
+        tableLines.push(trimmedLine);
+        return;
+      } else if (inTable) {
+        flushTable();
+      }
 
       // Skip horizontal rules
       if (trimmedLine === "---" || trimmedLine === "***") {
@@ -229,10 +291,10 @@ const BlogPost = () => {
         );
       }
       // Unordered list items
-      else if (trimmedLine.startsWith("- ")) {
+      else if (trimmedLine.startsWith("- ") || trimmedLine.startsWith("* ")) {
         if (listType === "ol") flushList();
         listType = "ul";
-        currentList.push(trimmedLine.replace("- ", ""));
+        currentList.push(trimmedLine.replace(/^[-*]\s/, ""));
       }
       // Ordered list items (1. 2. 3. etc)
       else if (/^\d+\.\s/.test(trimmedLine)) {
@@ -251,7 +313,6 @@ const BlogPost = () => {
             {parseInlineMarkdown(trimmedLine.replace("> ", ""))}
           </blockquote>
         );
-        currentList.push(trimmedLine.replace(/^\d+\.\s/, ""));
       }
       // Empty lines
       else if (trimmedLine === "") {
@@ -269,6 +330,7 @@ const BlogPost = () => {
     });
 
     flushList();
+    flushTable();
     return elements;
   };
 
