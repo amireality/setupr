@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthorBio from "@/components/blog/AuthorBio";
+import BlogThumbnail from "@/components/blog/BlogThumbnail";
 import { useBlogPost, useBlogPosts } from "@/hooks/useBlogPosts";
 import { format } from "date-fns";
 import { Helmet } from "react-helmet-async";
@@ -346,16 +347,17 @@ const BlogPost = () => {
             </div>
           </motion.header>
 
-          {/* Featured image placeholder */}
+          {/* Category-specific featured visual */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-transparent rounded-2xl flex items-center justify-center mb-10"
+            className="mb-10"
           >
-            <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-              <span className="text-4xl">📄</span>
-            </div>
+            <BlogThumbnail 
+              category={post.category} 
+              className="aspect-video rounded-2xl" 
+            />
           </motion.div>
 
           {/* Content */}
