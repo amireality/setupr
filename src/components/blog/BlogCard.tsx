@@ -12,6 +12,8 @@ interface BlogCardProps {
   variant?: "default" | "large" | "wide" | "tall";
 }
 
+// Pass slug to BlogThumbnail for unique visuals
+
 const BlogCard = ({ post, index = 0, className, variant = "default" }: BlogCardProps) => {
   const isLarge = variant === "large";
   const isWide = variant === "wide";
@@ -50,7 +52,7 @@ const BlogCard = ({ post, index = 0, className, variant = "default" }: BlogCardP
             isTall && "flex-1 min-h-[180px]",
             !isLarge && !isWide && !isTall && "h-[120px] md:h-[140px]"
           )}>
-            <BlogThumbnail category={post.category} className="w-full h-full" />
+            <BlogThumbnail category={post.category} slug={post.slug} className="w-full h-full" />
           </div>
 
           {/* Content */}
