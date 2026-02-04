@@ -5,8 +5,14 @@ import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import { TyperEffect } from "@/components/ui/typer-effect";
 import { GlassShape } from "@/components/ui/glass-shape";
 import { motion } from "framer-motion";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const HeroSection = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
+  
+  const getSetting = (key: string, fallback: string) => 
+    settings.find((s) => s.key === key)?.value || fallback;
+
   const scrollToHowItWorks = () => {
     const element = document.getElementById("how-it-works");
     element?.scrollIntoView({
@@ -15,6 +21,10 @@ const HeroSection = () => {
   };
 
   const businessTypes = ["Business", "Agency", "Startup", "Venture", "Company"];
+  
+  const heroSubtitle = getSetting("homepage_hero_subtitle", "Company registration, GST, MSME, website, and compliance — all handled for freelancers, consultants, and startups in India. No CA needed. No vendor chaos.");
+  const ctaPrimary = getSetting("homepage_cta_primary", "Start with your journey");
+  const ctaSecondary = getSetting("homepage_cta_secondary", "See How It Works");
 
   return (
     <section className="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
@@ -88,7 +98,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            Company registration, GST, MSME, website, and compliance — all handled for freelancers, consultants, and startups in India. No CA needed. No vendor chaos.
+            {heroSubtitle}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -100,7 +110,7 @@ const HeroSection = () => {
           >
             <Button variant="hero" size="xl" asChild className="shadow-glow group">
               <Link to="/intake">
-                Start with your journey
+                {ctaPrimary}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -110,7 +120,7 @@ const HeroSection = () => {
               onClick={scrollToHowItWorks} 
               className="glass border-primary/30 hover:border-primary/50 hover:shadow-[0_0_30px_-8px_hsl(24_95%_53%/0.3)] transition-all duration-300"
             >
-              See How It Works
+              {ctaSecondary}
             </Button>
           </motion.div>
         </div>

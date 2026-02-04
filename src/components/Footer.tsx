@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Linkedin, Mail } from "lucide-react";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 // Custom X (Twitter) icon since lucide doesn't have the new X logo
 const XIcon = () => (
@@ -9,6 +10,18 @@ const XIcon = () => (
 );
 
 const Footer = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("footer");
+  
+  const getSetting = (key: string, fallback: string) => 
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const tagline = getSetting("footer_tagline", "Your trusted partner for business setup & compliance in India.");
+  const ownership = getSetting("footer_ownership", "Owned & operated by Altered.");
+  const email = getSetting("footer_email", "info@setupr.com");
+  const instagram = getSetting("footer_instagram", "https://www.instagram.com/setuprhq");
+  const twitter = getSetting("footer_twitter", "https://x.com/setuprhq");
+  const linkedin = getSetting("footer_linkedin", "https://linkedin.com/company/setupr");
+
   return (
     <footer className="bg-background py-12 md:py-16 relative z-20">
       {/* Gradient glow border at top */}
@@ -30,7 +43,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Your trusted partner for business setup & compliance in India.
+              {tagline}
             </p>
           </div>
 
@@ -140,21 +153,21 @@ const Footer = () => {
               © {new Date().getFullYear()} Setupr. All Rights Reserved.
             </p>
             <p className="text-xs text-muted-foreground/60 mt-1">
-              Owned &amp; operated by Altered.
+              {ownership}
             </p>
           </div>
           
           {/* Social Icons */}
           <div className="flex items-center gap-4">
             <a 
-              href="mailto:info@setupr.com" 
+              href={`mailto:${email}`} 
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
               aria-label="Email"
             >
               <Mail className="w-5 h-5" />
             </a>
             <a 
-              href="https://www.instagram.com/setuprhq" 
+              href={instagram} 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
@@ -163,7 +176,7 @@ const Footer = () => {
               <Instagram className="w-5 h-5" />
             </a>
             <a 
-              href="https://x.com/setuprhq" 
+              href={twitter} 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
@@ -172,7 +185,7 @@ const Footer = () => {
               <XIcon />
             </a>
             <a 
-              href="https://linkedin.com/company/setupr" 
+              href={linkedin} 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"

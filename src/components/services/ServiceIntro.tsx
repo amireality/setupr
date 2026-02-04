@@ -1,6 +1,16 @@
 import { Spotlight } from "@/components/ui/spotlight";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const ServiceIntro = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("services");
+  
+  const getSetting = (key: string, fallback: string) => 
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const introTitle = getSetting("services_intro_title", "Business registration services in India");
+  const introSubtitle = getSetting("services_intro_subtitle", "Company registration, GST, MSME, compliance, website, and digital presence — for freelancers, consultants, and startups.");
+  const introNote = getSetting("services_intro_note", "Pick individual services or choose a bundle. Transparent pricing. No hidden fees. Add more anytime.");
+
   return (
     <section className="relative py-24 md:py-32 overflow-hidden">
       {/* Spotlight Effect */}
@@ -17,13 +27,13 @@ const ServiceIntro = () => {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-up text-balance">
-            Business registration services in India
+            {introTitle}
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-up-delay-1">
-            Company registration, GST, MSME, compliance, website, and digital presence — for freelancers, consultants, and startups.
+            {introSubtitle}
           </p>
           <p className="text-sm text-muted-foreground/70 animate-fade-up-delay-2">
-            Pick individual services or choose a bundle. Transparent pricing. No hidden fees. Add more anytime.
+            {introNote}
           </p>
         </div>
       </div>

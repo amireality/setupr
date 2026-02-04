@@ -1,5 +1,6 @@
 import { MessageCircle, FileCheck, Rocket } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const StepSkeleton = ({ step }: { step: string }) => {
   return (
@@ -12,34 +13,59 @@ const StepSkeleton = ({ step }: { step: string }) => {
   );
 };
 
-const items = [
+const defaultItems = [
   {
     title: "Share your requirements",
     description:
       "Tell us if you need company registration, GST, website, or compliance. Answer a few questions about your business type and goals.",
-    header: <StepSkeleton step="01" />,
-    className: "md:col-span-1",
     icon: <MessageCircle className="h-5 w-5 text-primary" />,
   },
   {
     title: "Get a clear plan with pricing",
     description:
       "We provide an exact checklist of services, documents needed, timeline, and transparent pricing — Setupr fee plus government fees, nothing hidden.",
-    header: <StepSkeleton step="02" />,
-    className: "md:col-span-1",
     icon: <FileCheck className="h-5 w-5 text-primary" />,
   },
   {
     title: "We handle everything",
     description:
       "Our experts manage all filings, registrations, and follow-ups. You get updates via WhatsApp and email until your business is fully set up.",
-    header: <StepSkeleton step="03" />,
-    className: "md:col-span-1",
     icon: <Rocket className="h-5 w-5 text-primary" />,
   },
 ];
 
 const HowItWorks = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
+  
+  const getSetting = (key: string, fallback: string) => 
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const sectionTitle = getSetting("homepage_how_it_works_title", "How Setupr helps you register your business");
+  
+  const items = [
+    {
+      title: getSetting("homepage_step1_title", defaultItems[0].title),
+      description: getSetting("homepage_step1_desc", defaultItems[0].description),
+      header: <StepSkeleton step="01" />,
+      className: "md:col-span-1",
+      icon: defaultItems[0].icon,
+    },
+    {
+      title: getSetting("homepage_step2_title", defaultItems[1].title),
+      description: getSetting("homepage_step2_desc", defaultItems[1].description),
+      header: <StepSkeleton step="02" />,
+      className: "md:col-span-1",
+      icon: defaultItems[1].icon,
+    },
+    {
+      title: getSetting("homepage_step3_title", defaultItems[2].title),
+      description: getSetting("homepage_step3_desc", defaultItems[2].description),
+      header: <StepSkeleton step="03" />,
+      className: "md:col-span-1",
+      icon: defaultItems[2].icon,
+    },
+  ];
+
   return (
     <section id="how-it-works" className="py-20 md:py-28 relative bg-background">
       {/* Subtle gradient background */}
@@ -50,7 +76,7 @@ const HowItWorks = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              How Setupr helps you register your business
+              {sectionTitle}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Simple 3-step process: Share your needs, get a clear plan with pricing, and we handle all the paperwork and filings.
