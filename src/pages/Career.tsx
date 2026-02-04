@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 import {
   Select,
   SelectContent,
@@ -115,6 +116,15 @@ const highlights = [
 ];
 
 const Career = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("career");
+  
+  const getSetting = (key: string, fallback: string) => 
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const fellowshipTitle = getSetting("career_title", "Founders Fellowship");
+  const fellowshipSubtitle = getSetting("career_subtitle", "Learn how startups, business registration platforms, and compliance ecosystems work in India. A mentorship program for students, recent graduates, and aspiring entrepreneurs.");
+  const disclaimer = getSetting("career_disclaimer", "⚠️ This is a learning program, not a traditional internship. Focused on real startup exposure, not certificates.");
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -239,14 +249,14 @@ const Career = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6">
               Setupr{" "}
               <span className="bg-gradient-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent">
-                Founders Fellowship
+                {fellowshipTitle}
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-4">
-              Learn how startups, business registration platforms, and compliance ecosystems work in India. A mentorship program for students, recent graduates, and aspiring entrepreneurs.
+              {fellowshipSubtitle}
             </p>
             <p className="text-sm text-muted-foreground/80 bg-secondary/30 rounded-xl px-4 py-3 inline-block">
-              ⚠️ This is a learning program, not a traditional internship. Focused on real startup exposure, not certificates.
+              {disclaimer}
             </p>
           </motion.div>
 

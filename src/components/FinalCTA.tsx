@@ -3,8 +3,18 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LampContainer } from "@/components/ui/lamp";
 import { motion } from "framer-motion";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const FinalCTA = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
+  
+  const getSetting = (key: string, fallback: string) => 
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const ctaTitle = getSetting("homepage_final_cta_title", "Ready to make your business official?");
+  const ctaSubtitle = getSetting("homepage_final_cta_subtitle", "From freelancer to registered business in India. Company registration, GST, website, and compliance — we handle it all.");
+  const ctaButtonText = getSetting("homepage_cta_primary", "Start with your journey");
+
   return (
     <section className="relative overflow-hidden">
       <LampContainer>
@@ -18,7 +28,7 @@ const FinalCTA = () => {
           }}
           className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-center"
         >
-          Ready to make your business official?
+          {ctaTitle}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 50 }}
@@ -30,7 +40,7 @@ const FinalCTA = () => {
           }}
           className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed max-w-lg mx-auto text-center"
         >
-          From freelancer to registered business in India. Company registration, GST, website, and compliance — we handle it all.
+          {ctaSubtitle}
         </motion.p>
 
         <motion.div
@@ -44,7 +54,7 @@ const FinalCTA = () => {
         >
           <Button variant="hero" size="xl" asChild className="shadow-glow">
             <Link to="/intake">
-              Start with your journey
+              {ctaButtonText}
               <ArrowRight className="w-5 h-5" />
             </Link>
           </Button>

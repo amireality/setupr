@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Loader2, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 import {
   Form,
   FormControl,
@@ -29,6 +30,16 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const Contact = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("contact");
+  
+  const getSetting = (key: string, fallback: string) => 
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const pageTitle = getSetting("contact_title", "Contact Us");
+  const pageSubtitle = getSetting("contact_subtitle", "Have questions about our services? We're here to help. Our team will get back to you shortly.");
+  const successTitle = getSetting("contact_success_title", "Message Sent!");
+  const successMessage = getSetting("contact_success_message", "Thank you for reaching out. We'll get back to you within 24-48 hours.");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
@@ -79,9 +90,9 @@ const Contact = () => {
       <main className="pt-24 pb-16">
         <div className="container px-4 md:px-6 max-w-2xl mx-auto">
           <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Contact Us</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{pageTitle}</h1>
             <p className="text-lg text-muted-foreground">
-              Have questions about our services? We're here to help. Our team will get back to you shortly.
+              {pageSubtitle}
             </p>
           </div>
           
@@ -94,9 +105,9 @@ const Contact = () => {
                 <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
                   <CheckCircle className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
+                <h3 className="text-xl font-semibold mb-2">{successTitle}</h3>
                 <p className="text-muted-foreground mb-4">
-                  Thank you for reaching out. We'll get back to you within 24-48 hours.
+                  {successMessage}
                 </p>
                 <Button onClick={() => setIsSuccess(false)} variant="outline">
                   Send Another Message
