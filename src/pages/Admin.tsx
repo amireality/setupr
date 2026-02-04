@@ -47,6 +47,7 @@ import {
   Users,
   MessageSquare,
   Inbox,
+  Settings2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -54,6 +55,7 @@ import { BlogManagement } from "@/components/admin/BlogManagement";
 import { TeamManagement } from "@/components/admin/TeamManagement";
 import { TestimonialManagement } from "@/components/admin/TestimonialManagement";
 import { IntakeManagement } from "@/components/admin/IntakeManagement";
+import SettingsManagement from "@/components/admin/SettingsManagement";
 
 const Admin = () => {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -233,6 +235,10 @@ const Admin = () => {
               <TabsTrigger value="intake" className="gap-2">
                 <Inbox className="w-4 h-4" />
                 <span className="hidden sm:inline">Intake</span>
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="gap-2">
+                <Settings2 className="w-4 h-4" />
+                <span className="hidden sm:inline">Settings</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -415,6 +421,17 @@ const Admin = () => {
           {/* Intake Submissions Tab */}
           <TabsContent value="intake">
             <IntakeManagement />
+          </TabsContent>
+
+          {/* Settings Tab */}
+          <TabsContent value="settings">
+            <div className="mb-6">
+              <h2 className="font-display text-lg font-semibold">Settings</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Manage legal documents, page content, and account settings
+              </p>
+            </div>
+            <SettingsManagement />
           </TabsContent>
         </Tabs>
       </main>

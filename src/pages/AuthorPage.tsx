@@ -26,7 +26,7 @@ const AuthorPage = () => {
         "@context": "https://schema.org",
         "@type": "Person",
         name: author.name,
-        url: `https://setupr.com/author/${author.slug}`,
+        url: `https://setupr.com/team/${author.slug}`,
         jobTitle: author.title,
         description: author.bio,
         worksFor: {
@@ -53,13 +53,13 @@ const AuthorPage = () => {
             "@type": "ListItem",
             position: 2,
             name: "Team",
-            item: "https://setupr.com/author",
+            item: "https://setupr.com/team",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: author.name,
-            item: `https://setupr.com/author/${author.slug}`,
+            item: `https://setupr.com/team/${author.slug}`,
           },
         ],
       }
@@ -84,7 +84,7 @@ const AuthorPage = () => {
               The author you're looking for doesn't exist.
             </p>
             <Button asChild>
-              <Link to="/author">
+              <Link to="/team">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 View All Team Members
               </Link>
@@ -103,12 +103,12 @@ const AuthorPage = () => {
           {author.name} - {author.title} | Setupr
         </title>
         <meta name="description" content={author.bio} />
-        <link rel="canonical" href={`https://setupr.com/author/${author.slug}`} />
+        <link rel="canonical" href={`https://setupr.com/team/${author.slug}`} />
         <meta property="og:title" content={`${author.name} - ${author.title}`} />
         <meta property="og:description" content={author.bio} />
         <meta
           property="og:url"
-          content={`https://setupr.com/author/${author.slug}`}
+          content={`https://setupr.com/team/${author.slug}`}
         />
         {personSchema && (
           <script type="application/ld+json">
@@ -133,7 +133,7 @@ const AuthorPage = () => {
             transition={{ duration: 0.5 }}
           >
             <Button variant="ghost" size="sm" asChild className="mb-6">
-              <Link to="/author">
+              <Link to="/team">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Team
               </Link>

@@ -36,7 +36,7 @@ const BlogPost = () => {
     "author": {
       "@type": "Person",
       "name": post.author_name,
-      "url": `https://setupr.com/author/${authorSlug}`
+      "url": `https://setupr.com/team/${authorSlug}`
     },
     "publisher": {
       "@type": "Organization",
@@ -169,12 +169,12 @@ const BlogPost = () => {
             <span className="inline-block px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-full border border-primary/20 mb-4">
               {post.category}
             </span>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-6 leading-tight">
               {post.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <Link 
-                to={`/author/${authorSlug}`} 
+                to={`/team/${authorSlug}`} 
                 className="flex items-center gap-1.5 hover:text-primary transition-colors"
               >
                 <User className="w-4 h-4" />
@@ -257,8 +257,8 @@ const BlogPost = () => {
               transition={{ duration: 0.6 }}
               className="mt-16"
             >
-              <h2 className="text-2xl font-bold font-display mb-6">Related Articles</h2>
-              <div className="grid md:grid-cols-2 gap-6">
+              <h2 className="text-xl sm:text-2xl font-bold font-display mb-6">Related Articles</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 {relatedPosts.map(relatedPost => (
                   <Link
                     key={relatedPost.id}

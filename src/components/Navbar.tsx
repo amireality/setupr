@@ -211,6 +211,25 @@ const Navbar = () => {
             </Link>
 
             <Link 
+              to="/team" 
+              className={cn(
+                "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                isActive('/team') || location.pathname.startsWith('/team/')
+                  ? 'text-foreground bg-secondary' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+              )}
+            >
+              Team
+              {(isActive('/team') || location.pathname.startsWith('/team/')) && (
+                <motion.div
+                  layoutId="navbar-indicator"
+                  className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+            </Link>
+
+            <Link 
               to="/career" 
               className={cn(
                 "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
@@ -363,7 +382,21 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                   >
                     About
-                  </Link>
+                   </Link>
+                  </motion.div>
+                  <motion.div variants={mobileItemVariants}>
+                    <Link 
+                      to="/team" 
+                      className={cn(
+                        "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block",
+                        isActive('/team') || location.pathname.startsWith('/team/')
+                          ? 'text-foreground bg-secondary' 
+                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Team
+                    </Link>
                   </motion.div>
                   <motion.div variants={mobileItemVariants}>
                     <Link 

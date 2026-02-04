@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Target, Heart, Zap, Shield, Users, Clock, MapPin, Building } from "lucide-react";
 
@@ -129,7 +130,7 @@ const About = () => {
                   <Users className="w-5 h-5 text-primary flex-shrink-0" />
                   <div>
                     <p className="text-xs text-muted-foreground uppercase tracking-wide">Founder</p>
-                    <Link to="/author/amir-khan" className="text-sm font-medium text-primary hover:underline">
+                    <Link to="/team/amir-khan" className="text-sm font-medium text-primary hover:underline">
                       Amir Khan
                     </Link>
                   </div>
@@ -282,13 +283,16 @@ const About = () => {
                       <strong>Mission:</strong> Simplify the early founder journey so that talented people 
                       can focus on their craft, not paperwork.
                     </p>
-                    <div className="mt-4">
+                    <div className="mt-4 flex flex-col sm:flex-row items-center gap-3">
                       <Link 
-                        to="/author/amir-khan" 
+                        to="/team/amir-khan" 
                         className="text-sm text-primary hover:underline"
                       >
                         Read articles by Amir Khan →
                       </Link>
+                      <Button variant="outline" size="sm" asChild className="w-full sm:w-auto">
+                        <Link to="/team">Meet Our Team</Link>
+                      </Button>
                     </div>
                   </div>
                 </div>
