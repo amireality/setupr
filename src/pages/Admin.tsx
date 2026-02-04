@@ -43,9 +43,11 @@ import {
   Package,
   Settings,
   ArrowLeft,
+  FileText,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { BlogManagement } from "@/components/admin/BlogManagement";
 
 const Admin = () => {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -207,6 +209,10 @@ const Admin = () => {
               <Package className="w-4 h-4" />
               Bundles
             </TabsTrigger>
+            <TabsTrigger value="blog" className="gap-2">
+              <FileText className="w-4 h-4" />
+              Blog
+            </TabsTrigger>
           </TabsList>
 
           {/* Services Tab */}
@@ -361,6 +367,17 @@ const Admin = () => {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          {/* Blog Tab */}
+          <TabsContent value="blog">
+            <div className="mb-6">
+              <h2 className="font-display text-lg font-semibold">Blog Management</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Generate AI content and manage blog posts
+              </p>
+            </div>
+            <BlogManagement />
           </TabsContent>
         </Tabs>
       </main>
