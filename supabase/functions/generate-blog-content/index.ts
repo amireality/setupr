@@ -68,46 +68,61 @@ serve(async (req) => {
       });
     }
 
-    // Get API keys
-    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    // Get Lovable API key
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
-    if (!GEMINI_API_KEY) {
-      throw new Error("GEMINI_API_KEY is not configured");
-    }
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    // Build research prompt for Gemini
+    // Build research prompt
     const researchPrompt = buildResearchPrompt(category, topicFocus, includeRegulatory);
 
-    // Step 1: Call Gemini for research with search grounding
-    console.log("Calling Gemini for research...");
-    const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: researchPrompt }] }],
-          tools: [{ google_search: {} }],
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 4096,
+    // Step 1: Call Lovable AI for research
+    console.log("Calling Lovable AI for research...");
+    const researchResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-3-flash-preview",
+        messages: [
+          {
+            role: "system",
+            content: `You are a research assistant specializing in Indian business, startup, and regulatory topics.
+Provide comprehensive, accurate, and up-to-date information.
+Include specific statistics, government fees, timelines, and official requirements.
+Focus on practical information that founders in India need to know.`,
           },
-        }),
-      }
-    );
+          { role: "user", content: researchPrompt },
+        ],
+        temperature: 0.5,
+        max_tokens: 4096,
+      }),
+    });
 
-    if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
-      console.error("Gemini API error:", geminiResponse.status, errorText);
-      throw new Error(`Gemini API error: ${geminiResponse.status}`);
+    if (!researchResponse.ok) {
+      if (researchResponse.status === 429) {
+        return new Response(
+          JSON.stringify({ error: "Rate limit exceeded. Please try again in a few minutes." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      if (researchResponse.status === 402) {
+        return new Response(
+          JSON.stringify({ error: "AI credits exhausted. Please add credits to continue." }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      const errorText = await researchResponse.text();
+      console.error("Lovable AI research error:", researchResponse.status, errorText);
+      throw new Error(`Lovable AI error: ${researchResponse.status}`);
     }
 
-    const geminiData = await geminiResponse.json();
-    const researchContent = extractGeminiContent(geminiData);
+    const researchData = await researchResponse.json();
+    const researchContent = researchData.choices?.[0]?.message?.content || "";
     console.log("Research gathered, length:", researchContent.length);
 
     // Step 2: Call Lovable AI to write the blog post
@@ -263,14 +278,7 @@ function getCategoryTopics(category: string): string {
   return topics[category] || "business registration and compliance in India";
 }
 
-function extractGeminiContent(data: any): string {
-  try {
-    const parts = data.candidates?.[0]?.content?.parts || [];
-    return parts.map((p: any) => p.text || "").join("\n");
-  } catch {
-    return "";
-  }
-}
+// Removed extractGeminiContent - no longer needed since we use Lovable AI
 
 function buildWritingPrompt(
   category: string,
