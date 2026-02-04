@@ -32,7 +32,7 @@ const AuthorBio = ({ authorName, compact = false }: AuthorBioProps) => {
         </div>
         <div className="flex-1 min-w-0">
           <Link
-            to={`/author/${authorSlug}`}
+            to={`/team/${authorSlug}`}
             className="text-sm font-medium hover:text-primary transition-colors"
           >
             <span className="text-primary">{authorName}</span>
@@ -61,7 +61,7 @@ const AuthorBio = ({ authorName, compact = false }: AuthorBioProps) => {
             </span>
           </div>
           <Link
-            to={`/author/${authorSlug}`}
+            to={`/team/${authorSlug}`}
             className="text-lg font-display font-semibold hover:text-primary transition-colors inline-block mb-2"
           >
             <span className="text-primary">{authorName}</span>
@@ -91,7 +91,7 @@ const AuthorBio = ({ authorName, compact = false }: AuthorBioProps) => {
               <Linkedin className="w-3.5 h-3.5 text-muted-foreground" />
             </a>
             <Link
-              to={`/author/${authorSlug}`}
+              to={`/team/${authorSlug}`}
               className="text-xs text-primary hover:underline ml-2"
             >
               View all articles →

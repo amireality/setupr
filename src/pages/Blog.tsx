@@ -98,10 +98,10 @@ const Blog = () => {
               <BookOpen className="w-3.5 h-3.5" />
               BUSINESS GUIDES & RESOURCES
             </span>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
               How to <span className="gradient-text">register and grow</span> your business in India
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
               Expert guides on company registration, GST, MSME, compliance, and building credibility — written for freelancers, consultants, and startup founders.
             </p>
           </motion.div>
@@ -179,22 +179,22 @@ const Blog = () => {
                     <div className="relative glass-card rounded-2xl overflow-hidden transition-all duration-500 group-hover:shadow-[0_0_60px_-12px_hsl(24_95%_53%/0.3)] group-hover:border-primary/30">
                       <div className="grid md:grid-cols-2 gap-0">
                         {/* Custom Thumbnail Graphic */}
-                        <div className="aspect-video md:aspect-auto min-h-[250px]">
+                        <div className="aspect-video md:aspect-auto min-h-[200px] sm:min-h-[250px]">
                           <BlogThumbnail category={featuredPost.category} className="w-full h-full" />
                         </div>
 
                         {/* Content */}
-                        <div className="p-8 flex flex-col justify-center">
-                          <span className="inline-block w-fit px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-full border border-primary/30 mb-4">
+                        <div className="p-5 sm:p-6 md:p-8 flex flex-col justify-center">
+                          <span className="inline-block w-fit px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-full border border-primary/30 mb-3 sm:mb-4">
                             {featuredPost.category}
                           </span>
-                          <h2 className="text-2xl md:text-3xl font-bold font-display text-foreground mb-3 group-hover:text-primary transition-colors">
+                          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-display text-foreground mb-2 sm:mb-3 group-hover:text-primary transition-colors">
                             {featuredPost.title}
                           </h2>
-                          <p className="text-muted-foreground mb-4 line-clamp-3">
+                          <p className="text-muted-foreground mb-3 sm:mb-4 line-clamp-2 sm:line-clamp-3 text-sm sm:text-base">
                             {featuredPost.excerpt}
                           </p>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground/60">
+                          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground/60">
                             <span>{featuredPost.author_name}</span>
                             <span>•</span>
                             <span>{featuredPost.read_time_minutes} min read</span>
@@ -208,7 +208,7 @@ const Blog = () => {
 
               {/* Bento Grid Layout */}
               {remainingPosts.length > 0 && (
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-3 md:gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-3 md:gap-4">
                   {remainingPosts.map((post, index) => {
                     // Extended bento pattern with more variety - 10 card cycle
                     const pattern = index % 10;

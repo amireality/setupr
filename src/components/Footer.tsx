@@ -135,9 +135,14 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Setupr. All rights reserved.
-          </p>
+          <div className="text-center md:text-left">
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} Setupr. All Rights Reserved.
+            </p>
+            <p className="text-xs text-muted-foreground/60 mt-1">
+              Owned &amp; operated by Altered.
+            </p>
+          </div>
           
           {/* Social Icons */}
           <div className="flex items-center gap-4">

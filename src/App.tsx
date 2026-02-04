@@ -72,8 +72,8 @@ const AnimatedRoutes = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/career" element={<Career />} />
-          <Route path="/author" element={<TeamPage />} />
-          <Route path="/author/:authorSlug" element={<AuthorPage />} />
+          <Route path="/team" element={<TeamPage />} />
+          <Route path="/team/:authorSlug" element={<AuthorPage />} />
           <Route path="/guides" element={<GuidesIndex />} />
           <Route path="/guides/starting-business-india" element={<StartingBusinessGuide />} />
           <Route path="/guides/business-types" element={<BusinessTypesGuide />} />

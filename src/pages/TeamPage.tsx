@@ -28,13 +28,13 @@ const TeamPage = () => {
           name="description"
           content="Meet the team behind Setupr - simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams in India."
         />
-        <link rel="canonical" href="https://setupr.com/author" />
+        <link rel="canonical" href="https://setupr.com/team" />
         <meta property="og:title" content="Our Team | Setupr" />
         <meta
           property="og:description"
           content="Meet the team behind Setupr - simplifying business setup for founders in India."
         />
-        <meta property="og:url" content="https://setupr.com/author" />
+        <meta property="og:url" content="https://setupr.com/team" />
         <script type="application/ld+json">{JSON.stringify(teamSchema)}</script>
       </Helmet>
 
@@ -102,7 +102,7 @@ const TeamPage = () => {
                   transition={{ delay: 0.1 * index, duration: 0.5 }}
                 >
                   <Link
-                    to={`/author/${author.slug}`}
+                    to={`/team/${author.slug}`}
                     className="block glass-card glass-card-hover rounded-2xl p-6 h-full"
                   >
                     {/* Avatar */}
