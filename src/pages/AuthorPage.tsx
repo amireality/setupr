@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowLeft, BookOpen, Linkedin, Twitter } from "lucide-react";
@@ -8,73 +8,118 @@ import Footer from "@/components/Footer";
 import BlogCard from "@/components/blog/BlogCard";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
-
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Amir Khan",
-  "url": "https://setupr.com/author/amir-khan",
-  "jobTitle": "Founder",
-  "description": "Amir Khan is the founder of Setupr, a platform focused on simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams in India.",
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Setupr",
-    "url": "https://setupr.com"
-  },
-  "sameAs": [
-    "https://x.com/setuprhq",
-    "https://linkedin.com/company/setupr"
-  ]
-};
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://setupr.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Blog",
-      "item": "https://setupr.com/blog"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Amir Khan",
-      "item": "https://setupr.com/author/amir-khan"
-    }
-  ]
-};
+import { useAuthor } from "@/hooks/useAuthors";
 
 const AuthorPage = () => {
-  const { data: posts = [], isLoading } = useBlogPosts();
+  const { authorSlug } = useParams<{ authorSlug: string }>();
+  const { data: author, isLoading: authorLoading, error: authorError } = useAuthor(authorSlug || "");
+  const { data: posts = [], isLoading: postsLoading } = useBlogPosts();
 
-  // Filter posts by author
+  // Filter posts by this author
   const authorPosts = posts.filter(
-    (post) => post.author_name.toLowerCase() === "amir khan"
+    (post) => post.author_name.toLowerCase() === author?.name.toLowerCase()
   );
+
+  // Generate dynamic schema
+  const personSchema = author
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: author.name,
+        url: `https://setupr.com/author/${author.slug}`,
+        jobTitle: author.title,
+        description: author.bio,
+        worksFor: {
+          "@type": "Organization",
+          name: "Setupr",
+          url: "https://setupr.com",
+        },
+        sameAs: [author.twitter_url, author.linkedin_url].filter(Boolean),
+      }
+    : null;
+
+  const breadcrumbSchema = author
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://setupr.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Team",
+            item: "https://setupr.com/author",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: author.name,
+            item: `https://setupr.com/author/${author.slug}`,
+          },
+        ],
+      }
+    : null;
+
+  if (authorLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (authorError || !author) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main className="pt-24 pb-16">
+          <div className="container px-4 md:px-6 text-center py-16">
+            <h1 className="text-2xl font-bold mb-4">Author not found</h1>
+            <p className="text-muted-foreground mb-6">
+              The author you're looking for doesn't exist.
+            </p>
+            <Button asChild>
+              <Link to="/author">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                View All Team Members
+              </Link>
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background relative">
       <Helmet>
-        <title>Amir Khan - Founder of Setupr | Articles on Business Setup</title>
-        <meta name="description" content="Amir Khan is the founder of Setupr, a platform focused on simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams in India." />
-        <link rel="canonical" href="https://setupr.com/author/amir-khan" />
-        <meta property="og:title" content="Amir Khan - Founder of Setupr" />
-        <meta property="og:description" content="Amir Khan is the founder of Setupr. Read articles on business registration, compliance, and startup setup in India." />
-        <meta property="og:url" content="https://setupr.com/author/amir-khan" />
-        <script type="application/ld+json">
-          {JSON.stringify(personSchema)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
-        </script>
+        <title>
+          {author.name} - {author.title} | Setupr
+        </title>
+        <meta name="description" content={author.bio} />
+        <link rel="canonical" href={`https://setupr.com/author/${author.slug}`} />
+        <meta property="og:title" content={`${author.name} - ${author.title}`} />
+        <meta property="og:description" content={author.bio} />
+        <meta
+          property="og:url"
+          content={`https://setupr.com/author/${author.slug}`}
+        />
+        {personSchema && (
+          <script type="application/ld+json">
+            {JSON.stringify(personSchema)}
+          </script>
+        )}
+        {breadcrumbSchema && (
+          <script type="application/ld+json">
+            {JSON.stringify(breadcrumbSchema)}
+          </script>
+        )}
       </Helmet>
       <AnimatedGridBackground />
       <Navbar />
@@ -88,9 +133,9 @@ const AuthorPage = () => {
             transition={{ duration: 0.5 }}
           >
             <Button variant="ghost" size="sm" asChild className="mb-6">
-              <Link to="/blog">
+              <Link to="/author">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Blog
+                Back to Team
               </Link>
             </Button>
           </motion.div>
@@ -106,46 +151,46 @@ const AuthorPage = () => {
               {/* Avatar */}
               <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center flex-shrink-0">
                 <span className="text-3xl font-display font-bold text-primary">
-                  AK
+                  {author.avatar_initials}
                 </span>
               </div>
 
               {/* Author Info */}
               <div className="flex-1">
                 <h1 className="text-2xl md:text-3xl font-display font-bold mb-2">
-                  <span className="text-primary">Amir Khan</span>
+                  <span className="text-primary">{author.name}</span>
                 </h1>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Founder, Setupr
+                  {author.title}
                 </p>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Amir Khan is the founder of Setupr, a platform focused on
-                  simplifying business setup, compliance, and digital presence
-                  for freelancers, startups, and small teams in India. He works
-                  on building systems and resources to help early founders start
-                  with clarity.
+                  {author.bio}
                 </p>
 
                 {/* Social Links */}
                 <div className="flex items-center gap-3">
-                  <a
-                    href="https://x.com/setuprhq"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
-                    aria-label="Twitter"
-                  >
-                    <Twitter className="w-4 h-4 text-muted-foreground" />
-                  </a>
-                  <a
-                    href="https://linkedin.com/company/setupr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin className="w-4 h-4 text-muted-foreground" />
-                  </a>
+                  {author.twitter_url && (
+                    <a
+                      href={author.twitter_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
+                      aria-label="Twitter"
+                    >
+                      <Twitter className="w-4 h-4 text-muted-foreground" />
+                    </a>
+                  )}
+                  {author.linkedin_url && (
+                    <a
+                      href={author.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="w-4 h-4 text-muted-foreground" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -160,14 +205,14 @@ const AuthorPage = () => {
             <div className="flex items-center gap-2 mb-6">
               <BookOpen className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-display font-semibold">
-                Articles by Amir Khan
+                Articles by {author.name}
               </h2>
               <span className="text-sm text-muted-foreground">
                 ({authorPosts.length})
               </span>
             </div>
 
-            {isLoading ? (
+            {postsLoading ? (
               <div className="flex justify-center py-12">
                 <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
               </div>
@@ -197,8 +242,8 @@ const AuthorPage = () => {
             <p className="text-sm text-muted-foreground max-w-xl mx-auto">
               Setupr is a business setup platform that helps freelancers,
               consultants, and startups in India with company registration, GST,
-              MSME, compliance, and digital presence. Founded by Amir Khan,
-              Setupr's mission is to simplify the early founder journey.
+              MSME, compliance, and digital presence. Our mission is to simplify
+              the early founder journey.
             </p>
           </motion.div>
         </div>

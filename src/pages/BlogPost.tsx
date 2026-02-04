@@ -7,19 +7,25 @@ import Footer from "@/components/Footer";
 import AuthorBio from "@/components/blog/AuthorBio";
 import BlogThumbnail from "@/components/blog/BlogThumbnail";
 import { useBlogPost, useBlogPosts } from "@/hooks/useBlogPosts";
+import { useAuthorByName } from "@/hooks/useAuthors";
 import { format } from "date-fns";
 import { Helmet } from "react-helmet-async";
+import { renderMarkdown } from "@/lib/markdown";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { data: post, isLoading, error } = useBlogPost(slug || "");
   const { data: allPosts = [] } = useBlogPosts();
+  const { data: authorData } = useAuthorByName(post?.author_name || "");
 
   // Get related posts (same category, excluding current)
   const relatedPosts = allPosts
     .filter(p => p.slug !== slug && p.category === post?.category)
     .slice(0, 2);
+
+  // Generate author link
+  const authorSlug = authorData?.slug || post?.author_name?.toLowerCase().replace(/\s+/g, "-") || "amir-khan";
 
   // Generate Article schema
   const articleSchema = post ? {
@@ -30,7 +36,7 @@ const BlogPost = () => {
     "author": {
       "@type": "Person",
       "name": post.author_name,
-      "url": "https://setupr.com/author/amir-khan"
+      "url": `https://setupr.com/author/${authorSlug}`
     },
     "publisher": {
       "@type": "Organization",
@@ -112,228 +118,6 @@ const BlogPost = () => {
     );
   }
 
-  // Parse inline markdown (bold and links)
-  const parseInlineMarkdown = (text: string): React.ReactNode => {
-    const parts: React.ReactNode[] = [];
-    let remaining = text;
-    let keyIndex = 0;
-
-    while (remaining.length > 0) {
-      // Check for markdown link [text](url)
-      const linkMatch = remaining.match(/\[([^\]]+)\]\(([^)]+)\)/);
-      // Check for bold **text**
-      const boldMatch = remaining.match(/\*\*([^*]+)\*\*/);
-
-      // Find which comes first
-      const linkIndex = linkMatch ? remaining.indexOf(linkMatch[0]) : -1;
-      const boldIndex = boldMatch ? remaining.indexOf(boldMatch[0]) : -1;
-
-      if (linkIndex === -1 && boldIndex === -1) {
-        // No more markdown, add remaining text
-        parts.push(remaining);
-        break;
-      }
-
-      // Determine which match comes first
-      let firstMatchIndex: number;
-      let matchType: 'link' | 'bold';
-      
-      if (linkIndex === -1) {
-        firstMatchIndex = boldIndex;
-        matchType = 'bold';
-      } else if (boldIndex === -1) {
-        firstMatchIndex = linkIndex;
-        matchType = 'link';
-      } else {
-        firstMatchIndex = Math.min(linkIndex, boldIndex);
-        matchType = linkIndex < boldIndex ? 'link' : 'bold';
-      }
-
-      // Add text before the match
-      if (firstMatchIndex > 0) {
-        parts.push(remaining.substring(0, firstMatchIndex));
-      }
-
-      if (matchType === 'link' && linkMatch) {
-        const [fullMatch, linkText, linkUrl] = linkMatch;
-        parts.push(
-          <Link 
-            key={`link-${keyIndex++}`} 
-            to={linkUrl} 
-            className="text-primary hover:underline"
-          >
-            {linkText}
-          </Link>
-        );
-        remaining = remaining.substring(firstMatchIndex + fullMatch.length);
-      } else if (matchType === 'bold' && boldMatch) {
-        const [fullMatch, boldText] = boldMatch;
-        parts.push(
-          <strong key={`bold-${keyIndex++}`} className="font-semibold text-foreground">
-            {boldText}
-          </strong>
-        );
-        remaining = remaining.substring(firstMatchIndex + fullMatch.length);
-      }
-    }
-
-    return parts.length === 1 && typeof parts[0] === 'string' ? parts[0] : parts;
-  };
-
-  // Render a markdown table
-  const renderTable = (tableLines: string[], startIndex: number): JSX.Element => {
-    const rows = tableLines.filter(line => !line.match(/^\|[-:|\s]+\|$/)); // Filter out separator rows
-    const headers = rows[0]?.split('|').filter(cell => cell.trim()).map(cell => cell.trim()) || [];
-    const bodyRows = rows.slice(1);
-
-    return (
-      <div key={startIndex} className="my-8 overflow-x-auto">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="border-b border-primary/30 bg-primary/5">
-              {headers.map((header, i) => (
-                <th key={i} className="px-4 py-3 text-left text-sm font-semibold text-foreground">
-                  {parseInlineMarkdown(header)}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {bodyRows.map((row, rowIndex) => {
-              const cells = row.split('|').filter(cell => cell.trim() !== '' || cell.includes(' ')).map(cell => cell.trim());
-              return (
-                <tr 
-                  key={rowIndex} 
-                  className={`border-b border-border/30 ${rowIndex % 2 === 0 ? 'bg-card/30' : 'bg-card/10'} hover:bg-primary/5 transition-colors`}
-                >
-                  {cells.map((cell, cellIndex) => (
-                    <td key={cellIndex} className="px-4 py-3 text-sm text-muted-foreground">
-                      {parseInlineMarkdown(cell)}
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-
-  // Simple markdown-like rendering for content
-  const renderContent = (content: string) => {
-    const lines = content.split("\n");
-    const elements: JSX.Element[] = [];
-    let currentList: string[] = [];
-    let listType: "ul" | "ol" | null = null;
-    let tableLines: string[] = [];
-    let inTable = false;
-
-    const flushList = () => {
-      if (currentList.length > 0 && listType) {
-        const ListTag = listType;
-        elements.push(
-          <ListTag key={elements.length} className={`${listType === "ul" ? "list-disc" : "list-decimal"} list-inside space-y-2 my-4 text-muted-foreground`}>
-            {currentList.map((item, i) => (
-              <li key={i}>{parseInlineMarkdown(item)}</li>
-            ))}
-          </ListTag>
-        );
-        currentList = [];
-        listType = null;
-      }
-    };
-
-    const flushTable = () => {
-      if (tableLines.length > 0) {
-        elements.push(renderTable(tableLines, elements.length));
-        tableLines = [];
-        inTable = false;
-      }
-    };
-
-    lines.forEach((line, index) => {
-      const trimmedLine = line.trim();
-
-      // Check if this is a table row (starts and ends with |)
-      const isTableRow = trimmedLine.startsWith('|') && trimmedLine.endsWith('|');
-      
-      if (isTableRow) {
-        flushList();
-        inTable = true;
-        tableLines.push(trimmedLine);
-        return;
-      } else if (inTable) {
-        flushTable();
-      }
-
-      // Skip horizontal rules
-      if (trimmedLine === "---" || trimmedLine === "***") {
-        flushList();
-        elements.push(<hr key={index} className="my-6 border-border/50" />);
-        return;
-      }
-
-      // Headers
-      if (trimmedLine.startsWith("## ")) {
-        flushList();
-        elements.push(
-          <h2 key={index} className="text-2xl font-bold font-display mt-8 mb-4">
-            {parseInlineMarkdown(trimmedLine.replace("## ", ""))}
-          </h2>
-        );
-      } else if (trimmedLine.startsWith("### ")) {
-        flushList();
-        elements.push(
-          <h3 key={index} className="text-xl font-semibold font-display mt-6 mb-3">
-            {parseInlineMarkdown(trimmedLine.replace("### ", ""))}
-          </h3>
-        );
-      }
-      // Unordered list items
-      else if (trimmedLine.startsWith("- ") || trimmedLine.startsWith("* ")) {
-        if (listType === "ol") flushList();
-        listType = "ul";
-        currentList.push(trimmedLine.replace(/^[-*]\s/, ""));
-      }
-      // Ordered list items (1. 2. 3. etc)
-      else if (/^\d+\.\s/.test(trimmedLine)) {
-        if (listType === "ul") flushList();
-        listType = "ol";
-        currentList.push(trimmedLine.replace(/^\d+\.\s/, ""));
-      }
-      // Blockquotes
-      else if (trimmedLine.startsWith("> ")) {
-        flushList();
-        elements.push(
-          <blockquote 
-            key={index} 
-            className="border-l-4 border-primary/50 pl-4 my-6 italic text-muted-foreground bg-primary/5 py-3 pr-4 rounded-r-lg"
-          >
-            {parseInlineMarkdown(trimmedLine.replace("> ", ""))}
-          </blockquote>
-        );
-      }
-      // Empty lines
-      else if (trimmedLine === "") {
-        flushList();
-      }
-      // Regular paragraphs
-      else {
-        flushList();
-        elements.push(
-          <p key={index} className="text-muted-foreground leading-relaxed my-4">
-            {parseInlineMarkdown(trimmedLine)}
-          </p>
-        );
-      }
-    });
-
-    flushList();
-    flushTable();
-    return elements;
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
@@ -390,7 +174,7 @@ const BlogPost = () => {
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <Link 
-                to="/author/amir-khan" 
+                to={`/author/${authorSlug}`} 
                 className="flex items-center gap-1.5 hover:text-primary transition-colors"
               >
                 <User className="w-4 h-4" />
@@ -422,14 +206,14 @@ const BlogPost = () => {
             />
           </motion.div>
 
-          {/* Content */}
+          {/* Content - using shared markdown renderer */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
             className="prose prose-invert max-w-none"
           >
-            {renderContent(post.content)}
+            {renderMarkdown(post.content)}
           </motion.div>
 
           {/* Author Bio */}
