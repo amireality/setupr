@@ -1,310 +1,330 @@
 
-# Comprehensive Admin Panel & Blog Overhaul Plan
+# Comprehensive Website Update Plan
 
 ## Overview
 
-This plan addresses all requested changes: fixing markdown rendering, removing AI automation, adding manual post creation, building the Team/Authors system, enhancing mobile responsiveness, and expanding admin capabilities.
+This plan covers multiple updates: footer legal structure changes, route changes from `/author` to `/team`, Team link in navbar, "Meet Our Team" button on About page, mobile responsiveness improvements, and expanded admin panel settings for managing page content and legal documents.
 
 ---
 
-## Part 1: Markdown Rendering Fixes
-
-### Current Issues (from your screenshots)
-The editor's preview tab uses a simplified regex-based renderer that doesn't handle:
-- Nested bold within list items (`* **Pros:**`)
-- Horizontal rules (`---`)
-- Images (`![alt](url)`)
-- Code blocks
-- Proper list grouping
-- Tables (partially working on public page, not in editor preview)
-
-### Solution
-Create a unified `renderMarkdown` utility used by both:
-1. **BlogEditor preview** (`src/components/admin/BlogEditor.tsx`)
-2. **Public BlogPost page** (`src/pages/BlogPost.tsx`)
-
-This ensures WYSIWYG consistency between admin preview and published output.
-
-**Markdown features to support:**
-| Syntax | Example | Rendering |
-|--------|---------|-----------|
-| Headers | `## Title` | h2, h3 styled headings |
-| Bold | `**text**` | Strong with foreground color |
-| Italic | `*text*` | Emphasized text |
-| Links | `[text](url)` | React Router Link components |
-| Images | `![alt](url)` | Responsive img with rounded corners |
-| Blockquotes | `> quote` | Orange left border, subtle background |
-| Unordered lists | `- item` or `* item` | Properly grouped ul |
-| Ordered lists | `1. item` | Properly grouped ol |
-| Tables | `\| cell \|` | Themed table with zebra striping |
-| Horizontal rule | `---` | Styled hr element |
-| Code | `` `inline` `` | Monospace with background |
-
-**Files to create:**
-- `src/lib/markdown.tsx` — Shared markdown parser/renderer
-
-**Files to modify:**
-- `src/components/admin/BlogEditor.tsx` — Use shared renderer for preview
-- `src/pages/BlogPost.tsx` — Use shared renderer for public view
-
----
-
-## Part 2: Remove AI Automation
-
-### Changes Required
-
-1. **Delete BlogGenerator component usage** from `BlogManagement.tsx`
-2. **Keep the edge function** for potential future use, but remove it from the UI
-3. **Replace AI section** with "Create New Post" button
-
-**Files to modify:**
-- `src/components/admin/BlogManagement.tsx` — Remove BlogGenerator, add "New Post" button
-
----
-
-## Part 3: Manual Blog Post Creation
+## Part 1: Footer Update - Legal Ownership Structure
 
 ### Current State
-The `BlogEditor` component only opens in "edit mode" when clicking an existing post. It has no "create mode".
+The Footer shows: `© {year} Setupr. All rights reserved.`
 
-### Solution
-1. Modify `BlogEditor` to accept `post: null` for create mode
-2. Add `useCreateBlogPost` hook call for new posts
-3. Add "Create New Post" button that opens blank editor
-4. Add preview button on draft cards (opens in-editor preview)
+### Changes Required
+Update `src/components/Footer.tsx` to add ownership disclosure:
 
-**Files to modify:**
-- `src/components/admin/BlogEditor.tsx` — Support create mode (null post)
-- `src/components/admin/BlogManagement.tsx` — Add "New Post" button, preview button for drafts
+```text
+CURRENT:
+┌─────────────────────────────────────────────┐
+│ © 2026 Setupr. All rights reserved.         │
+└─────────────────────────────────────────────┘
+
+NEW:
+┌─────────────────────────────────────────────┐
+│ © 2026 Setupr. All Rights Reserved.         │
+│ Owned & operated by Altered.                │  ← smaller, neutral grey
+└─────────────────────────────────────────────┘
+```
+
+**Styling:**
+- Main copyright: Keep existing `text-sm text-muted-foreground`
+- "Owned & operated by Altered": Use `text-xs text-muted-foreground/60` (slightly smaller, more subtle)
+- "Altered" is plain text (not a link)
 
 ---
 
-## Part 4: Team/Authors System
+## Part 2: Route Change - `/author` to `/team`
 
-### Current Problem
-- `/author/` shows 404 (no route for listing all authors)
-- `AuthorPage.tsx` is hardcoded to "Amir Khan" only
-- Blog posts link to `/author/amir-khan` regardless of actual author
-- No admin management for authors
+### Current Routes
+- `/author` → TeamPage (team listing)
+- `/author/:authorSlug` → AuthorPage (individual profile)
+
+### New Routes
+- `/team` → TeamPage (team listing)
+- `/team/:authorSlug` → AuthorPage (individual profile)
+
+### Files to Modify
+
+| File | Changes |
+|------|---------|
+| `src/App.tsx` | Change routes from `/author` to `/team` |
+| `src/pages/TeamPage.tsx` | Update canonical URL, internal links |
+| `src/pages/AuthorPage.tsx` | Update back link, breadcrumb URLs |
+| `src/pages/About.tsx` | Update founder link from `/author/amir-khan` to `/team/amir-khan` |
+| `src/pages/BlogPost.tsx` | Update author link to use `/team/` prefix |
+| `src/components/blog/AuthorBio.tsx` | Update author link if present |
+
+---
+
+## Part 3: Add "Team" Link to Navbar
+
+### Current Desktop Nav
+Home | Services | Resources | About | Careers | Contact
+
+### New Desktop Nav
+Home | Services | Resources | About | **Team** | Careers | Contact
+
+### Mobile Nav
+Add "Team" link between About and Careers
+
+**File:** `src/components/Navbar.tsx`
+
+---
+
+## Part 4: "Meet Our Team" Button on About Page
+
+### Placement
+Add after the Founder Section (around line 298) or within the Founder Section as a secondary CTA.
+
+**Design:**
+- Button text: "Meet Our Team"
+- Style: Ghost/secondary variant to complement existing styling
+- Links to `/team`
+- Position: Below the founder bio, right-aligned or centered
+
+**File:** `src/pages/About.tsx`
+
+---
+
+## Part 5: Mobile Responsiveness Improvements
+
+### Areas Identified for Improvement
+
+**Blog Page (`src/pages/Blog.tsx`):**
+- Bento grid on mobile shows 2 columns (`grid-cols-2`) which can be cramped
+- Reduce to single column on very small screens (`grid-cols-1 sm:grid-cols-2`)
+- Featured post image/content ratio needs adjustment for mobile
+
+**BlogCard (`src/components/blog/BlogCard.tsx`):**
+- Thumbnail heights are fixed, may cause overflow on mobile
+- Adjust responsive heights
+
+**Team Page (`src/pages/TeamPage.tsx`):**
+- Already has `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` - good
+- Check card padding for mobile
+
+**BlogPost (`src/pages/BlogPost.tsx`):**
+- Title font size could be smaller on mobile for very long titles
+- Related posts grid should stack on mobile
+
+### Files to Modify
+- `src/pages/Blog.tsx` - Adjust grid breakpoints
+- `src/components/blog/BlogCard.tsx` - Tweak mobile thumbnail heights
+- `src/pages/BlogPost.tsx` - Responsive typography adjustments
+
+---
+
+## Part 6: Expanded Admin Panel - Page Content & Settings Management
+
+### Current Admin Tabs
+Services | Bundles | Blog | Team | Testimonials | Intake
+
+### New Tab: "Settings"
+A comprehensive settings tab for managing:
+
+1. **Legal Pages** (Terms, Privacy, Refund)
+2. **Page Settings** (About page, Contact info, etc.)
+3. **Account Settings** (Change password, email)
 
 ### Database Schema Required
-Create new `authors` table:
+
+Create a new `site_settings` table to store editable content:
 
 ```text
-authors
+site_settings
 ├── id (uuid, primary key)
-├── slug (text, unique) — e.g., "amir-khan"
-├── name (text) — Display name
-├── title (text) — e.g., "Founder, Setupr"
-├── bio (text) — Full bio paragraph
-├── avatar_initials (text) — e.g., "AK"
-├── twitter_url (text, nullable)
-├── linkedin_url (text, nullable)
-├── is_active (boolean, default true)
-├── sort_order (integer, default 0)
+├── key (text, unique) — e.g., "terms_content", "privacy_content", "footer_tagline"
+├── value (text) — The content (can be markdown for legal pages)
+├── category (text) — "legal", "content", "config"
 ├── created_at (timestamp)
 └── updated_at (timestamp)
 ```
 
-### New Routes
-| Route | Component | Purpose |
-|-------|-----------|---------|
-| `/author/` or `/team` | `TeamPage.tsx` | List all authors as cards |
-| `/author/:slug` | `AuthorPage.tsx` | Individual author profile (updated) |
+### Settings Tab Sub-Sections
 
-### Admin Management
-New "Team" tab in admin panel with:
-- View all team members
-- Create new author
-- Edit existing author
-- Delete author
-- Toggle active/inactive
+| Section | What It Controls |
+|---------|------------------|
+| **Legal Documents** | Terms & Conditions, Privacy Policy, Refund Policy content |
+| **About Page** | Tagline, stats values, mission text |
+| **Contact Info** | Email address, social media URLs |
+| **Footer** | Copyright text, ownership line |
+| **Account** | Change password (uses Supabase Auth API) |
 
-### Blog Integration
-- `BlogEditor` author field becomes a dropdown of active authors
-- `BlogPost.tsx` links to the correct author profile based on author name/slug
-- `AuthorBio` component fetches author data from database
+### Admin Settings UI Flow
 
-**Files to create:**
-- `src/pages/TeamPage.tsx` — Team listing page
-- `src/components/admin/TeamManagement.tsx` — CRUD for authors
-- `src/hooks/useAuthors.ts` — Query/mutation hooks for authors
+```text
+Settings Tab
+├── Legal Documents
+│   ├── Terms & Conditions [Edit] (Markdown editor)
+│   ├── Privacy Policy [Edit]
+│   └── Refund Policy [Edit]
+├── Page Content
+│   ├── About Page Sections
+│   └── Footer Customization
+└── Account
+    ├── Change Email
+    └── Change Password
+```
 
-**Files to modify:**
-- `src/App.tsx` — Add `/author` route for team listing, rename page title
-- `src/pages/AuthorPage.tsx` — Fetch from database, dynamic for any author
-- `src/components/blog/AuthorBio.tsx` — Fetch from authors table
-- `src/components/admin/BlogEditor.tsx` — Author dropdown from database
-- `src/pages/BlogPost.tsx` — Dynamic author link based on slug
-- `src/pages/Admin.tsx` — Add "Team" tab
+### Files to Create
 
----
+| File | Purpose |
+|------|---------|
+| `src/components/admin/SettingsManagement.tsx` | Main settings tab component |
+| `src/hooks/useSiteSettings.ts` | Query/mutation hooks for site_settings table |
 
-## Part 5: Mobile Responsiveness Fixes
+### Files to Modify
 
-### Areas to Improve
+| File | Changes |
+|------|---------|
+| `src/pages/Admin.tsx` | Add "Settings" tab |
+| `src/pages/Terms.tsx` | Fetch content from database instead of hardcoded |
+| `src/pages/Privacy.tsx` | Fetch content from database instead of hardcoded |
+| `src/pages/Refund.tsx` | Fetch content from database instead of hardcoded |
 
-1. **Admin Panel Header** — Stack elements vertically on mobile
-2. **Admin Tabs** — Horizontal scroll or dropdown on narrow screens
-3. **BlogEditor Dialog** — Full screen on mobile, better touch targets
-4. **PostCard** — Stack actions below content on mobile
-5. **Form Inputs** — Full width on mobile, larger touch targets
-6. **Team Cards** — Single column on mobile
+### Legal Pages Update Logic
 
-### Specific CSS Changes
-- Use responsive grid: `grid-cols-1 md:grid-cols-2`
-- Full-width dialogs on mobile: `w-full max-w-5xl`
-- Larger buttons/inputs on mobile
-- Horizontal scroll for TabsList on mobile
-
-**Files to modify:**
-- `src/pages/Admin.tsx` — Mobile header layout
-- `src/components/admin/BlogManagement.tsx` — Mobile post cards
-- `src/components/admin/BlogEditor.tsx` — Mobile-friendly dialog
-- `src/pages/TeamPage.tsx` — Responsive grid
-
----
-
-## Part 6: Additional Admin Features
-
-### Testimonials Tab (as previously planned)
-- View all testimonials with quote preview
-- Create/Edit/Delete testimonials
-- Toggle featured status
-- Reorder functionality
-
-**Files to create:**
-- `src/components/admin/TestimonialManagement.tsx`
-- `src/hooks/useTestimonialAdmin.ts`
-
-### Intake Submissions Tab
-- View all intake form submissions
-- Filter by status (pending/contacted/completed)
-- Update status
-- View full details
-
-**Files to create:**
-- `src/components/admin/IntakeManagement.tsx`
-- `src/hooks/useIntakeAdmin.ts`
-
----
-
-## Part 7: Image URL Preview
-
-When pasting an image URL in the Featured Image field:
-- Show preview thumbnail below the input
-- Validate URL is accessible
-- Display error if image fails to load
-
-**Files to modify:**
-- `src/components/admin/BlogEditor.tsx` — Add image preview component
+Currently, legal pages (Terms, Privacy, Refund) have hardcoded content. We'll:
+1. Keep the hardcoded content as fallback
+2. Check for database content first
+3. Allow editing via admin panel with markdown support
 
 ---
 
 ## Implementation Summary
 
 ### Database Changes
-1. Create `authors` table with RLS policies
+1. Create `site_settings` table with RLS policies (admin write, public read)
 
-### Files to Create (8 files)
+### Files to Create (2 new files)
 | File | Purpose |
 |------|---------|
-| `src/lib/markdown.tsx` | Shared markdown renderer |
-| `src/pages/TeamPage.tsx` | Team listing page |
-| `src/hooks/useAuthors.ts` | Authors CRUD hooks |
-| `src/components/admin/TeamManagement.tsx` | Admin team management |
-| `src/components/admin/TestimonialManagement.tsx` | Admin testimonials |
-| `src/hooks/useTestimonialAdmin.ts` | Testimonial CRUD hooks |
-| `src/components/admin/IntakeManagement.tsx` | View intake submissions |
-| `src/hooks/useIntakeAdmin.ts` | Intake query hooks |
+| `src/components/admin/SettingsManagement.tsx` | Admin settings management |
+| `src/hooks/useSiteSettings.ts` | Site settings hooks |
 
-### Files to Modify (10 files)
+### Files to Modify (12 files)
 | File | Changes |
 |------|---------|
-| `src/App.tsx` | Add `/author` route (team page), keep `/author/:slug` |
-| `src/pages/Admin.tsx` | Add Team, Testimonials, Intake tabs |
-| `src/pages/AuthorPage.tsx` | Fetch from DB, support any author |
-| `src/pages/BlogPost.tsx` | Use shared markdown, dynamic author links |
-| `src/components/admin/BlogManagement.tsx` | Remove AI, add "New Post", add preview |
-| `src/components/admin/BlogEditor.tsx` | Create mode, author dropdown, image preview, mobile fixes |
-| `src/components/blog/AuthorBio.tsx` | Fetch from authors table |
-| `src/hooks/useBlogAdmin.ts` | Remove generate function (keep others) |
-
-### Files to Delete
-None — keeping BlogGenerator.tsx and edge function for future use (just removing from UI)
+| `src/components/Footer.tsx` | Add ownership line |
+| `src/App.tsx` | Change `/author` routes to `/team` |
+| `src/pages/TeamPage.tsx` | Update URLs, canonical |
+| `src/pages/AuthorPage.tsx` | Update back link, breadcrumb |
+| `src/pages/About.tsx` | Update links, add "Meet Our Team" button |
+| `src/pages/BlogPost.tsx` | Update author link to `/team/` |
+| `src/components/blog/AuthorBio.tsx` | Update author link |
+| `src/components/Navbar.tsx` | Add Team link |
+| `src/pages/Admin.tsx` | Add Settings tab |
+| `src/pages/Blog.tsx` | Mobile grid improvements |
+| `src/pages/Terms.tsx` | Fetch from database |
+| `src/pages/Privacy.tsx` | Fetch from database |
+| `src/pages/Refund.tsx` | Fetch from database |
 
 ---
 
 ## Visual Changes Summary
 
+### Footer (Updated)
 ```text
-ADMIN PANEL TABS (Updated):
-┌────────────┬──────────┬────────┬────────┬───────────────┬──────────┐
-│  Services  │  Bundles │  Blog  │  Team  │  Testimonials │  Intake  │
-└────────────┴──────────┴────────┴────────┴───────────────┴──────────┘
-
-BLOG TAB (Updated):
 ┌─────────────────────────────────────────────────────────────────────┐
-│  [+ Create New Post]                                                │
-├─────────────────────────────────────────────────────────────────────┤
-│  Drafts (2)                                                         │
-│  ┌─────────────────────────────────────────────────────────────────┐
-│  │  Post Title...        [Draft] [Category]    ✏️ 👁️ 📤 🗑️         │
-│  └─────────────────────────────────────────────────────────────────┘
-├─────────────────────────────────────────────────────────────────────┤
-│  Published (5)                                                      │
-│  ┌─────────────────────────────────────────────────────────────────┐
-│  │  Post Title...        [Published] [Category]  ✏️ 👁️ 📥 🗑️       │
-│  └─────────────────────────────────────────────────────────────────┘
-└─────────────────────────────────────────────────────────────────────┘
-
-TEAM PAGE (/author):
-┌─────────────────────────────────────────────────────────────────────┐
-│                           Our Team                                   │
-├─────────────────────────────────────────────────────────────────────┤
-│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐  │
-│  │       [AK]       │  │       [XY]       │  │       [ZZ]       │  │
-│  │   Amir Khan      │  │   Author 2       │  │   Author 3       │  │
-│  │   Founder        │  │   Title          │  │   Title          │  │
-│  │   [View Profile] │  │   [View Profile] │  │   [View Profile] │  │
-│  └──────────────────┘  └──────────────────┘  └──────────────────┘  │
+│ © 2026 Setupr. All Rights Reserved.                                 │
+│ Owned & operated by Altered.                                        │
+│                                                        [Social Icons]│
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
----
-
-## Technical Details
-
-### Markdown Renderer Features
-The new `src/lib/markdown.tsx` will export a `renderMarkdown(content: string)` function that returns `React.ReactNode[]`:
-
-- Parses content line-by-line
-- Handles multi-line elements (lists, tables)
-- Supports nested inline formatting (bold within links, etc.)
-- Renders images with lazy loading and error states
-- Uses React Router `<Link>` for internal links
-- Falls back gracefully for unsupported syntax
-
-### Author Dropdown in BlogEditor
-Replace the text input with a Select component:
+### Navbar (Updated)
 ```text
-Author: [▼ Select Author]
-        ├── Amir Khan
-        ├── Author 2
-        └── + Add New Author
+Desktop:
+[Logo]  Home | Services | Resources | About | Team | Careers | Contact  [Get Started]
+
+Mobile Menu:
+├── Home
+├── Services
+├── Resources
+├── About
+├── Team          ← NEW
+├── Careers
+├── Contact
+└── [Get Started]
 ```
 
-### Preview Button Flow
-1. Click preview icon (Eye) on draft card
-2. Opens BlogEditor in preview-only mode OR
-3. Opens a separate BlogPreview modal with full public rendering
+### Admin Panel (Updated)
+```text
+┌────────────┬──────────┬────────┬────────┬───────────────┬──────────┬──────────┐
+│  Services  │  Bundles │  Blog  │  Team  │  Testimonials │  Intake  │ Settings │
+└────────────┴──────────┴────────┴────────┴───────────────┴──────────┴──────────┘
+
+Settings Tab:
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ LEGAL DOCUMENTS                                                                  │
+│ ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│ │ Terms & Conditions       [Last updated: Jan 2026]          [Edit] [Preview]│ │
+│ │ Privacy Policy           [Last updated: Jan 2026]          [Edit] [Preview]│ │
+│ │ Refund Policy            [Last updated: Jan 2026]          [Edit] [Preview]│ │
+│ └─────────────────────────────────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ PAGE CONTENT                                                                     │
+│ ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│ │ Footer Tagline          "Your trusted partner for..."           [Edit]     │ │
+│ │ Footer Ownership        "Owned & operated by Altered."          [Edit]     │ │
+│ │ About Page Stats        500+, 98%, 48hrs, 24/7                  [Edit]     │ │
+│ └─────────────────────────────────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ ACCOUNT                                                                          │
+│ ┌─────────────────────────────────────────────────────────────────────────────┐ │
+│ │ Email: ajmatali7733@gmail.com                              [Change Email]  │ │
+│ │ Password: ********                                         [Change Password]│ │
+│ └─────────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 ## Security Considerations
 
-- All new tables will have RLS policies matching existing patterns
-- Admin-only operations protected by `has_role(auth.uid(), 'admin')`
-- Public read for published content only
-- Authors table: public read for active authors, admin write
+- `site_settings` table will have RLS:
+  - Public can READ (for displaying content on pages)
+  - Only admins can INSERT/UPDATE/DELETE
+- Password changes use Supabase Auth `updateUser()` API
+- All admin actions remain protected by existing `has_role()` checks
 
+---
+
+## Mobile Responsiveness Details
+
+### Blog Page Grid Fix
+```text
+CURRENT: grid-cols-2 md:grid-cols-4 lg:grid-cols-12
+NEW:     grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-12
+```
+This ensures single column on smallest screens (< 640px).
+
+### Featured Post on Mobile
+Adjust the featured post to stack vertically with proper padding and reduced image height on mobile.
+
+### Typography Scaling
+- Blog post titles: `text-2xl sm:text-3xl md:text-4xl lg:text-5xl`
+- Ensure adequate touch targets (minimum 44px) for buttons
+
+---
+
+## Implementation Priority
+
+### Phase 1 (Quick Wins)
+1. Footer update (ownership line)
+2. Route change `/author` → `/team`
+3. Add Team link to Navbar
+4. Add "Meet Our Team" button on About page
+
+### Phase 2 (Mobile Fixes)
+5. Blog page grid responsiveness
+6. BlogCard mobile adjustments
+7. BlogPost responsive typography
+
+### Phase 3 (Admin Settings)
+8. Create `site_settings` table
+9. Create `SettingsManagement.tsx` component
+10. Update legal pages to fetch from database
+11. Add account settings functionality
