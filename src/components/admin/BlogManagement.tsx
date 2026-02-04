@@ -7,7 +7,6 @@ import {
   useTogglePublishBlogPost,
 } from "@/hooks/useBlogAdmin";
 import { useToast } from "@/hooks/use-toast";
-import { BlogGenerator } from "./BlogGenerator";
 import { BlogEditor } from "./BlogEditor";
 import {
   Pencil,
@@ -17,9 +16,12 @@ import {
   FileText,
   Calendar,
   Loader2,
+  Plus,
+  ExternalLink,
 } from "lucide-react";
 import type { BlogPost } from "@/hooks/useBlogPosts";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 export const BlogManagement = () => {
   const { data: posts, isLoading } = useAdminBlogPosts();
@@ -29,6 +31,7 @@ export const BlogManagement = () => {
 
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
 
   const handleDelete = async (post: BlogPost) => {
     if (!confirm(`Delete "${post.title}"? This cannot be undone.`)) return;
@@ -65,6 +68,13 @@ export const BlogManagement = () => {
 
   const handleEdit = (post: BlogPost) => {
     setEditingPost(post);
+    setIsCreating(false);
+    setIsEditorOpen(true);
+  };
+
+  const handleCreateNew = () => {
+    setEditingPost(null);
+    setIsCreating(true);
     setIsEditorOpen(true);
   };
 
@@ -73,8 +83,18 @@ export const BlogManagement = () => {
 
   return (
     <div className="space-y-8">
-      {/* Generator */}
-      <BlogGenerator />
+      {/* Create New Post Button */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <p className="text-sm text-muted-foreground">
+            Create and manage blog posts manually
+          </p>
+        </div>
+        <Button onClick={handleCreateNew} className="gradient-accent">
+          <Plus className="w-4 h-4 mr-2" />
+          Create New Post
+        </Button>
+      </div>
 
       {/* Drafts Section */}
       <div>
@@ -90,7 +110,7 @@ export const BlogManagement = () => {
           </div>
         ) : drafts.length === 0 ? (
           <p className="text-muted-foreground text-sm">
-            No drafts. Generate content above to create one.
+            No drafts. Click "Create New Post" to start writing.
           </p>
         ) : (
           <div className="grid gap-3">
@@ -134,6 +154,7 @@ export const BlogManagement = () => {
       {/* Editor Dialog */}
       <BlogEditor
         post={editingPost}
+        isCreating={isCreating}
         open={isEditorOpen}
         onOpenChange={setIsEditorOpen}
       />
@@ -150,7 +171,7 @@ interface PostCardProps {
 
 const PostCard = ({ post, onEdit, onDelete, onTogglePublish }: PostCardProps) => {
   return (
-    <div className="glass-card rounded-xl p-4 flex items-start justify-between gap-4">
+    <div className="glass-card rounded-xl p-4 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <h4 className="font-medium truncate">{post.title}</h4>
@@ -162,7 +183,7 @@ const PostCard = ({ post, onEdit, onDelete, onTogglePublish }: PostCardProps) =>
         <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
           {post.excerpt}
         </p>
-        <div className="flex items-center gap-4 text-xs text-muted-foreground mt-2">
+        <div className="flex items-center gap-4 text-xs text-muted-foreground mt-2 flex-wrap">
           <span>{post.author_name}</span>
           <span>•</span>
           <span>{post.read_time_minutes} min read</span>
@@ -174,7 +195,15 @@ const PostCard = ({ post, onEdit, onDelete, onTogglePublish }: PostCardProps) =>
         </div>
       </div>
 
-      <div className="flex items-center gap-1 shrink-0">
+      <div className="flex items-center gap-1 shrink-0 self-end sm:self-start">
+        {/* Preview Link (for published posts) */}
+        {post.is_published && (
+          <Button variant="ghost" size="sm" asChild title="View Live">
+            <Link to={`/blog/${post.slug}`} target="_blank">
+              <ExternalLink className="w-4 h-4" />
+            </Link>
+          </Button>
+        )}
         <Button variant="ghost" size="sm" onClick={onEdit} title="Edit">
           <Pencil className="w-4 h-4" />
         </Button>

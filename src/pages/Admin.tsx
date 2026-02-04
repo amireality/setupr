@@ -44,10 +44,16 @@ import {
   Settings,
   ArrowLeft,
   FileText,
+  Users,
+  MessageSquare,
+  Inbox,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { BlogManagement } from "@/components/admin/BlogManagement";
+import { TeamManagement } from "@/components/admin/TeamManagement";
+import { TestimonialManagement } from "@/components/admin/TestimonialManagement";
+import { IntakeManagement } from "@/components/admin/IntakeManagement";
 
 const Admin = () => {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -180,7 +186,7 @@ const Admin = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-40">
-        <div className="container px-4 md:px-6 py-4 flex items-center justify-between">
+        <div className="container px-4 md:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <Link to="/" className="text-muted-foreground hover:text-foreground">
               <ArrowLeft className="w-5 h-5" />
@@ -188,10 +194,12 @@ const Admin = () => {
             <h1 className="font-display text-xl font-bold">Admin Panel</h1>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">{user.email}</span>
+            <span className="text-sm text-muted-foreground truncate max-w-[150px] sm:max-w-none">
+              {user.email}
+            </span>
             <Button variant="ghost" size="sm" onClick={handleSignOut}>
               <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
+              <span className="hidden sm:inline">Sign Out</span>
             </Button>
           </div>
         </div>
@@ -200,20 +208,34 @@ const Admin = () => {
       {/* Main Content */}
       <main className="container px-4 md:px-6 py-8">
         <Tabs defaultValue="services">
-          <TabsList className="mb-6">
-            <TabsTrigger value="services" className="gap-2">
-              <Settings className="w-4 h-4" />
-              Services
-            </TabsTrigger>
-            <TabsTrigger value="bundles" className="gap-2">
-              <Package className="w-4 h-4" />
-              Bundles
-            </TabsTrigger>
-            <TabsTrigger value="blog" className="gap-2">
-              <FileText className="w-4 h-4" />
-              Blog
-            </TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto -mx-4 px-4 pb-2">
+            <TabsList className="mb-6 w-max">
+              <TabsTrigger value="services" className="gap-2">
+                <Settings className="w-4 h-4" />
+                <span className="hidden sm:inline">Services</span>
+              </TabsTrigger>
+              <TabsTrigger value="bundles" className="gap-2">
+                <Package className="w-4 h-4" />
+                <span className="hidden sm:inline">Bundles</span>
+              </TabsTrigger>
+              <TabsTrigger value="blog" className="gap-2">
+                <FileText className="w-4 h-4" />
+                <span className="hidden sm:inline">Blog</span>
+              </TabsTrigger>
+              <TabsTrigger value="team" className="gap-2">
+                <Users className="w-4 h-4" />
+                <span className="hidden sm:inline">Team</span>
+              </TabsTrigger>
+              <TabsTrigger value="testimonials" className="gap-2">
+                <MessageSquare className="w-4 h-4" />
+                <span className="hidden sm:inline">Testimonials</span>
+              </TabsTrigger>
+              <TabsTrigger value="intake" className="gap-2">
+                <Inbox className="w-4 h-4" />
+                <span className="hidden sm:inline">Intake</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           {/* Services Tab */}
           <TabsContent value="services">
@@ -374,10 +396,25 @@ const Admin = () => {
             <div className="mb-6">
               <h2 className="font-display text-lg font-semibold">Blog Management</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Generate AI content and manage blog posts
+                Create and manage blog posts
               </p>
             </div>
             <BlogManagement />
+          </TabsContent>
+
+          {/* Team Tab */}
+          <TabsContent value="team">
+            <TeamManagement />
+          </TabsContent>
+
+          {/* Testimonials Tab */}
+          <TabsContent value="testimonials">
+            <TestimonialManagement />
+          </TabsContent>
+
+          {/* Intake Submissions Tab */}
+          <TabsContent value="intake">
+            <IntakeManagement />
           </TabsContent>
         </Tabs>
       </main>

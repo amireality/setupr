@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Twitter, Linkedin } from "lucide-react";
+import { useAuthorByName } from "@/hooks/useAuthors";
 
 interface AuthorBioProps {
   authorName: string;
@@ -7,27 +8,36 @@ interface AuthorBioProps {
 }
 
 const AuthorBio = ({ authorName, compact = false }: AuthorBioProps) => {
-  // Currently only supporting Amir Khan as the author
-  if (authorName.toLowerCase() !== "amir khan") {
-    return null;
-  }
+  const { data: author } = useAuthorByName(authorName);
+
+  // Generate initials fallback
+  const getInitials = (name: string) => {
+    const words = name.trim().split(/\s+/);
+    return words
+      .slice(0, 2)
+      .map((w) => w[0]?.toUpperCase() || "")
+      .join("");
+  };
+
+  const initials = author?.avatar_initials || getInitials(authorName);
+  const authorSlug = author?.slug || authorName.toLowerCase().replace(/\s+/g, "-");
 
   if (compact) {
     return (
       <div className="flex items-center gap-3 py-3 border-t border-border/30">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center flex-shrink-0">
-          <span className="text-sm font-display font-bold text-primary">AK</span>
+          <span className="text-sm font-display font-bold text-primary">
+            {initials}
+          </span>
         </div>
         <div className="flex-1 min-w-0">
           <Link
-            to="/author/amir-khan"
+            to={`/author/${authorSlug}`}
             className="text-sm font-medium hover:text-primary transition-colors"
           >
-            <span className="text-primary">Amir Khan</span>
+            <span className="text-primary">{authorName}</span>
           </Link>
-          <p className="text-xs text-muted-foreground truncate">
-            Founder, Setupr
-          </p>
+          <p className="text-xs text-muted-foreground truncate">Team, Setupr</p>
         </div>
       </div>
     );
@@ -38,7 +48,9 @@ const AuthorBio = ({ authorName, compact = false }: AuthorBioProps) => {
       <div className="flex flex-col sm:flex-row items-start gap-4">
         {/* Avatar */}
         <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center flex-shrink-0">
-          <span className="text-xl font-display font-bold text-primary">AK</span>
+          <span className="text-xl font-display font-bold text-primary">
+            {initials}
+          </span>
         </div>
 
         {/* Info */}
@@ -49,20 +61,16 @@ const AuthorBio = ({ authorName, compact = false }: AuthorBioProps) => {
             </span>
           </div>
           <Link
-            to="/author/amir-khan"
+            to={`/author/${authorSlug}`}
             className="text-lg font-display font-semibold hover:text-primary transition-colors inline-block mb-2"
           >
-            <span className="text-primary">Amir Khan</span>
+            <span className="text-primary">{authorName}</span>
           </Link>
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-            Amir Khan is the founder of Setupr, a platform focused on
-            simplifying business setup, compliance, and digital presence for
-            freelancers, startups, and small teams in India. He works on
-            building systems and resources to help early founders start with
-            clarity.
+            View more articles by {authorName} on the team page.
           </p>
 
-          {/* Social Links */}
+          {/* Links */}
           <div className="flex items-center gap-2">
             <a
               href="https://x.com/setuprhq"
@@ -83,7 +91,7 @@ const AuthorBio = ({ authorName, compact = false }: AuthorBioProps) => {
               <Linkedin className="w-3.5 h-3.5 text-muted-foreground" />
             </a>
             <Link
-              to="/author/amir-khan"
+              to={`/author/${authorSlug}`}
               className="text-xs text-primary hover:underline ml-2"
             >
               View all articles →

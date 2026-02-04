@@ -23,6 +23,7 @@ import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import Career from "./pages/Career";
 import AuthorPage from "./pages/AuthorPage";
+import TeamPage from "./pages/TeamPage";
 import GuidesIndex from "./pages/guides/GuidesIndex";
 import StartingBusinessGuide from "./pages/guides/StartingBusinessGuide";
 import BusinessTypesGuide from "./pages/guides/BusinessTypesGuide";
@@ -71,6 +72,7 @@ const AnimatedRoutes = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/career" element={<Career />} />
+          <Route path="/author" element={<TeamPage />} />
           <Route path="/author/:authorSlug" element={<AuthorPage />} />
           <Route path="/guides" element={<GuidesIndex />} />
           <Route path="/guides/starting-business-india" element={<StartingBusinessGuide />} />
