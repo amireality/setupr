@@ -118,12 +118,27 @@ const PageSettingsSection = ({ settings, onSave, isPending }: PageSettingsSectio
   const [editingPage, setEditingPage] = useState<PageConfig | null>(null);
   const [editValues, setEditValues] = useState<Record<string, string>>({});
 
-  const getSetting = (key: string) => settings.find((s) => s.key === key)?.value || "";
+  // Get setting value from database
+  const getDbSetting = (key: string) => settings.find((s) => s.key === key)?.value || "";
+  
+  // Get placeholder/default value for a field
+  const getDefaultValue = (page: PageConfig, key: string) => {
+    const field = page.fields.find(f => f.key === key);
+    return field?.placeholder || "";
+  };
+
+  // Get display value - show DB value if exists, otherwise show placeholder as current content
+  const getDisplayValue = (page: PageConfig, key: string) => {
+    const dbValue = getDbSetting(key);
+    if (dbValue) return dbValue;
+    return getDefaultValue(page, key);
+  };
 
   const handleEditPage = (page: PageConfig) => {
     const values: Record<string, string> = {};
     page.fields.forEach((field) => {
-      values[field.key] = getSetting(field.key);
+      // Pre-populate with database value, or placeholder if not set
+      values[field.key] = getDbSetting(field.key) || field.placeholder || "";
     });
     setEditValues(values);
     setEditingPage(page);
@@ -132,7 +147,8 @@ const PageSettingsSection = ({ settings, onSave, isPending }: PageSettingsSectio
   const handleSavePage = async () => {
     if (!editingPage) return;
     for (const [key, value] of Object.entries(editValues)) {
-      if (value !== getSetting(key)) {
+      // Save if value changed from database value
+      if (value !== getDbSetting(key)) {
         await onSave(key, value);
       }
     }
@@ -140,7 +156,7 @@ const PageSettingsSection = ({ settings, onSave, isPending }: PageSettingsSectio
   };
 
   const getFilledCount = (page: PageConfig) => {
-    return page.fields.filter((f) => getSetting(f.key)).length;
+    return page.fields.filter((f) => getDbSetting(f.key)).length;
   };
 
   return (
@@ -172,12 +188,14 @@ const PageSettingsSection = ({ settings, onSave, isPending }: PageSettingsSectio
             </div>
             <div className="grid gap-2">
               {page.fields.slice(0, 4).map((field) => {
-                const value = getSetting(field.key);
+                const dbValue = getDbSetting(field.key);
+                const displayValue = getDisplayValue(page, field.key);
+                const isDefault = !dbValue && displayValue;
                 return (
                   <div key={field.key} className="flex items-center justify-between py-2 border-b border-border/30 last:border-0">
                     <span className="text-sm text-muted-foreground">{field.label}</span>
-                    <span className="text-sm text-foreground truncate max-w-[200px]">
-                      {value || <span className="text-muted-foreground/50 italic">Not set</span>}
+                    <span className={`text-sm truncate max-w-[200px] ${isDefault ? 'text-muted-foreground/70 italic' : 'text-foreground'}`}>
+                      {displayValue || <span className="text-muted-foreground/50 italic">Not set</span>}
                     </span>
                   </div>
                 );
