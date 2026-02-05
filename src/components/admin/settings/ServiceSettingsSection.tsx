@@ -30,17 +30,18 @@ const ServiceSettingsSection = ({ settings, services, onSave, isPending }: Servi
 
   const getSetting = (key: string) => settings.find((s) => s.key === key)?.value || "";
 
-  const getServiceFieldKeys = (serviceId: string) => [
-    { key: `service_${serviceId}_faq`, label: "Custom FAQ (Markdown)", type: "textarea" as const },
-    { key: `service_${serviceId}_deliverables`, label: "Custom Deliverables", type: "textarea" as const },
-    { key: `service_${serviceId}_timeline`, label: "Custom Timeline Text", type: "textarea" as const },
+  const getServiceFieldKeys = (serviceId: string, serviceName: string) => [
+    { key: `service_${serviceId}_faq`, label: "Custom FAQ (Markdown)", type: "textarea" as const, placeholder: `FAQ content for ${serviceName}...` },
+    { key: `service_${serviceId}_deliverables`, label: "Custom Deliverables", type: "textarea" as const, placeholder: `• Complete documentation\n• Expert guidance\n• Government fee coordination\n• Regular status updates` },
+    { key: `service_${serviceId}_timeline`, label: "Custom Timeline Text", type: "textarea" as const, placeholder: "7-15 business days" },
   ];
 
   const handleEditService = (service: DbService) => {
-    const fields = getServiceFieldKeys(service.service_id);
+    const fields = getServiceFieldKeys(service.service_id, service.service_name);
     const values: Record<string, string> = {};
     fields.forEach((field) => {
-      values[field.key] = getSetting(field.key);
+      // Pre-populate with database value or placeholder
+      values[field.key] = getSetting(field.key) || field.placeholder || "";
     });
     setEditValues(values);
     setEditingService(service);
@@ -56,8 +57,8 @@ const ServiceSettingsSection = ({ settings, services, onSave, isPending }: Servi
     setEditingService(null);
   };
 
-  const hasCustomContent = (serviceId: string) => {
-    const fields = getServiceFieldKeys(serviceId);
+  const hasCustomContent = (serviceId: string, serviceName: string) => {
+    const fields = getServiceFieldKeys(serviceId, serviceName);
     return fields.some((f) => getSetting(f.key));
   };
 
@@ -102,7 +103,8 @@ const ServiceSettingsSection = ({ settings, services, onSave, isPending }: Servi
                     >
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-foreground">{service.service_name}</span>
-                        {hasCustomContent(service.service_id) && (
+                        <span className="text-xs text-muted-foreground/70 ml-2">₹{service.setupr_fee_inr?.toLocaleString()}</span>
+                        {hasCustomContent(service.service_id, service.service_name) && (
                           <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">
                             Customized
                           </span>
@@ -133,17 +135,18 @@ const ServiceSettingsSection = ({ settings, services, onSave, isPending }: Servi
           <div className="flex-1 overflow-auto space-y-4 py-4">
             <p className="text-sm text-muted-foreground">
               Add custom content that will appear on the service detail page. 
-              Leave empty to use default content.
+              Modify the pre-filled content or leave empty to use default content.
             </p>
-            {editingService && getServiceFieldKeys(editingService.service_id).map((field) => (
+            {editingService && getServiceFieldKeys(editingService.service_id, editingService.service_name).map((field) => (
               <div key={field.key} className="space-y-2">
                 <Label htmlFor={field.key}>{field.label}</Label>
                 <Textarea
                   id={field.key}
                   value={editValues[field.key] || ""}
                   onChange={(e) => setEditValues({ ...editValues, [field.key]: e.target.value })}
-                  placeholder={`Enter custom ${field.label.toLowerCase()}...`}
-                  rows={4}
+                  placeholder={field.placeholder}
+                  rows={field.key.includes('faq') ? 8 : 4}
+                  className="font-mono text-sm"
                 />
               </div>
             ))}

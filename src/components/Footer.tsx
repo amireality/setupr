@@ -152,9 +152,15 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} Setupr. All Rights Reserved.
             </p>
-            <p className="text-xs text-muted-foreground/60 mt-1">
-              {ownership}
-            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 mt-1">
+              <p className="text-xs text-muted-foreground/60">
+                {ownership}
+              </p>
+              <span className="hidden sm:inline text-muted-foreground/30">•</span>
+              <p className="text-xs text-muted-foreground/50">
+                Built for <span className="font-medium text-muted-foreground/70">Bharat</span> 🇮🇳
+              </p>
+            </div>
           </div>
           
           {/* Social Icons */}
