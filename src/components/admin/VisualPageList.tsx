@@ -18,6 +18,7 @@ interface PageInfo {
   description: string;
   icon: React.ElementType;
   path: string;
+  editPath?: string;
 }
 
 const PAGES: PageInfo[] = [
@@ -27,6 +28,7 @@ const PAGES: PageInfo[] = [
     description: "Hero, Trust Stats, Service Bundles, FAQ, and CTA",
     icon: Home,
     path: "/",
+    editPath: "/admin?page=home",
   },
   {
     id: "about",
@@ -34,6 +36,7 @@ const PAGES: PageInfo[] = [
     description: "Company story, mission, team overview",
     icon: Info,
     path: "/about",
+    editPath: "/admin?page=about",
   },
   {
     id: "contact",
@@ -41,6 +44,7 @@ const PAGES: PageInfo[] = [
     description: "Contact form, office info, and map",
     icon: Phone,
     path: "/contact",
+    editPath: "/admin?page=contact",
   },
   {
     id: "career",
@@ -48,6 +52,7 @@ const PAGES: PageInfo[] = [
     description: "Fellowship program and application form",
     icon: Briefcase,
     path: "/career",
+    editPath: "/admin?page=career",
   },
   {
     id: "services",
@@ -55,15 +60,15 @@ const PAGES: PageInfo[] = [
     description: "Service categories, search, and bundles",
     icon: Wrench,
     path: "/services",
+    editPath: "/admin?page=services",
   },
 ];
 
-export const VisualPageList: React.FC = () => {
-  const handleEditPage = (page: PageInfo) => {
-    // Open the page in a new tab with edit mode query parameter
-    window.open(`${page.path}?editMode=true`, '_blank');
-  };
+interface VisualPageListProps {
+  onSelectPage?: (pageId: string) => void;
+}
 
+export const VisualPageList: React.FC<VisualPageListProps> = ({ onSelectPage }) => {
   return (
     <Card>
       <CardHeader>
@@ -72,8 +77,7 @@ export const VisualPageList: React.FC = () => {
           Visual Page Editor
         </CardTitle>
         <CardDescription>
-          Click "Edit Content" to open the page in a new tab with edit mode enabled. 
-          Make changes directly on the live page layout.
+          Select a page to edit its content visually. Changes are saved to the database and appear on the live site.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -84,7 +88,11 @@ export const VisualPageList: React.FC = () => {
             return (
               <div
                 key={page.id}
-                className="group glass-card glass-card-hover rounded-xl p-5 transition-all"
+                className="group glass-card glass-card-hover rounded-xl p-5 cursor-pointer transition-all"
+                onClick={() => onSelectPage?.(page.id)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && onSelectPage?.(page.id)}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -93,8 +101,8 @@ export const VisualPageList: React.FC = () => {
                   <Link
                     to={page.path}
                     target="_blank"
+                    onClick={(e) => e.stopPropagation()}
                     className="text-muted-foreground hover:text-primary transition-colors"
-                    title="View live page"
                   >
                     <ExternalLink className="w-4 h-4" />
                   </Link>
@@ -107,13 +115,8 @@ export const VisualPageList: React.FC = () => {
                   {page.description}
                 </p>
 
-                <div className="mt-4">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="w-full"
-                    onClick={() => handleEditPage(page)}
-                  >
+                <div className="mt-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Button variant="outline" size="sm" className="flex-1">
                     <Pencil className="w-3 h-3 mr-1" />
                     Edit Content
                   </Button>

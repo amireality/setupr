@@ -256,15 +256,18 @@ const Admin = () => {
               <div className="mb-6">
                 <h2 className="font-display text-lg font-semibold">Visual Page Editor</h2>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Click on a page to open it in a new tab with edit mode enabled. Toggle section visibility below.
+                  Edit page content visually. Toggle section visibility and customize the site appearance.
                 </p>
               </div>
               
-              <VisualPageList />
+              <VisualPageList onSelectPage={(pageId) => {
+                // TODO: Open visual editor for selected page
+                console.log("Selected page:", pageId);
+              }} />
               
               <SectionManager onEditSection={(sectionId) => {
-                // Navigate to home page with edit mode to edit specific section
-                window.open(`/?editMode=true#${sectionId}`, '_blank');
+                // TODO: Jump to section editor
+                console.log("Edit section:", sectionId);
               }} />
             </div>
           </TabsContent>
