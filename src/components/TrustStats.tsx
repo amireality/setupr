@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
 import AnimatedCounter from "./AnimatedCounter";
 import { Building2, Clock, Star, ShieldCheck } from "lucide-react";
-import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
-import { useEditMode } from "@/contexts/EditModeContext";
-import { EditableText } from "@/components/admin/editable/EditableText";
 
-const defaultStats = [
+const stats = [
   {
-    id: "businesses",
     icon: Building2,
     value: 500,
     suffix: "+",
@@ -15,7 +11,6 @@ const defaultStats = [
     description: "Startups launched successfully",
   },
   {
-    id: "days",
     icon: Clock,
     value: 15,
     suffix: "",
@@ -23,7 +18,6 @@ const defaultStats = [
     description: "To complete registration",
   },
   {
-    id: "rating",
     icon: Star,
     value: 4.9,
     suffix: "/5",
@@ -32,7 +26,6 @@ const defaultStats = [
     decimals: 1,
   },
   {
-    id: "compliance",
     icon: ShieldCheck,
     value: 100,
     suffix: "%",
@@ -64,25 +57,6 @@ const itemVariants = {
 };
 
 const TrustStats = () => {
-  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
-  const { isEditMode } = useEditMode();
-  
-  const getSetting = (key: string, fallback: string) => 
-    settings.find((s) => s.key === key)?.value || fallback;
-
-  // Build stats with database overrides
-  const stats = defaultStats.map((stat) => ({
-    ...stat,
-    value: parseFloat(getSetting(`homepage_stat_${stat.id}_value`, String(stat.value))),
-    label: getSetting(`homepage_stat_${stat.id}_label`, stat.label),
-    description: getSetting(`homepage_stat_${stat.id}_desc`, stat.description),
-  }));
-
-  const sectionBadge = getSetting("homepage_trust_badge", "Trusted by Freelancers, Startups & Small Businesses");
-  const sectionTitle = getSetting("homepage_trust_title", "500+ Businesses Registered Across India");
-  const sectionSubtitle = getSetting("homepage_trust_subtitle", "From solo consultants to growing startups — we've helped entrepreneurs in 50+ cities get legally set up and build credibility.");
-  const citiesText = getSetting("homepage_trust_cities", "Trusted by founders from Bangalore, Mumbai, Delhi, Hyderabad, and 50+ cities across India");
-
   return (
     <section className="py-16 md:py-20 relative overflow-hidden">
       {/* Background glow */}
@@ -97,47 +71,15 @@ const TrustStats = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          {isEditMode ? (
-            <>
-              <EditableText
-                settingKey="homepage_trust_badge"
-                defaultValue={sectionBadge}
-                tagName="span"
-                className="text-primary text-sm font-medium tracking-wider uppercase"
-              >
-                {sectionBadge}
-              </EditableText>
-              <EditableText
-                settingKey="homepage_trust_title"
-                defaultValue={sectionTitle}
-                tagName="h2"
-                className="text-2xl md:text-3xl font-display font-bold mt-2"
-              >
-                {sectionTitle}
-              </EditableText>
-              <EditableText
-                settingKey="homepage_trust_subtitle"
-                defaultValue={sectionSubtitle}
-                tagName="p"
-                className="text-muted-foreground text-sm mt-2 max-w-xl mx-auto"
-                multiline
-              >
-                {sectionSubtitle}
-              </EditableText>
-            </>
-          ) : (
-            <>
-              <span className="text-primary text-sm font-medium tracking-wider uppercase">
-                {sectionBadge}
-              </span>
-              <h2 className="text-2xl md:text-3xl font-display font-bold mt-2">
-                {sectionTitle}
-              </h2>
-              <p className="text-muted-foreground text-sm mt-2 max-w-xl mx-auto">
-                {sectionSubtitle}
-              </p>
-            </>
-          )}
+          <span className="text-primary text-sm font-medium tracking-wider uppercase">
+            Trusted by Freelancers, Startups & Small Businesses
+          </span>
+          <h2 className="text-2xl md:text-3xl font-display font-bold mt-2">
+            500+ Businesses Registered Across India
+          </h2>
+          <p className="text-muted-foreground text-sm mt-2 max-w-xl mx-auto">
+            From solo consultants to growing startups — we've helped entrepreneurs in 50+ cities get legally set up and build credibility.
+          </p>
         </motion.div>
 
         {/* Stats Grid */}
@@ -148,9 +90,9 @@ const TrustStats = () => {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
         >
-          {stats.map((stat) => (
+          {stats.map((stat, index) => (
             <motion.div
-              key={stat.id}
+              key={stat.label}
               variants={itemVariants}
               className="group relative"
             >
@@ -170,36 +112,14 @@ const TrustStats = () => {
                 </div>
 
                 {/* Label */}
-                {isEditMode ? (
-                  <EditableText
-                    settingKey={`homepage_stat_${stat.id}_label`}
-                    defaultValue={stat.label}
-                    tagName="p"
-                    className="text-sm font-medium text-foreground mb-1"
-                  >
-                    {stat.label}
-                  </EditableText>
-                ) : (
-                  <p className="text-sm font-medium text-foreground mb-1">
-                    {stat.label}
-                  </p>
-                )}
+                <p className="text-sm font-medium text-foreground mb-1">
+                  {stat.label}
+                </p>
 
                 {/* Description */}
-                {isEditMode ? (
-                  <EditableText
-                    settingKey={`homepage_stat_${stat.id}_desc`}
-                    defaultValue={stat.description}
-                    tagName="p"
-                    className="text-xs text-muted-foreground"
-                  >
-                    {stat.description}
-                  </EditableText>
-                ) : (
-                  <p className="text-xs text-muted-foreground">
-                    {stat.description}
-                  </p>
-                )}
+                <p className="text-xs text-muted-foreground">
+                  {stat.description}
+                </p>
 
                 {/* Hover glow effect */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

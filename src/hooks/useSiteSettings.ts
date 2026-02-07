@@ -95,14 +95,8 @@ export const useUpdateSiteSetting = () => {
         if (error) throw error;
         return data;
       } else {
-        // Determine category based on key pattern
-        let category = "content";
-        if (key.includes("_content")) {
-          category = "legal";
-        } else if (key.includes("_visible")) {
-          category = "visibility";
-        }
-        
+        // Create new
+        const category = key.includes("_content") ? "legal" : "content";
         const { data, error } = await supabase
           .from("site_settings")
           .insert({ key, value, category })
@@ -156,14 +150,7 @@ export const useBulkUpdateSettings = () => {
             .update({ value: setting.value, updated_at: new Date().toISOString() })
             .eq("key", setting.key);
         } else {
-          // Determine category based on key pattern
-          let category = "content";
-          if (setting.key.includes("_content")) {
-            category = "legal";
-          } else if (setting.key.includes("_visible")) {
-            category = "visibility";
-          }
-          
+          const category = setting.key.includes("_content") ? "legal" : "content";
           await supabase
             .from("site_settings")
             .insert({ key: setting.key, value: setting.value, category });

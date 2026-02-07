@@ -48,7 +48,6 @@ import {
   MessageSquare,
   Inbox,
   Settings2,
-  LayoutDashboard,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -57,8 +56,6 @@ import { TeamManagement } from "@/components/admin/TeamManagement";
 import { TestimonialManagement } from "@/components/admin/TestimonialManagement";
 import { IntakeManagement } from "@/components/admin/IntakeManagement";
 import SettingsManagement from "@/components/admin/SettingsManagement";
-import { VisualPageList } from "@/components/admin/VisualPageList";
-import { SectionManager } from "@/components/admin/SectionManager";
 
 const Admin = () => {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -212,13 +209,9 @@ const Admin = () => {
 
       {/* Main Content */}
       <main className="container px-4 md:px-6 py-8">
-        <Tabs defaultValue="pages">
+        <Tabs defaultValue="services">
           <div className="overflow-x-auto -mx-4 px-4 pb-2">
             <TabsList className="mb-6 w-max">
-              <TabsTrigger value="pages" className="gap-2">
-                <LayoutDashboard className="w-4 h-4" />
-                <span className="hidden sm:inline">Pages</span>
-              </TabsTrigger>
               <TabsTrigger value="services" className="gap-2">
                 <Settings className="w-4 h-4" />
                 <span className="hidden sm:inline">Services</span>
@@ -249,28 +242,6 @@ const Admin = () => {
               </TabsTrigger>
             </TabsList>
           </div>
-
-          {/* Pages Tab - Visual CMS */}
-          <TabsContent value="pages">
-            <div className="space-y-6">
-              <div className="mb-6">
-                <h2 className="font-display text-lg font-semibold">Visual Page Editor</h2>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Edit page content visually. Toggle section visibility and customize the site appearance.
-                </p>
-              </div>
-              
-              <VisualPageList onSelectPage={(pageId) => {
-                // TODO: Open visual editor for selected page
-                console.log("Selected page:", pageId);
-              }} />
-              
-              <SectionManager onEditSection={(sectionId) => {
-                // TODO: Jump to section editor
-                console.log("Edit section:", sectionId);
-              }} />
-            </div>
-          </TabsContent>
 
           {/* Services Tab */}
           <TabsContent value="services">
