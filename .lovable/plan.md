@@ -1,310 +1,328 @@
 
-# Comprehensive Admin Panel Content Management & Favicon Update
+# Visual CMS Admin Dashboard Refactor
 
 ## Overview
 
-This plan expands the admin panel Settings tab to provide complete content control for all website pages, enabling you to edit content directly without needing code changes. We'll also update the favicon with your uploaded file.
+This plan transforms the current disconnected admin dashboard into a **Visual CMS** where you edit content in-context, seeing exactly how it will appear on the live site. The core principle: "Edit what you see, see what you edit."
 
 ---
 
-## Part 1: Favicon Update
+## Current State Analysis
 
-### Action
-Copy the uploaded `fevicon.ico` file to the public directory and update `index.html` to reference it.
+**What's Working Well:**
+- Site settings system (`site_settings` table + `useSiteSettings` hook)
+- Service editor with preview capability in `ServiceSettingsSection.tsx`
+- Blog editor with markdown preview in `BlogEditor.tsx`
+- Modular admin structure with tabs (Services, Blog, Team, etc.)
+- Unified markdown parser (`src/lib/markdown.tsx`)
 
-**Files to modify:**
-- Copy `user-uploads://fevicon.ico` to `public/favicon.ico`
-- Update `index.html` to ensure proper favicon reference
+**What Needs Improvement:**
+- Page settings use form dialogs instead of visual editing
+- Service editor preview is static, not interactive
+- Blog preview doesn't match exact live styling
+- Homepage sections have hardcoded content not editable via admin
+- No section visibility toggles
+- No inline edit mode for text elements
 
 ---
 
-## Part 2: Expanded Settings Management
-
-### Current State
-The Settings tab only has:
-- Legal Documents (Terms, Privacy, Refund)
-- Page Content (Footer Tagline, Footer Ownership)
-- Account Settings
-
-### New Structure
-We'll restructure the Settings tab with comprehensive page-by-page editing capabilities:
+## Architecture: Live Editor System
 
 ```
-Settings Tab (Redesigned)
-├── Legal Documents
-│   ├── Terms & Conditions [Edit]
-│   ├── Privacy Policy [Edit]
-│   └── Refund Policy [Edit]
-│
-├── Home Page
-│   ├── Hero Title & Subtitle [Edit]
-│   ├── Hero CTA Text [Edit]
-│   ├── How It Works Steps [Edit]
-│   └── Final CTA Section [Edit]
-│
-├── About Page
-│   ├── Hero Section [Edit]
-│   ├── Stats (500+, 98%, 48hrs, 24/7) [Edit]
-│   ├── Mission Section [Edit]
-│   ├── Founder Section [Edit]
-│   └── Values Section [Edit]
-│
-├── Contact Page
-│   ├── Page Title & Subtitle [Edit]
-│   └── Form Success Message [Edit]
-│
-├── Career Page
-│   ├── Fellowship Title & Description [Edit]
-│   └── Highlights [Edit]
-│
-├── Services Page
-│   ├── Intro Section [Edit]
-│   └── CTA Section [Edit]
-│
-├── Individual Services (Dynamic)
-│   ├── [Service 1] - Pricing Card Text, FAQ [Edit]
-│   ├── [Service 2] - Pricing Card Text, FAQ [Edit]
-│   └── ... (All services from database)
-│
-├── Footer
-│   ├── Tagline [Edit]
-│   ├── Ownership Line [Edit]
-│   └── Social Links [Edit]
-│
-└── Account
-    ├── Change Email
-    └── Change Password
++------------------+     +-------------------+     +------------------+
+|   Admin Shell    |---->|   Page Editor     |---->|  Live Component  |
+|   (Navigation)   |     |   (Edit Context)  |     |  (Edit Mode)     |
++------------------+     +-------------------+     +------------------+
+                                  |
+                         +--------v--------+
+                         |  EditableText   |
+                         |  EditableImage  |
+                         |  SectionToggle  |
+                         +------------------+
 ```
+
+### Core Components to Create
+
+1. **EditModeContext** - Global context to toggle edit mode on/off
+2. **EditableText** - Wrapper that makes text clickable/editable
+3. **EditableImage** - Wrapper with "Replace" overlay for images
+4. **SectionToggle** - Visibility controls for homepage sections
+5. **PageEditor** - Wrapper that loads live components with edit capabilities
 
 ---
 
-## Database Schema Extensions
+## Phase 1: Foundation - Editable Primitives
 
-We'll add more setting keys to the existing `site_settings` table. No schema changes needed - just new records:
+### 1.1 Create EditModeContext
 
-### New Setting Keys by Category
+New file: `src/contexts/EditModeContext.tsx`
 
-**Category: `homepage`**
-- `homepage_hero_title` - Main headline text
-- `homepage_hero_subtitle` - Subheadline text  
-- `homepage_cta_primary` - Primary CTA button text
-- `homepage_cta_secondary` - Secondary CTA button text
-- `homepage_how_it_works_title` - Section title
-- `homepage_step1_title`, `homepage_step1_desc`
-- `homepage_step2_title`, `homepage_step2_desc`
-- `homepage_step3_title`, `homepage_step3_desc`
-- `homepage_final_cta_title` - Final CTA headline
-- `homepage_final_cta_subtitle` - Final CTA description
+Provides:
+- `isEditMode` - boolean state
+- `toggleEditMode` - function to switch modes
+- `pendingChanges` - track unsaved edits
+- `saveAllChanges` - batch save to database
 
-**Category: `about`**
-- `about_hero_title` - Main headline
-- `about_hero_subtitle` - Description
-- `about_stat_1_value`, `about_stat_1_label` (500+, Businesses Launched)
-- `about_stat_2_value`, `about_stat_2_label` (98%, Client Satisfaction)
-- `about_stat_3_value`, `about_stat_3_label` (48hrs, Avg. Turnaround)
-- `about_stat_4_value`, `about_stat_4_label` (24/7, Support Available)
-- `about_mission_title`, `about_mission_content`
-- `about_founder_name`, `about_founder_title`, `about_founder_bio`
-- `about_values` (JSON array of values)
+### 1.2 Create EditableText Component
 
-**Category: `contact`**
-- `contact_title` - Page title
-- `contact_subtitle` - Page description
-- `contact_success_title` - Success message title
-- `contact_success_message` - Success message body
+New file: `src/components/admin/editable/EditableText.tsx`
 
-**Category: `career`**
-- `career_title` - Fellowship title
-- `career_subtitle` - Fellowship description
-- `career_disclaimer` - The warning text about unpaid program
-- `career_highlights` (JSON array)
+Features:
+- Renders normal text when edit mode is off
+- Renders inline input/textarea when edit mode is on
+- Highlights on hover with dashed border
+- Click to activate inline editing
+- Auto-saves on blur or Enter key
+- Supports: headings (h1-h6), paragraphs, spans, buttons
 
-**Category: `services`**
-- `services_intro_title` - Services page intro title
-- `services_intro_subtitle` - Services page intro description
-- `services_cta_title` - Bottom CTA title
-- `services_cta_subtitle` - Bottom CTA description
+### 1.3 Create EditableImage Component
 
-**Category: `footer`**
-- `footer_tagline` (existing)
-- `footer_ownership` (existing)
-- `footer_email` - Contact email
-- `footer_instagram` - Instagram URL
-- `footer_twitter` - Twitter/X URL
-- `footer_linkedin` - LinkedIn URL
+New file: `src/components/admin/editable/EditableImage.tsx`
+
+Features:
+- Shows "Replace" overlay on hover in edit mode
+- Click opens image URL input modal
+- Preview before saving
+- Fallback placeholder if image fails
 
 ---
 
-## UI Implementation
+## Phase 2: Page-Level Visual Editors
 
-### Redesigned Settings Component
+### 2.1 Homepage Visual Editor
 
-The `SettingsManagement.tsx` component will be completely redesigned with:
+Refactor: `src/pages/Index.tsx` and homepage components
 
-1. **Collapsible Accordions** for each page/section
-2. **Inline Editing** for simple text fields
-3. **Modal Editor** for markdown/long-form content
-4. **JSON Editor** for structured data (stats, highlights, values)
+**Make these sections editable:**
 
-### Visual Layout
+| Section | Component | Editable Fields |
+|---------|-----------|-----------------|
+| Hero | `HeroSection.tsx` | Subtitle, CTA buttons |
+| Trust Stats | `TrustStats.tsx` | Stats values, labels, descriptions |
+| Goal Cards | `GoalCards.tsx` | Card titles, descriptions |
+| Bundles | `RecommendedBundles.tsx` | Already DB-driven |
+| Services | `CollapsibleServices.tsx` | Already DB-driven |
+| How It Works | `HowItWorks.tsx` | Step titles, descriptions |
+| Testimonials | `Testimonials.tsx` | Already DB-driven |
+| FAQ | `FAQ.tsx` | Questions and answers |
+| Final CTA | `FinalCTA.tsx` | Title, subtitle, button text |
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│ Settings                                                          │
-│ Manage your website content, legal documents, and account         │
-├──────────────────────────────────────────────────────────────────┤
-│ ▼ Legal Documents                                                 │
-│   ┌────────────────────────────────────────────────────────────┐ │
-│   │ Terms & Conditions         715 characters         [Edit]   │ │
-│   │ Privacy Policy             922 characters         [Edit]   │ │
-│   │ Refund Policy              844 characters         [Edit]   │ │
-│   └────────────────────────────────────────────────────────────┘ │
-│                                                                   │
-│ ▶ Home Page                                                       │
-│ ▶ About Page                                                      │
-│ ▶ Contact Page                                                    │
-│ ▶ Career Page                                                     │
-│ ▶ Services Page                                                   │
-│ ▼ Individual Services                                             │
-│   ┌────────────────────────────────────────────────────────────┐ │
-│   │ ▶ Private Limited Company Registration                      │ │
-│   │ ▶ LLP Registration                                          │ │
-│   │ ▶ GST Registration                                          │ │
-│   │ ▶ ... (all services listed)                                 │ │
-│   └────────────────────────────────────────────────────────────┘ │
-│ ▶ Footer                                                          │
-│ ▼ Account                                                         │
-│   ┌────────────────────────────────────────────────────────────┐ │
-│   │ Email: ajmatali7733@gmail.com              [Change Email]  │ │
-│   │ Password: ********                         [Change Password]│ │
-│   └────────────────────────────────────────────────────────────┘ │
-└──────────────────────────────────────────────────────────────────┘
-```
+**New Section Manager:**
+- Add visibility toggles to each section
+- Store visibility state in `site_settings` (e.g., `homepage_section_testimonials_visible`)
+- Drag-and-drop reordering (stretch goal)
 
----
+### 2.2 Service Page Visual Editor
 
-## Page Content Integration
+Refactor: `src/pages/ServiceDetail.tsx`
 
-Each page will be updated to fetch its content from the `site_settings` table, with hardcoded content as fallback:
+Current state: Uses hardcoded content with `site_settings` override capability
 
-### Example: HeroSection.tsx
+Changes:
+- Wrap all text blocks with `EditableText`
+- When admin visits `/service/:id` in edit mode, show edit controls
+- Inline editing for: Who It's For, Deliverables, Process Steps, FAQ, Pricing Card text
+- Changes save to `service_{serviceId}_{fieldKey}` in site_settings
 
-```tsx
-// Current (hardcoded)
-const businessTypes = ["Business", "Agency", "Startup", "Venture", "Company"];
+### 2.3 Blog Visual Editor
 
-// New (database-driven with fallback)
-const { data: heroTitle } = useSiteSetting("homepage_hero_title");
-const title = heroTitle?.value || "Set up your {type} The right way.";
-```
+Refactor: `src/components/admin/BlogEditor.tsx`
 
-### Pages to Update
+Current state: Split Edit/Preview tabs
 
-| Page | Component | Editable Fields |
-|------|-----------|-----------------|
-| Home | `HeroSection.tsx` | Title, subtitle, CTA texts, business types |
-| Home | `HowItWorks.tsx` | Section title, 3 steps (title + description each) |
-| Home | `FinalCTA.tsx` | Title, subtitle, CTA text |
-| About | `About.tsx` | All sections (hero, stats, mission, founder, values) |
-| Contact | `Contact.tsx` | Page title, subtitle, success messages |
-| Career | `Career.tsx` | Title, subtitle, disclaimer, highlights |
-| Services | `ServiceIntro.tsx` | Intro title, subtitle |
-| Services | `ServicesCTA.tsx` | CTA title, subtitle |
-| Footer | `Footer.tsx` | Tagline, ownership, social links |
+Changes:
+- Create side-by-side layout: Editor on left (40%), Live Preview on right (60%)
+- Live preview uses exact `BlogPost.tsx` styling
+- WYSIWYG toolbar for common markdown actions (bold, italic, headers, links)
+- Real-time preview updates as you type
 
 ---
 
-## Implementation Files
+## Phase 3: Admin Dashboard Restructure
 
-### Files to Create
-| File | Purpose |
-|------|---------|
-| None needed | All hooks and components exist, just need expansion |
+### 3.1 New Navigation Structure
 
-### Files to Modify
+```
+Admin Dashboard
+├── Pages (Visual Editor)
+│   ├── Home
+│   ├── About
+│   ├── Contact
+│   ├── Career
+│   └── Services Overview
+├── Service Pages
+│   └── [List of individual services with Edit buttons]
+├── Blog
+│   └── [Enhanced visual editor]
+├── Team
+├── Testimonials
+├── Intake Submissions
+└── Settings
+    ├── Legal Documents
+    └── Footer & Social Links
+```
+
+### 3.2 Page Editor Component
+
+New file: `src/components/admin/PageEditor.tsx`
+
+Structure:
+```
++-----------------------------------------------+
+|  Edit Mode: [Toggle]    [Save All]  [Preview] |
++-----------------------------------------------+
+|                                               |
+|     [ Live Page Component Rendered Here ]     |
+|     (with EditableText/EditableImage          |
+|      wrappers active in edit mode)            |
+|                                               |
++-----------------------------------------------+
+```
+
+### 3.3 Section Manager for Homepage
+
+New file: `src/components/admin/SectionManager.tsx`
+
+Features:
+- List all homepage sections with toggle switches
+- Show/hide sections without deleting content
+- Preview indicator showing section order
+- Quick-edit button to jump to section
+
+---
+
+## Phase 4: Technical Implementation Details
+
+### 4.1 Database Keys Structure
+
+Expand `site_settings` key conventions:
+
+```
+# Page content
+{page}_{section}_{field}
+Example: homepage_hero_subtitle
+
+# Section visibility  
+{page}_section_{section}_visible
+Example: homepage_section_testimonials_visible
+
+# Service page overrides
+service_{serviceId}_{field}
+Example: service_gst-reg_faq
+```
+
+### 4.2 Component Modifications
+
+**Files to Update:**
+
 | File | Changes |
 |------|---------|
-| `index.html` | Update favicon reference |
-| `src/components/admin/SettingsManagement.tsx` | Complete redesign with all page sections |
-| `src/hooks/useSiteSettings.ts` | Add batch fetch by category |
-| `src/components/HeroSection.tsx` | Fetch content from database |
-| `src/components/HowItWorks.tsx` | Fetch content from database |
-| `src/components/FinalCTA.tsx` | Fetch content from database |
-| `src/components/Footer.tsx` | Fetch dynamic content |
-| `src/pages/About.tsx` | Fetch content from database |
-| `src/pages/Contact.tsx` | Fetch content from database |
-| `src/pages/Career.tsx` | Fetch content from database |
-| `src/components/services/ServiceIntro.tsx` | Fetch content from database |
-| `src/components/services/ServicesCTA.tsx` | Fetch content from database |
+| `src/pages/Admin.tsx` | Add "Pages" tab with visual editor navigation |
+| `src/pages/Index.tsx` | Wrap with EditModeProvider when admin |
+| `src/components/HeroSection.tsx` | Wrap text with EditableText |
+| `src/components/TrustStats.tsx` | Fetch stats from settings, make editable |
+| `src/components/HowItWorks.tsx` | Wrap step content with EditableText |
+| `src/components/FAQ.tsx` | Make FAQs editable inline |
+| `src/components/FinalCTA.tsx` | Wrap CTA text with EditableText |
+| `src/pages/ServiceDetail.tsx` | Add inline editing for all sections |
+| `src/components/admin/BlogEditor.tsx` | Split layout with live preview |
 
-### File to Copy
-| Source | Destination |
-|--------|-------------|
-| `user-uploads://fevicon.ico` | `public/favicon.ico` |
+### 4.3 New Files to Create
 
----
-
-## Individual Service Pages
-
-For individual service detail pages (`/service/:serviceId`), the content comes from the `services` database table which is already editable in the Services tab of the admin panel. 
-
-However, we can add service-specific content to `site_settings` for customization:
-- `service_{service_id}_faq` - Custom FAQ content
-- `service_{service_id}_deliverables` - Custom deliverables list
-- `service_{service_id}_timeline` - Custom timeline text
-
-This allows enhancing each service page without changing the services table schema.
-
----
-
-## Technical Approach
-
-### Content Fetching Pattern
-
-Each component will use a consistent pattern:
-
-```tsx
-import { useSiteSetting } from "@/hooks/useSiteSettings";
-
-const MyComponent = () => {
-  const { data: settingData, isLoading } = useSiteSetting("setting_key");
-  
-  // Use database value or fallback to hardcoded default
-  const content = settingData?.value || "Default hardcoded content";
-  
-  return <div>{content}</div>;
-};
 ```
-
-### Batch Fetching for Performance
-
-For pages with multiple settings, use the new category-based fetch:
-
-```tsx
-const { data: aboutSettings } = useSiteSettingsByCategory("about");
+src/contexts/EditModeContext.tsx
+src/components/admin/editable/EditableText.tsx
+src/components/admin/editable/EditableImage.tsx
+src/components/admin/PageEditor.tsx
+src/components/admin/SectionManager.tsx
+src/components/admin/VisualPageList.tsx
+src/components/admin/ServicePageEditor.tsx
 ```
 
 ---
 
-## Mobile Optimization
+## Phase 5: Blog Editor Enhancement
 
-The new Settings UI will include:
-- Accordion sections that work well on mobile
-- Full-screen modal editors on small screens
-- Touch-friendly buttons and inputs
-- Horizontal scroll for tabs if needed
+### Current Blog Editor Issues:
+- Preview tab shows different styling than live
+- No WYSIWYG toolbar
+- No side-by-side editing
+
+### Enhanced Blog Editor:
+
+```
++------------------------------------------+
+| Title: [_____________________________]   |
+| Excerpt: [___________________________]   |
+| Category: [Dropdown] Author: [Dropdown]  |
++------------------------------------------+
+| Toolbar: [B] [I] [H2] [Link] [Image]     |
++-------------------+----------------------+
+|                   |                      |
+|   Markdown        |   Live Preview       |
+|   Editor          |   (BlogPost styles)  |
+|   (40%)           |   (60%)              |
+|                   |                      |
++-------------------+----------------------+
+```
+
+Features:
+- Split-pane view with drag-to-resize
+- Toolbar inserts markdown syntax
+- Preview uses exact `BlogPost.tsx` component styling
+- Featured image preview in header area
 
 ---
 
-## Summary
+## Implementation Order
 
-This implementation provides:
+### Immediate (Fix existing issues):
+1. Update TrustStats, HowItWorks, FAQ, FinalCTA to fetch from `site_settings`
+2. Fix service editor to properly save/load custom content
+3. Enhance blog editor with side-by-side preview
 
-1. **New favicon** from uploaded file
-2. **Complete page content control** for Home, About, Contact, Career, Services
-3. **Individual service page settings** for each service
-4. **Footer customization** including social links
-5. **Legal document editing** (already exists, maintained)
-6. **Account settings** (already exists, maintained)
+### Short-term (Visual editing foundation):
+4. Create EditModeContext
+5. Create EditableText component
+6. Create PageEditor wrapper
+7. Refactor Admin.tsx with new Pages tab
 
-All content changes will take effect immediately after saving, with no code deployment needed.
+### Medium-term (Full visual CMS):
+8. Implement SectionManager for homepage
+9. Add inline editing to all homepage sections
+10. Create ServicePageEditor with live component rendering
+11. Add EditableImage component
+
+---
+
+## Technical Notes
+
+### Authentication Check for Edit Mode
+Edit mode only activates when:
+- User is authenticated
+- User has admin role
+- Edit toggle is enabled
+
+### Auto-save vs Manual Save
+- Option 1: Auto-save on blur (current service editor approach)
+- Option 2: Batch save with "Save All" button
+- Recommendation: Batch save to prevent excessive database calls
+
+### Performance Considerations
+- EditableText wrappers are no-ops when edit mode is off
+- Lazy load edit components only when admin
+- Use React.memo for editable wrappers
+
+---
+
+## Success Criteria
+
+After implementation:
+1. Admin can toggle "Edit Mode" on any page
+2. Clicking text in edit mode opens inline editor
+3. Changes preview instantly before saving
+4. Homepage sections can be shown/hidden via toggles
+5. Service pages show full live layout in admin with inline editing
+6. Blog editor shows true WYSIWYG with live blog styling
+7. All changes persist to database and appear on live site
+
