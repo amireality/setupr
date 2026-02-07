@@ -1,4 +1,5 @@
-import { Check, Building2, Globe, Eye, Shield, Settings, GitCompare } from "lucide-react";
+import { Check, Building2, Globe, Eye, Shield, Settings, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import type { DbService, DbCategory } from "@/hooks/useServices";
 
@@ -26,6 +27,8 @@ const categoryGlowContent: Record<string, { label: string; sublabel: string }> =
   "business-formation": { label: "The Foundation", sublabel: "Establish your legal core." },
   "digital-presence": { label: "Identity Suite", sublabel: "Claim your digital territory." },
   "trust-compliance": { label: "Clean Slate", sublabel: "Built on a compliant foundation." },
+  "visibility-discoverability": { label: "Market Entry", sublabel: "Broaden your digital reach." },
+  "scale-ready": { label: "Scale Ready", sublabel: "Systems designed for growth." },
 };
 
 const CategorySkeleton = ({ gradient, categoryId }: { gradient: string; categoryId: string }) => {
@@ -34,7 +37,7 @@ const CategorySkeleton = ({ gradient, categoryId }: { gradient: string; category
   return (
     <div
       className={cn(
-        "flex flex-1 w-full h-full min-h-[4rem] rounded-xl bg-gradient-to-br relative overflow-hidden",
+        "flex w-full h-24 rounded-xl bg-gradient-to-br relative overflow-hidden",
         gradient,
       )}
     >
@@ -143,18 +146,13 @@ const ServiceCategories = ({
                             <h3 className="font-medium text-foreground text-sm">{service.service_name}</h3>
                             <p className="text-xs text-muted-foreground mt-1">{service.description_short}</p>
                           </div>
-                          <button
-                            onClick={() => onToggleCompare(service.service_id)}
-                            className={cn(
-                              "p-1.5 rounded-lg transition-all flex-shrink-0",
-                              isInCompare
-                                ? "bg-primary/20 text-primary"
-                                : "text-muted-foreground hover:text-foreground hover:bg-secondary",
-                            )}
-                            title={isInCompare ? "Remove from compare" : "Add to compare"}
+                        <Link
+                            to={`/service/${service.service_id}`}
+                            className="p-1.5 rounded-lg transition-all flex-shrink-0 text-primary hover:bg-primary/20"
+                            title="View service details"
                           >
-                            <GitCompare className="w-3.5 h-3.5" />
-                          </button>
+                            <ArrowUpRight className="w-4 h-4" />
+                          </Link>
                         </div>
                       </div>
                     );
