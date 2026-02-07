@@ -23,9 +23,9 @@ interface ServiceCategoriesProps {
 
 // Category-specific content for the glow area
 const categoryGlowContent: Record<string, { label: string; sublabel: string }> = {
-  "business-formation": { label: "The Foundation", sublabel: "Start your legal journey" },
-  "digital-presence": { label: "Live in 48 Hrs", sublabel: "Professional online identity" },
-  "trust-compliance": { label: "100% Compliant", sublabel: "Peace of mind guaranteed" },
+  "business-formation": { label: "The Foundation", sublabel: "Establish your legal core." },
+  "digital-presence": { label: "Identity Suite", sublabel: "Claim your digital territory." },
+  "trust-compliance": { label: "Clean Slate", sublabel: "Built on a compliant foundation." },
 };
 
 const CategorySkeleton = ({ gradient, categoryId }: { gradient: string; categoryId: string }) => {
