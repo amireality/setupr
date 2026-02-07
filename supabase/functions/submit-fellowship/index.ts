@@ -5,8 +5,6 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const POWER_AUTOMATE_WEBHOOK_URL = "https://default3eadbd7f1fe143198a39f6b70f729b.76.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/8d7074f85691414cb9ed550f0e7fd4c3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WBpnjHNMI45UU-d8D7Fk7NiFWIWFCfdZ88MSDQVCe3U";
-
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === "OPTIONS") {
@@ -14,6 +12,17 @@ serve(async (req) => {
   }
 
   try {
+    // Get webhook URL from environment secret
+    const POWER_AUTOMATE_WEBHOOK_URL = Deno.env.get("POWER_AUTOMATE_WEBHOOK_URL");
+    
+    if (!POWER_AUTOMATE_WEBHOOK_URL) {
+      console.error("POWER_AUTOMATE_WEBHOOK_URL not configured");
+      return new Response(
+        JSON.stringify({ success: false, message: "Webhook not configured" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      );
+    }
+
     const formData = await req.json();
     console.log("Received fellowship application:", formData.email);
 

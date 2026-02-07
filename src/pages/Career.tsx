@@ -187,14 +187,13 @@ const Career = () => {
         submitted_at: new Date().toISOString(),
       };
 
-      // Submit via backend function for proper verification
+      // Submit via backend function (public endpoint - no auth header needed)
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-fellowship`,
         {
           method: "POST",
           headers: { 
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`
+            "Content-Type": "application/json"
           },
           body: JSON.stringify(formattedData),
         }
