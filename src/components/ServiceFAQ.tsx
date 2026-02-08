@@ -7,13 +7,15 @@ import {
 } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 interface ServiceFAQProps {
   serviceName: string;
+  serviceId: string;
   category?: string;
 }
 
-// FAQ data based on service categories
+// Default FAQ data based on service categories (fallback)
 const faqsByCategory: Record<string, { question: string; answer: string }[]> = {
   registration: [
     {
@@ -71,9 +73,26 @@ const faqsByCategory: Record<string, { question: string; answer: string }[]> = {
   ],
 };
 
-const ServiceFAQ = ({ serviceName, category = "default" }: ServiceFAQProps) => {
-  // Get FAQs based on category, fallback to default
-  const faqs = faqsByCategory[category] || faqsByCategory.default;
+const ServiceFAQ = ({ serviceName, serviceId, category = "default" }: ServiceFAQProps) => {
+  const { data: allSettings = [] } = useSiteSettings();
+
+  // Try to get service-specific FAQs from database
+  const faqKey = `service_${serviceId}_faq`;
+  const faqSetting = allSettings.find((s) => s.key === faqKey);
+
+  let faqs: { question: string; answer: string }[] = [];
+
+  if (faqSetting?.value) {
+    try {
+      faqs = JSON.parse(faqSetting.value);
+    } catch {
+      // If JSON parsing fails, fallback to category
+      faqs = faqsByCategory[category] || faqsByCategory.default;
+    }
+  } else {
+    // Fallback to category-based FAQs
+    faqs = faqsByCategory[category] || faqsByCategory.default;
+  }
 
   return (
     <motion.div
