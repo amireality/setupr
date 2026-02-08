@@ -10,12 +10,20 @@ import { cn } from "@/lib/utils";
 import ServiceComparison from "@/components/ServiceComparison";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import ProcessTimeline from "@/components/ProcessTimeline";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const ServiceDetail = () => {
   const { serviceId } = useParams<{ serviceId: string }>();
   const navigate = useNavigate();
   const { data: services = [], isLoading: servicesLoading } = useDbServices();
   const { data: categories = [] } = useDbCategories();
+  const { data: allSettings = [] } = useSiteSettings();
+
+  // Helper to get service-specific setting with fallback
+  const getServiceSetting = (field: string, fallback: string) => {
+    const key = `service_${serviceId}_${field}`;
+    return allSettings.find((s) => s.key === key)?.value || fallback;
+  };
 
   const service = services.find(s => s.service_id === serviceId);
   const category = categories.find(c => c.category_id === service?.category);
@@ -198,7 +206,7 @@ const ServiceDetail = () => {
                 </div>
                 <p className="text-muted-foreground mb-4">{service.who_its_for}</p>
                 <div className="text-sm text-muted-foreground/80 border-t border-border/30 pt-4 mt-4">
-                  <p><strong>Common scenarios:</strong> Freelancers going legit, consultants building credibility, startups needing compliance, small businesses scaling operations.</p>
+                  <p><strong>Common scenarios:</strong> {getServiceSetting("who_its_for_scenarios", "Freelancers going legit, consultants building credibility, startups needing compliance, small businesses scaling operations.")}</p>
                 </div>
               </motion.div>
 
@@ -234,7 +242,7 @@ const ServiceDetail = () => {
                   </li>
                 </ul>
                 <div className="text-sm text-muted-foreground/80 border-t border-border/30 pt-4 mt-4">
-                  <p><strong>The outcome:</strong> A fully compliant, registered service with all necessary documentation — ready to operate legally and build credibility.</p>
+                  <p><strong>The outcome:</strong> {getServiceSetting("outcome_text", "A fully compliant, registered service with all necessary documentation — ready to operate legally and build credibility.")}</p>
                 </div>
               </motion.div>
 
@@ -340,9 +348,9 @@ const ServiceDetail = () => {
                     </div>
 
                     <div className="space-y-3 mb-6">
-                      <div className="flex items-center gap-3 text-sm group">
+                    <div className="flex items-center gap-3 text-sm group">
                         <Clock className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-                        <span className="text-muted-foreground">Typical processing: 7-15 days</span>
+                        <span className="text-muted-foreground">Typical processing: {getServiceSetting("processing_time", "7-15 days")}</span>
                       </div>
                       <div className="flex items-center gap-3 text-sm group">
                         <Shield className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />

@@ -6,6 +6,7 @@ import { AnimatedGridBackground } from "@/components/ui/animated-grid-background
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Target, Heart, Zap, Shield, Users, Clock, MapPin, Building } from "lucide-react";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const values = [
   {
@@ -30,7 +31,7 @@ const values = [
   },
 ];
 
-const stats = [
+const defaultStats = [
   { value: "500+", label: "Businesses Launched" },
   { value: "98%", label: "Client Satisfaction" },
   { value: "48hrs", label: "Avg. Turnaround" },
@@ -57,6 +58,29 @@ const breadcrumbSchema = {
 };
 
 const About = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("about");
+
+  const getSetting = (key: string, fallback: string) =>
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  // Build stats from database or use defaults
+  const stats = defaultStats.map((defaultStat, index) => {
+    const statNum = index + 1;
+    return {
+      value: getSetting(`about_stat_${statNum}_value`, defaultStat.value),
+      label: getSetting(`about_stat_${statNum}_label`, defaultStat.label),
+    };
+  });
+
+  const heroTitle = getSetting("about_hero_title", "We help freelancers and startups become legitimate businesses");
+  const heroSubtitle = getSetting("about_hero_subtitle", "Setupr is a business setup platform that helps professionals in India register their companies, get GST and MSME, build digital presence, and stay compliant — without expensive CAs or multiple vendors.");
+  const missionTitle = getSetting("about_mission_title", "Built for freelancers, consultants & startups");
+  const missionContent = getSetting("about_mission_content", "Setupr exists because talented professionals shouldn't struggle with bureaucracy. We help people who ask: \"Should I register a company?\", \"Do I need GST?\", \"How do I look credible to clients?\"");
+  const founderName = getSetting("about_founder_name", "Amir Khan");
+  const founderTitle = getSetting("about_founder_title", "Founder, Setupr");
+  const founderBio = getSetting("about_founder_bio", "Amir Khan is the founder of Setupr, a platform focused on simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams in India. He works on building systems and resources to help early founders start with clarity.");
+  const founderInitials = founderName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+
   return (
     <div className="min-h-screen bg-background relative">
       <Helmet>
@@ -92,8 +116,14 @@ const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                We help freelancers and startups{" "}
-                <span className="gradient-text">become legitimate businesses</span>
+                {heroTitle.includes("become") ? (
+                  <>
+                    {heroTitle.split("become")[0]}
+                    <span className="gradient-text">become{heroTitle.split("become")[1]}</span>
+                  </>
+                ) : (
+                  heroTitle
+                )}
               </motion.h1>
               <motion.p 
                 className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
@@ -101,8 +131,7 @@ const About = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                Setupr is a business setup platform that helps professionals in India register their companies, 
-                get GST and MSME, build digital presence, and stay compliant — without expensive CAs or multiple vendors.
+                {heroSubtitle}
               </motion.p>
             </div>
           </div>
@@ -128,10 +157,10 @@ const About = () => {
                 </div>
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2">
                   <Users className="w-5 h-5 text-primary flex-shrink-0" />
-                  <div>
+                <div>
                     <p className="text-xs text-muted-foreground uppercase tracking-wide">Founder</p>
                     <Link to="/team/amir-khan" className="text-sm font-medium text-primary hover:underline">
-                      Amir Khan
+                      {founderName}
                     </Link>
                   </div>
                 </div>
@@ -189,11 +218,16 @@ const About = () => {
                     Who We Help
                   </span>
                   <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                    Built for <span className="gradient-text">freelancers, consultants & startups</span>
+                    {missionTitle.includes("freelancers") ? (
+                      <>
+                        Built for <span className="gradient-text">freelancers, consultants & startups</span>
+                      </>
+                    ) : (
+                      missionTitle
+                    )}
                   </h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    Setupr exists because talented professionals shouldn't struggle with bureaucracy. 
-                    We help people who ask: "Should I register a company?", "Do I need GST?", "How do I look credible to clients?"
+                    {missionContent}
                   </p>
                   <p className="text-muted-foreground leading-relaxed mb-4">
                     <strong>What we provide:</strong> Company registration (Private Limited, LLP, OPC, Proprietorship), 
@@ -265,19 +299,17 @@ const About = () => {
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                   {/* Avatar */}
                   <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-3xl font-display font-bold text-primary">AK</span>
+                    <span className="text-3xl font-display font-bold text-primary">{founderInitials}</span>
                   </div>
 
                   {/* Info */}
                   <div className="flex-1 text-center md:text-left">
                     <h3 className="text-xl font-display font-bold mb-1">
-                      <span className="text-primary">Amir Khan</span>
+                      <span className="text-primary">{founderName}</span>
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-4">Founder, Setupr</p>
+                    <p className="text-sm text-muted-foreground mb-4">{founderTitle}</p>
                     <p className="text-muted-foreground leading-relaxed mb-4">
-                      Amir Khan is the founder of Setupr, a platform focused on simplifying business setup, 
-                      compliance, and digital presence for freelancers, startups, and small teams in India. 
-                      He works on building systems and resources to help early founders start with clarity.
+                      {founderBio}
                     </p>
                     <p className="text-muted-foreground leading-relaxed">
                       <strong>Mission:</strong> Simplify the early founder journey so that talented people 
@@ -288,7 +320,7 @@ const About = () => {
                         to="/team/amir-khan" 
                         className="text-sm text-primary hover:underline"
                       >
-                        Read articles by Amir Khan →
+                        Read articles by {founderName} →
                       </Link>
                       <Button variant="outline" size="sm" asChild className="w-full sm:w-auto">
                         <Link to="/team">Meet Our Team</Link>

@@ -9,11 +9,19 @@ import BlogCard from "@/components/blog/BlogCard";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { useAuthor } from "@/hooks/useAuthors";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const AuthorPage = () => {
   const { authorSlug } = useParams<{ authorSlug: string }>();
   const { data: author, isLoading: authorLoading, error: authorError } = useAuthor(authorSlug || "");
   const { data: posts = [], isLoading: postsLoading } = useBlogPosts();
+  const { data: settings = [] } = useSiteSettingsByCategory("author");
+
+  const getSetting = (key: string, fallback: string) =>
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const articlesHeadingTemplate = getSetting("author_articles_heading", "Articles by {name}");
+  const aboutSetupr = getSetting("author_about_setupr", "Setupr is a business setup platform that helps freelancers, consultants, and startups in India with company registration, GST, MSME, compliance, and digital presence. Our mission is to simplify the early founder journey.");
 
   // Filter posts by this author
   const authorPosts = posts.filter(
@@ -205,7 +213,7 @@ const AuthorPage = () => {
             <div className="flex items-center gap-2 mb-6">
               <BookOpen className="w-5 h-5 text-primary" />
               <h2 className="text-xl font-display font-semibold">
-                Articles by {author.name}
+                {articlesHeadingTemplate.replace("{name}", author.name)}
               </h2>
               <span className="text-sm text-muted-foreground">
                 ({authorPosts.length})
@@ -240,10 +248,7 @@ const AuthorPage = () => {
           >
             <h3 className="font-display font-semibold mb-2">About Setupr</h3>
             <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-              Setupr is a business setup platform that helps freelancers,
-              consultants, and startups in India with company registration, GST,
-              MSME, compliance, and digital presence. Our mission is to simplify
-              the early founder journey.
+              {aboutSetupr}
             </p>
           </motion.div>
         </div>

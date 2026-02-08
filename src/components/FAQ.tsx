@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const faqGroups = {
   "getting-started": {
@@ -71,6 +72,13 @@ const faqGroups = {
 };
 
 const FAQ = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
+
+  const getSetting = (key: string, fallback: string) =>
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const faqTitle = getSetting("homepage_faq_title", "Frequently Asked Questions");
+
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
       {/* Background glow */}
@@ -87,10 +95,16 @@ const FAQ = () => {
           <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full border border-primary/20">
             FAQ
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
-            Frequently Asked{" "}
-            <span className="gradient-text">Questions</span>
-          </h2>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
+          {faqTitle.includes(" ") ? (
+            <>
+              {faqTitle.split(" ").slice(0, -1).join(" ")}{" "}
+              <span className="gradient-text">{faqTitle.split(" ").slice(-1)[0]}</span>
+            </>
+          ) : (
+            <span className="gradient-text">{faqTitle}</span>
+          )}
+        </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Got questions? We've got answers.
           </p>

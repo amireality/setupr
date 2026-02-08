@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { useAuthors } from "@/hooks/useAuthors";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const teamSchema = {
   "@context": "https://schema.org",
@@ -19,6 +20,14 @@ const teamSchema = {
 
 const TeamPage = () => {
   const { data: authors = [], isLoading } = useAuthors();
+  const { data: settings = [] } = useSiteSettingsByCategory("team");
+
+  const getSetting = (key: string, fallback: string) =>
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  const pageTitle = getSetting("team_page_title", "Meet the People Behind Setupr");
+  const pageSubtitle = getSetting("team_page_subtitle", "We're building systems and resources to help early founders start their journey with clarity.");
+  const aboutSetupr = getSetting("team_about_setupr", "Setupr is a business setup platform that helps freelancers, consultants, and startups in India with company registration, GST, MSME, compliance, and digital presence. Our mission is to simplify the early founder journey.");
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -69,11 +78,10 @@ const TeamPage = () => {
               <span className="text-sm font-medium text-primary">Our Team</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Meet the People Behind Setupr
+              {pageTitle}
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              We're building systems and resources to help early founders start
-              their journey with clarity.
+              {pageSubtitle}
             </p>
           </motion.div>
 
@@ -174,10 +182,7 @@ const TeamPage = () => {
           >
             <h3 className="font-display font-semibold mb-2">About Setupr</h3>
             <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-              Setupr is a business setup platform that helps freelancers,
-              consultants, and startups in India with company registration, GST,
-              MSME, compliance, and digital presence. Our mission is to simplify
-              the early founder journey.
+              {aboutSetupr}
             </p>
           </motion.div>
         </div>

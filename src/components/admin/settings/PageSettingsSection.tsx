@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Home, Info, Phone, Briefcase, Wrench, Edit, Save, Loader2 } from "lucide-react";
+import { Home, Info, Phone, Briefcase, Wrench, Edit, Save, Loader2, Users, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -104,6 +104,45 @@ const pageConfigs: PageConfig[] = [
       { key: "services_intro_title", label: "Intro Title", type: "text", placeholder: "Business registration services in India" },
       { key: "services_intro_subtitle", label: "Intro Subtitle", type: "textarea", placeholder: "Company registration, GST, MSME, compliance..." },
       { key: "services_intro_note", label: "Intro Note", type: "text", placeholder: "Pick individual services or choose a bundle..." },
+    ],
+  },
+  {
+    id: "team",
+    title: "Team Page",
+    icon: Users,
+    fields: [
+      { key: "team_page_title", label: "Page Title", type: "text", placeholder: "Meet the People Behind Setupr" },
+      { key: "team_page_subtitle", label: "Page Subtitle", type: "textarea", placeholder: "We're building systems and resources to help early founders start their journey with clarity." },
+      { key: "team_about_setupr", label: "About Setupr Footer", type: "textarea", placeholder: "Setupr is a business setup platform that helps freelancers, consultants, and startups in India..." },
+    ],
+  },
+  {
+    id: "author",
+    title: "Author Pages",
+    icon: User,
+    fields: [
+      { key: "author_articles_heading", label: "Articles Heading Template", type: "text", placeholder: "Articles by {name}" },
+      { key: "author_about_setupr", label: "About Setupr Footer", type: "textarea", placeholder: "Setupr is a business setup platform that helps freelancers, consultants, and startups in India..." },
+    ],
+  },
+  {
+    id: "homepage_stats",
+    title: "Homepage Stats",
+    icon: Home,
+    fields: [
+      { key: "homepage_stat_1_value", label: "Stat 1 Value", type: "text", placeholder: "500+" },
+      { key: "homepage_stat_1_label", label: "Stat 1 Label", type: "text", placeholder: "Businesses Helped" },
+      { key: "homepage_stat_1_desc", label: "Stat 1 Description", type: "text", placeholder: "Startups launched successfully" },
+      { key: "homepage_stat_2_value", label: "Stat 2 Value", type: "text", placeholder: "15" },
+      { key: "homepage_stat_2_label", label: "Stat 2 Label", type: "text", placeholder: "Avg. Days" },
+      { key: "homepage_stat_2_desc", label: "Stat 2 Description", type: "text", placeholder: "To complete registration" },
+      { key: "homepage_stat_3_value", label: "Stat 3 Value", type: "text", placeholder: "4.9/5" },
+      { key: "homepage_stat_3_label", label: "Stat 3 Label", type: "text", placeholder: "Client Rating" },
+      { key: "homepage_stat_3_desc", label: "Stat 3 Description", type: "text", placeholder: "Based on 200+ reviews" },
+      { key: "homepage_stat_4_value", label: "Stat 4 Value", type: "text", placeholder: "100%" },
+      { key: "homepage_stat_4_label", label: "Stat 4 Label", type: "text", placeholder: "Compliance Rate" },
+      { key: "homepage_stat_4_desc", label: "Stat 4 Description", type: "text", placeholder: "No rejections, guaranteed" },
+      { key: "homepage_faq_title", label: "FAQ Section Title", type: "text", placeholder: "Frequently Asked Questions" },
     ],
   },
 ];
