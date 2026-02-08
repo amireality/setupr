@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import AnimatedCounter from "./AnimatedCounter";
 import { Building2, Clock, Star, ShieldCheck } from "lucide-react";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
-const stats = [
+// Default stats used as fallback
+const defaultStats = [
   {
     icon: Building2,
     value: 500,
@@ -34,6 +36,8 @@ const stats = [
   },
 ];
 
+const icons = [Building2, Clock, Star, ShieldCheck];
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -57,6 +61,45 @@ const itemVariants = {
 };
 
 const TrustStats = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
+
+  const getSetting = (key: string, fallback: string) =>
+    settings.find((s) => s.key === key)?.value || fallback;
+
+  // Parse stat value from string (handles numbers like "500+", "4.9/5", "100%")
+  const parseStatValue = (valueStr: string): { value: number; suffix: string; decimals?: number } => {
+    // Handle patterns like "4.9/5"
+    if (valueStr.includes("/")) {
+      const [num, denom] = valueStr.split("/");
+      return { value: parseFloat(num), suffix: `/${denom}`, decimals: 1 };
+    }
+    // Handle patterns like "500+" or "100%"
+    const match = valueStr.match(/^([\d.]+)(.*)$/);
+    if (match) {
+      const num = parseFloat(match[1]);
+      const suffix = match[2] || "";
+      const hasDecimals = match[1].includes(".");
+      return { value: num, suffix, decimals: hasDecimals ? 1 : 0 };
+    }
+    return { value: 0, suffix: valueStr, decimals: 0 };
+  };
+
+  // Build stats array from database or fallback to defaults
+  const stats = defaultStats.map((defaultStat, index) => {
+    const statNum = index + 1;
+    const valueStr = getSetting(`homepage_stat_${statNum}_value`, `${defaultStat.value}${defaultStat.suffix}`);
+    const parsed = parseStatValue(valueStr);
+    
+    return {
+      icon: icons[index],
+      value: parsed.value,
+      suffix: parsed.suffix,
+      label: getSetting(`homepage_stat_${statNum}_label`, defaultStat.label),
+      description: getSetting(`homepage_stat_${statNum}_desc`, defaultStat.description),
+      decimals: parsed.decimals,
+    };
+  });
+
   return (
     <section className="py-16 md:py-20 relative overflow-hidden">
       {/* Background glow */}
