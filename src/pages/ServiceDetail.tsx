@@ -224,22 +224,34 @@ const ServiceDetail = () => {
                   <h2 className="text-xl font-display font-semibold">What does Setupr provide?</h2>
                 </div>
                 <ul className="space-y-3">
-                  <li className="flex items-start gap-3 group">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">Complete documentation preparation, review, and filing</span>
-                  </li>
-                  <li className="flex items-start gap-3 group">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">Expert guidance from professionals who understand Indian regulations</span>
-                  </li>
-                  <li className="flex items-start gap-3 group">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">Government fee coordination — we tell you exactly what to pay and when</span>
-                  </li>
-                  <li className="flex items-start gap-3 group">
-                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground">Regular status updates via WhatsApp and email until completion</span>
-                  </li>
+                  {(() => {
+                    const deliverablesKey = `service_${serviceId}_deliverables`;
+                    const deliverablesSetting = allSettings.find((s) => s.key === deliverablesKey);
+                    let deliverables: string[] = [];
+                    
+                    if (deliverablesSetting?.value) {
+                      try {
+                        deliverables = JSON.parse(deliverablesSetting.value);
+                      } catch {
+                        deliverables = [];
+                      }
+                    }
+                    
+                    // Use database deliverables or fallback to defaults
+                    const items = deliverables.length > 0 ? deliverables : [
+                      "Complete documentation preparation, review, and filing",
+                      "Expert guidance from professionals who understand Indian regulations",
+                      "Government fee coordination — we tell you exactly what to pay and when",
+                      "Regular status updates via WhatsApp and email until completion"
+                    ];
+                    
+                    return items.map((item, index) => (
+                      <li key={index} className="flex items-start gap-3 group">
+                        <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ));
+                  })()}
                 </ul>
                 <div className="text-sm text-muted-foreground/80 border-t border-border/30 pt-4 mt-4">
                   <p><strong>The outcome:</strong> {getServiceSetting("outcome_text", "A fully compliant, registered service with all necessary documentation — ready to operate legally and build credibility.")}</p>
@@ -273,7 +285,7 @@ const ServiceDetail = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <ServiceFAQ serviceName={service.service_name} category={faqCategory} />
+                <ServiceFAQ serviceName={service.service_name} serviceId={service.service_id} category={faqCategory} />
               </motion.div>
 
               {/* Related Articles Placeholder */}
