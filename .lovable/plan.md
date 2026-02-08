@@ -1,328 +1,233 @@
 
-# Visual CMS Admin Dashboard Refactor
+# Complete Database-Driven Content Architecture
 
 ## Overview
 
-This plan transforms the current disconnected admin dashboard into a **Visual CMS** where you edit content in-context, seeing exactly how it will appear on the live site. The core principle: "Edit what you see, see what you edit."
+This plan connects **all pages** to the `site_settings` database table so you can edit content directly in Lovable Cloud. Currently, only 6 settings exist in the database - most page content is hardcoded.
 
 ---
 
-## Current State Analysis
+## Current State
 
-**What's Working Well:**
-- Site settings system (`site_settings` table + `useSiteSettings` hook)
-- Service editor with preview capability in `ServiceSettingsSection.tsx`
-- Blog editor with markdown preview in `BlogEditor.tsx`
-- Modular admin structure with tabs (Services, Blog, Team, etc.)
-- Unified markdown parser (`src/lib/markdown.tsx`)
+| Page | Admin Fields Defined | Connected to Database |
+|------|---------------------|----------------------|
+| Home (Hero, HowItWorks, FinalCTA) | 13 fields | Partially (3 components) |
+| Home (TrustStats, FAQ) | 0 fields | No - hardcoded |
+| About | 15 fields | No - hardcoded |
+| Team | 0 fields | No - hardcoded |
+| Author Pages | 0 fields | No - hardcoded |
+| Individual Service Pages | Editor exists | No - hardcoded |
+| Contact | 4 fields | Yes - working |
+| Career | 3 fields | Yes - working |
 
-**What Needs Improvement:**
-- Page settings use form dialogs instead of visual editing
-- Service editor preview is static, not interactive
-- Blog preview doesn't match exact live styling
-- Homepage sections have hardcoded content not editable via admin
-- No section visibility toggles
-- No inline edit mode for text elements
-
----
-
-## Architecture: Live Editor System
-
-```
-+------------------+     +-------------------+     +------------------+
-|   Admin Shell    |---->|   Page Editor     |---->|  Live Component  |
-|   (Navigation)   |     |   (Edit Context)  |     |  (Edit Mode)     |
-+------------------+     +-------------------+     +------------------+
-                                  |
-                         +--------v--------+
-                         |  EditableText   |
-                         |  EditableImage  |
-                         |  SectionToggle  |
-                         +------------------+
-```
-
-### Core Components to Create
-
-1. **EditModeContext** - Global context to toggle edit mode on/off
-2. **EditableText** - Wrapper that makes text clickable/editable
-3. **EditableImage** - Wrapper with "Replace" overlay for images
-4. **SectionToggle** - Visibility controls for homepage sections
-5. **PageEditor** - Wrapper that loads live components with edit capabilities
+**Current database keys:**
+- `footer_ownership`, `footer_tagline` (content)
+- `privacy_content`, `refund_content`, `terms_content` (legal)
+- `homepage_section_hero_visible` (visibility)
 
 ---
 
-## Phase 1: Foundation - Editable Primitives
+## What You'll Be Able to Edit After Implementation
 
-### 1.1 Create EditModeContext
+### In Lovable Cloud > Database > site_settings table:
 
-New file: `src/contexts/EditModeContext.tsx`
+**Homepage (16 keys)**
+| Key | Current Value |
+|-----|---------------|
+| `homepage_hero_subtitle` | Company registration, GST, MSME, website... |
+| `homepage_cta_primary` | Start with your journey |
+| `homepage_cta_secondary` | See How It Works |
+| `homepage_stat_1_value` | 500+ |
+| `homepage_stat_1_label` | Businesses Helped |
+| `homepage_stat_1_desc` | Startups launched successfully |
+| `homepage_stat_2_value` | 15 |
+| `homepage_stat_2_label` | Avg. Days |
+| `homepage_stat_2_desc` | To complete registration |
+| `homepage_stat_3_value` | 4.9/5 |
+| `homepage_stat_3_label` | Client Rating |
+| `homepage_stat_3_desc` | Based on 200+ reviews |
+| `homepage_stat_4_value` | 100% |
+| `homepage_stat_4_label` | Compliance Rate |
+| `homepage_stat_4_desc` | No rejections, guaranteed |
+| `homepage_faq_title` | Frequently Asked Questions |
 
-Provides:
-- `isEditMode` - boolean state
-- `toggleEditMode` - function to switch modes
-- `pendingChanges` - track unsaved edits
-- `saveAllChanges` - batch save to database
+**About Page (15 keys)**
+| Key | Current Value |
+|-----|---------------|
+| `about_hero_title` | We help freelancers and startups become legitimate businesses |
+| `about_hero_subtitle` | Setupr is a business setup platform... |
+| `about_stat_1_value` | 500+ |
+| `about_stat_1_label` | Businesses Launched |
+| `about_stat_2_value` | 98% |
+| `about_stat_2_label` | Client Satisfaction |
+| `about_stat_3_value` | 48hrs |
+| `about_stat_3_label` | Avg. Turnaround |
+| `about_stat_4_value` | 24/7 |
+| `about_stat_4_label` | Support Available |
+| `about_mission_title` | Built for freelancers, consultants & startups |
+| `about_mission_content` | Setupr exists because talented professionals... |
+| `about_founder_name` | Amir Khan |
+| `about_founder_title` | Founder, Setupr |
+| `about_founder_bio` | Amir Khan is the founder of Setupr... |
 
-### 1.2 Create EditableText Component
+**Team Page (3 keys)**
+| Key | Current Value |
+|-----|---------------|
+| `team_page_title` | Meet the People Behind Setupr |
+| `team_page_subtitle` | We're building systems and resources... |
+| `team_about_setupr` | Setupr is a business setup platform... |
 
-New file: `src/components/admin/editable/EditableText.tsx`
+**Author Pages (2 keys)**
+| Key | Current Value |
+|-----|---------------|
+| `author_articles_heading` | Articles by {name} |
+| `author_about_setupr` | Setupr is a business setup platform... |
 
-Features:
-- Renders normal text when edit mode is off
-- Renders inline input/textarea when edit mode is on
-- Highlights on hover with dashed border
-- Click to activate inline editing
-- Auto-saves on blur or Enter key
-- Supports: headings (h1-h6), paragraphs, spans, buttons
-
-### 1.3 Create EditableImage Component
-
-New file: `src/components/admin/editable/EditableImage.tsx`
-
-Features:
-- Shows "Replace" overlay on hover in edit mode
-- Click opens image URL input modal
-- Preview before saving
-- Fallback placeholder if image fails
+**Individual Service Pages (per service, ~7 keys each)**
+| Key Pattern | Description |
+|-------------|-------------|
+| `service_{id}_who_its_for_scenarios` | Custom "Common scenarios" text |
+| `service_{id}_deliverables` | JSON array of deliverables |
+| `service_{id}_outcome_text` | "The outcome:" paragraph |
+| `service_{id}_processing_time` | Typical processing time |
+| `service_{id}_faq` | JSON array of Q&A pairs |
+| `service_{id}_comparison` | JSON for Setupr vs DIY table |
+| `service_{id}_timeline` | JSON for process steps |
 
 ---
 
-## Phase 2: Page-Level Visual Editors
+## Implementation Plan
 
-### 2.1 Homepage Visual Editor
+### Phase 1: Connect TrustStats Component
 
-Refactor: `src/pages/Index.tsx` and homepage components
-
-**Make these sections editable:**
-
-| Section | Component | Editable Fields |
-|---------|-----------|-----------------|
-| Hero | `HeroSection.tsx` | Subtitle, CTA buttons |
-| Trust Stats | `TrustStats.tsx` | Stats values, labels, descriptions |
-| Goal Cards | `GoalCards.tsx` | Card titles, descriptions |
-| Bundles | `RecommendedBundles.tsx` | Already DB-driven |
-| Services | `CollapsibleServices.tsx` | Already DB-driven |
-| How It Works | `HowItWorks.tsx` | Step titles, descriptions |
-| Testimonials | `Testimonials.tsx` | Already DB-driven |
-| FAQ | `FAQ.tsx` | Questions and answers |
-| Final CTA | `FinalCTA.tsx` | Title, subtitle, button text |
-
-**New Section Manager:**
-- Add visibility toggles to each section
-- Store visibility state in `site_settings` (e.g., `homepage_section_testimonials_visible`)
-- Drag-and-drop reordering (stretch goal)
-
-### 2.2 Service Page Visual Editor
-
-Refactor: `src/pages/ServiceDetail.tsx`
-
-Current state: Uses hardcoded content with `site_settings` override capability
+**File:** `src/components/TrustStats.tsx`
 
 Changes:
-- Wrap all text blocks with `EditableText`
-- When admin visits `/service/:id` in edit mode, show edit controls
-- Inline editing for: Who It's For, Deliverables, Process Steps, FAQ, Pricing Card text
-- Changes save to `service_{serviceId}_{fieldKey}` in site_settings
+- Add `useSiteSettingsByCategory("homepage")` hook
+- Replace hardcoded `stats` array with dynamic values
+- Fallback to original values if not in database
 
-### 2.3 Blog Visual Editor
+```tsx
+// Pattern to use:
+const getSetting = (key: string, fallback: string) => 
+  settings.find((s) => s.key === key)?.value || fallback;
 
-Refactor: `src/components/admin/BlogEditor.tsx`
+const stats = [
+  {
+    value: getSetting("homepage_stat_1_value", "500+"),
+    label: getSetting("homepage_stat_1_label", "Businesses Helped"),
+    description: getSetting("homepage_stat_1_desc", "Startups launched successfully"),
+  },
+  // ... repeat for all 4 stats
+];
+```
 
-Current state: Split Edit/Preview tabs
+### Phase 2: Connect FAQ Component
+
+**File:** `src/components/FAQ.tsx`
 
 Changes:
-- Create side-by-side layout: Editor on left (40%), Live Preview on right (60%)
-- Live preview uses exact `BlogPost.tsx` styling
-- WYSIWYG toolbar for common markdown actions (bold, italic, headers, links)
-- Real-time preview updates as you type
+- Add settings hook
+- Fetch FAQ title from database
+- For full FAQ customization: fetch JSON-formatted FAQ groups
+
+### Phase 3: Connect About Page
+
+**File:** `src/pages/About.tsx`
+
+Changes:
+- Add `useSiteSettingsByCategory("about")` hook
+- Replace hardcoded hero title, subtitle
+- Replace hardcoded stats array with dynamic values
+- Replace founder info (name, title, bio)
+- Replace mission content
+
+### Phase 4: Connect Team Page
+
+**File:** `src/pages/TeamPage.tsx`
+
+Changes:
+- Add `useSiteSettingsByCategory("team")` hook
+- Replace hardcoded page title, subtitle
+- Replace "About Setupr" footer text
+
+**Admin update:** Add Team page config to `PageSettingsSection.tsx`
+
+### Phase 5: Connect Author Pages
+
+**File:** `src/pages/AuthorPage.tsx`
+
+Changes:
+- Add settings hook
+- Replace "Articles by {name}" heading template
+- Replace "About Setupr" footer text
+
+**Admin update:** Add Author page config to `PageSettingsSection.tsx`
+
+### Phase 6: Connect Service Detail Pages
+
+**File:** `src/pages/ServiceDetail.tsx`
+
+Changes:
+- Add `useSiteSettings()` hook
+- Create helper: `getServiceSetting(field, fallback)`
+- Replace "Common scenarios" text with database value
+- Replace deliverables list with database value
+- Replace "The outcome" text with database value
+- Replace FAQ with service-specific FAQ from database
 
 ---
 
-## Phase 3: Admin Dashboard Restructure
-
-### 3.1 New Navigation Structure
-
-```
-Admin Dashboard
-├── Pages (Visual Editor)
-│   ├── Home
-│   ├── About
-│   ├── Contact
-│   ├── Career
-│   └── Services Overview
-├── Service Pages
-│   └── [List of individual services with Edit buttons]
-├── Blog
-│   └── [Enhanced visual editor]
-├── Team
-├── Testimonials
-├── Intake Submissions
-└── Settings
-    ├── Legal Documents
-    └── Footer & Social Links
-```
-
-### 3.2 Page Editor Component
-
-New file: `src/components/admin/PageEditor.tsx`
-
-Structure:
-```
-+-----------------------------------------------+
-|  Edit Mode: [Toggle]    [Save All]  [Preview] |
-+-----------------------------------------------+
-|                                               |
-|     [ Live Page Component Rendered Here ]     |
-|     (with EditableText/EditableImage          |
-|      wrappers active in edit mode)            |
-|                                               |
-+-----------------------------------------------+
-```
-
-### 3.3 Section Manager for Homepage
-
-New file: `src/components/admin/SectionManager.tsx`
-
-Features:
-- List all homepage sections with toggle switches
-- Show/hide sections without deleting content
-- Preview indicator showing section order
-- Quick-edit button to jump to section
-
----
-
-## Phase 4: Technical Implementation Details
-
-### 4.1 Database Keys Structure
-
-Expand `site_settings` key conventions:
-
-```
-# Page content
-{page}_{section}_{field}
-Example: homepage_hero_subtitle
-
-# Section visibility  
-{page}_section_{section}_visible
-Example: homepage_section_testimonials_visible
-
-# Service page overrides
-service_{serviceId}_{field}
-Example: service_gst-reg_faq
-```
-
-### 4.2 Component Modifications
-
-**Files to Update:**
+## Files to Modify
 
 | File | Changes |
 |------|---------|
-| `src/pages/Admin.tsx` | Add "Pages" tab with visual editor navigation |
-| `src/pages/Index.tsx` | Wrap with EditModeProvider when admin |
-| `src/components/HeroSection.tsx` | Wrap text with EditableText |
-| `src/components/TrustStats.tsx` | Fetch stats from settings, make editable |
-| `src/components/HowItWorks.tsx` | Wrap step content with EditableText |
-| `src/components/FAQ.tsx` | Make FAQs editable inline |
-| `src/components/FinalCTA.tsx` | Wrap CTA text with EditableText |
-| `src/pages/ServiceDetail.tsx` | Add inline editing for all sections |
-| `src/components/admin/BlogEditor.tsx` | Split layout with live preview |
-
-### 4.3 New Files to Create
-
-```
-src/contexts/EditModeContext.tsx
-src/components/admin/editable/EditableText.tsx
-src/components/admin/editable/EditableImage.tsx
-src/components/admin/PageEditor.tsx
-src/components/admin/SectionManager.tsx
-src/components/admin/VisualPageList.tsx
-src/components/admin/ServicePageEditor.tsx
-```
+| `src/components/TrustStats.tsx` | Add settings hook, dynamic stats |
+| `src/components/FAQ.tsx` | Add settings hook, dynamic FAQ title |
+| `src/pages/About.tsx` | Add settings hook, replace all hardcoded content |
+| `src/pages/TeamPage.tsx` | Add settings hook, dynamic page text |
+| `src/pages/AuthorPage.tsx` | Add settings hook, dynamic headings |
+| `src/pages/ServiceDetail.tsx` | Add settings hook, per-service overrides |
+| `src/components/admin/settings/PageSettingsSection.tsx` | Add Team + Author page configs |
 
 ---
 
-## Phase 5: Blog Editor Enhancement
+## How to Edit Content After Implementation
 
-### Current Blog Editor Issues:
-- Preview tab shows different styling than live
-- No WYSIWYG toolbar
-- No side-by-side editing
+1. Open **Lovable Cloud** (click the Cloud icon)
+2. Go to **Database > site_settings**
+3. Find the key you want to edit (e.g., `about_hero_title`)
+4. Click the row and update the `value` column
+5. Save - the live site updates immediately
 
-### Enhanced Blog Editor:
+**To add a new setting:**
+1. Click "Insert row" in site_settings
+2. Fill in: `key`, `value`, `category` (use "content" or "homepage" etc.)
+3. Save
 
+---
+
+## Database Key Naming Convention
+
+All keys follow this pattern:
 ```
-+------------------------------------------+
-| Title: [_____________________________]   |
-| Excerpt: [___________________________]   |
-| Category: [Dropdown] Author: [Dropdown]  |
-+------------------------------------------+
-| Toolbar: [B] [I] [H2] [Link] [Image]     |
-+-------------------+----------------------+
-|                   |                      |
-|   Markdown        |   Live Preview       |
-|   Editor          |   (BlogPost styles)  |
-|   (40%)           |   (60%)              |
-|                   |                      |
-+-------------------+----------------------+
+{page}_{section}_{field}
 ```
 
-Features:
-- Split-pane view with drag-to-resize
-- Toolbar inserts markdown syntax
-- Preview uses exact `BlogPost.tsx` component styling
-- Featured image preview in header area
+Examples:
+- `homepage_hero_subtitle`
+- `homepage_stat_1_value`
+- `about_founder_bio`
+- `team_page_title`
+- `service_gst-reg_faq`
 
 ---
 
-## Implementation Order
-
-### Immediate (Fix existing issues):
-1. Update TrustStats, HowItWorks, FAQ, FinalCTA to fetch from `site_settings`
-2. Fix service editor to properly save/load custom content
-3. Enhance blog editor with side-by-side preview
-
-### Short-term (Visual editing foundation):
-4. Create EditModeContext
-5. Create EditableText component
-6. Create PageEditor wrapper
-7. Refactor Admin.tsx with new Pages tab
-
-### Medium-term (Full visual CMS):
-8. Implement SectionManager for homepage
-9. Add inline editing to all homepage sections
-10. Create ServicePageEditor with live component rendering
-11. Add EditableImage component
-
----
-
-## Technical Notes
-
-### Authentication Check for Edit Mode
-Edit mode only activates when:
-- User is authenticated
-- User has admin role
-- Edit toggle is enabled
-
-### Auto-save vs Manual Save
-- Option 1: Auto-save on blur (current service editor approach)
-- Option 2: Batch save with "Save All" button
-- Recommendation: Batch save to prevent excessive database calls
-
-### Performance Considerations
-- EditableText wrappers are no-ops when edit mode is off
-- Lazy load edit components only when admin
-- Use React.memo for editable wrappers
-
----
-
-## Success Criteria
+## Summary
 
 After implementation:
-1. Admin can toggle "Edit Mode" on any page
-2. Clicking text in edit mode opens inline editor
-3. Changes preview instantly before saving
-4. Homepage sections can be shown/hidden via toggles
-5. Service pages show full live layout in admin with inline editing
-6. Blog editor shows true WYSIWYG with live blog styling
-7. All changes persist to database and appear on live site
+- **40+ content fields** editable directly in Lovable Cloud
+- All changes appear instantly on the live site
+- Original content remains as fallback (site never breaks)
+- No code changes needed for content updates
 
