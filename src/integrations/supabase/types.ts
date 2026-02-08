@@ -236,6 +236,63 @@ export type Database = {
         }
         Relationships: []
       }
+      service_deliverables: {
+        Row: {
+          created_at: string
+          id: string
+          label: string
+          service_id: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label: string
+          service_id: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string
+          service_id?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      service_faqs: {
+        Row: {
+          answer: string
+          created_at: string
+          id: string
+          question: string
+          service_id: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          answer: string
+          created_at?: string
+          id?: string
+          question: string
+          service_id: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          answer?: string
+          created_at?: string
+          id?: string
+          question?: string
+          service_id?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           category: string
