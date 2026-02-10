@@ -11,6 +11,33 @@ import ServiceComparison from "@/components/ServiceComparison";
 import ServiceFAQ from "@/components/ServiceFAQ";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { useServiceDeliverables } from "@/hooks/useServiceDeliverables";
+
+const ServiceDeliverablesList = ({ serviceId }: { serviceId: string }) => {
+  const { data: dbDeliverables = [] } = useServiceDeliverables(serviceId);
+  
+  const defaultItems = [
+    "Complete documentation preparation, review, and filing",
+    "Expert guidance from professionals who understand Indian regulations",
+    "Government fee coordination — we tell you exactly what to pay and when",
+    "Regular status updates via WhatsApp and email until completion"
+  ];
+
+  const items = dbDeliverables.length > 0 
+    ? dbDeliverables.map(d => d.label) 
+    : defaultItems;
+
+  return (
+    <ul className="space-y-3">
+      {items.map((item, index) => (
+        <li key={index} className="flex items-start gap-3 group">
+          <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+          <span className="text-muted-foreground">{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 const ServiceDetail = () => {
   const { serviceId } = useParams<{ serviceId: string }>();
@@ -223,36 +250,7 @@ const ServiceDetail = () => {
                   </div>
                   <h2 className="text-xl font-display font-semibold">What does Setupr provide?</h2>
                 </div>
-                <ul className="space-y-3">
-                  {(() => {
-                    const deliverablesKey = `service_${serviceId}_deliverables`;
-                    const deliverablesSetting = allSettings.find((s) => s.key === deliverablesKey);
-                    let deliverables: string[] = [];
-                    
-                    if (deliverablesSetting?.value) {
-                      try {
-                        deliverables = JSON.parse(deliverablesSetting.value);
-                      } catch {
-                        deliverables = [];
-                      }
-                    }
-                    
-                    // Use database deliverables or fallback to defaults
-                    const items = deliverables.length > 0 ? deliverables : [
-                      "Complete documentation preparation, review, and filing",
-                      "Expert guidance from professionals who understand Indian regulations",
-                      "Government fee coordination — we tell you exactly what to pay and when",
-                      "Regular status updates via WhatsApp and email until completion"
-                    ];
-                    
-                    return items.map((item, index) => (
-                      <li key={index} className="flex items-start gap-3 group">
-                        <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                        <span className="text-muted-foreground">{item}</span>
-                      </li>
-                    ));
-                  })()}
-                </ul>
+                <ServiceDeliverablesList serviceId={serviceId || ""} />
                 <div className="text-sm text-muted-foreground/80 border-t border-border/30 pt-4 mt-4">
                   <p><strong>The outcome:</strong> {getServiceSetting("outcome_text", "A fully compliant, registered service with all necessary documentation — ready to operate legally and build credibility.")}</p>
                 </div>
@@ -265,7 +263,7 @@ const ServiceDetail = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <ProcessTimeline />
+                <ProcessTimeline serviceId={serviceId} />
               </motion.div>
 
               {/* Comparison Section */}
@@ -275,7 +273,7 @@ const ServiceDetail = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <ServiceComparison />
+                <ServiceComparison serviceId={serviceId} />
               </motion.div>
 
               {/* FAQ Section */}

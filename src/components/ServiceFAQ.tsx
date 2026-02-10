@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { useServiceFaqs } from "@/hooks/useServiceFaqs";
 
 interface ServiceFAQProps {
   serviceName: string;
@@ -18,81 +18,32 @@ interface ServiceFAQProps {
 // Default FAQ data based on service categories (fallback)
 const faqsByCategory: Record<string, { question: string; answer: string }[]> = {
   registration: [
-    {
-      question: "How long does the registration process take?",
-      answer: "The typical timeline is 10-15 business days from document submission. This includes government processing time, which we track and update you on regularly.",
-    },
-    {
-      question: "What documents do I need to provide?",
-      answer: "You'll need basic identity proofs (Aadhaar, PAN), address proof, and business-specific documents. We'll send you a detailed checklist based on your specific registration type.",
-    },
-    {
-      question: "Can I track the status of my application?",
-      answer: "Yes! You'll receive regular updates via email and WhatsApp. Our team proactively monitors your application and handles any queries from authorities.",
-    },
-    {
-      question: "What if my application gets rejected?",
-      answer: "With our 100% compliance guarantee, rejections are extremely rare. If it happens, we'll refile at no extra cost and work directly with authorities to resolve issues.",
-    },
+    { question: "How long does the registration process take?", answer: "The typical timeline is 10-15 business days from document submission. This includes government processing time, which we track and update you on regularly." },
+    { question: "What documents do I need to provide?", answer: "You'll need basic identity proofs (Aadhaar, PAN), address proof, and business-specific documents. We'll send you a detailed checklist based on your specific registration type." },
+    { question: "Can I track the status of my application?", answer: "Yes! You'll receive regular updates via email and WhatsApp. Our team proactively monitors your application and handles any queries from authorities." },
+    { question: "What if my application gets rejected?", answer: "With our 100% compliance guarantee, rejections are extremely rare. If it happens, we'll refile at no extra cost and work directly with authorities to resolve issues." },
   ],
   compliance: [
-    {
-      question: "How do you ensure compliance accuracy?",
-      answer: "Our team of CA-qualified experts reviews every filing before submission. We use checklists and multi-level review processes to ensure 100% accuracy.",
-    },
-    {
-      question: "What happens if I miss a compliance deadline?",
-      answer: "We send proactive reminders well before deadlines. If you're already past a deadline, we'll help you file with minimal penalties and get you back on track.",
-    },
-    {
-      question: "Do you handle all types of business compliances?",
-      answer: "Yes, we cover GST, Income Tax, MCA filings, MSME updates, and more. If there's a compliance you need that's not listed, reach out and we'll help.",
-    },
-    {
-      question: "Can you handle compliance for multiple entities?",
-      answer: "Absolutely. Many clients use us for multiple companies. We offer consolidated dashboard views and preferential pricing for multi-entity management.",
-    },
+    { question: "How do you ensure compliance accuracy?", answer: "Our team of CA-qualified experts reviews every filing before submission. We use checklists and multi-level review processes to ensure 100% accuracy." },
+    { question: "What happens if I miss a compliance deadline?", answer: "We send proactive reminders well before deadlines. If you're already past a deadline, we'll help you file with minimal penalties and get you back on track." },
+    { question: "Do you handle all types of business compliances?", answer: "Yes, we cover GST, Income Tax, MCA filings, MSME updates, and more. If there's a compliance you need that's not listed, reach out and we'll help." },
+    { question: "Can you handle compliance for multiple entities?", answer: "Absolutely. Many clients use us for multiple companies. We offer consolidated dashboard views and preferential pricing for multi-entity management." },
   ],
   default: [
-    {
-      question: "How do I get started?",
-      answer: "Simply click 'Proceed with this service' and fill out a quick form. Our team will reach out within 2 hours to guide you through the next steps.",
-    },
-    {
-      question: "What's included in the pricing?",
-      answer: "Our fee covers complete end-to-end service including document preparation, government fee coordination, filing, and follow-up until completion.",
-    },
-    {
-      question: "Do you offer refunds?",
-      answer: "Yes, we offer a satisfaction guarantee. If you're not happy with our service before we begin filing, you can request a full refund.",
-    },
-    {
-      question: "How can I contact support?",
-      answer: "You can reach us via WhatsApp, email, or the contact form. Our team typically responds within 2 hours during business hours.",
-    },
+    { question: "How do I get started?", answer: "Simply click 'Proceed with this service' and fill out a quick form. Our team will reach out within 2 hours to guide you through the next steps." },
+    { question: "What's included in the pricing?", answer: "Our fee covers complete end-to-end service including document preparation, government fee coordination, filing, and follow-up until completion." },
+    { question: "Do you offer refunds?", answer: "Yes, we offer a satisfaction guarantee. If you're not happy with our service before we begin filing, you can request a full refund." },
+    { question: "How can I contact support?", answer: "You can reach us via WhatsApp, email, or the contact form. Our team typically responds within 2 hours during business hours." },
   ],
 };
 
 const ServiceFAQ = ({ serviceName, serviceId, category = "default" }: ServiceFAQProps) => {
-  const { data: allSettings = [] } = useSiteSettings();
+  const { data: dbFaqs = [] } = useServiceFaqs(serviceId);
 
-  // Try to get service-specific FAQs from database
-  const faqKey = `service_${serviceId}_faq`;
-  const faqSetting = allSettings.find((s) => s.key === faqKey);
-
-  let faqs: { question: string; answer: string }[] = [];
-
-  if (faqSetting?.value) {
-    try {
-      faqs = JSON.parse(faqSetting.value);
-    } catch {
-      // If JSON parsing fails, fallback to category
-      faqs = faqsByCategory[category] || faqsByCategory.default;
-    }
-  } else {
-    // Fallback to category-based FAQs
-    faqs = faqsByCategory[category] || faqsByCategory.default;
-  }
+  // Use database FAQs if available, otherwise fallback to category defaults
+  const faqs = dbFaqs.length > 0
+    ? dbFaqs.map(f => ({ question: f.question, answer: f.answer }))
+    : (faqsByCategory[category] || faqsByCategory.default);
 
   return (
     <motion.div
@@ -107,12 +58,8 @@ const ServiceFAQ = ({ serviceName, serviceId, category = "default" }: ServiceFAQ
           <HelpCircle className="w-5 h-5 text-primary" />
         </div>
         <div>
-          <h2 className="text-xl font-display font-semibold">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            About {serviceName}
-          </p>
+          <h2 className="text-xl font-display font-semibold">Frequently Asked Questions</h2>
+          <p className="text-sm text-muted-foreground">About {serviceName}</p>
         </div>
       </div>
 
@@ -133,13 +80,10 @@ const ServiceFAQ = ({ serviceName, serviceId, category = "default" }: ServiceFAQ
         ))}
       </Accordion>
 
-      {/* Still have questions? */}
       <div className="mt-6 pt-6 border-t border-border text-center">
         <p className="text-sm text-muted-foreground">
           Still have questions?{" "}
-          <Link to="/contact" className="text-primary hover:underline font-medium">
-            Contact our team
-          </Link>
+          <Link to="/contact" className="text-primary hover:underline font-medium">Contact our team</Link>
         </p>
       </div>
     </motion.div>

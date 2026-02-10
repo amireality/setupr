@@ -8,27 +8,11 @@ import { motion } from "framer-motion";
 import { Target, Heart, Zap, Shield, Users, Clock, MapPin, Building } from "lucide-react";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
-const values = [
-  {
-    icon: Target,
-    title: "Clarity First",
-    description: "No jargon, no confusion. We explain everything in plain language so you always know what's happening.",
-  },
-  {
-    icon: Heart,
-    title: "Founder-Focused",
-    description: "We've been in your shoes. Every decision we make is designed to save you time and stress.",
-  },
-  {
-    icon: Zap,
-    title: "Speed Matters",
-    description: "Fast turnaround without cutting corners. Your business shouldn't wait for paperwork.",
-  },
-  {
-    icon: Shield,
-    title: "Trust & Transparency",
-    description: "Upfront pricing, no hidden fees. What you see is what you pay.",
-  },
+const defaultValues = [
+  { icon: Target, title: "Clarity First", description: "No jargon, no confusion. We explain everything in plain language so you always know what's happening." },
+  { icon: Heart, title: "Founder-Focused", description: "We've been in your shoes. Every decision we make is designed to save you time and stress." },
+  { icon: Zap, title: "Speed Matters", description: "Fast turnaround without cutting corners. Your business shouldn't wait for paperwork." },
+  { icon: Shield, title: "Trust & Transparency", description: "Upfront pricing, no hidden fees. What you see is what you pay." },
 ];
 
 const defaultStats = [
@@ -353,26 +337,27 @@ const About = () => {
               </motion.div>
               
               <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
-                {values.map((value, index) => (
-                  <motion.div
-                    key={value.title}
-                    className="p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border/20 hover:border-primary/30 transition-all duration-300 group"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                      <value.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                      {value.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {value.description}
-                    </p>
-                  </motion.div>
-                ))}
+                {defaultValues.map((defaultVal, index) => {
+                  const num = index + 1;
+                  const title = getSetting(`about_value_${num}_title`, defaultVal.title);
+                  const description = getSetting(`about_value_${num}_desc`, defaultVal.description);
+                  return (
+                    <motion.div
+                      key={title}
+                      className="p-6 rounded-2xl bg-background/50 backdrop-blur-sm border border-border/20 hover:border-primary/30 transition-all duration-300 group"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <defaultVal.icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <h3 className="font-display text-lg font-semibold text-foreground mb-2">{title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           </div>
