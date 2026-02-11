@@ -1,116 +1,125 @@
 
-# Advanced CMS: Complete Database Integration
 
-## Current Gap Analysis
+# CMS Autonomy Audit: Remaining Gaps and Improvements
 
-The database has 140 rows in `site_settings`, 96 rows in `service_faqs`, and 92 rows in `service_deliverables` -- but many components either don't read from the database at all, or read from the wrong table. Here's exactly what's broken:
+## Current State
 
-### Components NOT reading from the database at all
-| Component | What's hardcoded |
-|-----------|-----------------|
-| `ServiceComparison.tsx` | All 4 comparison rows (Time, Expertise, Risk, Cost) |
-| `ProcessTimeline.tsx` | All 4 timeline steps + total time text |
-| `FAQ.tsx` (homepage) | All 9 homepage FAQs across 3 tabs |
-| `GoalCards.tsx` | All 3 goal cards (Dream It, Own It, Grow It) |
-| `About.tsx` values section | All 4 value cards (Clarity, Founder-Focused, Speed, Trust) |
+After the previous implementation, many core components (Hero, HowItWorks, FinalCTA, GoalCards, TrustStats, FAQ, Footer, Contact, Career, About, Team, Services Intro) are now database-driven. However, a significant number of components still have fully hardcoded content, and there are structural improvements that would make the CMS more powerful.
 
-### Components reading from WRONG source
-| Component | Current source | Should use |
-|-----------|---------------|-----------|
-| `ServiceFAQ.tsx` | `site_settings` JSON blob | `service_faqs` table (96 rows already exist) |
-| `ServiceDetail.tsx` deliverables | `site_settings` JSON blob | `service_deliverables` table (92 rows already exist) |
+---
 
-### Missing database seeds (components reference keys that don't exist)
-| Keys needed | Used by |
-|-------------|---------|
-| `homepage_how_it_works_title`, `homepage_step1_title/desc` x3 | HowItWorks.tsx |
-| `homepage_final_cta_title`, `homepage_final_cta_subtitle` | FinalCTA.tsx |
-| `homepage_trust_stats_badge`, `homepage_trust_stats_title`, `homepage_trust_stats_subtitle` | TrustStats.tsx |
-| `contact_title`, `contact_subtitle`, `contact_success_title`, `contact_success_message` | Contact.tsx |
-| `career_title`, `career_subtitle`, `career_disclaimer` | Career.tsx |
-| `footer_email`, `footer_instagram`, `footer_twitter`, `footer_linkedin` | Footer.tsx |
-| `homepage_goal_*` x9 (3 cards x 3 fields) | GoalCards.tsx |
-| `about_value_*` x8 (4 cards x 2 fields) | About.tsx |
+## Gap 1: Still-Hardcoded Components
+
+These components have zero database integration -- all text is hardcoded:
+
+| Component | Hardcoded Content |
+|-----------|------------------|
+| `TrustBadges.tsx` | 3 badges: "Transparent Pricing", "Guided Setup", "Human Support" with descriptions |
+| `ServicePillars.tsx` | 4 service pillar cards: "Business formation", "Digital presence", "Basic compliance", "Ongoing help" with descriptions and feature chips |
+| `CollapsibleServices.tsx` | `categoryHighlights` object with hardcoded titles/descriptions for 4 categories (formation, digital, compliance, expert) |
+| `WhatsIncluded.tsx` (Pricing) | 4 inclusion items: "Full setup handling", "Document guidance", "Direct support", "Secure handover" |
+| `TrustNote.tsx` (Pricing) | Title "Done right, every time" and description |
+| `PricingConfirmation.tsx` | Title "Here's your setup plan" and subtitle |
+| `RecommendedBundles.tsx` | Section header "Popular service bundles for new businesses" and subtitle |
+| `Testimonials.tsx` | Section header "Trusted by Entrepreneurs" and subtitles |
+| `HowItWorks.tsx` | The subtitle paragraph below the title ("Simple 3-step process...") |
+| `CollapsibleServices.tsx` | Section header "Business registration and setup services we offer" and subtitle |
+| `GuidesIndex.tsx` | All 4 guide cards with titles, descriptions, and links |
+| `Blog.tsx` | Page title "Resources & Guides" and subtitle |
+| `HeroSection.tsx` | The `businessTypes` array for the typer effect ("Business", "Agency", "Startup", "Venture", "Company") and the headline text "Set up your... The right way." |
+| `Career.tsx` | The 4 highlight cards ("Real Exposure", "Founder Access", etc.) and all form section headers |
+
+---
+
+## Gap 2: Missing Admin UI for Key Tables
+
+The admin panel currently has no way to manage:
+
+| Data | Where it lives | Admin UI? |
+|------|---------------|-----------|
+| Service FAQs | `service_faqs` table (96 rows) | No CRUD interface |
+| Service Deliverables | `service_deliverables` table (92 rows) | No CRUD interface |
+| Homepage FAQ content | `site_settings` JSON blobs | Fields exist in Settings but editing JSON is clunky |
+| Service-specific settings | `site_settings` (processing_time, comparison_note, etc.) | Only accessible through per-service Settings accordion |
+
+---
+
+## Gap 3: Structural Improvements for Better CMS Autonomy
+
+### 3a. SEO Meta Tags are Hardcoded
+Pages like About, Blog, Services, Team all have hardcoded `<Helmet>` meta tags (title, description, og:title, og:description). These should be editable via `site_settings` so admins can optimize SEO without code changes.
+
+### 3b. Navigation Links are Hardcoded
+The Navbar and Footer link structures (Company, Resources, Services, Legal) are entirely hardcoded. Admins can't add, remove, or reorder pages.
+
+### 3c. No Image Management via CMS
+Currently there's no storage bucket for CMS-managed images (hero backgrounds, author avatars, blog thumbnails uploaded via admin). All images are either in `/public` or external URLs.
 
 ---
 
 ## Implementation Plan
 
-### Step 1: Seed missing settings rows (~40 new rows)
+### Phase 1: Make remaining components database-driven (seed + connect)
 
-Insert all missing keys that components already reference or will reference:
+**Seed ~25 new rows** in `site_settings`:
 
-**Homepage additions (11 rows):**
-- `homepage_how_it_works_title`, `homepage_step1_title`, `homepage_step1_desc`, `homepage_step2_title`, `homepage_step2_desc`, `homepage_step3_title`, `homepage_step3_desc`
-- `homepage_final_cta_title`, `homepage_final_cta_subtitle`
-- `homepage_trust_stats_title`, `homepage_trust_stats_subtitle`
+- `homepage_trust_badges` (JSON array of badge objects)
+- `homepage_service_pillars` (JSON array of pillar objects)
+- `homepage_collapsible_title`, `homepage_collapsible_subtitle`
+- `homepage_bundles_title`, `homepage_bundles_subtitle`
+- `homepage_testimonials_badge`, `homepage_testimonials_title`, `homepage_testimonials_subtitle`, `homepage_testimonials_tagline`
+- `homepage_how_it_works_subtitle`
+- `homepage_hero_headline_prefix`, `homepage_hero_headline_suffix`, `homepage_hero_typer_words` (JSON array)
+- `pricing_confirmation_title`, `pricing_confirmation_subtitle`
+- `pricing_whats_included` (JSON array)
+- `pricing_trust_note_title`, `pricing_trust_note_desc`
+- `blog_page_title`, `blog_page_subtitle`
+- `guides_page_title`, `guides_page_subtitle`
 
-**Contact page (4 rows):**
-- `contact_title`, `contact_subtitle`, `contact_success_title`, `contact_success_message`
+**Update components** to use the `useSiteSettingsByCategory` hook with graceful fallback:
+- `TrustBadges.tsx`
+- `ServicePillars.tsx`
+- `CollapsibleServices.tsx` (section header only; category data already comes from DB)
+- `WhatsIncluded.tsx`
+- `TrustNote.tsx`
+- `PricingConfirmation.tsx`
+- `RecommendedBundles.tsx` (section header)
+- `Testimonials.tsx` (section header)
+- `HowItWorks.tsx` (add subtitle)
+- `HeroSection.tsx` (headline and typer words)
+- `Blog.tsx` (page header)
 
-**Career page (3 rows):**
-- `career_title`, `career_subtitle`, `career_disclaimer`
+### Phase 2: Admin CRUD for Service FAQs and Deliverables
 
-**Footer additions (4 rows):**
-- `footer_email`, `footer_instagram`, `footer_twitter`, `footer_linkedin`
+Create two new admin management components:
 
-**GoalCards (9 rows):**
-- `homepage_goal_1_title`, `homepage_goal_1_desc`, `homepage_goal_1_link` (x3 cards)
+**`src/components/admin/ServiceFaqManagement.tsx`**
+- Table view of all FAQs grouped by service
+- Add/Edit/Delete individual FAQ rows
+- Drag-to-reorder (sort_order)
+- Filter by service
 
-**About values (8 rows):**
-- `about_value_1_title`, `about_value_1_desc` (x4 cards)
+**`src/components/admin/ServiceDeliverableManagement.tsx`**
+- Table view of all deliverables grouped by service
+- Add/Edit/Delete individual deliverable rows
+- Drag-to-reorder (sort_order)
+- Filter by service
 
-### Step 2: Create new hooks for dedicated tables
+Add these as sub-sections under the existing "Services" tab in the Admin panel.
 
-**`src/hooks/useServiceFaqs.ts`** -- Fetches FAQs from the `service_faqs` table by `service_id`, with hardcoded fallback if no rows found.
+### Phase 3: SEO Meta Tags via CMS
 
-**`src/hooks/useServiceDeliverables.ts`** -- Fetches deliverables from `service_deliverables` table by `service_id`, with hardcoded fallback.
+Seed keys for each page's SEO:
+- `seo_{page}_title`, `seo_{page}_description`, `seo_{page}_og_title`, `seo_{page}_og_description`
+- Pages: homepage, about, blog, services, team, career, contact, guides
 
-### Step 3: Rewire ServiceFAQ.tsx
+Create a `useSeoSettings(page)` hook and update each page's `<Helmet>` to pull from the database.
 
-- Replace `site_settings` JSON lookup with `useServiceFaqs(serviceId)` hook
-- Primary source: `service_faqs` table (row-based, easy to edit)
-- Fallback: existing hardcoded category FAQs
+Add a new "SEO Settings" accordion section in the Admin Settings panel for managing these per-page.
 
-### Step 4: Rewire ServiceDetail.tsx deliverables
+### Phase 4: Storage Bucket for CMS Images
 
-- Replace `site_settings` JSON lookup with `useServiceDeliverables(serviceId)` hook
-- Primary source: `service_deliverables` table
-- Fallback: existing hardcoded defaults
-
-### Step 5: Make ProcessTimeline database-driven
-
-- Accept optional `serviceId` prop
-- Fetch `service_{id}_timeline` JSON from `site_settings`
-- Fallback: current hardcoded 4-step timeline
-- Also make "Total estimated time" text use `service_{id}_processing_time`
-
-### Step 6: Make ServiceComparison database-driven
-
-- Accept optional `serviceId` prop
-- Fetch `service_{id}_comparison` JSON from `site_settings`
-- Fallback: current hardcoded 4-row comparison
-
-### Step 7: Make Homepage FAQ database-driven
-
-- Create a `homepage_faqs` table OR use JSON in `site_settings` with keys like `homepage_faq_getting_started`, `homepage_faq_pricing_process`, `homepage_faq_after_setup`
-- Keep existing tab structure
-- Fallback: current hardcoded FAQ groups
-
-### Step 8: Make GoalCards database-driven
-
-- Read `homepage_goal_1_title`, `homepage_goal_1_desc`, `homepage_goal_1_link` (x3) from `site_settings`
-- Fallback: current hardcoded items
-
-### Step 9: Make About values database-driven
-
-- Read `about_value_1_title`, `about_value_1_desc` (x4) from `site_settings`
-- Fallback: current hardcoded values
-
-### Step 10: Make TrustStats header database-driven
-
-- Read `homepage_trust_stats_title` and `homepage_trust_stats_subtitle` from `site_settings`
-- Fallback: current hardcoded text
+Create a `cms-assets` storage bucket for admin-uploaded images (blog thumbnails, hero backgrounds, team avatars). This enables the admin panel to support image uploads without relying on external URLs.
 
 ---
 
@@ -119,30 +128,43 @@ Insert all missing keys that components already reference or will reference:
 ### New files to create
 | File | Purpose |
 |------|---------|
-| `src/hooks/useServiceFaqs.ts` | Hook to query `service_faqs` by service_id |
-| `src/hooks/useServiceDeliverables.ts` | Hook to query `service_deliverables` by service_id |
+| `src/components/admin/ServiceFaqManagement.tsx` | CRUD interface for `service_faqs` table |
+| `src/components/admin/ServiceDeliverableManagement.tsx` | CRUD interface for `service_deliverables` table |
+| `src/hooks/useSeoSettings.ts` | Hook to fetch SEO meta tags per page |
+| `src/components/admin/settings/SeoSettingsSection.tsx` | Admin UI for per-page SEO fields |
 
 ### Files to modify
 | File | Change |
 |------|--------|
-| `ServiceFAQ.tsx` | Switch from `site_settings` JSON to `service_faqs` table |
-| `ServiceDetail.tsx` | Switch deliverables from JSON to `service_deliverables` table; pass `serviceId` to ProcessTimeline and ServiceComparison |
-| `ProcessTimeline.tsx` | Add `serviceId` prop, fetch timeline JSON from `site_settings` |
-| `ServiceComparison.tsx` | Add `serviceId` prop, fetch comparison JSON from `site_settings` |
-| `FAQ.tsx` | Read homepage FAQs from `site_settings` with JSON fallback |
-| `GoalCards.tsx` | Read card content from `site_settings` |
-| `TrustStats.tsx` | Read section header from `site_settings` |
-| `About.tsx` | Read values section from `site_settings` |
+| `TrustBadges.tsx` | Read badges from `site_settings` JSON |
+| `ServicePillars.tsx` | Read pillars from `site_settings` JSON |
+| `CollapsibleServices.tsx` | Read section header from `site_settings` |
+| `WhatsIncluded.tsx` | Read inclusions from `site_settings` JSON |
+| `TrustNote.tsx` | Read title/desc from `site_settings` |
+| `PricingConfirmation.tsx` | Read title/subtitle from `site_settings` |
+| `RecommendedBundles.tsx` | Read section header from `site_settings` |
+| `Testimonials.tsx` | Read section header from `site_settings` |
+| `HowItWorks.tsx` | Add subtitle from `site_settings` |
+| `HeroSection.tsx` | Read headline text and typer words |
+| `Blog.tsx` | Read page header from `site_settings` |
+| `About.tsx`, `Blog.tsx`, `Services.tsx`, `TeamPage.tsx`, etc. | Add SEO hook for dynamic meta tags |
+| `Admin.tsx` | Add Service FAQ and Deliverable management tabs |
+| `SettingsManagement.tsx` | Add SEO settings accordion |
+| `PageSettingsSection.tsx` | Add missing fields (trust badges, pillars, pricing text, blog/guides headers) |
 
 ### Database changes
-- Insert ~40 new seed rows into `site_settings`
-- No new tables needed (existing `service_faqs` and `service_deliverables` are already created and populated)
+- Insert ~25 new seed rows into `site_settings`
+- Insert ~8 SEO seed rows per page (~50 rows)
+- Create `cms-assets` storage bucket with public read access
 
-### Pattern used everywhere
-```typescript
-// Every component follows the same graceful fallback pattern:
-const dbValue = settings.find(s => s.key === "some_key")?.value;
-const displayValue = dbValue || "hardcoded default";
-```
+### Summary of CMS coverage after implementation
 
-After this implementation, every visible text block on the site will be editable directly from the database without touching code.
+| Area | Before | After |
+|------|--------|-------|
+| Hardcoded text components | ~14 components | 0 |
+| Admin-editable service FAQs | No UI | Full CRUD |
+| Admin-editable deliverables | No UI | Full CRUD |
+| SEO meta tags | All hardcoded | All database-driven |
+| Image management | No storage bucket | CMS assets bucket |
+| Total `site_settings` rows | ~140 | ~215 |
+
