@@ -11,6 +11,7 @@ import BlogCard from "@/components/blog/BlogCard";
 import BlogThumbnail from "@/components/blog/BlogThumbnail";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { useBlogPosts, useBlogCategories } from "@/hooks/useBlogPosts";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -34,6 +35,11 @@ const breadcrumbSchema = {
 const Blog = () => {
   const { data: posts = [], isLoading: postsLoading } = useBlogPosts();
   const { data: categories = [], isLoading: categoriesLoading } = useBlogCategories();
+  const { data: contentSettings = [] } = useSiteSettingsByCategory("content");
+  
+  const blogBadge = contentSettings.find(s => s.key === "blog_page_badge")?.value || "BUSINESS GUIDES & RESOURCES";
+  const blogTitle = contentSettings.find(s => s.key === "blog_page_title")?.value || "How to register and grow your business in India";
+  const blogSubtitle = contentSettings.find(s => s.key === "blog_page_subtitle")?.value || "Expert guides on company registration, GST, MSME, compliance, and building credibility — written for freelancers, consultants, and startup founders.";
   
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -96,13 +102,13 @@ const Blog = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full border border-primary/20">
               <BookOpen className="w-3.5 h-3.5" />
-              BUSINESS GUIDES & RESOURCES
+              {blogBadge}
             </span>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
-              How to <span className="gradient-text">register and grow</span> your business in India
+              {blogTitle}
             </h1>
             <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
-              Expert guides on company registration, GST, MSME, compliance, and building credibility — written for freelancers, consultants, and startup founders.
+              {blogSubtitle}
             </p>
           </motion.div>
 

@@ -2,6 +2,7 @@ import { Star, Quote } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTestimonials } from "@/hooks/useTestimonials";
 import { cn } from "@/lib/utils";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const TestimonialSkeleton = ({ quote }: { quote: string }) => {
   return (
@@ -32,6 +33,12 @@ const TestimonialSkeleton = ({ quote }: { quote: string }) => {
 
 const Testimonials = () => {
   const { data: testimonials, isLoading } = useTestimonials(true);
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
+  
+  const badge = settings.find(s => s.key === "homepage_testimonials_badge")?.value || "TESTIMONIALS";
+  const title = settings.find(s => s.key === "homepage_testimonials_title")?.value || "Entrepreneurs";
+  const subtitle = settings.find(s => s.key === "homepage_testimonials_subtitle")?.value || "See what our clients say about their experience with Setupr.";
+  const tagline = settings.find(s => s.key === "homepage_testimonials_tagline")?.value || "Built for founders who didn't know where to begin.";
 
   if (isLoading) {
     return (
@@ -71,16 +78,16 @@ const Testimonials = () => {
           className="text-center mb-12 md:mb-16"
         >
           <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full border border-primary/20">
-            TESTIMONIALS
+            {badge}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
-            Trusted by <span className="gradient-text">Entrepreneurs</span>
+            Trusted by <span className="gradient-text">{title}</span>
           </h2>
           <p className="text-muted-foreground text-base mb-2">
-            Built for founders who didn't know where to begin.
+            {tagline}
           </p>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            See what our clients say about their experience with Setupr.
+            {subtitle}
           </p>
         </motion.div>
 

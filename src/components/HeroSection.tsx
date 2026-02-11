@@ -20,7 +20,10 @@ const HeroSection = () => {
     });
   };
 
-  const businessTypes = ["Business", "Agency", "Startup", "Venture", "Company"];
+  const typerWordsJson = settings.find(s => s.key === "homepage_hero_typer_words")?.value;
+  const businessTypes: string[] = typerWordsJson ? (() => { try { return JSON.parse(typerWordsJson); } catch { return ["Business", "Agency", "Startup", "Venture", "Company"]; } })() : ["Business", "Agency", "Startup", "Venture", "Company"];
+  const headlinePrefix = getSetting("homepage_hero_headline_prefix", "Set up your");
+  const headlineSuffix = getSetting("homepage_hero_headline_suffix", "The right way.");
   
   const heroSubtitle = getSetting("homepage_hero_subtitle", "Company registration, GST, MSME, website, and compliance — all handled for freelancers, consultants, and startups in India. No CA needed. No vendor chaos.");
   const ctaPrimary = getSetting("homepage_cta_primary", "Start with your journey");
@@ -84,11 +87,11 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Set up your{" "}
+            {headlinePrefix}{" "}
             <TyperEffect words={businessTypes} className="gradient-text" />
             <br className="sm:hidden" />
             <span className="hidden sm:inline">{" "}</span>
-            <span className="gradient-text">The right way.</span>
+            <span className="gradient-text">{headlineSuffix}</span>
           </motion.h1>
 
           {/* Subheadline */}

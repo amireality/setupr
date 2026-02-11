@@ -79,7 +79,7 @@ const HowItWorks = () => {
               {sectionTitle}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Simple 3-step process: Share your needs, get a clear plan with pricing, and we handle all the paperwork and filings.
+              {getSetting("homepage_how_it_works_subtitle", "Simple 3-step process: Share your needs, get a clear plan with pricing, and we handle all the paperwork and filings.")}
             </p>
           </div>
           <BentoGrid className="md:auto-rows-[20rem]">

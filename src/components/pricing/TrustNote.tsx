@@ -1,6 +1,12 @@
 import { ShieldCheck } from "lucide-react";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const TrustNote = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("pricing");
+  
+  const title = settings.find(s => s.key === "pricing_trust_note_title")?.value || "Done right, every time";
+  const desc = settings.find(s => s.key === "pricing_trust_note_desc")?.value || "Every registration and document is handled carefully. Your business gets a proper foundation.";
+
   return (
     <section className="py-12 md:py-16 bg-muted/30">
       <div className="container px-4 md:px-6">
@@ -10,13 +16,8 @@ const TrustNote = () => {
               <ShieldCheck className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
-              <h3 className="font-display font-semibold text-foreground mb-2">
-                Done right, every time
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Every registration and document is handled carefully. 
-                Your business gets a proper foundation.
-              </p>
+              <h3 className="font-display font-semibold text-foreground mb-2">{title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
             </div>
           </div>
         </div>
