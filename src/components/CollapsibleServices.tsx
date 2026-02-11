@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useDbCategories, useDbServices } from "@/hooks/useServices";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const iconMap: Record<string, React.ElementType> = {
   Building2,
@@ -13,17 +14,24 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 // Unique psychological titles and subtitles for each category
-const categoryHighlights: Record<string, { title: string; subtitle: string; description: string }> = {
-  "formation": { title: "Company Registration Services", subtitle: "", description: "Register your Private Limited, LLP, OPC, or Proprietorship. Includes DSC, DIN, and MCA filing." },
-  "digital": { title: "Website & Digital Presence", subtitle: "", description: "Professional website, custom domain, business email, and brand assets for credibility." },
-  "compliance": { title: "GST, MSME & Compliance", subtitle: "", description: "GST registration, MSME/Udyam, professional tax, and ongoing filing support." },
-  "expert": { title: "Online Visibility & SEO", subtitle: "", description: "Google Business Profile, local SEO, and directory listings to get found by customers." },
+const defaultCategoryHighlights: Record<string, { title: string; description: string }> = {
+  "formation": { title: "Company Registration Services", description: "Register your Private Limited, LLP, OPC, or Proprietorship. Includes DSC, DIN, and MCA filing." },
+  "digital": { title: "Website & Digital Presence", description: "Professional website, custom domain, business email, and brand assets for credibility." },
+  "compliance": { title: "GST, MSME & Compliance", description: "GST registration, MSME/Udyam, professional tax, and ongoing filing support." },
+  "expert": { title: "Online Visibility & SEO", description: "Google Business Profile, local SEO, and directory listings to get found by customers." },
 };
 
 const CollapsibleServices = () => {
   const { data: categories = [], isLoading: categoriesLoading } = useDbCategories();
   const { data: services = [], isLoading: servicesLoading } = useDbServices();
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  
+  const sectionTitle = settings.find(s => s.key === "homepage_collapsible_title")?.value || "Business registration and setup services we offer";
+  const sectionSubtitle = settings.find(s => s.key === "homepage_collapsible_subtitle")?.value || "Everything you need to start, run, and grow your business — all in one place.";
+  
+  const highlightsJson = settings.find(s => s.key === "homepage_category_highlights")?.value;
+  const categoryHighlights: Record<string, { title: string; description: string }> = highlightsJson ? (() => { try { return JSON.parse(highlightsJson); } catch { return defaultCategoryHighlights; } })() : defaultCategoryHighlights;
 
   if (categoriesLoading || servicesLoading) {
     return (
@@ -173,10 +181,10 @@ const CollapsibleServices = () => {
           className="text-center mb-12"
         >
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-balance">
-            Business registration and setup services we offer
+            {sectionTitle}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to start, run, and grow your business — all in one place.
+            {sectionSubtitle}
           </p>
         </motion.div>
 

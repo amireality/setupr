@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { useDbBundles, useDbServices, formatPrice, calculateDbTotal } from "@/hooks/useServices";
 import { motion } from "framer-motion";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const iconMap: Record<string, React.ElementType> = {
   Rocket,
@@ -26,6 +27,10 @@ const BundleSkeleton = ({ gradient, title, subtitle }: { gradient: string; title
 const RecommendedBundles = () => {
   const { data: bundles = [], isLoading: bundlesLoading } = useDbBundles();
   const { data: services = [], isLoading: servicesLoading } = useDbServices();
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
+  
+  const sectionTitle = settings.find(s => s.key === "homepage_bundles_title")?.value || "Popular service bundles for new businesses";
+  const sectionSubtitle = settings.find(s => s.key === "homepage_bundles_subtitle")?.value || "Save money with pre-built packages. Includes company registration, GST, digital presence, and compliance essentials.";
 
   if (bundlesLoading || servicesLoading) {
     return (
@@ -58,10 +63,10 @@ const RecommendedBundles = () => {
           className="text-center mb-10 md:mb-14"
         >
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">
-            Popular service bundles for new businesses
+            {sectionTitle}
           </h2>
           <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
-            Save money with pre-built packages. Includes company registration, GST, digital presence, and compliance essentials.
+            {sectionSubtitle}
           </p>
         </motion.div>
 

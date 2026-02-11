@@ -56,6 +56,8 @@ import { TeamManagement } from "@/components/admin/TeamManagement";
 import { TestimonialManagement } from "@/components/admin/TestimonialManagement";
 import { IntakeManagement } from "@/components/admin/IntakeManagement";
 import SettingsManagement from "@/components/admin/SettingsManagement";
+import { ServiceFaqManagement } from "@/components/admin/ServiceFaqManagement";
+import { ServiceDeliverableManagement } from "@/components/admin/ServiceDeliverableManagement";
 
 const Admin = () => {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -320,6 +322,12 @@ const Admin = () => {
                 ))}
               </div>
             )}
+
+            {/* Service FAQs & Deliverables CRUD */}
+            <div className="mt-10 space-y-10">
+              <ServiceFaqManagement />
+              <ServiceDeliverableManagement />
+            </div>
           </TabsContent>
 
           {/* Bundles Tab */}

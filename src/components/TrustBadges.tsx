@@ -1,47 +1,46 @@
 import { Wallet, Map, HeadphonesIcon } from "lucide-react";
 import { motion } from "framer-motion";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
-const badges = [
-  {
-    icon: Wallet,
-    label: "Transparent Pricing",
-    description: "No hidden costs",
-  },
-  {
-    icon: Map,
-    label: "Guided Setup",
-    description: "Step-by-step process",
-  },
-  {
-    icon: HeadphonesIcon,
-    label: "Human Support",
-    description: "Expert team assistance",
-  },
+const iconMap: Record<string, React.ElementType> = { Wallet, Map, HeadphonesIcon };
+
+const defaultBadges = [
+  { icon: "Wallet", label: "Transparent Pricing", description: "No hidden costs" },
+  { icon: "Map", label: "Guided Setup", description: "Step-by-step process" },
+  { icon: "HeadphonesIcon", label: "Human Support", description: "Expert team assistance" },
 ];
 
 const TrustBadges = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("homepage");
+  
+  const badgesJson = settings.find(s => s.key === "homepage_trust_badges")?.value;
+  const badges: typeof defaultBadges = badgesJson ? (() => { try { return JSON.parse(badgesJson); } catch { return defaultBadges; } })() : defaultBadges;
+
   return (
     <section className="py-8 md:py-12 border-y border-border/30 bg-secondary/20">
       <div className="container px-4 md:px-6">
         <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 lg:gap-16">
-          {badges.map((badge, index) => (
-            <motion.div
-              key={badge.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="flex items-center gap-3 group"
-            >
-              <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                <badge.icon className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <p className="text-sm font-medium text-foreground">{badge.label}</p>
-                <p className="text-xs text-muted-foreground">{badge.description}</p>
-              </div>
-            </motion.div>
-          ))}
+          {badges.map((badge, index) => {
+            const Icon = iconMap[badge.icon] || Wallet;
+            return (
+              <motion.div
+                key={badge.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="flex items-center gap-3 group"
+              >
+                <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                  <Icon className="w-5 h-5" />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-medium text-foreground">{badge.label}</p>
+                  <p className="text-xs text-muted-foreground">{badge.description}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

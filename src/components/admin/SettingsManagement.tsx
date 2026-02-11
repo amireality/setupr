@@ -7,6 +7,7 @@ import PageSettingsSection from "./settings/PageSettingsSection";
 import FooterSettingsSection from "./settings/FooterSettingsSection";
 import ServiceSettingsSection from "./settings/ServiceSettingsSection";
 import AccountSettingsSection from "./settings/AccountSettingsSection";
+import SeoSettingsSection from "./settings/SeoSettingsSection";
 
 const SettingsManagement = () => {
   const { data: settings = [], isLoading } = useSiteSettings();
@@ -62,6 +63,13 @@ const SettingsManagement = () => {
 
         {/* Footer Settings */}
         <FooterSettingsSection 
+          settings={settings} 
+          onSave={handleSave} 
+          isPending={updateSetting.isPending} 
+        />
+
+        {/* SEO Settings */}
+        <SeoSettingsSection 
           settings={settings} 
           onSave={handleSave} 
           isPending={updateSetting.isPending} 

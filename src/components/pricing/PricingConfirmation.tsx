@@ -1,23 +1,26 @@
 import { FileCheck } from "lucide-react";
+import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
 const PricingConfirmation = () => {
+  const { data: settings = [] } = useSiteSettingsByCategory("pricing");
+  
+  const title = settings.find(s => s.key === "pricing_confirmation_title")?.value || "Here's your setup plan";
+  const subtitle = settings.find(s => s.key === "pricing_confirmation_subtitle")?.value || "A clear breakdown of what we'll set up for you.";
+
   return (
     <section className="py-20 md:py-28 relative">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-primary/5 rounded-full blur-[120px]" />
       </div>
-
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <div className="w-16 h-16 rounded-2xl gradient-accent flex items-center justify-center mx-auto mb-8 animate-fade-up shadow-glow">
             <FileCheck className="w-8 h-8 text-primary-foreground" />
           </div>
           <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-5 animate-fade-up-delay-1 text-balance">
-            Here's your setup plan
+            {title}
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground animate-fade-up-delay-2">
-            A clear breakdown of what we'll set up for you.
-          </p>
+          <p className="text-lg md:text-xl text-muted-foreground animate-fade-up-delay-2">{subtitle}</p>
         </div>
       </div>
     </section>
