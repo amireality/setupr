@@ -7,6 +7,10 @@ export interface SiteSetting {
   key: string;
   value: string;
   category: string;
+  label: string;
+  field_type: string;
+  sort_order: number;
+  description: string;
   created_at: string;
   updated_at: string;
 }

@@ -351,24 +351,36 @@ export type Database = {
         Row: {
           category: string
           created_at: string
+          description: string
+          field_type: string
           id: string
           key: string
+          label: string
+          sort_order: number
           updated_at: string
           value: string
         }
         Insert: {
           category?: string
           created_at?: string
+          description?: string
+          field_type?: string
           id?: string
           key: string
+          label?: string
+          sort_order?: number
           updated_at?: string
           value?: string
         }
         Update: {
           category?: string
           created_at?: string
+          description?: string
+          field_type?: string
           id?: string
           key?: string
+          label?: string
+          sort_order?: number
           updated_at?: string
           value?: string
         }
