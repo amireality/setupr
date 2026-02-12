@@ -92,27 +92,15 @@ const hoursOptions = [
   { value: "10-15", label: "10–15 hours" },
 ];
 
-const highlights = [
-  {
-    icon: Sparkles,
-    title: "Real Exposure",
-    description: "Work on actual startup problems, not simulated exercises",
-  },
-  {
-    icon: Users,
-    title: "Founder Access",
-    description: "Learn directly from experienced entrepreneurs",
-  },
-  {
-    icon: Rocket,
-    title: "Startup Ecosystem",
-    description: "Understand how early-stage businesses operate in India",
-  },
-  {
-    icon: BookOpen,
-    title: "Mentorship Driven",
-    description: "Focused on learning and growth, not just tasks",
-  },
+const iconMap: Record<string, React.ElementType> = {
+  Sparkles, Users, Rocket, BookOpen, ArrowRight, CheckCircle,
+};
+
+const defaultHighlights = [
+  { icon: "Sparkles", title: "Real Exposure", description: "Work on actual startup problems, not simulated exercises" },
+  { icon: "Users", title: "Founder Access", description: "Learn directly from experienced entrepreneurs" },
+  { icon: "Rocket", title: "Startup Ecosystem", description: "Understand how early-stage businesses operate in India" },
+  { icon: "BookOpen", title: "Mentorship Driven", description: "Focused on learning and growth, not just tasks" },
 ];
 
 const Career = () => {
@@ -124,6 +112,20 @@ const Career = () => {
   const fellowshipTitle = getSetting("career_title", "Founders Fellowship");
   const fellowshipSubtitle = getSetting("career_subtitle", "Learn how startups, business registration platforms, and compliance ecosystems work in India. A mentorship program for students, recent graduates, and aspiring entrepreneurs.");
   const disclaimer = getSetting("career_disclaimer", "⚠️ This is a learning program, not a traditional internship. Focused on real startup exposure, not certificates.");
+  const badgeText = getSetting("career_badge_text", "Now Accepting Applications");
+  const successTitle = getSetting("career_success_title", "Application Received");
+  const successDesc = getSetting("career_success_desc", "Thank you for applying to the Setupr Founders Fellowship.");
+  const successNote = getSetting("career_success_note", "Applications are reviewed based on intent, thinking, and fit — not resumes or grades. If shortlisted, we'll reach out with next steps.");
+
+  // Parse highlights from DB JSON or use defaults
+  const highlightsRaw = getSetting("career_highlights", "");
+  const highlights = (() => {
+    try {
+      const parsed = highlightsRaw ? JSON.parse(highlightsRaw) : null;
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch {}
+    return defaultHighlights;
+  })();
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -243,7 +245,7 @@ const Career = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
               <Sparkles className="w-4 h-4" />
-              Now Accepting Applications
+              {badgeText}
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6">
               Setupr{" "}
@@ -272,7 +274,7 @@ const Career = () => {
                 className="bg-secondary/30 backdrop-blur-sm border border-border/20 rounded-xl p-4 text-center"
               >
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <highlight.icon className="w-5 h-5 text-primary" />
+                  {(() => { const Icon = iconMap[highlight.icon] || Sparkles; return <Icon className="w-5 h-5 text-primary" />; })()}
                 </div>
                 <h3 className="font-semibold text-sm mb-1">{highlight.title}</h3>
                 <p className="text-xs text-muted-foreground">{highlight.description}</p>
@@ -295,13 +297,13 @@ const Career = () => {
                     <CheckCircle className="w-10 h-10 text-primary" />
                   </div>
                   <h2 className="text-2xl md:text-3xl font-display font-bold mb-4">
-                    Application Received
+                    {successTitle}
                   </h2>
                   <p className="text-muted-foreground max-w-md mx-auto mb-2">
-                    Thank you for applying to the Setupr Founders Fellowship.
+                    {successDesc}
                   </p>
                   <p className="text-sm text-muted-foreground/80">
-                    Applications are reviewed based on intent, thinking, and fit — not resumes or grades. If shortlisted, we'll reach out with next steps.
+                    {successNote}
                   </p>
                 </div>
               </motion.div>
