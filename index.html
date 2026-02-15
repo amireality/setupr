@@ -336,18 +336,15 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <!-- Chatbot Widget -->
-    <script id="ai-chat-widget-script" src="https://517d8511fa702d.lhr.life/widget.js"></script>
-
-    <!-- 2. Initialize the Widget -->
+    <script id="ai-chat-widget-script" src="https://c979642d88f0ab.lhr.life/widget.js"></script>
     <script>
-      // Wait for the script to load
       document.getElementById('ai-chat-widget-script').onload = function () {
-          ChatWidget.init({
-              apiUrl: 'https://517d8511fa702d.lhr.life',
-              businessName: 'Setupr Support',
-              primaryColor: '#2563EB',
-              welcomeMessage: 'Welcome to Setupr! How can I help you get started?'
-          });
+        ChatWidget.init({
+          apiUrl: 'https://c979642d88f0ab.lhr.life',
+          businessName: 'Setupr Support',
+          primaryColor: '#2563EB',
+          welcomeMessage: 'Welcome to Setupr! How can I help you get started?'
+        });
       };
     </script>
   </body>
