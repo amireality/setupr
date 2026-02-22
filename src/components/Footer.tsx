@@ -96,6 +96,23 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Store Links */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground mb-4">Store</h4>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/store" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Cloud Marketplace
+                </Link>
+              </li>
+              <li>
+                <Link to="/store/products" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  All Products
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Services Links */}
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4">Services</h4>

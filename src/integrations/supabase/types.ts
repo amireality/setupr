@@ -155,6 +155,42 @@ export type Database = {
         }
         Relationships: []
       }
+      customer_profiles: {
+        Row: {
+          billing_address: string | null
+          company_name: string
+          created_at: string
+          gstin: string | null
+          id: string
+          is_verified: boolean
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          billing_address?: string | null
+          company_name?: string
+          created_at?: string
+          gstin?: string | null
+          id?: string
+          is_verified?: boolean
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          billing_address?: string | null
+          company_name?: string
+          created_at?: string
+          gstin?: string | null
+          id?: string
+          is_verified?: boolean
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       intake_submissions: {
         Row: {
           city: string
@@ -385,6 +421,172 @@ export type Database = {
           value?: string
         }
         Relationships: []
+      }
+      store_categories: {
+        Row: {
+          created_at: string
+          description: string
+          icon: string
+          id: string
+          is_active: boolean
+          name: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      store_product_plans: {
+        Row: {
+          billing_cycle: string
+          created_at: string
+          features: Json
+          id: string
+          ingram_sku: string | null
+          is_active: boolean
+          plan_name: string
+          price_inr: number
+          product_id: string
+          seat_maximum: number | null
+          seat_minimum: number
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          billing_cycle?: string
+          created_at?: string
+          features?: Json
+          id?: string
+          ingram_sku?: string | null
+          is_active?: boolean
+          plan_name: string
+          price_inr?: number
+          product_id: string
+          seat_maximum?: number | null
+          seat_minimum?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          billing_cycle?: string
+          created_at?: string
+          features?: Json
+          id?: string
+          ingram_sku?: string | null
+          is_active?: boolean
+          plan_name?: string
+          price_inr?: number
+          product_id?: string
+          seat_maximum?: number | null
+          seat_minimum?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "store_product_plans_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "store_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      store_products: {
+        Row: {
+          base_price_inr: number
+          billing_cycle: string
+          category_id: string | null
+          created_at: string
+          featured_image_url: string | null
+          id: string
+          ingram_metadata: Json | null
+          ingram_sku: string | null
+          is_active: boolean
+          is_featured: boolean
+          long_description: string
+          name: string
+          product_type: string
+          short_description: string
+          slug: string
+          sort_order: number
+          updated_at: string
+          vendor: string
+          vendor_logo_url: string | null
+        }
+        Insert: {
+          base_price_inr?: number
+          billing_cycle?: string
+          category_id?: string | null
+          created_at?: string
+          featured_image_url?: string | null
+          id?: string
+          ingram_metadata?: Json | null
+          ingram_sku?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          long_description?: string
+          name: string
+          product_type?: string
+          short_description?: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+          vendor?: string
+          vendor_logo_url?: string | null
+        }
+        Update: {
+          base_price_inr?: number
+          billing_cycle?: string
+          category_id?: string | null
+          created_at?: string
+          featured_image_url?: string | null
+          id?: string
+          ingram_metadata?: Json | null
+          ingram_sku?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          long_description?: string
+          name?: string
+          product_type?: string
+          short_description?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+          vendor?: string
+          vendor_logo_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "store_products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "store_categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       testimonials: {
         Row: {
