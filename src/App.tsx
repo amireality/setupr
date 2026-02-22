@@ -27,6 +27,12 @@ import TeamPage from "./pages/TeamPage";
 import GuidesIndex from "./pages/guides/GuidesIndex";
 import StartingBusinessGuide from "./pages/guides/StartingBusinessGuide";
 import BusinessTypesGuide from "./pages/guides/BusinessTypesGuide";
+import StoreLanding from "./pages/store/StoreLanding";
+import StoreProducts from "./pages/store/StoreProducts";
+import StoreProductDetail from "./pages/store/StoreProductDetail";
+import StoreLogin from "./pages/store/StoreLogin";
+import StoreSignup from "./pages/store/StoreSignup";
+import StoreDashboard from "./pages/store/StoreDashboard";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +83,12 @@ const AnimatedRoutes = () => {
           <Route path="/guides" element={<GuidesIndex />} />
           <Route path="/guides/starting-business-india" element={<StartingBusinessGuide />} />
           <Route path="/guides/business-types" element={<BusinessTypesGuide />} />
+          <Route path="/store" element={<StoreLanding />} />
+          <Route path="/store/products" element={<StoreProducts />} />
+          <Route path="/store/products/:slug" element={<StoreProductDetail />} />
+          <Route path="/store/login" element={<StoreLogin />} />
+          <Route path="/store/signup" element={<StoreSignup />} />
+          <Route path="/store/dashboard" element={<StoreDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

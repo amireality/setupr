@@ -48,6 +48,7 @@ import {
   MessageSquare,
   Inbox,
   Settings2,
+  ShoppingBag,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -58,6 +59,7 @@ import { IntakeManagement } from "@/components/admin/IntakeManagement";
 import SettingsManagement from "@/components/admin/SettingsManagement";
 import { ServiceFaqManagement } from "@/components/admin/ServiceFaqManagement";
 import { ServiceDeliverableManagement } from "@/components/admin/ServiceDeliverableManagement";
+import { StoreManagement } from "@/components/admin/StoreManagement";
 
 const Admin = () => {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -241,6 +243,10 @@ const Admin = () => {
               <TabsTrigger value="settings" className="gap-2">
                 <Settings2 className="w-4 h-4" />
                 <span className="hidden sm:inline">Settings</span>
+              </TabsTrigger>
+              <TabsTrigger value="store" className="gap-2">
+                <ShoppingBag className="w-4 h-4" />
+                <span className="hidden sm:inline">Store</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -440,6 +446,17 @@ const Admin = () => {
               </p>
             </div>
             <SettingsManagement />
+          </TabsContent>
+
+          {/* Store Tab */}
+          <TabsContent value="store">
+            <div className="mb-6">
+              <h2 className="font-display text-lg font-semibold">Store Management</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Manage cloud marketplace products and categories
+              </p>
+            </div>
+            <StoreManagement />
           </TabsContent>
         </Tabs>
       </main>

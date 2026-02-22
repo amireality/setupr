@@ -173,6 +173,25 @@ const Navbar = () => {
             </NavigationMenu>
 
             <Link 
+              to="/store" 
+              className={cn(
+                "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                location.pathname.startsWith('/store')
+                  ? 'text-foreground bg-secondary' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+              )}
+            >
+              Store
+              {location.pathname.startsWith('/store') && (
+                <motion.div
+                  layoutId="navbar-indicator"
+                  className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+            </Link>
+
+            <Link
               to="/blog" 
               className={cn(
                 "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
@@ -344,6 +363,20 @@ const Navbar = () => {
                   </motion.div>
                   <motion.div variants={mobileItemVariants}>
                     <Link 
+                      to="/store" 
+                      className={cn(
+                        "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block",
+                        location.pathname.startsWith('/store')
+                          ? 'text-foreground bg-secondary' 
+                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Store
+                    </Link>
+                  </motion.div>
+                  <motion.div variants={mobileItemVariants}>
+                    <Link
                       to="/services" 
                       className={cn(
                         "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 block",
