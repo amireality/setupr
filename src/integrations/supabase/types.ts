@@ -422,6 +422,51 @@ export type Database = {
         }
         Relationships: []
       }
+      store_cart_items: {
+        Row: {
+          created_at: string
+          id: string
+          plan_id: string | null
+          product_id: string
+          quantity: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          plan_id?: string | null
+          product_id: string
+          quantity?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          plan_id?: string | null
+          product_id?: string
+          quantity?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "store_cart_items_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "store_product_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "store_cart_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "store_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       store_categories: {
         Row: {
           created_at: string
@@ -455,6 +500,127 @@ export type Database = {
           slug?: string
           sort_order?: number
           updated_at?: string
+        }
+        Relationships: []
+      }
+      store_order_items: {
+        Row: {
+          created_at: string
+          id: string
+          ingram_sku: string | null
+          license_key: string | null
+          order_id: string
+          plan_id: string | null
+          product_id: string | null
+          product_name: string
+          quantity: number
+          total_inr: number
+          unit_price_inr: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ingram_sku?: string | null
+          license_key?: string | null
+          order_id: string
+          plan_id?: string | null
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+          total_inr?: number
+          unit_price_inr?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ingram_sku?: string | null
+          license_key?: string | null
+          order_id?: string
+          plan_id?: string | null
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          total_inr?: number
+          unit_price_inr?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "store_order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "store_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "store_order_items_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "store_product_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "store_order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "store_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      store_orders: {
+        Row: {
+          billing_address: string | null
+          company_name: string | null
+          created_at: string
+          gstin: string | null
+          id: string
+          ingram_order_id: string | null
+          order_number: string
+          payment_id: string | null
+          payment_provider: string | null
+          payment_status: string | null
+          status: string
+          subtotal_inr: number
+          tax_inr: number
+          total_inr: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          billing_address?: string | null
+          company_name?: string | null
+          created_at?: string
+          gstin?: string | null
+          id?: string
+          ingram_order_id?: string | null
+          order_number: string
+          payment_id?: string | null
+          payment_provider?: string | null
+          payment_status?: string | null
+          status?: string
+          subtotal_inr?: number
+          tax_inr?: number
+          total_inr?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          billing_address?: string | null
+          company_name?: string | null
+          created_at?: string
+          gstin?: string | null
+          id?: string
+          ingram_order_id?: string | null
+          order_number?: string
+          payment_id?: string | null
+          payment_provider?: string | null
+          payment_status?: string | null
+          status?: string
+          subtotal_inr?: number
+          tax_inr?: number
+          total_inr?: number
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
