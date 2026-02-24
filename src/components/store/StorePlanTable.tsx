@@ -1,13 +1,29 @@
 import { StoreProductPlan, formatStorePrice } from "@/hooks/useStoreProducts";
-import { Check } from "lucide-react";
+import { useCart } from "@/hooks/useCart";
+import { useStoreAuth } from "@/hooks/useStoreAuth";
+import { Check, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface StorePlanTableProps {
   plans: StoreProductPlan[];
+  productId?: string;
 }
 
-const StorePlanTable = ({ plans }: StorePlanTableProps) => {
+const StorePlanTable = ({ plans, productId }: StorePlanTableProps) => {
   if (plans.length === 0) return null;
+
+  const { user } = useStoreAuth();
+  const { addToCart } = useCart();
+
+  const handleSelectPlan = (planId: string) => {
+    if (!user) {
+      window.location.href = "/store/login";
+      return;
+    }
+    if (productId) {
+      addToCart.mutate({ productId, planId });
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -44,8 +60,14 @@ const StorePlanTable = ({ plans }: StorePlanTableProps) => {
               </ul>
             )}
 
-            <Button variant="outline" className="w-full mt-auto" disabled>
-              Coming Soon
+            <Button
+              variant="outline"
+              className="w-full mt-auto"
+              onClick={() => handleSelectPlan(plan.id)}
+              disabled={addToCart.isPending}
+            >
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              Select Plan
             </Button>
           </div>
         );

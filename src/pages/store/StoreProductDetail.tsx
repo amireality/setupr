@@ -3,8 +3,10 @@ import StoreNavbar from "@/components/store/StoreNavbar";
 import StoreFooter from "@/components/store/StoreFooter";
 import StorePlanTable from "@/components/store/StorePlanTable";
 import { useStoreProduct, useStoreProductPlans, formatStorePrice } from "@/hooks/useStoreProducts";
+import { useCart } from "@/hooks/useCart";
+import { useStoreAuth } from "@/hooks/useStoreAuth";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Cloud, Shield, Headphones } from "lucide-react";
+import { ArrowLeft, Cloud, Shield, Headphones, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import { getVendorLogo } from "@/lib/vendorLogos";
 
@@ -12,6 +14,8 @@ const StoreProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: product, isLoading } = useStoreProduct(slug || "");
   const { data: plans = [] } = useStoreProductPlans(product?.id || "");
+  const { user } = useStoreAuth();
+  const { addToCart } = useCart();
 
   if (isLoading) {
     return (
@@ -45,6 +49,14 @@ const StoreProductDetail = () => {
 
   const billingLabel = product.billing_cycle === "monthly" ? "/mo" : product.billing_cycle === "annual" ? "/yr" : "";
 
+  const handleAddToCart = () => {
+    if (!user) {
+      window.location.href = "/store/login";
+      return;
+    }
+    addToCart.mutate({ productId: product.id });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <StoreNavbar />
@@ -58,8 +70,19 @@ const StoreProductDetail = () => {
             Back to Products
           </Link>
 
+          {/* Product Image Hero */}
+          {product.featured_image_url && (
+            <div className="relative h-48 md:h-64 rounded-2xl overflow-hidden mb-8 bg-secondary/30">
+              <img
+                src={product.featured_image_url}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent" />
+            </div>
+          )}
+
           <div className="grid lg:grid-cols-5 gap-12">
-            {/* Main Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -69,9 +92,11 @@ const StoreProductDetail = () => {
                 {(() => {
                   const logoUrl = getVendorLogo(product.vendor, product.vendor_logo_url);
                   return logoUrl ? (
-                    <img src={logoUrl} alt={product.vendor} className="w-14 h-14 rounded-xl object-contain bg-secondary p-2" />
+                    <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center p-3">
+                      <img src={logoUrl} alt={product.vendor} className="w-full h-full object-contain" />
+                    </div>
                   ) : (
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-2xl">
+                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-2xl">
                       {product.vendor.charAt(0)}
                     </div>
                   );
@@ -93,16 +118,14 @@ const StoreProductDetail = () => {
                 </div>
               )}
 
-              {/* Plans */}
               {plans.length > 0 && (
                 <div className="mt-12">
                   <h2 className="font-display text-2xl font-bold mb-6">Available Plans</h2>
-                  <StorePlanTable plans={plans} />
+                  <StorePlanTable plans={plans} productId={product.id} />
                 </div>
               )}
             </motion.div>
 
-            {/* Sidebar */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -119,8 +142,13 @@ const StoreProductDetail = () => {
                   <span className="text-xs text-muted-foreground">+ 18% GST</span>
                 </div>
 
-                <Button className="w-full mb-4" disabled>
-                  Buy Now — Coming Soon
+                <Button
+                  className="w-full mb-4"
+                  onClick={handleAddToCart}
+                  disabled={addToCart.isPending}
+                >
+                  <ShoppingCart className="w-4 h-4 mr-2" />
+                  {addToCart.isPending ? "Adding..." : "Add to Cart"}
                 </Button>
                 <Button variant="outline" className="w-full" asChild>
                   <Link to="/contact">Contact Sales</Link>

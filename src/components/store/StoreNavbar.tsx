@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, User, Menu, X, ArrowLeft } from "lucide-react";
+import { User, Menu, X, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useStoreAuth } from "@/hooks/useStoreAuth";
+import CartDrawer from "@/components/store/CartDrawer";
 
 const StoreNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,9 +55,7 @@ const StoreNavbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
-            <Button variant="ghost" size="icon" disabled className="opacity-50" title="Cart — Coming Soon">
-              <ShoppingCart className="w-5 h-5" />
-            </Button>
+            <CartDrawer />
             {user ? (
               <Button variant="outline" size="sm" asChild>
                 <Link to="/store/dashboard">
@@ -71,12 +70,15 @@ const StoreNavbar = () => {
             )}
           </div>
 
-          <button
-            className="md:hidden p-2 text-foreground rounded-lg hover:bg-secondary transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div className="flex md:hidden items-center gap-2">
+            <CartDrawer />
+            <button
+              className="p-2 text-foreground rounded-lg hover:bg-secondary transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         <AnimatePresence>
