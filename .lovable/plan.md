@@ -1,260 +1,161 @@
-# Phase 2 Roadmap: From Browsing to Purchasing
 
-&nbsp;
+# Fix Logos, Add Product Images, and Build Phase 2 (Cart + Checkout)
 
-# Add Vendor Logos, Real Ingram Sync, and Hardware Support
+## Part A: Fix What's Broken Now
 
-## 1. Add Vendor Logos to Existing Products
+### 1. Better Vendor Logos
+The Clearbit logos are loading but look poor on dark backgrounds. Fix by:
+- Switching to higher-quality logo sources (SVG logos from `cdn.simpleicons.org` or similar) for major vendors
+- Improving the card styling — remove the washed-out `bg-secondary p-1` container, use a clean white-background circle instead
+- Update both `StoreProductCard.tsx` and `StoreProductDetail.tsx`
+- Update `src/lib/vendorLogos.ts` with better logo URLs
 
-Update all 6 sample products with official vendor logo URLs. These use publicly available CDN-hosted logos that render well at small sizes on dark backgrounds.
+### 2. Add Product Images
+Currently `featured_image_url` is null for all products. Fix by:
+- Adding curated product banner images for the 6 existing products (using vendor-specific imagery or product screenshots)
+- Updating `StoreProductCard.tsx` to show the product image as a card header when available
+- Updating `StoreProductDetail.tsx` to show a larger product image/hero
+- Updating the sync function to attempt fetching product images from Ingram metadata
 
-| Vendor | Logo Source |
+### 3. Physical Products from Ingram
+The sync function already handles `product_type: 'physical'`. When you trigger a real sync (Dry Run or Sync Now from admin), it will pull whatever Ingram returns — including hardware. No code changes needed for this, just trigger the sync with your real credentials.
 
-|--------|------------|
+---
 
-| Microsoft | Microsoft's official logo (via [logo.clearbit.com](http://logo.clearbit.com) or similar CDN) |
+## Part B: Phase 2 — Cart and Checkout
 
-| Google | Google logo |
+### Step 1: Database Tables
 
-| Adobe | Adobe logo |
+**`store_cart_items`** — Server-side cart (persists across sessions)
+- id, user_id (FK auth.users), product_id, plan_id (nullable), quantity, created_at, updated_at
+- RLS: users read/write own items only
 
-| Amazon (AWS) | AWS logo |
+**`store_orders`** — Order records
+- id, user_id, order_number (auto-generated), status ('pending', 'paid', 'provisioning', 'fulfilled', 'failed', 'refunded')
+- payment_provider ('stripe' | 'razorpay'), payment_id, payment_status
+- subtotal_inr, tax_inr, total_inr
+- billing_address, gstin, company_name
+- ingram_order_id (nullable — filled after provisioning)
+- created_at, updated_at
 
-| Zoho | Zoho logo |
+**`store_order_items`** — Line items per order
+- id, order_id (FK), product_id, plan_id (nullable), product_name, quantity, unit_price_inr, total_inr
+- ingram_sku, license_key (nullable — filled after provisioning)
 
-This is a data update to `store_products.vendor_logo_url` for each product.
+RLS: Users read own orders, admins read all, no direct inserts (orders created via edge function).
 
-## 2. Add Vendor Logo Auto-Mapping in Sync Function
+### Step 2: Cart UI
 
-Update the `sync-ingram-catalog` edge function to automatically assign vendor logos when syncing from Ingram Micro. A lookup map of known vendors to their logo URLs ensures every synced product gets a proper logo without manual work.
+New components and pages:
+- `src/components/store/CartDrawer.tsx` — Slide-out cart panel (accessible from StoreNavbar)
+- `src/components/store/CartItem.tsx` — Individual cart item row
+- `src/hooks/useCart.ts` — Cart hooks (add, remove, update quantity, clear)
+- Update `StoreNavbar.tsx` — Enable cart icon with item count badge
+- Update `StoreProductDetail.tsx` — Replace "Coming Soon" with "Add to Cart" button
+- Update `StorePlanTable.tsx` — Add "Select Plan" buttons
 
-## 3. Add Fallback Logo Component
+### Step 3: Checkout Page
 
-Update `StoreProductCard` and `StoreProductDetail` to use a smarter fallback — instead of just showing the first letter, use a vendor-name-to-logo mapping directly in the frontend as well. This covers both synced and manually added products.
+New page: `src/pages/store/StoreCheckout.tsx`
+- Order summary with all cart items
+- Billing details form (company name, GSTIN, address)
+- Payment method selection (Stripe for international, Razorpay for India)
+- "Place Order" button that calls the checkout edge function
 
-## 4. Add Hardware Category and Product Type Support
+### Step 4: Payment Edge Functions
 
-- Insert a new "Hardware" store category (laptops, networking, peripherals)
+**`supabase/functions/create-checkout/index.ts`**
+- Validates cart items and calculates total
+- Creates a `store_orders` record with status 'pending'
+- Initiates Stripe or Razorpay payment session
+- Returns payment URL/session ID to frontend
 
-- The product card already displays `product_type` as a badge — no UI changes needed
+**`supabase/functions/handle-payment-webhook/index.ts`**
+- Receives webhook from Stripe/Razorpay on payment success/failure
+- Updates order status to 'paid' or 'failed'
+- On success, triggers Ingram provisioning
 
-- The sync function already maps `productType === "physical"` correctly
+**`supabase/functions/provision-ingram-order/index.ts`**
+- Called after payment success
+- Places order with Ingram Micro Order API
+- Updates order with `ingram_order_id` and license keys
+- Updates order status to 'fulfilled'
 
-## 5. Improve Ingram Micro Sync for Real Usage
+### Step 5: Customer Dashboard
 
-Update the sync edge function to:
+Update `src/pages/store/StoreDashboard.tsx`:
+- Show active orders and their statuses
+- Display license keys for fulfilled software orders
+- Show order history with receipts
+- Subscription renewal dates and seat counts
 
-- Support pagination (loop through all pages, not just first 100)
+### Step 6: Payment Gateway Setup
 
-- Auto-assign `category_id` based on vendor/product type mapping
+This will require new secrets:
+- `STRIPE_SECRET_KEY` — For Stripe payments
+- `STRIPE_WEBHOOK_SECRET` — For Stripe webhooks
+- `RAZORPAY_KEY_ID` — For Razorpay payments
+- `RAZORPAY_KEY_SECRET` — For Razorpay payments
+- `RAZORPAY_WEBHOOK_SECRET` — For Razorpay webhooks
 
-- Better field mapping based on actual Ingram Micro API response structure
+### Step 7: Routes and Navigation
 
-- Add a "dry run" mode to preview what would sync before committing
+Add new routes to `App.tsx`:
+- `/store/checkout` — Checkout page (protected, requires login)
 
-## 6. Add "Sync Now" Status Feedback in Admin
-
-Currently the admin Store tab has a sync button. Enhance it to show:
-
-- Last sync timestamp
-
-- Number of products synced/skipped
-
-- Error details if sync failed
+Update `StoreNavbar.tsx`:
+- Cart icon with badge showing item count
+- Cart drawer opens on click
 
 ---
 
 ## Technical Details
+
+### New files to create
+
+| File | Purpose |
+|------|---------|
+| `src/hooks/useCart.ts` | Cart state management hooks |
+| `src/components/store/CartDrawer.tsx` | Slide-out cart panel |
+| `src/components/store/CartItem.tsx` | Cart item row component |
+| `src/pages/store/StoreCheckout.tsx` | Checkout page |
+| `supabase/functions/create-checkout/index.ts` | Payment session creation |
+| `supabase/functions/handle-payment-webhook/index.ts` | Payment confirmation handler |
+| `supabase/functions/provision-ingram-order/index.ts` | Ingram order placement |
 
 ### Files to modify
 
 | File | Change |
-
 |------|--------|
+| `src/lib/vendorLogos.ts` | Better logo URLs |
+| `src/components/store/StoreProductCard.tsx` | Fix logo styling, add product image |
+| `src/pages/store/StoreProductDetail.tsx` | Fix logo, add product image, "Add to Cart" button |
+| `src/components/store/StorePlanTable.tsx` | Add "Select Plan" buttons |
+| `src/components/store/StoreNavbar.tsx` | Enable cart with badge |
+| `src/pages/store/StoreDashboard.tsx` | Orders, licenses, history |
+| `src/App.tsx` | Add checkout route |
+| `src/components/admin/StoreManagement.tsx` | Order management section |
 
-| `supabase/functions/sync-ingram-catalog/index.ts` | Add vendor logo mapping, pagination, category auto-assignment, dry-run mode |
+### Database changes
+- 3 new tables: `store_cart_items`, `store_orders`, `store_order_items`
+- RLS policies for all tables
+- Auto-generate order numbers via trigger
 
-| `src/components/store/StoreProductCard.tsx` | Add frontend vendor logo fallback map |
-
-| `src/pages/store/StoreProductDetail.tsx` | Same vendor logo fallback |
-
-| `src/components/admin/StoreManagement.tsx` | Show sync status/results feedback |
-
-### Data updates
-
-- Update `vendor_logo_url` on all 6 existing products
-
-- Insert "Hardware" category into `store_categories`
-
-### Vendor logo map (used in both edge function and frontend)
-
-```text
-
-Microsoft  -> [https://logo.clearbit.com/microsoft.com](https://logo.clearbit.com/microsoft.com)
-
-Google     -> [https://logo.clearbit.com/google.com](https://logo.clearbit.com/google.com)
-
-Adobe      -> [https://logo.clearbit.com/adobe.com](https://logo.clearbit.com/adobe.com)
-
-Amazon/AWS -> [https://logo.clearbit.com/aws.amazon.com](https://logo.clearbit.com/aws.amazon.com)
-
-Zoho       -> [https://logo.clearbit.com/zoho.com](https://logo.clearbit.com/zoho.com)
-
-```
+### Secrets needed (Phase 2)
+- STRIPE_SECRET_KEY
+- STRIPE_WEBHOOK_SECRET
+- RAZORPAY_KEY_ID
+- RAZORPAY_KEY_SECRET
+- RAZORPAY_WEBHOOK_SECRET
 
 ### Implementation order
-
-1. Update existing product data with vendor logos
-
-2. Add hardware category
-
-3. Update frontend components with vendor logo fallback map
-
-4. Enhance sync edge function (pagination, logo mapping, categories, dry-run)
-
-5. Improve admin sync UI with status feedback
-
-&nbsp;
-
-&nbsp;
-
-## What You Asked
-
-1. Do you need real API credentials instead of sandbox?
-2. What's needed before customers can purchase?
-3. How are prices/margins decided?
-
-## Answers and Next Steps
-
-### 1. API Credentials
-
-Your current setup uses sandbox credentials. When ready to go live:
-
-- Swap `INGRAM_SANDBOX_URL` to production URL
-- Update `INGRAM_API_KEY` and `INGRAM_API_SECRET` with production credentials
-- No code changes needed — just secret updates
-
-### 2. Remaining Work Before Purchase is Possible
-
-```text
-Phase 1 (DONE)              Phase 2 (TODO)
------------------           ------------------
-Product catalog             Cart system
-Category browsing           Checkout flow
-Search + filtering          Stripe integration
-Product detail pages        Razorpay integration
-Customer signup/login       Order creation
-Customer dashboard shell    Ingram order provisioning
-Admin store management      License delivery
-Ingram catalog sync         Invoice/receipt generation
-```
-
-### 3. Pricing Strategy — Needs Your Decision
-
-The current sample data has placeholder prices. When real Ingram sync runs, we need a margin strategy:
-
-**Option A: Auto-markup during sync**
-
-- Apply a configurable percentage (e.g., 15%) on top of Ingram's reseller price
-- Stored as a setting in the admin panel
-- Pros: Fully automated, scales with catalog
-- Cons: Less control per product
-
-**Option B: Manual pricing in admin**
-
-- Sync products from Ingram but leave `base_price_inr` for admin to set manually
-- Pros: Full control over every price
-- Cons: More work as catalog grows
-
-**Option C: Hybrid (recommended)**
-
-- Auto-markup applied during sync as a default
-- Admin can override any product's price manually
-- A `price_override` column tracks whether the price was manually set
-- Re-syncs skip overridden prices
-
-### Proposed Implementation for Phase 2
-
-#### Step 1: Pricing Strategy
-
-- Add `markup_percentage` to site_settings (admin-editable)
-- Add `price_override` boolean to `store_products`
-- Update sync function to apply markup and respect overrides
-
-#### Step 2: Vendor Logos
-
-- Update existing products with vendor logo URLs (Clearbit CDN)
-- Add frontend fallback logo mapping
-- Add logo auto-assignment in sync function
-
-#### Step 3: Hardware Category
-
-- Add "Hardware" category to store_categories
-- System already supports `product_type: 'physical'`
-
-#### Step 4: Cart and Checkout
-
-- Create cart table (or client-side cart for simplicity)
-- Build checkout page with order summary
-- Integrate Stripe for international payments
-- Integrate Razorpay for Indian payments
-
-#### Step 5: Order and Provisioning
-
-- Create `store_orders` and `store_order_items` tables
-- Edge function to call Ingram Micro Order API on payment success
-- License key delivery to customer dashboard
-
-#### Step 6: Customer Dashboard
-
-- Show active subscriptions/licenses
-- Renewal dates and seat counts
-- Order history and invoices
-
----
-
-## Technical Details
-
-### Database additions needed
-
-
-| Table               | Purpose                           |
-| ------------------- | --------------------------------- |
-| `store_orders`      | Order records with payment status |
-| `store_order_items` | Line items per order              |
-| `store_cart_items`  | Optional server-side cart         |
-
-
-### New columns on existing tables
-
-
-| Table            | Column                         | Purpose                              |
-| ---------------- | ------------------------------ | ------------------------------------ |
-| `store_products` | `price_override` (boolean)     | Whether admin manually set the price |
-| `site_settings`  | Row: `store_markup_percentage` | Default margin percentage            |
-
-
-### Edge functions needed
-
-
-| Function                 | Purpose                                  |
-| ------------------------ | ---------------------------------------- |
-| `create-checkout`        | Generate Stripe/Razorpay payment session |
-| `handle-payment-webhook` | Process payment confirmation             |
-| `provision-ingram-order` | Place order with Ingram Micro API        |
-
-
-### Files to modify
-
-
-| File                                              | Change                                            |
-| ------------------------------------------------- | ------------------------------------------------- |
-| `supabase/functions/sync-ingram-catalog/index.ts` | Add markup logic, vendor logo mapping, pagination |
-| `src/components/store/StoreProductCard.tsx`       | Add vendor logo fallback                          |
-| `src/pages/store/StoreProductDetail.tsx`          | Add vendor logo fallback                          |
-| `src/components/admin/StoreManagement.tsx`        | Add markup settings, sync status                  |
-
-
-### Immediate next step (this session)
-
-Update vendor logos on existing products, add the hardware category, and implement the pricing markup system — so the catalog looks production-ready while we plan the checkout flow.
+1. Fix vendor logos and add product images (immediate visual fix)
+2. Create cart database tables and hooks
+3. Build cart UI (drawer, navbar badge)
+4. Add "Add to Cart" to product pages
+5. Build checkout page
+6. Set up Stripe + Razorpay edge functions
+7. Build payment webhook handler
+8. Build Ingram provisioning function
+9. Update customer dashboard with orders
+10. Add order management to admin panel
