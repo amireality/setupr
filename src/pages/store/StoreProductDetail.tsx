@@ -6,6 +6,7 @@ import { useStoreProduct, useStoreProductPlans, formatStorePrice } from "@/hooks
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Cloud, Shield, Headphones } from "lucide-react";
 import { motion } from "framer-motion";
+import { getVendorLogo } from "@/lib/vendorLogos";
 
 const StoreProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -65,13 +66,16 @@ const StoreProductDetail = () => {
               className="lg:col-span-3"
             >
               <div className="flex items-center gap-4 mb-4">
-                {product.vendor_logo_url ? (
-                  <img src={product.vendor_logo_url} alt={product.vendor} className="w-14 h-14 rounded-xl object-contain bg-secondary p-2" />
-                ) : (
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-2xl">
-                    {product.vendor.charAt(0)}
-                  </div>
-                )}
+                {(() => {
+                  const logoUrl = getVendorLogo(product.vendor, product.vendor_logo_url);
+                  return logoUrl ? (
+                    <img src={logoUrl} alt={product.vendor} className="w-14 h-14 rounded-xl object-contain bg-secondary p-2" />
+                  ) : (
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-2xl">
+                      {product.vendor.charAt(0)}
+                    </div>
+                  );
+                })()}
                 <div>
                   <span className="text-sm text-muted-foreground">{product.vendor}</span>
                   <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-secondary text-muted-foreground capitalize">
