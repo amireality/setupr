@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { StoreProduct, formatStorePrice } from "@/hooks/useStoreProducts";
+import { getVendorLogo } from "@/lib/vendorLogos";
 
 interface StoreProductCardProps {
   product: StoreProduct;
@@ -23,17 +24,20 @@ const StoreProductCard = ({ product, index = 0 }: StoreProductCardProps) => {
       >
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            {product.vendor_logo_url ? (
-              <img
-                src={product.vendor_logo_url}
-                alt={product.vendor}
-                className="w-10 h-10 rounded-lg object-contain bg-secondary p-1"
-              />
-            ) : (
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
-                {product.vendor.charAt(0)}
-              </div>
-            )}
+            {(() => {
+              const logoUrl = getVendorLogo(product.vendor, product.vendor_logo_url);
+              return logoUrl ? (
+                <img
+                  src={logoUrl}
+                  alt={product.vendor}
+                  className="w-10 h-10 rounded-lg object-contain bg-secondary p-1"
+                />
+              ) : (
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                  {product.vendor.charAt(0)}
+                </div>
+              );
+            })()}
             <div>
               <span className="text-xs text-muted-foreground">{product.vendor}</span>
               {product.is_featured && (

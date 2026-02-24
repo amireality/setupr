@@ -528,6 +528,7 @@ export type Database = {
           is_featured: boolean
           long_description: string
           name: string
+          price_override: boolean
           product_type: string
           short_description: string
           slug: string
@@ -549,6 +550,7 @@ export type Database = {
           is_featured?: boolean
           long_description?: string
           name: string
+          price_override?: boolean
           product_type?: string
           short_description?: string
           slug: string
@@ -570,6 +572,7 @@ export type Database = {
           is_featured?: boolean
           long_description?: string
           name?: string
+          price_override?: boolean
           product_type?: string
           short_description?: string
           slug?: string
