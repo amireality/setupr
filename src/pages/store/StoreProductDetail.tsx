@@ -8,7 +8,33 @@ import { useStoreAuth } from "@/hooks/useStoreAuth";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Cloud, Shield, Headphones, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
-import { getVendorLogo } from "@/lib/vendorLogos";
+import { getVendorLogo, getVendorGradient } from "@/lib/vendorLogos";
+import { useState } from "react";
+
+const ProductHero = ({ product }: { product: any }) => {
+  const [imgError, setImgError] = useState(false);
+  const logoUrl = getVendorLogo(product.vendor, product.vendor_logo_url);
+  const gradient = getVendorGradient(product.vendor);
+  const showImage = product.featured_image_url && !imgError;
+
+  return (
+    <div className={`relative h-48 md:h-64 rounded-2xl overflow-hidden mb-8 flex items-center justify-center bg-gradient-to-br ${gradient}`}>
+      {showImage ? (
+        <img
+          src={product.featured_image_url}
+          alt={product.name}
+          className="w-full h-full object-cover"
+          onError={() => setImgError(true)}
+        />
+      ) : logoUrl ? (
+        <img src={logoUrl} alt={product.vendor} className="w-24 h-24 object-contain opacity-60" />
+      ) : (
+        <span className="text-6xl font-bold text-foreground/20">{product.vendor.charAt(0)}</span>
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent" />
+    </div>
+  );
+};
 
 const StoreProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -71,16 +97,7 @@ const StoreProductDetail = () => {
           </Link>
 
           {/* Product Image Hero */}
-          {product.featured_image_url && (
-            <div className="relative h-48 md:h-64 rounded-2xl overflow-hidden mb-8 bg-secondary/30">
-              <img
-                src={product.featured_image_url}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent" />
-            </div>
-          )}
+          <ProductHero product={product} />
 
           <div className="grid lg:grid-cols-5 gap-12">
             <motion.div

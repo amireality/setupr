@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import { TyperEffect } from "@/components/ui/typer-effect";
@@ -124,6 +124,12 @@ const HeroSection = () => {
               className="glass border-primary/30 hover:border-primary/50 hover:shadow-[0_0_30px_-8px_hsl(24_95%_53%/0.3)] transition-all duration-300"
             >
               {ctaSecondary}
+            </Button>
+            <Button variant="outline" size="xl" asChild className="border-border/50 hover:border-primary/30">
+              <Link to="/store">
+                <ShoppingBag className="w-5 h-5 mr-2" />
+                Browse Store
+              </Link>
             </Button>
           </motion.div>
         </div>
