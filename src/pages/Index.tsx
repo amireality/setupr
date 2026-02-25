@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import TrustStats from "@/components/TrustStats";
 import GoalCards from "@/components/GoalCards";
 import RecommendedBundles from "@/components/RecommendedBundles";
+import StorePromo from "@/components/StorePromo";
 import CollapsibleServices from "@/components/CollapsibleServices";
 import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
@@ -23,6 +24,7 @@ const Index = () => {
         <TrustStats />
         <GoalCards />
         <RecommendedBundles />
+        <StorePromo />
         <CollapsibleServices />
         <HowItWorks />
         <Testimonials />

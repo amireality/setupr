@@ -62,6 +62,27 @@ function guessCategory(
   return categoryMap["productivity"] || null;
 }
 
+// Extract product image URL from Ingram API response
+function extractProductImage(item: any): string | null {
+  // Check links array for image type
+  if (item.links && Array.isArray(item.links)) {
+    const imageLink = item.links.find((l: any) =>
+      l.type === "image" || l.type === "productImage" || l.topic === "image"
+    );
+    if (imageLink?.href || imageLink?.uri) return imageLink.href || imageLink.uri;
+  }
+  // Direct image fields
+  if (item.productImage) return item.productImage;
+  if (item.imageUrl) return item.imageUrl;
+  if (item.productImageUrl) return item.productImageUrl;
+  // Check extraDescription for image URLs
+  if (item.extraDescription && typeof item.extraDescription === "string") {
+    const match = item.extraDescription.match(/https?:\/\/[^\s"']+\.(jpg|jpeg|png|webp|svg)/i);
+    if (match) return match[0];
+  }
+  return null;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -248,6 +269,12 @@ Deno.serve(async (req) => {
         ingram_metadata: item,
         is_active: true,
       };
+
+      // Extract product image from Ingram API response
+      const imageUrl = extractProductImage(item);
+      if (imageUrl) {
+        upsertData.featured_image_url = imageUrl;
+      }
 
       // Only update price if not manually overridden
       if (!existing?.price_override) {

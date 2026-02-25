@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { StoreProduct, formatStorePrice } from "@/hooks/useStoreProducts";
-import { getVendorLogo } from "@/lib/vendorLogos";
+import { getVendorLogo, getVendorGradient } from "@/lib/vendorLogos";
 
 interface StoreProductCardProps {
   product: StoreProduct;
@@ -11,6 +12,10 @@ interface StoreProductCardProps {
 
 const StoreProductCard = ({ product, index = 0 }: StoreProductCardProps) => {
   const billingLabel = product.billing_cycle === "monthly" ? "/mo" : product.billing_cycle === "annual" ? "/yr" : "";
+  const [imgError, setImgError] = useState(false);
+  const logoUrl = getVendorLogo(product.vendor, product.vendor_logo_url);
+  const gradient = getVendorGradient(product.vendor);
+  const showImage = product.featured_image_url && !imgError;
 
   return (
     <motion.div
@@ -22,38 +27,41 @@ const StoreProductCard = ({ product, index = 0 }: StoreProductCardProps) => {
         to={`/store/products/${product.slug}`}
         className="group block glass-card glass-card-hover rounded-2xl overflow-hidden h-full transition-all duration-300 hover-lift"
       >
-        {/* Product Image */}
-        {product.featured_image_url && (
-          <div className="relative h-40 overflow-hidden bg-secondary/30">
+        {/* Product Image or Vendor Gradient */}
+        <div className={`relative h-40 overflow-hidden flex items-center justify-center bg-gradient-to-br ${gradient}`}>
+          {showImage ? (
             <img
-              src={product.featured_image_url}
+              src={product.featured_image_url!}
               alt={product.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
+              onError={() => setImgError(true)}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-          </div>
-        )}
+          ) : logoUrl ? (
+            <img
+              src={logoUrl}
+              alt={product.vendor}
+              className="w-16 h-16 object-contain opacity-80 group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+            />
+          ) : (
+            <span className="text-4xl font-bold text-foreground/30">{product.vendor.charAt(0)}</span>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+        </div>
 
         <div className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-3">
-              {(() => {
-                const logoUrl = getVendorLogo(product.vendor, product.vendor_logo_url);
-                return logoUrl ? (
-                  <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center p-2">
-                    <img
-                      src={logoUrl}
-                      alt={product.vendor}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
-                    {product.vendor.charAt(0)}
-                  </div>
-                );
-              })()}
+              {logoUrl ? (
+                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center p-2">
+                  <img src={logoUrl} alt={product.vendor} className="w-full h-full object-contain" />
+                </div>
+              ) : (
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                  {product.vendor.charAt(0)}
+                </div>
+              )}
               <div>
                 <span className="text-xs text-muted-foreground">{product.vendor}</span>
                 {product.is_featured && (
