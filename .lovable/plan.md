@@ -1,145 +1,46 @@
 
-# Fix Product Images/Logos, Add Store CTA, and Platform Improvements
 
-## Part 1: Fix Broken Product Images and Vendor Logos
+# Update Email Sender to noreply@setupr.com
 
-### Root Cause
-The screenshot confirms the issues:
-- **Microsoft 365 product image**: Broken (hotlinked from `img-prod-cms-rt-microsoft-com.akamaized.net` -- blocks hotlinking)
-- **Google Workspace image**: Broken (hotlinked from `lh3.googleusercontent.com`)
-- **Adobe image**: Broken (hotlinked from `cc-prod.scene7.com`)
-- **Microsoft vendor logo**: Broken/tiny (SimpleIcons SVG with white fill on dark bg rendering inconsistently)
-- **AWS image**: Works (because `a0.awsstatic.com` allows hotlinking)
-- **Google vendor logo**: Falls back to "G" letter instead of logo
+## What's Happening
 
-### Fix: Replace Broken External Images with Styled Gradient Cards
+Now that your setupr.com domain is verified in Resend, you can send emails from any address @setupr.com — including noreply@setupr.com. No special "noreply" setup is needed; it's just an address you send from (replies to it will bounce since there's no mailbox behind it).
 
-Instead of hotlinking images that vendor CDNs block, use **vendor-branded gradient backgrounds with large centered logos**. This is:
-- More reliable (no hotlink blocking)
-- More visually consistent
-- What most SaaS marketplaces actually do
+## Changes Required
 
-**Changes:**
-- Update `StoreProductCard.tsx`: When `featured_image_url` fails or is missing, render a branded gradient card background with the vendor logo centered and large
-- Update `StoreProductDetail.tsx`: Same approach for the hero image area
-- Update vendor logo URLs in the database to use a more reliable source (logo.clearbit.com works well for colored logos, or use local SVG assets)
-- Add `onError` fallback handling on all `<img>` tags so broken images gracefully degrade
-- Update the sync edge function to NOT rely on hotlinked product screenshots; instead use the gradient approach by default
+### 1. Update the FROM_EMAIL Secret
+Change the stored `FROM_EMAIL` value from its current setting to `noreply@setupr.com`. This is used by both the contact form and intake notification functions.
 
-**For Ingram API synced products:**
-- The Ingram API catalog response typically includes product images in fields like `links.productImage` or similar
-- Update the sync function to extract and store these image URLs when available
-- If no image is returned by the API, the gradient+logo fallback handles it
+### 2. Update notify-admin Edge Function
+The `notify-admin` function has a hardcoded fallback value for the `from` field:
+```
+const fromEmail = Deno.env.get("FROM_EMAIL") || "Business Setup <onboarding@resend.dev>";
+```
+This needs to be updated so the fallback also uses the verified domain:
+```
+const fromEmail = Deno.env.get("FROM_EMAIL") || "Setupr <noreply@setupr.com>";
+```
 
-### Files to modify:
-| File | Change |
-|------|--------|
-| `src/components/store/StoreProductCard.tsx` | Add gradient fallback, `onError` handler, larger logo display |
-| `src/pages/store/StoreProductDetail.tsx` | Same gradient fallback for hero area |
-| `src/lib/vendorLogos.ts` | Add colored logo variants (not just white), add gradient color map per vendor |
-| `supabase/functions/sync-ingram-catalog/index.ts` | Extract image URLs from Ingram API response |
+Additionally, the email is sent with the raw `fromEmail` value. Both functions should wrap it with a display name for a professional look, e.g. `Setupr <noreply@setupr.com>`.
 
----
-
-## Part 2: Add Store Button on Homepage
-
-The main navbar already has a "Store" link. But the homepage body has no mention of the store. Add a **Store promotion section** between existing homepage sections.
-
-**Implementation:**
-- Add a new `StorePromo` component that shows a visually appealing card/banner with vendor logos (Microsoft, Google, Adobe, AWS), a headline like "Cloud Marketplace", and a CTA button linking to `/store`
-- Insert it into `Index.tsx` after the `RecommendedBundles` section
-- Also add a secondary "Visit Store" button in the `HeroSection.tsx` CTA area
-
-### Files to modify/create:
-| File | Change |
-|------|--------|
-| `src/components/StorePromo.tsx` | New component -- store promotion banner with vendor logos |
-| `src/pages/Index.tsx` | Import and add `StorePromo` between sections |
-| `src/components/HeroSection.tsx` | Add a third CTA button "Browse Store" linking to `/store` |
-
----
-
-## Part 3: Platform Analysis and Improvements
-
-After reviewing the entire codebase, here are the key areas that need attention, prioritized by impact:
-
-### Priority 1: Critical Gaps (Blocking Revenue)
-
-**A. Payment Integration (Checkout doesn't work yet)**
-- The checkout page exists (`StoreCheckout.tsx`) but has no payment gateway
-- Need Razorpay (for India) and/or Stripe integration
-- Edge functions `create-checkout` and `handle-payment-webhook` need to be built
-- Status: Requires your Razorpay/Stripe API keys
-
-**B. Customer Dashboard is Empty**
-- `StoreDashboard.tsx` shows 4 cards all labeled "Coming Soon"
-- Need to show: active orders, license keys, order history
-- Connect to `store_orders` and `store_order_items` tables (already created)
-
-### Priority 2: User Experience Issues
-
-**C. Store Signup Flow Incomplete**
-- Login works but no email verification feedback
-- No password reset flow
-- No profile editing (company name, GSTIN, phone)
-- Customer profile page needs a proper form
-
-**D. Admin Order Management Missing**
-- `StoreManagement.tsx` has product and category management but no order tracking
-- Need an "Orders" tab showing all orders, statuses, and ability to update them
-
-**E. Mobile Responsiveness**
-- Main navbar has 7+ links that could overflow on tablets
-- Store product grid could benefit from better mobile card layout
-
-### Priority 3: Polish and SEO
-
-**F. Missing Meta Tags on Store Pages**
-- Store pages (`/store`, `/store/products`, product detail) have no `<title>` or meta description
-- Use `react-helmet-async` (already installed) to add SEO tags
-
-**G. Product Detail Page Enhancements**
-- No breadcrumb navigation
-- No related products section
-- No "recently viewed" tracking
-
-**H. Performance**
-- Product cards load all at once (no virtualization for large catalogs)
-- SimpleIcons CDN fetches could be replaced with bundled SVGs for key vendors
-
----
-
-## Implementation Order (This Session)
-
-1. **Fix product card images** -- gradient backgrounds + reliable logos + onError fallbacks
-2. **Fix product detail page images** -- same approach
-3. **Update vendor logo system** -- add colored variants and vendor brand colors
-4. **Add Store promo section on homepage** -- new component + hero button
-5. **Update Ingram sync** -- extract image URLs from API response fields
+### 3. Update send-contact-email Edge Function
+Similarly, this function has:
+```
+const fromEmail = Deno.env.get("FROM_EMAIL") || "onboarding@resend.dev";
+```
+Update the fallback and ensure the display name is consistent:
+```
+const fromEmail = Deno.env.get("FROM_EMAIL") || "noreply@setupr.com";
+```
+The function already wraps it as `Setupr Contact <${fromEmail}>` and `Setupr <${fromEmail}>`, so it will render as `Setupr <noreply@setupr.com>` — which looks professional.
 
 ## Technical Details
 
-### Vendor brand color map (new addition to vendorLogos.ts)
+**Files to modify:**
+- `supabase/functions/notify-admin/index.ts` — Update the `fromEmail` fallback value (line 6)
+- `supabase/functions/send-contact-email/index.ts` — Update the `fromEmail` fallback value (line 68)
 
-```text
-Microsoft  -> gradient: from-[#00A4EF]/20 to-[#7FBA00]/20
-Google     -> gradient: from-[#4285F4]/20 to-[#EA4335]/20  
-Adobe      -> gradient: from-[#FF0000]/20 to-[#FF0000]/10
-AWS        -> gradient: from-[#FF9900]/20 to-[#232F3E]/30
-Zoho       -> gradient: from-[#C8202B]/20 to-[#C8202B]/10
-```
+**Secret to update:**
+- `FROM_EMAIL` → set to `noreply@setupr.com`
 
-### Image fallback strategy
-
-```text
-1. Try featured_image_url (from DB or Ingram API)
-2. On error -> Show vendor-branded gradient with large centered logo
-3. If no logo either -> Show gradient with vendor initial letter
-```
-
-### Ingram API image extraction
-
-The sync function will look for image URLs in these Ingram response fields:
-- `links` array -> entries with `type: "image"`
-- `productImage` or `imageUrl` direct fields
-- `extraDescription` fields that may contain image references
+**Result:** All outgoing emails (contact form confirmations, intake notifications, admin alerts) will be sent from `noreply@setupr.com` with your verified domain — no more sandbox restrictions.
