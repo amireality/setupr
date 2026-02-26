@@ -57,6 +57,7 @@ Deno.serve(async (req) => {
       });
     }
     const userId = claimsData.claims.sub;
+    const userEmail = claimsData.claims.email;
 
     const {
       razorpay_order_id,
@@ -103,8 +104,34 @@ Deno.serve(async (req) => {
       .delete()
       .eq("user_id", userId);
 
+    // Fetch updated order to get trigger-generated order number
+    const { data: updatedOrder } = await supabaseAdmin
+      .from("store_orders")
+      .select("order_number")
+      .eq("id", order_id)
+      .single();
+
+    const orderNumber = updatedOrder?.order_number || "N/A";
+
+    // Send order confirmation email (fire and forget)
+    try {
+      const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+      const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+      await fetch(`${supabaseUrl}/functions/v1/send-order-confirmation`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${serviceKey}`,
+        },
+        body: JSON.stringify({ orderId: order_id, userEmail }),
+      });
+    } catch (emailErr) {
+      console.error("Failed to send confirmation email:", emailErr);
+      // Don't fail the payment verification if email fails
+    }
+
     return new Response(
-      JSON.stringify({ success: true, orderId: order_id }),
+      JSON.stringify({ success: true, orderId: order_id, orderNumber }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {

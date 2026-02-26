@@ -123,7 +123,7 @@ const StoreCheckout = () => {
             }
 
             setPaymentSuccess(true);
-            setOrderNumber(data.orderNumber);
+            setOrderNumber(verifyData?.orderNumber || data.orderNumber);
             clearCart.mutate();
           } catch (err: any) {
             toast({

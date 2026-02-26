@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.sync-ingram-catalog]
 verify_jwt = false
+
+[functions.send-order-confirmation]
+verify_jwt = false
