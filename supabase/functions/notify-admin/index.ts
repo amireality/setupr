@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const adminEmail = Deno.env.get("ADMIN_EMAIL");
-const fromEmail = Deno.env.get("FROM_EMAIL") || "Business Setup <onboarding@resend.dev>";
+const fromEmail = Deno.env.get("FROM_EMAIL") || "noreply@setupr.com";
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
 const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
@@ -249,7 +249,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: fromEmail,
+        from: `Setupr <${fromEmail}>`,
         to: [adminEmail],
         subject: `New Business Setup Request from ${escapeHtml(submission.fullName)}`,
         html: emailHtml,

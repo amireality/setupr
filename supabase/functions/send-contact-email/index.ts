@@ -68,7 +68,7 @@ const handler = async (req: Request): Promise<Response> => {
     const safePhone = escapeHtml((phone || "Not provided").trim());
     const safeMessage = escapeHtml(message.trim());
 
-    const fromEmail = Deno.env.get("FROM_EMAIL") || "onboarding@resend.dev";
+    const fromEmail = Deno.env.get("FROM_EMAIL") || "noreply@setupr.com";
     const adminEmail = Deno.env.get("ADMIN_EMAIL") || "info@setupr.com";
 
     // Send email to admin with sanitized content
