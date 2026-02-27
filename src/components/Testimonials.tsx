@@ -36,7 +36,8 @@ const Testimonials = () => {
   const { data: settings = [] } = useSiteSettingsByCategory("homepage");
   
   const badge = settings.find(s => s.key === "homepage_testimonials_badge")?.value || "TESTIMONIALS";
-  const title = settings.find(s => s.key === "homepage_testimonials_title")?.value || "Entrepreneurs";
+  const rawTitle = settings.find(s => s.key === "homepage_testimonials_title")?.value || "Entrepreneurs";
+  const title = rawTitle.replace(/^Trusted by\s*/i, "");
   const subtitle = settings.find(s => s.key === "homepage_testimonials_subtitle")?.value || "See what our clients say about their experience with Setupr.";
   const tagline = settings.find(s => s.key === "homepage_testimonials_tagline")?.value || "Built for founders who didn't know where to begin.";
 
