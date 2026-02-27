@@ -34,6 +34,7 @@ import StoreLogin from "./pages/store/StoreLogin";
 import StoreSignup from "./pages/store/StoreSignup";
 import StoreDashboard from "./pages/store/StoreDashboard";
 import StoreCheckout from "./pages/store/StoreCheckout";
+import ApplyLoan from "./pages/ApplyLoan";
 
 const queryClient = new QueryClient();
 
@@ -91,6 +92,7 @@ const AnimatedRoutes = () => {
           <Route path="/store/signup" element={<StoreSignup />} />
           <Route path="/store/dashboard" element={<StoreDashboard />} />
           <Route path="/store/checkout" element={<StoreCheckout />} />
+          <Route path="/apply-loan" element={<ApplyLoan />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
