@@ -36,21 +36,25 @@ const LoansSection = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-14">
-            <motion.h2
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-balance"
             >
-              Setupr Loans: Financing Simplified
-            </motion.h2>
+              <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-1">
+                Setupr <span className="text-primary">Loans</span>
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground font-medium tracking-wide">
+                Financing Simplified
+              </p>
+            </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base leading-relaxed"
+              className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base leading-relaxed mt-5"
             >
               Need a loan? We make it easy to get funded. Setupr has established
               partnerships with almost every major bank and NBFC in India. We
@@ -92,7 +96,7 @@ const LoansSection = () => {
             className="text-center"
           >
             <Button asChild size="lg" variant="hero">
-              <Link to="/contact">Apply Now</Link>
+              <Link to="/apply-loan">Apply Now</Link>
             </Button>
           </motion.div>
         </div>
