@@ -4,11 +4,11 @@ import { ArrowRight, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 
 const vendorLogos = [
-  { name: "Microsoft", url: "https://cdn.simpleicons.org/microsoft/ffffff" },
-  { name: "Google", url: "https://cdn.simpleicons.org/google/ffffff" },
-  { name: "Adobe", url: "https://cdn.simpleicons.org/adobe/ffffff" },
-  { name: "AWS", url: "https://cdn.simpleicons.org/amazonaws/ffffff" },
-  { name: "Zoho", url: "https://cdn.simpleicons.org/zoho/ffffff" },
+  { name: "Microsoft", url: "/images/vendors/microsoft.svg" },
+  { name: "Google", url: "/images/vendors/google.svg" },
+  { name: "Adobe", url: "/images/vendors/adobe.svg" },
+  { name: "AWS", url: "/images/vendors/amazon.svg" },
+  { name: "Zoho", url: "/images/vendors/zoho.svg" },
 ];
 
 const StorePromo = () => {
