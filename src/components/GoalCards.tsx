@@ -69,7 +69,7 @@ const GoalCards = () => {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            <div className="flex flex-col justify-center py-4 md:py-6">
+            <div className="flex flex-col justify-center items-center text-center py-4 md:py-6">
               <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">{sectionTitle}</h2>
               <p className="text-muted-foreground text-sm md:text-base">{sectionSubtitle}</p>
             </div>

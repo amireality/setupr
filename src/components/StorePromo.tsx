@@ -32,8 +32,8 @@ const StorePromo = () => {
                 Cloud Marketplace
               </div>
               <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                Software & cloud licenses,{" "}
-                <span className="gradient-text">instantly delivered</span>
+                Software & cloud <span className="text-primary">licenses</span>,{" "}
+                instantly delivered
               </h2>
               <p className="text-muted-foreground text-base md:text-lg max-w-lg mb-6">
                 Microsoft 365, Google Workspace, Adobe Creative Cloud, AWS credits, and more — all at competitive reseller pricing with instant activation.

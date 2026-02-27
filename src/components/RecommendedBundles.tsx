@@ -63,7 +63,7 @@ const RecommendedBundles = () => {
           className="text-center mb-10 md:mb-14"
         >
           <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">
-            {sectionTitle}
+            Popular service <span className="text-primary">bundles</span> for new businesses
           </h2>
           <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
             {sectionSubtitle}
