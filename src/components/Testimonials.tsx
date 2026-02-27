@@ -81,7 +81,7 @@ const Testimonials = () => {
             {badge}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
-            Trusted by <span className="gradient-text">{title}</span>
+            Trusted by <span className="text-primary">{title}</span>
           </h2>
           <p className="text-muted-foreground text-base mb-2">
             {tagline}
