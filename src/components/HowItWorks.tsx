@@ -76,7 +76,7 @@ const HowItWorks = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              {sectionTitle}
+              How Setupr helps you <span className="text-primary">register</span> your business
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {getSetting("homepage_how_it_works_subtitle", "Simple 3-step process: Share your needs, get a clear plan with pricing, and we handle all the paperwork and filings.")}

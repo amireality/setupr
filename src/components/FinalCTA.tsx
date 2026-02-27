@@ -28,7 +28,7 @@ const FinalCTA = () => {
           }}
           className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-center"
         >
-          {ctaTitle}
+          Ready to make your business <span className="text-primary">official</span>?
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 50 }}
