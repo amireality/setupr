@@ -9,6 +9,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
+import LoansSection from "@/components/LoansSection";
 import Footer from "@/components/Footer";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 
@@ -28,6 +29,7 @@ const Index = () => {
         <CollapsibleServices />
         <HowItWorks />
         <Testimonials />
+        <LoansSection />
         <FAQ />
         <FinalCTA />
       </main>
