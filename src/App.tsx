@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollProgress from "@/components/ScrollProgress";
+import InstallPrompt from "@/components/InstallPrompt";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
@@ -115,6 +116,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <ScrollProgress />
+        <InstallPrompt />
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>
