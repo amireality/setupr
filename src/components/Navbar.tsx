@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut, LayoutDashboard, ShoppingBag } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   NavigationMenu,
@@ -11,14 +11,24 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useDbCategories, useDbServices } from "@/hooks/useServices";
+import { useStoreAuth } from "@/hooks/useStoreAuth";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { data: categories = [] } = useDbCategories();
   const { data: services = [] } = useDbServices();
+  const { user, loading, signOut } = useStoreAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -26,6 +36,11 @@ const Navbar = () => {
 
   const getServicesByCategory = (categoryId: string) => {
     return publicServices.filter(s => s.category === categoryId).slice(0, 6);
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
   };
 
   const mobileMenuVariants = {
@@ -287,20 +302,58 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center">
-            <Button variant="default" size="sm" asChild className="group">
-              <Link to="/intake">
-                Get Started
-                <motion.span
-                  className="inline-block ml-1"
-                  whileHover={{ x: 2 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                >
-                  →
-                </motion.span>
-              </Link>
-            </Button>
+          {/* CTA / Auth */}
+          <div className="hidden md:flex items-center gap-2">
+            {!loading && (
+              user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="gap-2">
+                      <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center">
+                        <User className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-sm max-w-[120px] truncate">
+                        {user.user_metadata?.company_name || user.email?.split("@")[0]}
+                      </span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem asChild>
+                      <Link to="/store/dashboard" className="flex items-center gap-2">
+                        <LayoutDashboard className="w-4 h-4" /> Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/store" className="flex items-center gap-2">
+                        <ShoppingBag className="w-4 h-4" /> Store
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleSignOut} className="flex items-center gap-2 text-destructive">
+                      <LogOut className="w-4 h-4" /> Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <>
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link to="/login">Sign In</Link>
+                  </Button>
+                  <Button variant="default" size="sm" asChild className="group">
+                    <Link to="/intake">
+                      Get Started
+                      <motion.span
+                        className="inline-block ml-1"
+                        whileHover={{ x: 2 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                      >
+                        →
+                      </motion.span>
+                    </Link>
+                  </Button>
+                </>
+              )
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -459,10 +512,35 @@ const Navbar = () => {
                       Contact
                     </Link>
                   </motion.div>
-                  <motion.div variants={mobileItemVariants} className="pt-4 mt-2 border-t border-border/50">
-                    <Button variant="default" size="sm" className="w-full" asChild>
-                      <Link to="/intake" onClick={() => setIsOpen(false)}>Get Started</Link>
-                    </Button>
+                  <motion.div variants={mobileItemVariants} className="pt-4 mt-2 border-t border-border/50 space-y-2">
+                    {!loading && (
+                      user ? (
+                        <>
+                          <Link 
+                            to="/store/dashboard" 
+                            className="px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 block flex items-center gap-2"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <LayoutDashboard className="w-4 h-4" /> Dashboard
+                          </Link>
+                          <button 
+                            onClick={() => { handleSignOut(); setIsOpen(false); }}
+                            className="px-4 py-3 rounded-lg text-sm font-medium text-destructive hover:bg-secondary/50 block w-full text-left flex items-center gap-2"
+                          >
+                            <LogOut className="w-4 h-4" /> Sign Out
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <Button variant="outline" size="sm" className="w-full" asChild>
+                            <Link to="/login" onClick={() => setIsOpen(false)}>Sign In</Link>
+                          </Button>
+                          <Button variant="default" size="sm" className="w-full" asChild>
+                            <Link to="/intake" onClick={() => setIsOpen(false)}>Get Started</Link>
+                          </Button>
+                        </>
+                      )
+                    )}
                   </motion.div>
                 </div>
               </div>
