@@ -129,7 +129,7 @@ Deno.serve(async (req) => {
     const ingramApiKey = Deno.env.get("INGRAM_API_KEY");
     const ingramApiSecret = Deno.env.get("INGRAM_API_SECRET");
     const ingramCustomerNumber = Deno.env.get("INGRAM_CUSTOMER_NUMBER");
-    const ingramBaseUrl = Deno.env.get("INGRAM_SANDBOX_URL") || "https://api.ingrammicro.com";
+    const ingramBaseUrl = (Deno.env.get("INGRAM_SANDBOX_URL") || "https://api.ingrammicro.com:443").replace(/\/+$/, "");
 
     if (!ingramApiKey || !ingramApiSecret || !ingramCustomerNumber) {
       return new Response(
@@ -152,7 +152,7 @@ Deno.serve(async (req) => {
     for (const c of cats || []) categoryMap[c.slug] = c.id;
 
     // Step 1: Get access token
-    const tokenResponse = await fetch(`${ingramBaseUrl}/oauth/oauth20/token`, {
+    const tokenResponse = await fetch(`${ingramBaseUrl}/oauth/oauth30/token`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
