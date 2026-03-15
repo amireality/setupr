@@ -187,7 +187,7 @@ const StartingBusinessGuide = () => {
           >
             <h2 className="text-2xl font-bold font-display mb-4">Ready to get started?</h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Setupr helps freelancers, consultants, and startups in India handle business registration, compliance, and digital presence—so you can focus on your work.
+              Setupr helps freelancers, consultants, and startups in India handle business registration, compliance, and digital presence so you can focus on your work.
             </p>
             <Button asChild size="lg">
               <Link to="/intake">
