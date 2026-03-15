@@ -308,7 +308,7 @@ export const StoreManagement = () => {
                 <Label>Customer Price (INR)</Label>
                 <Input name="base_price_inr" type="number" defaultValue={editProduct.base_price_inr} />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Editing the price enables manual override — future syncs won't change it.
+                  Editing the price enables manual override. Future syncs won't change it.
                 </p>
               </div>
               <Button type="submit">Save Changes</Button>

@@ -1,4 +1,4 @@
-// Vendor logo map — uses local SVG files for reliability
+// Vendor logo map: uses local SVG files for reliability
 const VENDOR_LOGOS: Record<string, string> = {
   microsoft: "/images/vendors/microsoft.svg",
   google: "/images/vendors/google.svg",
