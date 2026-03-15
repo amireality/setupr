@@ -14,8 +14,8 @@ const iconMap: Record<string, React.ElementType> = {
 const defaultGuides = [
   { icon: "FileText", title: "Complete Guide to Starting a Business in India", description: "A step-by-step guide covering business registration, compliance, and digital presence for freelancers, startups, and small businesses.", link: "/guides/starting-business-india", readTime: "15 min read" },
   { icon: "Building2", title: "Business Types Explained: Sole Prop vs LLP vs Pvt Ltd", description: "Understand the differences between business structures in India to make the right choice for your situation.", link: "/guides/business-types", readTime: "10 min read" },
-  { icon: "Shield", title: "Compliance Checklist for New Businesses", description: "What to do after company registration—ongoing compliance requirements for startups and small businesses.", link: "/blog/compliance-checklist-after-company-registration", readTime: "8 min read" },
-  { icon: "Globe", title: "Digital Presence Checklist for Startups", description: "Essential steps to establish online credibility—domain, email, website, and more.", link: "/blog/how-to-build-credibility-as-new-business-india", readTime: "6 min read" },
+  { icon: "Shield", title: "Compliance Checklist for New Businesses", description: "What to do after company registration. Ongoing compliance requirements for startups and small businesses.", link: "/blog/compliance-checklist-after-company-registration", readTime: "8 min read" },
+  { icon: "Globe", title: "Digital Presence Checklist for Startups", description: "Essential steps to establish online credibility: domain, email, website, and more.", link: "/blog/how-to-build-credibility-as-new-business-india", readTime: "6 min read" },
 ];
 
 const GuidesIndex = () => {
