@@ -171,7 +171,7 @@ export const StoreManagement = () => {
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Eye className="w-4 h-4 text-muted-foreground" />
-                  <span className="font-medium text-sm">Dry Run Preview — {syncResult.total} products found</span>
+                  <span className="font-medium text-sm">Dry Run Preview | {syncResult.total} products found</span>
                 </div>
                 <div className="max-h-48 overflow-y-auto space-y-1">
                   {syncResult.preview?.map((p, i) => (
