@@ -176,7 +176,7 @@ export const StoreManagement = () => {
                 <div className="max-h-48 overflow-y-auto space-y-1">
                   {syncResult.preview?.map((p, i) => (
                     <div key={i} className="text-xs text-muted-foreground flex justify-between">
-                      <span>{p.vendor} — {p.name}</span>
+                      <span>{p.vendor} | {p.name}</span>
                       <span>₹{p.price.toLocaleString("en-IN")} → ₹{p.markedUpPrice.toLocaleString("en-IN")}</span>
                     </div>
                   ))}
