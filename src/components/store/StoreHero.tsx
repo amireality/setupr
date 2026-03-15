@@ -38,7 +38,7 @@ const StoreHero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           >
-            Get Microsoft 365, Adobe Creative Cloud, AWS, and more — all managed
+            Get Microsoft 365, Adobe Creative Cloud, AWS, and more. All managed
             through one dashboard with Indian pricing and dedicated support.
           </motion.p>
 

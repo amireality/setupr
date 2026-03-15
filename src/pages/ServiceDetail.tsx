@@ -252,7 +252,7 @@ const ServiceDetail = () => {
                 </div>
                 <ServiceDeliverablesList serviceId={serviceId || ""} />
                 <div className="text-sm text-muted-foreground/80 border-t border-border/30 pt-4 mt-4">
-                  <p><strong>The outcome:</strong> {getServiceSetting("outcome_text", "A fully compliant, registered service with all necessary documentation — ready to operate legally and build credibility.")}</p>
+                  <p><strong>The outcome:</strong> {getServiceSetting("outcome_text", "A fully compliant, registered service with all necessary documentation, ready to operate legally and build credibility.")}</p>
                 </div>
               </motion.div>
 

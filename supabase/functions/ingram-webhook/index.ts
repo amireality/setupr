@@ -278,7 +278,7 @@ Deno.serve(async (req) => {
         result = {
           event: eventType,
           processed: false,
-          message: "Unknown event type — logged for review",
+          message: "Unknown event type, logged for review",
         };
       }
     }

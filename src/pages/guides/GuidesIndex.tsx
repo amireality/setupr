@@ -25,9 +25,9 @@ const GuidesIndex = () => {
     settings.find((s) => s.key === key)?.value || fallback;
 
   const pageTitle = getSetting("guides_page_title", "Practical Guides for Early-Stage Founders");
-  const pageSubtitle = getSetting("guides_page_subtitle", "Comprehensive, educational resources on business registration, compliance, and digital presence in India—written for freelancers, consultants, and startup founders.");
+  const pageSubtitle = getSetting("guides_page_subtitle", "Comprehensive, educational resources on business registration, compliance, and digital presence in India. Written for freelancers, consultants, and startup founders.");
   const ctaTitle = getSetting("guides_cta_title", "Need hands-on help?");
-  const ctaDesc = getSetting("guides_cta_desc", "These guides give you the knowledge. Setupr gives you the execution—handling registration, compliance, and digital setup so you can focus on your work.");
+  const ctaDesc = getSetting("guides_cta_desc", "These guides give you the knowledge. Setupr gives you the execution, handling registration, compliance, and digital setup so you can focus on your work.");
 
   const guides = (() => {
     try {

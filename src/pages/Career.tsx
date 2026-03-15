@@ -115,7 +115,7 @@ const Career = () => {
   const badgeText = getSetting("career_badge_text", "Now Accepting Applications");
   const successTitle = getSetting("career_success_title", "Application Received");
   const successDesc = getSetting("career_success_desc", "Thank you for applying to the Setupr Founders Fellowship.");
-  const successNote = getSetting("career_success_note", "Applications are reviewed based on intent, thinking, and fit — not resumes or grades. If shortlisted, we'll reach out with next steps.");
+  const successNote = getSetting("career_success_note", "Applications are reviewed based on intent, thinking, and fit, not resumes or grades. If shortlisted, we'll reach out with next steps.");
 
   // Parse highlights from DB JSON or use defaults
   const highlightsRaw = getSetting("career_highlights", "");

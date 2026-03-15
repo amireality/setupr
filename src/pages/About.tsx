@@ -219,7 +219,7 @@ const About = () => {
                     Google Business Profile, and ongoing compliance support.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    <strong>The outcome:</strong> A fully registered, compliant business with professional digital presence — 
+                    <strong>The outcome:</strong> A fully registered, compliant business with professional digital presence, 
                     ready to invoice clients, open a current account, and build credibility.
                   </p>
                 </motion.div>

@@ -36,7 +36,7 @@ const StepTimeline = ({ value, onChange, onNext, onBack }: StepTimelineProps) =>
         When would you like to start?
       </h1>
       <p className="text-muted-foreground mb-8">
-        There's no pressure — we'll work with your timeline.
+        There's no pressure. We'll work with your timeline.
       </p>
 
       <div className="space-y-3 mb-8">

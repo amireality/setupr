@@ -8,7 +8,7 @@ const ServiceIntro = () => {
     settings.find((s) => s.key === key)?.value || fallback;
 
   const introTitle = getSetting("services_intro_title", "Business registration services in India");
-  const introSubtitle = getSetting("services_intro_subtitle", "Company registration, GST, MSME, compliance, website, and digital presence — for freelancers, consultants, and startups.");
+  const introSubtitle = getSetting("services_intro_subtitle", "Company registration, GST, MSME, compliance, website, and digital presence for freelancers, consultants, and startups.");
   const introNote = getSetting("services_intro_note", "Pick individual services or choose a bundle. Transparent pricing. No hidden fees. Add more anytime.");
 
   return (

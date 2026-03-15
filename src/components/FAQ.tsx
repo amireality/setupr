@@ -29,7 +29,7 @@ const defaultFaqGroups: Record<string, { label: string; faqs: { question: string
     label: "After Registration",
     faqs: [
       { question: "What services are required after company registration?", answer: "After registration, you'll need: GST registration (if applicable), professional tax registration, opening a current bank account, MSME/Udyam registration (for benefits), and setting up your digital presence (website, business email, Google listing). For companies, annual ROC filings and compliance are mandatory. Setupr offers all these as add-on services." },
-      { question: "Can Setupr handle both legal setup and digital presence?", answer: "Yes. Setupr provides end-to-end business setup — from legal registration (company formation, GST, MSME) to digital presence (professional website, business email, domain, Google Business Profile). This means one partner for everything instead of coordinating with multiple vendors." },
+      { question: "Can Setupr handle both legal setup and digital presence?", answer: "Yes. Setupr provides end-to-end business setup, from legal registration (company formation, GST, MSME) to digital presence (professional website, business email, domain, Google Business Profile). This means one partner for everything instead of coordinating with multiple vendors." },
       { question: "Do you provide ongoing compliance support after registration?", answer: "Absolutely. We provide reminders and assistance for all renewals including GST returns, company annual filings (ROC), professional tax, and MSME updates. Our proactive approach ensures you never miss a deadline or face penalties. Many clients continue working with us for years for their compliance needs." },
     ],
   },
