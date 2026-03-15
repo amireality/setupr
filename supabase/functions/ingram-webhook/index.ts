@@ -170,7 +170,7 @@ Deno.serve(async (req) => {
           .maybeSingle();
 
         if (order) {
-          // Store shipment details — we update status to "shipped" and
+          // Store shipment details: we update status to "shipped" and
           // save tracking info. Since store_orders doesn't have dedicated
           // tracking columns, we store it in the billing_address field
           // as a JSON note (or you can add columns later).
