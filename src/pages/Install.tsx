@@ -81,7 +81,7 @@ const Install = () => {
               Install Setupr
             </h1>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              Add Setupr to your home screen for instant access — no app store needed. Works on any device.
+              Add Setupr to your home screen for instant access. No app store needed. Works on any device.
             </p>
           </div>
 

@@ -121,7 +121,7 @@ const TrustStats = () => {
             500+ <span className="text-primary">Businesses</span> Registered Across India
           </h2>
           <p className="text-muted-foreground text-sm mt-2 max-w-xl mx-auto">
-            {getSetting("homepage_trust_stats_subtitle", "From solo consultants to growing startups — we've helped entrepreneurs in 50+ cities get legally set up and build credibility.")}
+            {getSetting("homepage_trust_stats_subtitle", "From solo consultants to growing startups, we've helped entrepreneurs in 50+ cities get legally set up and build credibility.")}
           </p>
         </motion.div>
 

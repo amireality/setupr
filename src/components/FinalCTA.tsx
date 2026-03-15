@@ -12,7 +12,7 @@ const FinalCTA = () => {
     settings.find((s) => s.key === key)?.value || fallback;
 
   const ctaTitle = getSetting("homepage_final_cta_title", "Ready to make your business official?");
-  const ctaSubtitle = getSetting("homepage_final_cta_subtitle", "From freelancer to registered business in India. Company registration, GST, website, and compliance — we handle it all.");
+  const ctaSubtitle = getSetting("homepage_final_cta_subtitle", "From freelancer to registered business in India. Company registration, GST, website, and compliance. We handle it all.");
   const ctaButtonText = getSetting("homepage_cta_primary", "Start with your journey");
 
   return (

@@ -57,7 +57,7 @@ const About = () => {
   });
 
   const heroTitle = getSetting("about_hero_title", "We help freelancers and startups become legitimate businesses");
-  const heroSubtitle = getSetting("about_hero_subtitle", "Setupr is a business setup platform that helps professionals in India register their companies, get GST and MSME, build digital presence, and stay compliant — without expensive CAs or multiple vendors.");
+  const heroSubtitle = getSetting("about_hero_subtitle", "Setupr is a business setup platform that helps professionals in India register their companies, get GST and MSME, build digital presence, and stay compliant without expensive CAs or multiple vendors.");
   const missionTitle = getSetting("about_mission_title", "Built for freelancers, consultants & startups");
   const missionContent = getSetting("about_mission_content", "Setupr exists because talented professionals shouldn't struggle with bureaucracy. We help people who ask: \"Should I register a company?\", \"Do I need GST?\", \"How do I look credible to clients?\"");
   const founderName = getSetting("about_founder_name", "Amir Khan");
@@ -219,7 +219,7 @@ const About = () => {
                     Google Business Profile, and ongoing compliance support.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    <strong>The outcome:</strong> A fully registered, compliant business with professional digital presence — 
+                    <strong>The outcome:</strong> A fully registered, compliant business with professional digital presence, 
                     ready to invoice clients, open a current account, and build credibility.
                   </p>
                 </motion.div>

@@ -187,7 +187,7 @@ const StartingBusinessGuide = () => {
           >
             <h2 className="text-2xl font-bold font-display mb-4">Ready to get started?</h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Setupr helps freelancers, consultants, and startups in India handle business registration, compliance, and digital presence—so you can focus on your work.
+              Setupr helps freelancers, consultants, and startups in India handle business registration, compliance, and digital presence so you can focus on your work.
             </p>
             <Button asChild size="lg">
               <Link to="/intake">
@@ -207,7 +207,7 @@ const StartingBusinessGuide = () => {
             <div className="grid md:grid-cols-2 gap-4">
               <Link to="/guides/business-types" className="glass-card rounded-xl p-4 border border-border/50 hover:border-primary/30 transition-colors group">
                 <h4 className="font-medium text-foreground group-hover:text-primary transition-colors">Business Types Explained</h4>
-                <p className="text-sm text-muted-foreground mt-1">Sole Prop vs LLP vs Pvt Ltd—which is right for you?</p>
+                <p className="text-sm text-muted-foreground mt-1">Sole Prop vs LLP vs Pvt Ltd: which is right for you?</p>
               </Link>
               <Link to="/blog/compliance-checklist-after-company-registration" className="glass-card rounded-xl p-4 border border-border/50 hover:border-primary/30 transition-colors group">
                 <h4 className="font-medium text-foreground group-hover:text-primary transition-colors">Compliance Checklist</h4>

@@ -118,7 +118,7 @@ export const StoreManagement = () => {
             <h2 className="font-display text-lg font-semibold">Ingram Micro Sync</h2>
             <p className="text-sm text-muted-foreground">
               {lastSyncData?.synced_at
-                ? `Last synced: ${new Date(lastSyncData.synced_at).toLocaleString()} — ${lastSyncData.synced} products synced`
+                ? `Last synced: ${new Date(lastSyncData.synced_at).toLocaleString()} | ${lastSyncData.synced} products synced`
                 : "Never synced"}
             </p>
           </div>
@@ -171,12 +171,12 @@ export const StoreManagement = () => {
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Eye className="w-4 h-4 text-muted-foreground" />
-                  <span className="font-medium text-sm">Dry Run Preview — {syncResult.total} products found</span>
+                  <span className="font-medium text-sm">Dry Run Preview | {syncResult.total} products found</span>
                 </div>
                 <div className="max-h-48 overflow-y-auto space-y-1">
                   {syncResult.preview?.map((p, i) => (
                     <div key={i} className="text-xs text-muted-foreground flex justify-between">
-                      <span>{p.vendor} — {p.name}</span>
+                      <span>{p.vendor} | {p.name}</span>
                       <span>₹{p.price.toLocaleString("en-IN")} → ₹{p.markedUpPrice.toLocaleString("en-IN")}</span>
                     </div>
                   ))}
@@ -308,7 +308,7 @@ export const StoreManagement = () => {
                 <Label>Customer Price (INR)</Label>
                 <Input name="base_price_inr" type="number" defaultValue={editProduct.base_price_inr} />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Editing the price enables manual override — future syncs won't change it.
+                  Editing the price enables manual override. Future syncs won't change it.
                 </p>
               </div>
               <Button type="submit">Save Changes</Button>

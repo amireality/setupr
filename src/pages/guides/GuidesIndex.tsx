@@ -14,8 +14,8 @@ const iconMap: Record<string, React.ElementType> = {
 const defaultGuides = [
   { icon: "FileText", title: "Complete Guide to Starting a Business in India", description: "A step-by-step guide covering business registration, compliance, and digital presence for freelancers, startups, and small businesses.", link: "/guides/starting-business-india", readTime: "15 min read" },
   { icon: "Building2", title: "Business Types Explained: Sole Prop vs LLP vs Pvt Ltd", description: "Understand the differences between business structures in India to make the right choice for your situation.", link: "/guides/business-types", readTime: "10 min read" },
-  { icon: "Shield", title: "Compliance Checklist for New Businesses", description: "What to do after company registration—ongoing compliance requirements for startups and small businesses.", link: "/blog/compliance-checklist-after-company-registration", readTime: "8 min read" },
-  { icon: "Globe", title: "Digital Presence Checklist for Startups", description: "Essential steps to establish online credibility—domain, email, website, and more.", link: "/blog/how-to-build-credibility-as-new-business-india", readTime: "6 min read" },
+  { icon: "Shield", title: "Compliance Checklist for New Businesses", description: "What to do after company registration. Ongoing compliance requirements for startups and small businesses.", link: "/blog/compliance-checklist-after-company-registration", readTime: "8 min read" },
+  { icon: "Globe", title: "Digital Presence Checklist for Startups", description: "Essential steps to establish online credibility: domain, email, website, and more.", link: "/blog/how-to-build-credibility-as-new-business-india", readTime: "6 min read" },
 ];
 
 const GuidesIndex = () => {
@@ -25,9 +25,9 @@ const GuidesIndex = () => {
     settings.find((s) => s.key === key)?.value || fallback;
 
   const pageTitle = getSetting("guides_page_title", "Practical Guides for Early-Stage Founders");
-  const pageSubtitle = getSetting("guides_page_subtitle", "Comprehensive, educational resources on business registration, compliance, and digital presence in India—written for freelancers, consultants, and startup founders.");
+  const pageSubtitle = getSetting("guides_page_subtitle", "Comprehensive, educational resources on business registration, compliance, and digital presence in India. Written for freelancers, consultants, and startup founders.");
   const ctaTitle = getSetting("guides_cta_title", "Need hands-on help?");
-  const ctaDesc = getSetting("guides_cta_desc", "These guides give you the knowledge. Setupr gives you the execution—handling registration, compliance, and digital setup so you can focus on your work.");
+  const ctaDesc = getSetting("guides_cta_desc", "These guides give you the knowledge. Setupr gives you the execution, handling registration, compliance, and digital setup so you can focus on your work.");
 
   const guides = (() => {
     try {

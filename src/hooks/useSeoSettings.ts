@@ -9,14 +9,14 @@ export interface SeoSettings {
 }
 
 const defaultSeo: Record<string, SeoSettings> = {
-  homepage: { title: "Setupr — Business Registration & Setup Services in India", description: "Company registration, GST, MSME, website, and compliance — all handled for freelancers, consultants, and startups in India." },
-  about: { title: "About Setupr — Our Mission & Values", description: "Learn about Setupr's mission to simplify business registration and compliance for Indian entrepreneurs." },
+  homepage: { title: "Setupr | Business Registration & Setup Services in India", description: "Company registration, GST, MSME, website, and compliance. All handled for freelancers, consultants, and startups in India." },
+  about: { title: "About Setupr | Our Mission & Values", description: "Learn about Setupr's mission to simplify business registration and compliance for Indian entrepreneurs." },
   blog: { title: "Business Guides & Resources | Setupr Blog", description: "Expert guides on company registration, GST, MSME, compliance, and building credibility for freelancers, consultants, and startup founders in India." },
-  services: { title: "Business Setup Services — Registration, GST, Website & More | Setupr", description: "Explore all business setup services: company registration, GST, MSME, website development, compliance, and more." },
-  team: { title: "Meet the Setupr Team", description: "The experts behind Setupr — experienced professionals in business registration, compliance, and digital setup." },
-  career: { title: "Careers at Setupr — Join Our Team", description: "Explore fellowship and career opportunities at Setupr. Work directly with founders on real business challenges." },
-  contact: { title: "Contact Setupr — Get in Touch", description: "Have questions about business registration or our services? Reach out to the Setupr team." },
-  guides: { title: "Business Guides — Starting & Registering Your Business in India", description: "Step-by-step guides for starting, registering, and growing your business in India." },
+  services: { title: "Business Setup Services | Registration, GST, Website & More | Setupr", description: "Explore all business setup services: company registration, GST, MSME, website development, compliance, and more." },
+  team: { title: "Meet the Setupr Team", description: "The experts behind Setupr. Experienced professionals in business registration, compliance, and digital setup." },
+  career: { title: "Careers at Setupr | Join Our Team", description: "Explore fellowship and career opportunities at Setupr. Work directly with founders on real business challenges." },
+  contact: { title: "Contact Setupr | Get in Touch", description: "Have questions about business registration or our services? Reach out to the Setupr team." },
+  guides: { title: "Business Guides | Starting & Registering Your Business in India", description: "Step-by-step guides for starting, registering, and growing your business in India." },
 };
 
 export const useSeoSettings = (page: string) => {

@@ -23,7 +23,7 @@ const defaultItems = [
   {
     title: "Get a clear plan with pricing",
     description:
-      "We provide an exact checklist of services, documents needed, timeline, and transparent pricing — Setupr fee plus government fees, nothing hidden.",
+      "We provide an exact checklist of services, documents needed, timeline, and transparent pricing. Setupr fee plus government fees, nothing hidden.",
     icon: <FileCheck className="h-5 w-5 text-primary" />,
   },
   {

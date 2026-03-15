@@ -28,7 +28,7 @@ const CollapsibleServices = () => {
   const [openCategory, setOpenCategory] = useState<string | null>(null);
   
   const sectionTitle = settings.find(s => s.key === "homepage_collapsible_title")?.value || "Business registration and setup services we offer";
-  const sectionSubtitle = settings.find(s => s.key === "homepage_collapsible_subtitle")?.value || "Everything you need to start, run, and grow your business — all in one place.";
+  const sectionSubtitle = settings.find(s => s.key === "homepage_collapsible_subtitle")?.value || "Everything you need to start, run, and grow your business, all in one place.";
   
   const highlightsJson = settings.find(s => s.key === "homepage_category_highlights")?.value;
   const categoryHighlights: Record<string, { title: string; description: string }> = highlightsJson ? (() => { try { return JSON.parse(highlightsJson); } catch { return defaultCategoryHighlights; } })() : defaultCategoryHighlights;

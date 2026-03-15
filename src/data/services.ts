@@ -57,7 +57,7 @@ export const serviceCategories: ServiceCategory[] = [
   {
     category_id: "digital-presence",
     title: "Digital Presence & Business Identity",
-    intro: "Your website, domain, and email — set up professionally.",
+    intro: "Your website, domain, and email, set up professionally.",
     icon: "Globe",
     gradient: "from-accent/20 via-accent/10 to-transparent",
   },

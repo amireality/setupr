@@ -36,7 +36,7 @@ const StorePromo = () => {
                 instantly delivered
               </h2>
               <p className="text-muted-foreground text-base md:text-lg max-w-lg mb-6">
-                Microsoft 365, Google Workspace, Adobe Creative Cloud, AWS credits, and more — all at competitive reseller pricing with instant activation.
+                Microsoft 365, Google Workspace, Adobe Creative Cloud, AWS credits, and more. All at competitive reseller pricing with instant activation.
               </p>
               <Button variant="hero" size="lg" asChild className="shadow-glow group">
                 <Link to="/store">
