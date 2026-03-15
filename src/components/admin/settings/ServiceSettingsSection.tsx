@@ -34,7 +34,7 @@ const getDefaultContent = (serviceId: string, serviceName: string) => ({
   // What does Setupr provide section
   deliverables: `• Complete documentation preparation, review, and filing
 • Expert guidance from professionals who understand Indian regulations
-• Government fee coordination — we tell you exactly what to pay and when
+• Government fee coordination. We tell you exactly what to pay and when
 • Regular status updates via WhatsApp and email until completion`,
   
   deliverables_outcome: `A fully compliant, registered service with all necessary documentation — ready to operate legally and build credibility.`,
