@@ -118,7 +118,7 @@ export const StoreManagement = () => {
             <h2 className="font-display text-lg font-semibold">Ingram Micro Sync</h2>
             <p className="text-sm text-muted-foreground">
               {lastSyncData?.synced_at
-                ? `Last synced: ${new Date(lastSyncData.synced_at).toLocaleString()} — ${lastSyncData.synced} products synced`
+                ? `Last synced: ${new Date(lastSyncData.synced_at).toLocaleString()} | ${lastSyncData.synced} products synced`
                 : "Never synced"}
             </p>
           </div>
