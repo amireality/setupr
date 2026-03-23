@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import TrustStats from "@/components/TrustStats";
@@ -12,8 +13,10 @@ import FinalCTA from "@/components/FinalCTA";
 import LoansSection from "@/components/LoansSection";
 import Footer from "@/components/Footer";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
+import { useSeoSettings } from "@/hooks/useSeoSettings";
 
 const Index = () => {
+  const { data: seo } = useSeoSettings("homepage");
   return (
     <div className="min-h-screen bg-background relative">
       {/* Global Animated Background */}
