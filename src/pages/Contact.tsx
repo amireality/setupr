@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
@@ -86,6 +87,14 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Contact Setupr | Get in Touch</title>
+        <meta name="description" content="Have questions about business registration or our services? Reach out to the Setupr team. We respond within 24-48 hours." />
+        <link rel="canonical" href="https://setupr.com/contact" />
+        <meta property="og:title" content="Contact Setupr | Get in Touch" />
+        <meta property="og:description" content="Have questions about business registration or our services? Reach out to the Setupr team." />
+        <meta property="og:url" content="https://setupr.com/contact" />
+      </Helmet>
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container px-4 md:px-6 max-w-2xl mx-auto">
