@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
+import { renderEmail, htmlToText } from "../_shared/email-template.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const adminEmail = Deno.env.get("ADMIN_EMAIL");
@@ -218,27 +219,25 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    const emailHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h1 style="color: #1a1a2e;">New Business Setup Request</h1>
-        
-        <h2 style="color: #4a4a68; border-bottom: 1px solid #eee; padding-bottom: 8px;">Contact Details</h2>
-        <p><strong>Name:</strong> ${escapeHtml(submission.fullName)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(submission.email)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(submission.phone)}</p>
-        <p><strong>City:</strong> ${escapeHtml(submission.city)}</p>
-        
-        <h2 style="color: #4a4a68; border-bottom: 1px solid #eee; padding-bottom: 8px;">Business Information</h2>
-        <p><strong>Current Stage:</strong> ${escapeHtml(submission.currentStage)}</p>
-        <p><strong>Work Types:</strong> ${submission.workTypes.map(escapeHtml).join(", ") || "Not specified"}</p>
-        <p><strong>Selected Services:</strong> ${submission.selectedServices.map(escapeHtml).join(", ") || "None"}</p>
-        <p><strong>Existing Setup:</strong> ${submission.existingSetup.map(escapeHtml).join(", ") || "None"}</p>
-        <p><strong>Timeline:</strong> ${escapeHtml(submission.timeline)}</p>
-        
-        <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
-        <p style="color: #888; font-size: 12px;">This is an automated notification from your Business Setup Platform.</p>
-      </div>
+    const innerHtml = `
+      <p style="margin:0 0 14px; color:#6b7280;">Contact details</p>
+      <p><strong>Name:</strong> ${escapeHtml(submission.fullName)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(submission.email)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(submission.phone)}</p>
+      <p><strong>City:</strong> ${escapeHtml(submission.city)}</p>
+
+      <p style="margin:18px 0 14px; color:#6b7280;">Business information</p>
+      <p><strong>Current Stage:</strong> ${escapeHtml(submission.currentStage)}</p>
+      <p><strong>Work Types:</strong> ${submission.workTypes.map(escapeHtml).join(", ") || "Not specified"}</p>
+      <p><strong>Selected Services:</strong> ${submission.selectedServices.map(escapeHtml).join(", ") || "None"}</p>
+      <p><strong>Existing Setup:</strong> ${submission.existingSetup.map(escapeHtml).join(", ") || "None"}</p>
+      <p><strong>Timeline:</strong> ${escapeHtml(submission.timeline)}</p>
     `;
+    const emailHtml = renderEmail({
+      preheader: `New business setup request from ${escapeHtml(submission.fullName)}`,
+      heading: "New business setup request",
+      bodyHtml: innerHtml,
+    });
 
     console.log("Sending email from:", fromEmail, "to:", adminEmail);
     
