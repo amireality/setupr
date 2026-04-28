@@ -191,6 +191,42 @@ export type Database = {
         }
         Relationships: []
       }
+      email_log: {
+        Row: {
+          body_preview: string
+          error_message: string | null
+          id: string
+          recipient: string
+          sent_at: string
+          sent_by: string | null
+          status: string
+          subject: string
+          template_type: string
+        }
+        Insert: {
+          body_preview?: string
+          error_message?: string | null
+          id?: string
+          recipient: string
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          subject: string
+          template_type?: string
+        }
+        Update: {
+          body_preview?: string
+          error_message?: string | null
+          id?: string
+          recipient?: string
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          subject?: string
+          template_type?: string
+        }
+        Relationships: []
+      }
       intake_submissions: {
         Row: {
           city: string
