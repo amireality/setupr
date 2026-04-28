@@ -75,61 +75,51 @@ Deno.serve(async (req) => {
       )
       .join("");
 
-    const emailHtml = `
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-    <div style="text-align: center; margin-bottom: 32px;">
-      <h1 style="font-size: 24px; font-weight: 700; color: #111827; margin: 0;">Setupr Store</h1>
-    </div>
-    
-    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 32px;">
-      <div style="font-size: 40px; margin-bottom: 8px;">✅</div>
-      <h2 style="font-size: 20px; font-weight: 600; color: #166534; margin: 0 0 8px 0;">Payment Successful!</h2>
-      <p style="font-size: 14px; color: #15803d; margin: 0;">Order <strong>${escapeHtml(order.order_number)}</strong> has been confirmed.</p>
-    </div>
+    const innerBody = `
+      <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:18px; text-align:center; margin-bottom:20px;">
+        <div style="font-size:32px; line-height:1; margin-bottom:6px;">✅</div>
+        <h2 style="font-size:18px; font-weight:600; color:#166534; margin:0 0 4px 0;">Payment Successful</h2>
+        <p style="font-size:13px; color:#15803d; margin:0;">Order <strong>${escapeHtml(order.order_number)}</strong> has been confirmed.</p>
+      </div>
 
-    <div style="background: #f9fafb; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-      <h3 style="font-size: 16px; font-weight: 600; color: #111827; margin: 0 0 12px 0;">Order Details</h3>
-      <table style="width: 100%; font-size: 13px; color: #6b7280;">
-        <tr><td style="padding: 4px 0;">Order Number</td><td style="text-align: right; font-weight: 600; color: #111827;">${escapeHtml(order.order_number)}</td></tr>
-        <tr><td style="padding: 4px 0;">Date</td><td style="text-align: right;">${new Date(order.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</td></tr>
-        ${order.company_name ? `<tr><td style="padding: 4px 0;">Company</td><td style="text-align: right;">${escapeHtml(order.company_name)}</td></tr>` : ""}
-        ${order.gstin ? `<tr><td style="padding: 4px 0;">GSTIN</td><td style="text-align: right;">${escapeHtml(order.gstin)}</td></tr>` : ""}
+      <div style="background:#f9fafb; border-radius:10px; padding:16px 18px; margin-bottom:18px;">
+        <h3 style="font-size:14px; font-weight:600; color:#111827; margin:0 0 10px 0;">Order Details</h3>
+        <table style="width:100%; font-size:13px; color:#6b7280;">
+          <tr><td style="padding:3px 0;">Order Number</td><td style="text-align:right; font-weight:600; color:#111827;">${escapeHtml(order.order_number)}</td></tr>
+          <tr><td style="padding:3px 0;">Date</td><td style="text-align:right;">${new Date(order.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</td></tr>
+          ${order.company_name ? `<tr><td style="padding:3px 0;">Company</td><td style="text-align:right;">${escapeHtml(order.company_name)}</td></tr>` : ""}
+          ${order.gstin ? `<tr><td style="padding:3px 0;">GSTIN</td><td style="text-align:right;">${escapeHtml(order.gstin)}</td></tr>` : ""}
+        </table>
+      </div>
+
+      <table style="width:100%; border-collapse:collapse; margin-bottom:18px;">
+        <thead>
+          <tr style="background:#f3f4f6;">
+            <th style="padding:10px 12px; text-align:left; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Item</th>
+            <th style="padding:10px 12px; text-align:center; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Qty</th>
+            <th style="padding:10px 12px; text-align:right; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Price</th>
+            <th style="padding:10px 12px; text-align:right; font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Total</th>
+          </tr>
+        </thead>
+        <tbody>${itemsHtml}</tbody>
       </table>
-    </div>
 
-    <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
-      <thead>
-        <tr style="background: #f3f4f6;">
-          <th style="padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Item</th>
-          <th style="padding: 12px 16px; text-align: center; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Qty</th>
-          <th style="padding: 12px 16px; text-align: right; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Price</th>
-          <th style="padding: 12px 16px; text-align: right; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Total</th>
-        </tr>
-      </thead>
-      <tbody>${itemsHtml}</tbody>
-    </table>
+      <div style="background:#f9fafb; border-radius:10px; padding:14px 18px;">
+        <table style="width:100%; font-size:14px;">
+          <tr><td style="padding:3px 0; color:#6b7280;">Subtotal</td><td style="text-align:right; color:#374151;">₹${formatCurrency(Number(order.subtotal_inr))}</td></tr>
+          <tr><td style="padding:3px 0; color:#6b7280;">GST (18%)</td><td style="text-align:right; color:#374151;">₹${formatCurrency(Number(order.tax_inr))}</td></tr>
+          <tr><td style="padding:8px 0 0; font-weight:700; font-size:17px; color:#111827; border-top:2px solid #e5e7eb;">Total</td><td style="text-align:right; padding:8px 0 0; font-weight:700; font-size:17px; color:#111827; border-top:2px solid #e5e7eb;">₹${formatCurrency(Number(order.total_inr))}</td></tr>
+        </table>
+      </div>
+    `;
 
-    <div style="background: #f9fafb; border-radius: 12px; padding: 16px 20px;">
-      <table style="width: 100%; font-size: 14px;">
-        <tr><td style="padding: 4px 0; color: #6b7280;">Subtotal</td><td style="text-align: right; color: #374151;">₹${formatCurrency(Number(order.subtotal_inr))}</td></tr>
-        <tr><td style="padding: 4px 0; color: #6b7280;">GST (18%)</td><td style="text-align: right; color: #374151;">₹${formatCurrency(Number(order.tax_inr))}</td></tr>
-        <tr><td style="padding: 8px 0 0; font-weight: 700; font-size: 18px; color: #111827; border-top: 2px solid #e5e7eb;">Total</td><td style="text-align: right; padding: 8px 0 0; font-weight: 700; font-size: 18px; color: #111827; border-top: 2px solid #e5e7eb;">₹${formatCurrency(Number(order.total_inr))}</td></tr>
-      </table>
-    </div>
-
-    <p style="font-size: 13px; color: #9ca3af; text-align: center; margin-top: 32px;">
-      If you have questions about your order, reply to this email or contact us at info@setupr.com.
-    </p>
-    <p style="font-size: 12px; color: #d1d5db; text-align: center; margin-top: 16px;">
-      Setupr Cloud Marketplace · setupr.com
-    </p>
-  </div>
-</body>
-</html>`;
+    const emailHtml = renderEmail({
+      preheader: `Order ${order.order_number} confirmed`,
+      heading: "Your order is confirmed",
+      bodyHtml: innerBody,
+      ctaLabel: "View your dashboard",
+      ctaUrl: "https://setupr.com/store/dashboard",
+    });
 
     // Send emails
     const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
