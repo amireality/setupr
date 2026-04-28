@@ -130,19 +130,29 @@ Deno.serve(async (req) => {
     await resend.emails.send({
       from: `Setupr Store <${fromEmail}>`,
       to: [userEmail],
-      subject: `Order Confirmed – ${order.order_number}`,
+      subject: `Order Confirmed | ${order.order_number}`,
       html: emailHtml,
+      text: htmlToText(emailHtml),
     });
 
-    // Admin notification
+    // Admin notification (branded)
+    const adminHtml = renderEmail({
+      preheader: `New order ${order.order_number}`,
+      heading: "New order received",
+      bodyHtml: `
+        <p><strong>Order:</strong> ${escapeHtml(order.order_number)}</p>
+        <p><strong>Customer:</strong> ${escapeHtml(userEmail)}</p>
+        <p><strong>Company:</strong> ${escapeHtml(order.company_name || "N/A")}</p>
+        <p><strong>Total:</strong> ₹${formatCurrency(Number(order.total_inr))}</p>
+        <p><strong>Items:</strong> ${orderItems.map((i: any) => escapeHtml(i.product_name)).join(", ")}</p>
+      `,
+    });
     await resend.emails.send({
       from: `Setupr Store <${fromEmail}>`,
       to: [adminEmail],
-      subject: `New Order: ${order.order_number} – ₹${formatCurrency(Number(order.total_inr))}`,
-      html: `<p>New order <strong>${escapeHtml(order.order_number)}</strong> from <strong>${escapeHtml(userEmail)}</strong>.</p>
-        <p>Company: ${escapeHtml(order.company_name || "N/A")}</p>
-        <p>Total: ₹${formatCurrency(Number(order.total_inr))}</p>
-        <p>Items: ${orderItems.map((i: any) => escapeHtml(i.product_name)).join(", ")}</p>`,
+      subject: `New Order: ${order.order_number} | ₹${formatCurrency(Number(order.total_inr))}`,
+      html: adminHtml,
+      text: htmlToText(adminHtml),
     });
 
     return new Response(JSON.stringify({ success: true }), {
