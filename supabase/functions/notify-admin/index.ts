@@ -250,8 +250,9 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: `Setupr <${fromEmail}>`,
         to: [adminEmail],
-        subject: `New Business Setup Request from ${escapeHtml(submission.fullName)}`,
+        subject: `New Business Setup Request from ${submission.fullName}`,
         html: emailHtml,
+        text: htmlToText(innerHtml),
       }),
     });
 
