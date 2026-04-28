@@ -49,6 +49,7 @@ import {
   Inbox,
   Settings2,
   ShoppingBag,
+  Mail,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -60,6 +61,7 @@ import SettingsManagement from "@/components/admin/SettingsManagement";
 import { ServiceFaqManagement } from "@/components/admin/ServiceFaqManagement";
 import { ServiceDeliverableManagement } from "@/components/admin/ServiceDeliverableManagement";
 import { StoreManagement } from "@/components/admin/StoreManagement";
+import EmailComposer from "@/components/admin/EmailComposer";
 
 const Admin = () => {
   const { user, loading: authLoading, signOut } = useAuth();
@@ -247,6 +249,10 @@ const Admin = () => {
               <TabsTrigger value="store" className="gap-2">
                 <ShoppingBag className="w-4 h-4" />
                 <span className="hidden sm:inline">Store</span>
+              </TabsTrigger>
+              <TabsTrigger value="emails" className="gap-2">
+                <Mail className="w-4 h-4" />
+                <span className="hidden sm:inline">Emails</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -457,6 +463,11 @@ const Admin = () => {
               </p>
             </div>
             <StoreManagement />
+          </TabsContent>
+
+          {/* Emails Tab */}
+          <TabsContent value="emails">
+            <EmailComposer />
           </TabsContent>
         </Tabs>
       </main>
