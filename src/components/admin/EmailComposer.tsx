@@ -165,11 +165,11 @@ const EmailComposer = () => {
           <div style="color:#fff; font-size:13px; font-weight:600; margin-top:8px; letter-spacing:0.4px;">SETUPR</div>
         </div>
         <div style="padding:28px 24px;">
-          <h1 style="margin:0 0 14px; font-size:22px; color:#111827;">${heading || "Heading goes here"}</h1>
+          <h1 style="margin:0 0 14px; font-size:22px; color:#111827;">${safeHeading}</h1>
           <div style="font-size:14px; line-height:1.6; color:#111827;">${body || "<p>Body content will appear here...</p>"}</div>
           ${
             ctaLabel && ctaUrl
-              ? `<div style="margin-top:20px;"><a href="${ctaUrl}" style="display:inline-block; background:#f97316; color:#fff; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:600; font-size:14px;">${ctaLabel}</a></div>`
+              ? `<div style="margin-top:20px;"><a href="${safeCtaUrl}" style="display:inline-block; background:#f97316; color:#fff; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:600; font-size:14px;">${safeCtaLabel}</a></div>`
               : ""
           }
         </div>
