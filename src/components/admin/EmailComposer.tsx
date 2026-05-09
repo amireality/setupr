@@ -145,7 +145,18 @@ const EmailComposer = () => {
     }
   };
 
-  // Live preview HTML wrapper (mimics renderEmail visually)
+  // Escape user-controlled strings before injecting into preview HTML
+  const escapeHtml = (s: string) =>
+    s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  const safeHeading = escapeHtml(heading || "Heading goes here");
+  const safeCtaLabel = escapeHtml(ctaLabel);
+  const safeCtaUrl = /^https:\/\//i.test(ctaUrl) ? escapeHtml(ctaUrl) : "#";
+  // Body is admin-authored HTML; rendered inside a sandboxed iframe below so scripts cannot execute.
   const previewHtml = `
     <div style="background:#f5f5f7; padding:20px; border-radius:8px; font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
       <div style="max-width:560px; margin:0 auto; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
