@@ -330,9 +330,11 @@ const EmailComposer = () => {
                 <CardTitle className="text-base">Live preview</CardTitle>
               </CardHeader>
               <CardContent>
-                <div
-                  dangerouslySetInnerHTML={{ __html: previewHtml }}
-                  className="overflow-auto max-h-[700px]"
+                <iframe
+                  title="Email preview"
+                  sandbox=""
+                  srcDoc={previewHtml}
+                  className="w-full h-[700px] border-0 rounded-md bg-white"
                 />
               </CardContent>
             </Card>
