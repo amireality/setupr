@@ -57,21 +57,27 @@ Deno.serve(async (req) => {
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const webhookSecret = Deno.env.get("INGRAM_WEBHOOK_SECRET") || "";
+    const webhookSecret = Deno.env.get("INGRAM_WEBHOOK_SECRET");
 
     const rawBody = await req.text();
     const ingramSignature = req.headers.get("x-ingram-signature");
 
-    // Verify signature if webhook secret is configured
-    if (webhookSecret) {
-      const valid = await verifySignature(rawBody, ingramSignature, webhookSecret);
-      if (!valid) {
-        console.error("Invalid webhook signature");
-        return new Response(JSON.stringify({ error: "Invalid signature" }), {
-          status: 401,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
+    // Fail-closed: reject all requests if the webhook secret is not configured
+    if (!webhookSecret) {
+      console.error("INGRAM_WEBHOOK_SECRET not configured — rejecting webhook");
+      return new Response(
+        JSON.stringify({ error: "Webhook not configured" }),
+        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const valid = await verifySignature(rawBody, ingramSignature, webhookSecret);
+    if (!valid) {
+      console.error("Invalid webhook signature");
+      return new Response(JSON.stringify({ error: "Invalid signature" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const payload = JSON.parse(rawBody);
