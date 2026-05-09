@@ -26,18 +26,26 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { orderId, userEmail } = await req.json();
-    if (!orderId || !userEmail) {
-      return new Response(JSON.stringify({ error: "Missing orderId or userEmail" }), {
+    // Require service role authentication — internal use only
+    const authHeader = req.headers.get("Authorization") || "";
+    const token = authHeader.replace("Bearer ", "").trim();
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    if (!token || token !== serviceKey) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const { orderId } = await req.json();
+    if (!orderId) {
+      return new Response(JSON.stringify({ error: "Missing orderId" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
-    );
+    const supabase = createClient(Deno.env.get("SUPABASE_URL")!, serviceKey);
 
     // Fetch order
     const { data: order, error: orderError } = await supabase
@@ -53,6 +61,17 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+
+    // Fetch authoritative recipient email from auth.users (never trust caller-provided email)
+    const { data: userData, error: userErr } = await supabase.auth.admin.getUserById(order.user_id);
+    if (userErr || !userData?.user?.email) {
+      console.error("Failed to resolve user email:", userErr);
+      return new Response(JSON.stringify({ error: "User email not found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const userEmail = userData.user.email;
 
     // Fetch order items
     const { data: items } = await supabase
