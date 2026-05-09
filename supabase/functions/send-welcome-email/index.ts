@@ -14,6 +14,18 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Require service role authentication — function is for internal use only
+    // (called from DB trigger via pg_net or other edge functions)
+    const authHeader = req.headers.get("Authorization") || "";
+    const token = authHeader.replace("Bearer ", "").trim();
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+    if (!token || token !== serviceKey) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const { email, name } = await req.json();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return new Response(JSON.stringify({ error: "Invalid email" }), {
