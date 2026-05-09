@@ -1,45 +1,31 @@
+# One-time Test → Live CMS reset + future-safety memory rule
 
+Click **Implement plan** to execute. Two actions only, both server-side. Zero code/UI changes.
 
-## Plan: Platform-Wide Sign-In and PWA Setup
+## Action 1: Copy all `site_settings` rows from Test into Live
 
-### 1. Unified Authentication Across the Platform
+- Reads every row currently in Test `site_settings` (~150 rows: hero text, service descriptions, legal pages, footer, SEO, etc.).
+- Upserts each into Live with `ON CONFLICT (key) DO UPDATE`. Live's existing rows for the same keys get overwritten with Test values (intended: Live is mostly empty, Test holds your real edits).
+- Other tables (`blog_posts`, `services`, `store_orders`, `customer_profiles`, etc.) are NOT touched.
+- After this runs, setupr.com will instantly match what you see in the preview.
 
-Currently, sign-in only exists on the store pages (`/store/login`, `/store/signup`). We'll unify this so the same account works everywhere.
+## Action 2: Save a permanent project memory rule
 
-**Changes:**
+A new memory file `mem://constraints/cms-sync-policy` will be created and added to the index, stating:
 
-- **Create a unified `/login` and `/signup` page** that mirrors the store login/signup experience (email + Google Sign-In) but uses the main Navbar and platform branding instead of StoreNavbar.
-- **Update the main Navbar** to show a "Sign In" button (when logged out) or a user avatar/dropdown (when logged in) with links to Dashboard and Sign Out -- replacing or alongside the current "Get Started" CTA.
-- **Share authentication state** by importing `useStoreAuth` (or renaming it to a generic `useAuth` hook) across the platform. The existing `useStoreAuth` already handles email + Google via the same backend, so no new database changes are needed.
-- **Add routes** for `/login` and `/signup` in `App.tsx`.
-- **Redirect logic**: After login from the main platform, redirect to `/` (home). The store login pages will continue redirecting to `/store/dashboard`.
+> Test→Live `site_settings` syncs must always be **scoped to specific new keys** with `ON CONFLICT (key) DO NOTHING`. The blanket overwrite from 2026-05-09 was a one-time reset because Live was empty. Never run a blanket upsert on `site_settings` again. Live admin edits on setupr.com are the source of truth going forward.
 
-### 2. Installable Web App (PWA)
+This rule will be loaded by every future AI session, so even months from now no agent can accidentally overwrite your Live admin edits.
 
-**Changes:**
+## What you do after I implement
 
-- **Install `vite-plugin-pwa`** dependency.
-- **Configure PWA in `vite.config.ts`** with a proper manifest (app name "Setupr", theme color, icons) and add `/~oauth` to `navigateFallbackDenylist` to keep OAuth working.
-- **Add PWA meta tags** to `index.html` (viewport, theme-color, apple-touch-icon).
-- **Create PWA icons** in the `public/` folder (192x192 and 512x512 variants using the existing Setupr icon).
-- **Create an `/install` page** with instructions for adding the app to the home screen and a prompt trigger button.
-- **Add route** for `/install` in `App.tsx`.
+1. Verify setupr.com homepage now matches the preview.
+2. From now on, edit content on **setupr.com/admin** (Live), not the preview's admin.
+3. Use the preview's admin only to test new fields when I add new CMS-driven sections.
 
----
+## What I will NOT do
 
-### Technical Details
-
-**Files to create:**
-- `src/pages/Login.tsx` -- Platform-wide login page (email + Google)
-- `src/pages/Signup.tsx` -- Platform-wide signup page
-- `src/pages/Install.tsx` -- PWA install prompt page
-- `public/icons/icon-192x192.png` and `icon-512x512.png`
-
-**Files to modify:**
-- `src/components/Navbar.tsx` -- Add sign-in/user menu button
-- `src/App.tsx` -- Add `/login`, `/signup`, `/install` routes
-- `vite.config.ts` -- Add PWA plugin config
-- `index.html` -- Add PWA meta tags and manifest link
-
-**No database changes needed** -- the existing `customer_profiles` table and auth triggers handle new signups automatically.
-
+- No code changes.
+- No schema changes.
+- No edits to other tables.
+- No future blanket syncs (locked in by memory).
