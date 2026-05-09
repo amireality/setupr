@@ -145,7 +145,18 @@ const EmailComposer = () => {
     }
   };
 
-  // Live preview HTML wrapper (mimics renderEmail visually)
+  // Escape user-controlled strings before injecting into preview HTML
+  const escapeHtml = (s: string) =>
+    s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  const safeHeading = escapeHtml(heading || "Heading goes here");
+  const safeCtaLabel = escapeHtml(ctaLabel);
+  const safeCtaUrl = /^https:\/\//i.test(ctaUrl) ? escapeHtml(ctaUrl) : "#";
+  // Body is admin-authored HTML; rendered inside a sandboxed iframe below so scripts cannot execute.
   const previewHtml = `
     <div style="background:#f5f5f7; padding:20px; border-radius:8px; font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
       <div style="max-width:560px; margin:0 auto; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
@@ -154,11 +165,11 @@ const EmailComposer = () => {
           <div style="color:#fff; font-size:13px; font-weight:600; margin-top:8px; letter-spacing:0.4px;">SETUPR</div>
         </div>
         <div style="padding:28px 24px;">
-          <h1 style="margin:0 0 14px; font-size:22px; color:#111827;">${heading || "Heading goes here"}</h1>
+          <h1 style="margin:0 0 14px; font-size:22px; color:#111827;">${safeHeading}</h1>
           <div style="font-size:14px; line-height:1.6; color:#111827;">${body || "<p>Body content will appear here...</p>"}</div>
           ${
             ctaLabel && ctaUrl
-              ? `<div style="margin-top:20px;"><a href="${ctaUrl}" style="display:inline-block; background:#f97316; color:#fff; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:600; font-size:14px;">${ctaLabel}</a></div>`
+              ? `<div style="margin-top:20px;"><a href="${safeCtaUrl}" style="display:inline-block; background:#f97316; color:#fff; padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:600; font-size:14px;">${safeCtaLabel}</a></div>`
               : ""
           }
         </div>
@@ -319,9 +330,11 @@ const EmailComposer = () => {
                 <CardTitle className="text-base">Live preview</CardTitle>
               </CardHeader>
               <CardContent>
-                <div
-                  dangerouslySetInnerHTML={{ __html: previewHtml }}
-                  className="overflow-auto max-h-[700px]"
+                <iframe
+                  title="Email preview"
+                  sandbox=""
+                  srcDoc={previewHtml}
+                  className="w-full h-[700px] border-0 rounded-md bg-white"
                 />
               </CardContent>
             </Card>
