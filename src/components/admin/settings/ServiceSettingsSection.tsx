@@ -289,6 +289,10 @@ const ServiceSettingsSection = ({ settings, services, onSave, isPending }: Servi
                     <FileText className="w-3 h-3 mr-1" />
                     Articles
                   </TabsTrigger>
+                  <TabsTrigger value="rich-content" className="text-xs">
+                    <FileText className="w-3 h-3 mr-1" />
+                    Rich Content
+                  </TabsTrigger>
                 </TabsList>
 
                 {/* Who It's For Tab */}
@@ -567,6 +571,31 @@ const ServiceSettingsSection = ({ settings, services, onSave, isPending }: Servi
                           placeholder="Article description"
                         />
                       </div>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* Rich Content Tab */}
+                <TabsContent value="rich-content" className="space-y-4 mt-4">
+                  <div className="glass-card p-4 rounded-lg">
+                    <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-primary" />
+                      About This Service (Long-form content)
+                    </h3>
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-3">
+                        Paste HTML content here. Supports h3 and p tags only. This appears on the service page with a Read More toggle.
+                      </p>
+                      <Textarea
+                        value={getValue("rich_content")}
+                        onChange={(e) => setValue("rich_content", e.target.value)}
+                        placeholder="<h3>Heading</h3><p>Content...</p>"
+                        rows={20}
+                        className="mt-1 font-mono text-sm"
+                      />
+                      <p className="text-xs text-muted-foreground mt-2 text-right">
+                        {getValue("rich_content").length} characters
+                      </p>
                     </div>
                   </div>
                 </TabsContent>

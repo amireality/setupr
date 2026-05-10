@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowRight, Check, Clock, Users, Shield, ChevronRight, Star, Award, Building2, Globe, Zap, MessageCircle, FileText } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Check, Clock, Users, Shield, ChevronRight, Star, Award, Building2, Globe, Zap, MessageCircle, FileText, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -46,6 +47,7 @@ const ServiceDetail = () => {
   const { data: services = [], isLoading: servicesLoading } = useDbServices();
   const { data: categories = [] } = useDbCategories();
   const { data: allSettings = [] } = useSiteSettings();
+  const [expanded, setExpanded] = useState(false);
 
   // Helper to get service-specific setting with fallback
   const getServiceSetting = (field: string, fallback: string) => {
@@ -290,15 +292,50 @@ const ServiceDetail = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="glass-card rounded-2xl p-6 md:p-8 border border-border/50 prose prose-invert max-w-none prose-h3:text-xl prose-h3:font-display prose-h3:font-semibold prose-h3:text-foreground prose-h3:mt-8 prose-h3:mb-4 prose-p:text-muted-foreground prose-p:leading-relaxed"
+                    className="glass-card rounded-2xl p-6 md:p-8 border border-border/50"
                   >
-                    <h2 className="text-xl font-display font-semibold text-foreground mb-6 flex items-center gap-2 not-prose">
+                    <h2 className="text-xl font-display font-semibold text-foreground mb-6 flex items-center gap-2">
                       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                         <FileText className="w-4 h-4 text-primary" />
                       </div>
                       About This Service
                     </h2>
-                    <div dangerouslySetInnerHTML={{ __html: richContent }} />
+                    
+                    <div className="relative">
+                      <AnimatePresence initial={false}>
+                        <motion.div
+                          key="content"
+                          initial={false}
+                          animate={{ height: expanded ? "auto" : "12rem" }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div 
+                            className="prose-wrapper [&_h3]:font-display [&_h3]:font-semibold [&_h3]:text-lg [&_h3]:text-foreground [&_h3]:mb-2 [&_h3]:mt-6 [&_h3]:first:mt-0 [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4"
+                            dangerouslySetInnerHTML={{ __html: richContent }} 
+                          />
+                        </motion.div>
+                      </AnimatePresence>
+
+                      {!expanded && (
+                        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-background pointer-events-none" />
+                      )}
+                    </div>
+
+                    <Button
+                      variant="ghost"
+                      onClick={() => setExpanded(!expanded)}
+                      className="mt-4 text-primary hover:text-primary/80 hover:bg-primary/10 p-0 h-auto font-medium"
+                    >
+                      {expanded ? "Show less" : "Read more"}
+                      <motion.div
+                        animate={{ rotate: expanded ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="ml-1 inline-block"
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </motion.div>
+                    </Button>
                   </motion.div>
                 );
               })()}
