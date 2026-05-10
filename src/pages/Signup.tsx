@@ -54,7 +54,7 @@ const Signup = () => {
         <div className="w-full max-w-md px-4">
           <div className="glass-card rounded-2xl p-8">
             <div className="flex justify-center mb-6">
-              <img src="/setupr-logo.svg" alt="Setupr" className="h-8" />
+              <img src="/setupr-logo-animated.gif" alt="Setupr" className="h-12 w-auto object-contain" />
             </div>
             <h1 className="font-display text-2xl font-bold mb-2 text-center">Create your account</h1>
             <p className="text-sm text-muted-foreground mb-6 text-center">

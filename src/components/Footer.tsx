@@ -35,7 +35,7 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="inline-block mb-4">
               <img 
-                src="/setupr-logo.svg" 
+                src="/setupr-logo-animated.gif" 
                 alt="Setupr" 
                 className="h-[32px] md:h-[36px] w-auto"
                 width={88}

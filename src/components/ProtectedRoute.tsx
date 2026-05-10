@@ -26,8 +26,13 @@ export const ProtectedRoute = ({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-pulse text-muted-foreground">Loading...</div>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center">
+        <img 
+          src="/setupr-logo-animated.gif" 
+          alt="Loading secure area..." 
+          className="w-24 h-24 object-contain opacity-80 mb-4" 
+        />
+        <div className="animate-pulse text-muted-foreground font-medium">Securing connection...</div>
       </div>
     );
   }

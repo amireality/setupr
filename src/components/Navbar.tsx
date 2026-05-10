@@ -73,7 +73,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center group">
             <img 
-              src="/setupr-logo.svg" 
+              src="/setupr-logo-animated.gif" 
               alt="Setupr" 
               className="h-[30px] md:h-[40px] w-auto transition-transform duration-300 group-hover:scale-105"
               width={84}
