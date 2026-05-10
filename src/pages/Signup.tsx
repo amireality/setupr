@@ -52,7 +52,7 @@ const Signup = () => {
       <Navbar />
       <main className="flex-1 pt-24 pb-16 flex items-center justify-center">
         <div className="w-full max-w-md px-4">
-          <div className="glass-card rounded-2xl p-8">
+          <div className="bg-black border border-primary/50 shadow-[0_0_15px_hsl(var(--primary)/0.2)] rounded-2xl p-8">
             <div className="flex justify-center mb-6">
               <img src="/setupr-logo-animated.gif" alt="Setupr" className="h-12 w-auto object-contain" />
             </div>
@@ -64,7 +64,7 @@ const Signup = () => {
             <Button
               type="button"
               variant="outline"
-              className="w-full mb-4"
+              className="w-full mb-4 hover:bg-secondary/50 border-border/50"
               onClick={handleGoogleSignIn}
               disabled={googleLoading}
             >
@@ -78,9 +78,9 @@ const Signup = () => {
             </Button>
 
             <div className="flex items-center gap-3 mb-4">
-              <Separator className="flex-1" />
+              <Separator className="flex-1 bg-primary/50" />
               <span className="text-xs text-muted-foreground">or</span>
-              <Separator className="flex-1" />
+              <Separator className="flex-1 bg-primary/50" />
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">

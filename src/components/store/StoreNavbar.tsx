@@ -20,7 +20,7 @@ const StoreNavbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-transparent relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/50 after:to-transparent">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-transparent relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/50 after:to-transparent">
       <div className="container px-4 md:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           <div className="flex items-center gap-4">
@@ -29,7 +29,7 @@ const StoreNavbar = () => {
             </Link>
             <Link to="/store" className="flex items-center group">
               <img
-                src="/setupr-logo.svg"
+                src="/setupr-logo-animated.gif"
                 alt="Setupr Store"
                 className="h-[28px] md:h-[36px] w-auto"
               />
