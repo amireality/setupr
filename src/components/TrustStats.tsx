@@ -101,7 +101,7 @@ const TrustStats = () => {
   });
 
   return (
-    <section className="py-16 md:py-20 relative overflow-hidden">
+    <section className="py-16 md:py-20 relative overflow-hidden bg-secondary/20 border-t border-primary/20">
       {/* Background glow */}
       <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent" />
       

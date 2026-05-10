@@ -1,10 +1,11 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowRight, Check, Clock, Users, Shield, ChevronRight, Star, Award } from "lucide-react";
+import { ArrowRight, Check, Clock, Users, Shield, ChevronRight, Star, Award, Building2, Globe, Zap, MessageCircle, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { useDbServices, useDbCategories, formatPrice } from "@/hooks/useServices";
 import { cn } from "@/lib/utils";
 import ServiceComparison from "@/components/ServiceComparison";
@@ -128,7 +129,8 @@ const ServiceDetail = () => {
     "offers": {
       "@type": "Offer",
       "priceCurrency": "INR",
-      "price": service.setupr_fee_inr.toString()
+      "price": service.setupr_fee_inr.toString(),
+      "description": "Starting from. Final price confirmed after discovery call."
     }
   };
 
@@ -161,7 +163,7 @@ const ServiceDetail = () => {
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>{service.service_name} | Setupr India</title>
-        <meta name="description" content={`${service.description_short} For ${service.who_its_for}. Starting at ₹${formatPrice(service.setupr_fee_inr)}.`} />
+        <meta name="description" content={`${service.description_short} For ${service.who_its_for}. Get a custom quote for ${service.service_name}.`} />
         <link rel="canonical" href={`https://setupr.com/services/${service.service_id}`} />
         <meta property="og:title" content={`${service.service_name} | Setupr India`} />
         <meta property="og:description" content={service.description_short} />
@@ -174,7 +176,52 @@ const ServiceDetail = () => {
         </script>
       </Helmet>
       <Navbar />
-      <main className="pt-24 pb-16">
+      <main className="pt-20 pb-16">
+        {/* Hero Section */}
+        <section className="relative w-full overflow-hidden bg-background pt-16 pb-12 mb-8 border-b border-primary/20">
+          <AnimatedGridBackground />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+          
+          <div className="container px-4 md:px-6 max-w-6xl relative z-10 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 text-center md:text-left">
+            {/* Category Icon */}
+            {(() => {
+              const Icon = service.category === 'formation' ? Building2 :
+                           service.category === 'digital' ? Globe :
+                           service.category === 'compliance' ? Shield :
+                           service.category === 'visibility' ? Users : Zap;
+              return (
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-primary/10 flex flex-shrink-0 items-center justify-center shadow-[0_0_30px_hsl(var(--primary)/0.3)] border border-primary/20">
+                  <Icon className="w-10 h-10 md:w-12 md:h-12 text-primary" />
+                </div>
+              );
+            })()}
+
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-4">
+                {category && (
+                  <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
+                    {category.title}
+                  </span>
+                )}
+                <span className={cn(
+                  "px-3 py-1 text-xs font-medium rounded-full border",
+                  service.delivery_type === 'done-for-you' 
+                    ? "bg-green-500/10 text-green-500 border-green-500/20" 
+                    : "bg-blue-500/10 text-blue-500 border-blue-500/20"
+                )}>
+                  {service.delivery_type === 'done-for-you' ? 'Done for You' : 'Coordination'}
+                </span>
+              </div>
+              <h1 className="text-3xl md:text-5xl font-display font-bold mb-4">{service.service_name}</h1>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl">{service.description_short}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Hidden SEO Image */}
+        <img src={`/images/services/${service.service_id}.png`} alt={`${service.service_name} in India - Setupr`} className="sr-only" />
+
         <div className="container px-4 md:px-6 max-w-6xl">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
@@ -194,30 +241,6 @@ const ServiceDetail = () => {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
-              {/* Header */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  {category && (
-                    <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
-                      {category.title}
-                    </span>
-                  )}
-                  <span className={cn(
-                    "px-3 py-1 text-xs font-medium rounded-full",
-                    service.delivery_type === 'done-for-you' 
-                      ? "bg-green-500/10 text-green-500" 
-                      : "bg-blue-500/10 text-blue-500"
-                  )}>
-                    {service.delivery_type === 'done-for-you' ? 'Done for You' : 'Coordination'}
-                  </span>
-                </div>
-                <h1 className="text-3xl md:text-4xl font-display font-bold mb-4">{service.service_name}</h1>
-                <p className="text-lg text-muted-foreground">{service.description_short}</p>
-              </motion.div>
 
               {/* Who Is This Service For */}
               <motion.div
@@ -256,6 +279,29 @@ const ServiceDetail = () => {
                   <p><strong>The outcome:</strong> {getServiceSetting("outcome_text", "A fully compliant, registered service with all necessary documentation, ready to operate legally and build credibility.")}</p>
                 </div>
               </motion.div>
+
+              {/* Rich Content (About This Service) */}
+              {(() => {
+                const richContent = getServiceSetting("rich_content", "");
+                if (!richContent) return null;
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="glass-card rounded-2xl p-6 md:p-8 border border-border/50 prose prose-invert max-w-none prose-h3:text-xl prose-h3:font-display prose-h3:font-semibold prose-h3:text-foreground prose-h3:mt-8 prose-h3:mb-4 prose-p:text-muted-foreground prose-p:leading-relaxed"
+                  >
+                    <h2 className="text-xl font-display font-semibold text-foreground mb-6 flex items-center gap-2 not-prose">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <FileText className="w-4 h-4 text-primary" />
+                      </div>
+                      About This Service
+                    </h2>
+                    <div dangerouslySetInnerHTML={{ __html: richContent }} />
+                  </motion.div>
+                );
+              })()}
 
               {/* Process Timeline */}
               <motion.div
@@ -346,11 +392,10 @@ const ServiceDetail = () => {
                     </div>
 
                     <div className="text-center mb-6">
-                      <p className="text-sm text-muted-foreground mb-2">Setupr Fee + GST</p>
                       <p className="text-4xl font-display font-bold text-foreground">
-                        ₹{formatPrice(service.setupr_fee_inr)}
+                        From ₹{formatPrice(service.setupr_fee_inr)}
                       </p>
-                      <p className="text-xs text-muted-foreground mt-1">+ 18% GST</p>
+                      <p className="text-sm text-muted-foreground mt-2">Exact pricing depends on your requirements. We'll confirm everything before you pay a rupee.</p>
                       {service.govt_or_third_party_fee && service.govt_or_third_party_fee !== '-' && (
                         <p className="text-sm text-muted-foreground mt-2">
                           + {service.govt_or_third_party_fee} (Govt Fee)
@@ -369,7 +414,7 @@ const ServiceDetail = () => {
                       </div>
                     </div>
 
-                    <Button onClick={handleProceed} className="w-full group" size="lg">
+                    <Button onClick={handleProceed} className="w-full group relative overflow-hidden shadow-[0_0_15px_hsl(var(--primary)/0.4)] animate-[pulse_3s_ease-in-out_infinite] hover:animate-none" size="lg">
                       Proceed with this service
                       <motion.span
                         className="inline-block ml-1"
@@ -378,6 +423,13 @@ const ServiceDetail = () => {
                       >
                         <ArrowRight className="w-4 h-4" />
                       </motion.span>
+                    </Button>
+
+                    <Button variant="outline" className="w-full mt-3 border-border hover:bg-secondary/50" asChild>
+                      <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer">
+                        <MessageCircle className="w-4 h-4 mr-2 text-green-500" />
+                        Chat on WhatsApp
+                      </a>
                     </Button>
 
                     <p className="text-xs text-center text-muted-foreground mt-4">
@@ -430,7 +482,7 @@ const ServiceDetail = () => {
                             <span className="text-sm text-foreground group-hover:text-primary transition-colors block">
                               {s.service_name}
                             </span>
-                            <span className="text-xs text-muted-foreground">₹{formatPrice(s.setupr_fee_inr)}</span>
+                            <span className="text-xs text-muted-foreground">From ₹{formatPrice(s.setupr_fee_inr)}</span>
                           </div>
                           <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                         </Link>

@@ -67,9 +67,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 md:py-28 relative bg-background">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-background" />
+    <section id="how-it-works" className="py-20 md:py-28 relative bg-black border-t border-primary/20">
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-4xl mx-auto">

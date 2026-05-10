@@ -36,7 +36,12 @@ const CompareModal = ({
   const attributes = [
     { key: "category", label: "Category", render: (s: DbService) => getCategoryName(s.category) },
     { key: "sub_category", label: "Sub-category", render: (s: DbService) => s.sub_category },
-    { key: "setupr_fee_inr", label: "Setupr Fee", render: (s: DbService) => `₹${formatPrice(s.setupr_fee_inr)}` },
+    { key: "setupr_fee_inr", label: "Setupr Fee", render: (s: DbService) => (
+      <div>
+        From ₹{formatPrice(s.setupr_fee_inr)}
+        <div className="text-[10px] text-muted-foreground mt-0.5">Final quote shared after a quick call</div>
+      </div>
+    ) },
     { key: "govt_or_third_party_fee", label: "Govt/Other Fees", render: (s: DbService) => s.govt_or_third_party_fee === "0" ? "Nil" : s.govt_or_third_party_fee },
     { key: "delivery_type", label: "Delivery", render: (s: DbService) => s.delivery_type === "done-for-you" ? "Done for you" : "Coordination" },
     { key: "who_its_for", label: "Best for", render: (s: DbService) => s.who_its_for },

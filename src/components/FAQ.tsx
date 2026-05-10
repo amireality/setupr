@@ -62,7 +62,7 @@ const FAQ = () => {
   }
 
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
+    <section className="py-20 md:py-28 relative bg-secondary/20 border-t border-primary/20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent opacity-50" />
 
       <div className="container px-4 md:px-6 relative">

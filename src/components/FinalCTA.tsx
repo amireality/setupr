@@ -16,7 +16,7 @@ const FinalCTA = () => {
   const ctaButtonText = getSetting("homepage_cta_primary", "Start with your journey");
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-black border-t border-primary/20">
       <LampContainer>
         <motion.h2
           initial={{ opacity: 0.5, y: 100 }}

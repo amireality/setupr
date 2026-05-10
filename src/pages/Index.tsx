@@ -12,7 +12,6 @@ import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import LoansSection from "@/components/LoansSection";
 import Footer from "@/components/Footer";
-import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
 import { useSeoSettings } from "@/hooks/useSeoSettings";
 
 const Index = () => {
@@ -27,9 +26,7 @@ const Index = () => {
         <meta property="og:description" content={seo?.ogDescription || seo?.description || "Company registration, GST, MSME, website, and compliance. All handled for freelancers, consultants, and startups in India."} />
         <meta property="og:url" content="https://setupr.com/" />
       </Helmet>
-      {/* Global Animated Background */}
-      <AnimatedGridBackground />
-      
+      {/* Global background removed for section differentiation */}
       <Navbar />
       <main className="relative z-10">
         <HeroSection />

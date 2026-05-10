@@ -26,7 +26,7 @@ const features = [
 
 const LoansSection = () => {
   return (
-    <section className="py-20 md:py-28 relative bg-background overflow-hidden">
+    <section className="py-20 md:py-28 relative bg-secondary/20 border-t border-primary/20 overflow-hidden">
       {/* Background accents */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-primary/8 rounded-full blur-[180px]" />

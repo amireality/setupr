@@ -63,17 +63,17 @@ const GoalCards = () => {
   });
 
   return (
-    <section id="journey-cards" className="py-12 md:py-28 relative bg-background">
+    <section id="journey-cards" className="py-12 md:py-28 relative bg-black border-t border-primary/20">
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`, backgroundSize: "60px 60px" }} />
 
       <div className="container px-4 md:px-6 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            <div className="flex flex-col justify-center items-center text-center py-4 md:py-6">
-              <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">Whether you're a <span className="text-primary">freelancer</span>, consultant, or startup founder</h2>
-              <p className="text-muted-foreground text-sm md:text-base">{sectionSubtitle}</p>
-            </div>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col justify-center items-center text-center pb-8 md:pb-12">
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">Whether you're a <span className="text-primary">freelancer</span>, consultant, or startup founder</h2>
+            <p className="text-muted-foreground text-sm md:text-base">{sectionSubtitle}</p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {items.map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i + 1) * 0.1, duration: 0.5 }}>
                 <Link to={item.link} className="block group h-full">

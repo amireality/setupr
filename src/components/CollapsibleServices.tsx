@@ -86,39 +86,32 @@ const CollapsibleServices = () => {
             className="w-full text-left focus:outline-none"
           >
             <div className="flex flex-col">
-              {/* Glow header */}
+              {/* Combined Header */}
               <div className={cn(
-                "w-full flex items-center justify-between p-4 md:p-5 rounded-t-2xl bg-gradient-to-br relative overflow-hidden",
+                "w-full flex items-center p-4 md:p-5 rounded-t-2xl bg-gradient-to-br relative overflow-hidden",
                 category.gradient
               )}>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.25)_0%,transparent_60%)]" />
-                <span className="font-display text-base md:text-xl font-bold text-foreground relative z-10">
-                  {highlight.title}
-                </span>
-                <ChevronDown className={cn(
-                  "w-5 h-5 text-muted-foreground transition-transform duration-300 relative z-10",
-                  isOpen && "rotate-180"
-                )} />
-              </div>
-              
-              {/* Summary content - always visible */}
-              <div className="flex items-center gap-3 p-4">
-                <div className={cn(
-                  "w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
-                  isOpen ? "bg-primary/20" : "bg-background/50 group-hover/bento:bg-primary/20"
-                )}>
-                  <Icon className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className={cn(
-                    "font-display text-sm md:text-base font-semibold transition-colors",
-                    isOpen ? "text-primary" : "text-foreground group-hover/bento:text-primary"
+                
+                <div className="flex items-center gap-3 relative z-10 w-full">
+                  <div className={cn(
+                    "w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
+                    isOpen ? "bg-primary/30" : "bg-background/50 group-hover/bento:bg-primary/20"
                   )}>
-                    {category.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2">
-                    {highlight.description}
-                  </p>
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0 text-left">
+                    <h3 className="font-display text-base md:text-lg font-bold text-foreground">
+                      {highlight.title}
+                    </h3>
+                    <p className="text-xs text-foreground/80 line-clamp-2 mt-0.5">
+                      {highlight.description}
+                    </p>
+                  </div>
+                  <ChevronDown className={cn(
+                    "w-5 h-5 text-foreground/70 transition-transform duration-300 shrink-0 ml-2",
+                    isOpen && "rotate-180"
+                  )} />
                 </div>
               </div>
             </div>
@@ -169,8 +162,7 @@ const CollapsibleServices = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 relative bg-background">
-      <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 via-background to-background" />
+    <section className="py-20 md:py-28 relative bg-secondary/20 border-t border-primary/20">
 
       <div className="container px-4 md:px-6 relative z-10">
         <motion.div

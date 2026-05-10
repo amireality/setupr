@@ -7,6 +7,7 @@ import { GlassShape } from "@/components/ui/glass-shape";
 import { motion } from "framer-motion";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 
+
 const HeroSection = () => {
   const { data: settings = [] } = useSiteSettingsByCategory("homepage");
   
@@ -30,7 +31,7 @@ const HeroSection = () => {
   const ctaSecondary = getSetting("homepage_cta_secondary", "See How It Works");
 
   return (
-    <section className="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden bg-black">
       {/* 3D Marquee Background with orange tiles */}
       <div className="absolute inset-0 overflow-hidden opacity-30">
         <ThreeDMarquee />

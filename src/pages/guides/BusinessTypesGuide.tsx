@@ -36,7 +36,7 @@ const BusinessTypesGuide = () => {
         "May appear less credible to large clients"
       ],
       compliance: "GST returns (if registered), income tax filing",
-      cost: "₹3,000 - ₹8,000 setup"
+      cost: "From ₹3,000 setup"
     },
     {
       icon: Users,
@@ -55,7 +55,7 @@ const BusinessTypesGuide = () => {
         "Less familiar to some investors"
       ],
       compliance: "Annual return, statement of accounts, ITR",
-      cost: "₹8,000 - ₹15,000 setup"
+      cost: "From ₹8,000 setup"
     },
     {
       icon: Building,
@@ -74,7 +74,7 @@ const BusinessTypesGuide = () => {
         "Complex documentation and governance"
       ],
       compliance: "Annual filings, board meetings, audits, ROC returns",
-      cost: "₹15,000 - ₹25,000 setup"
+      cost: "From ₹15,000 setup"
     }
   ];
 

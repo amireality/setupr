@@ -49,7 +49,7 @@ const RecommendedBundles = () => {
   }
 
   return (
-    <section className="py-16 md:py-28 relative">
+    <section className="py-16 md:py-28 relative bg-secondary/20 border-t border-primary/20">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute bottom-0 left-1/4 w-[500px] h-[400px] bg-primary/5 rounded-full blur-[150px]" />
       </div>
@@ -70,13 +70,18 @@ const RecommendedBundles = () => {
           </p>
         </motion.div>
 
-        {/* 2x2 Grid Layout: Bundle1 | Bundle2, Bundle3 | (empty) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto">
+        {/* Grid Layout: 3 columns for bundles */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-6xl mx-auto">
           {bundles.map((bundle, index) => {
             const Icon = iconMap[bundle.icon] || Rocket;
-            const individualTotal = calculateDbTotal(services, bundle.included_service_ids);
-            const savings = individualTotal - bundle.bundle_setupr_fee;
             
+            const getOutcomeLine = (name: string) => {
+              if (name.includes("New Business Starter")) return "Company registered. GST done. You're official.";
+              if (name.includes("Professional Online Presence")) return "Website live. Email active. Brand credible.";
+              if (name.includes("Just One Thing")) return "Pick exactly what you need. Nothing more.";
+              return "Complete business setup solutions.";
+            };
+
             return (
               <motion.div
                 key={bundle.bundle_id}
@@ -97,8 +102,8 @@ const RecommendedBundles = () => {
                 >
                   <BundleSkeleton 
                     gradient={bundle.gradient} 
-                    title={`₹${formatPrice(bundle.bundle_setupr_fee)}`} 
-                    subtitle="Bundle price" 
+                    title={getOutcomeLine(bundle.bundle_name)} 
+                    subtitle="" 
                   />
                   
                   <div className="group-hover/bento:translate-x-2 transition duration-200 mt-3 flex-1 flex flex-col">
@@ -125,19 +130,7 @@ const RecommendedBundles = () => {
                       </p>
                     )}
 
-                    <div className="flex items-center justify-between mt-auto pt-2 border-t border-border/20">
-                      {bundle.bundle_setupr_fee > 0 && (
-                        <div>
-                          <p className="text-sm md:text-base font-semibold text-foreground">
-                            ₹{formatPrice(bundle.bundle_setupr_fee)}
-                          </p>
-                          {savings > 0 && (
-                            <p className="text-xs text-primary">
-                              Save ₹{formatPrice(savings)}
-                            </p>
-                          )}
-                        </div>
-                      )}
+                    <div className="flex items-center justify-end mt-auto pt-2 border-t border-border/20">
                       <div className="flex items-center gap-1 text-primary text-sm font-medium">
                         View <ArrowRight className="w-4 h-4 group-hover/bento:translate-x-1 transition-transform" />
                       </div>

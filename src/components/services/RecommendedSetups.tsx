@@ -93,13 +93,11 @@ const RecommendedSetups = ({ selectedServices, onApply, bundles, services }: Rec
                   {bundle.bundle_setupr_fee > 0 && (
                     <div className="space-y-1 mb-3">
                       <p className="text-lg font-semibold text-foreground">
-                        ₹{formatPrice(bundle.bundle_setupr_fee)}
+                        From ₹{formatPrice(bundle.bundle_setupr_fee)}
                       </p>
-                      {savings > 0 && (
-                        <p className="text-xs text-muted-foreground">
-                          Save ₹{formatPrice(savings)} vs individual
-                        </p>
-                      )}
+                      <p className="text-xs text-muted-foreground">
+                        Final quote shared after a quick call
+                      </p>
                     </div>
                   )}
                   

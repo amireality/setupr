@@ -31,11 +31,11 @@ const ServicesCTA = ({ selectedServices, services }: ServicesCTAProps) => {
                 <p className="text-sm text-muted-foreground mb-2">
                   {selectedCount} service{selectedCount !== 1 ? "s" : ""} selected
                 </p>
-                <p className="text-2xl font-display font-bold text-primary mb-4">
-                  ₹{formatPrice(total)}
+                <p className="text-2xl font-display font-bold text-primary mb-1">
+                  From ₹{formatPrice(total)}
                 </p>
                 <p className="text-xs text-muted-foreground mb-5">
-                  + government/platform fees where applicable
+                  Final quote shared after a quick call
                 </p>
               </>
             ) : (

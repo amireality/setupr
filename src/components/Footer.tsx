@@ -11,8 +11,8 @@ const XIcon = () => (
 
 const Footer = () => {
   const { data: settings = [] } = useSiteSettingsByCategory("footer");
-  
-  const getSetting = (key: string, fallback: string) => 
+
+  const getSetting = (key: string, fallback: string) =>
     settings.find((s) => s.key === key)?.value || fallback;
 
   const tagline = getSetting("footer_tagline", "Your trusted partner for business setup & compliance in India.");
@@ -27,16 +27,16 @@ const Footer = () => {
       {/* Gradient glow border at top */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
       <div className="absolute top-0 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
-      
+
       <div className="container px-4 md:px-6 relative z-10">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
           {/* Logo & Tagline */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="inline-block mb-4">
-              <img 
-                src="/setupr-logo-animated.gif" 
-                alt="Setupr" 
+              <img
+                src="/setupr-logo-animated.gif"
+                alt="Setupr"
                 className="h-[32px] md:h-[36px] w-auto"
                 width={88}
                 height={32}
@@ -179,37 +179,37 @@ const Footer = () => {
               </p>
             </div>
           </div>
-          
+
           {/* Social Icons */}
           <div className="flex items-center gap-4">
-            <a 
-              href={`mailto:${email}`} 
+            <a
+              href={`mailto:${email}`}
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
               aria-label="Email"
             >
               <Mail className="w-5 h-5" />
             </a>
-            <a 
-              href={instagram} 
-              target="_blank" 
+            <a
+              href={instagram}
+              target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
               aria-label="Instagram"
             >
               <Instagram className="w-5 h-5" />
             </a>
-            <a 
-              href={twitter} 
-              target="_blank" 
+            <a
+              href={twitter}
+              target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
               aria-label="X (Twitter)"
             >
               <XIcon />
             </a>
-            <a 
-              href={linkedin} 
-              target="_blank" 
+            <a
+              href={linkedin}
+              target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:text-primary-foreground hover:bg-primary transition-all"
               aria-label="LinkedIn"
