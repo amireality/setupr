@@ -1,3 +1,5 @@
+import { lazy, Suspense } from "react";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,38 +9,38 @@ import { AnimatePresence, motion } from "framer-motion";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollProgress from "@/components/ScrollProgress";
 import InstallPrompt from "@/components/InstallPrompt";
-import Index from "./pages/Index";
-import Services from "./pages/Services";
-import ServiceDetail from "./pages/ServiceDetail";
-import Intake from "./pages/Intake";
-import PricingSummary from "./pages/PricingSummary";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Terms from "./pages/Terms";
-import Privacy from "./pages/Privacy";
-import Refund from "./pages/Refund";
-import NotFound from "./pages/NotFound";
-import Admin from "./pages/Admin";
-import AdminLogin from "./pages/AdminLogin";
-import Career from "./pages/Career";
-import AuthorPage from "./pages/AuthorPage";
-import TeamPage from "./pages/TeamPage";
-import GuidesIndex from "./pages/guides/GuidesIndex";
-import StartingBusinessGuide from "./pages/guides/StartingBusinessGuide";
-import BusinessTypesGuide from "./pages/guides/BusinessTypesGuide";
-import StoreLanding from "./pages/store/StoreLanding";
-import StoreProducts from "./pages/store/StoreProducts";
-import StoreProductDetail from "./pages/store/StoreProductDetail";
-import StoreLogin from "./pages/store/StoreLogin";
-import StoreSignup from "./pages/store/StoreSignup";
-import StoreDashboard from "./pages/store/StoreDashboard";
-import StoreCheckout from "./pages/store/StoreCheckout";
-import ApplyLoan from "./pages/ApplyLoan";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Install from "./pages/Install";
+const Index = lazy(() => import("./pages/Index"));
+const Services = lazy(() => import("./pages/Services"));
+const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
+const Intake = lazy(() => import("./pages/Intake"));
+const PricingSummary = lazy(() => import("./pages/PricingSummary"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Refund = lazy(() => import("./pages/Refund"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Admin = lazy(() => import("./pages/Admin"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const Career = lazy(() => import("./pages/Career"));
+const AuthorPage = lazy(() => import("./pages/AuthorPage"));
+const TeamPage = lazy(() => import("./pages/TeamPage"));
+const GuidesIndex = lazy(() => import("./pages/guides/GuidesIndex"));
+const StartingBusinessGuide = lazy(() => import("./pages/guides/StartingBusinessGuide"));
+const BusinessTypesGuide = lazy(() => import("./pages/guides/BusinessTypesGuide"));
+const StoreLanding = lazy(() => import("./pages/store/StoreLanding"));
+const StoreProducts = lazy(() => import("./pages/store/StoreProducts"));
+const StoreProductDetail = lazy(() => import("./pages/store/StoreProductDetail"));
+const StoreLogin = lazy(() => import("./pages/store/StoreLogin"));
+const StoreSignup = lazy(() => import("./pages/store/StoreSignup"));
+const StoreDashboard = lazy(() => import("./pages/store/StoreDashboard"));
+const StoreCheckout = lazy(() => import("./pages/store/StoreCheckout"));
+const ApplyLoan = lazy(() => import("./pages/ApplyLoan"));
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Install = lazy(() => import("./pages/Install"));
 
 const queryClient = new QueryClient();
 
@@ -56,6 +58,17 @@ const pageVariants = {
   },
 };
 
+
+const PageFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <img 
+      src="/setupr-logo-animated.gif" 
+      alt="Loading..." 
+      className="w-24 h-24 object-contain opacity-80" 
+    />
+  </div>
+);
+
 const AnimatedRoutes = () => {
   const location = useLocation();
   
@@ -68,7 +81,7 @@ const AnimatedRoutes = () => {
         exit="exit"
         variants={pageVariants}
       >
-        <Routes location={location}>
+        <ErrorBoundary><Suspense fallback={<PageFallback />}><Routes location={location}>
           <Route path="/" element={<Index />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/:serviceId" element={<ServiceDetail />} />
@@ -102,7 +115,7 @@ const AnimatedRoutes = () => {
           <Route path="/install" element={<Install />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
+        </Routes></Suspense></ErrorBoundary>
       </motion.div>
     </AnimatePresence>
   );

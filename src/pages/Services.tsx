@@ -102,7 +102,22 @@ const Services = () => {
         <meta property="og:description" content="Company registration, GST, MSME, compliance, website, and digital presence services for freelancers, consultants, and startups in India." />
         <meta property="og:url" content="https://setupr.com/services" />
         <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
+          {`
+            {
+              "@context": "https://schema.org",
+              "@graph": [
+                ${JSON.stringify(breadcrumbSchema)},
+                {
+                  "@type": "WebPage",
+                  "@id": "https://setupr.com/services/#webpage",
+                  "url": "https://setupr.com/services",
+                  "name": "Business Registration Services in India | Setupr",
+                  "description": "Company registration, GST, MSME, compliance, website, and digital presence services for freelancers, consultants, and startups in India.",
+                  "isPartOf": { "@id": "https://setupr.com/#website" }
+                }
+              ]
+            }
+          `}
         </script>
       </Helmet>
       <div className="w-full relative z-10">

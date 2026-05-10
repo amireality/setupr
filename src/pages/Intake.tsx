@@ -139,6 +139,11 @@ const Intake = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Business Setup Intake | Setupr</title>
+        <meta name="description" content="Tell us about your business setup needs and get a custom roadmap for registration and compliance." />
+        <link rel="canonical" href="https://setupr.com/intake" />
+      </Helmet>
       <Navbar />
       <main className="pt-16">
         <div className="container px-4 md:px-6 py-12 md:py-20">

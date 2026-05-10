@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Select,
   SelectContent,
@@ -190,21 +191,15 @@ const Career = () => {
       };
 
       // Submit via backend function (public endpoint - no auth header needed)
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-fellowship`,
+      const { data: result, error: invokeError } = await supabase.functions.invoke(
+        "submit-fellowship",
         {
-          method: "POST",
-          headers: { 
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(formattedData),
+          body: formattedData,
         }
       );
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Submission failed");
+      if (invokeError || !result?.success) {
+        throw new Error(invokeError?.message || result?.message || "Submission failed");
       }
 
       setIsSubmitted(true);

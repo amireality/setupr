@@ -130,24 +130,18 @@ export const useGenerateBlogContent = () => {
         throw new Error("Not authenticated");
       }
 
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-blog-content`,
+      const { data, error } = await supabase.functions.invoke(
+        "generate-blog-content",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({ category, topicFocus, includeRegulatory, includeSeo }),
+          body: { category, topicFocus, includeRegulatory, includeSeo },
         }
       );
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Failed to generate content: ${response.status}`);
+      if (error) {
+        throw new Error(error.message || `Failed to generate content`);
       }
 
-      return response.json();
+      return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-blog-posts"] });

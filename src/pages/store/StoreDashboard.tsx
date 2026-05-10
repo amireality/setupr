@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { useStoreAuth, useCustomerProfile } from "@/hooks/useStoreAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -54,6 +55,9 @@ const StoreDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Dashboard | Setupr Store</title>
+      </Helmet>
       <StoreNavbar />
       <main className="pt-24 pb-16">
         <div className="container px-4 md:px-6">

@@ -44,6 +44,19 @@ const GuidesIndex = () => {
         <title>Business Guides for Startups & Freelancers in India | Setupr</title>
         <meta name="description" content="Practical guides on business registration, compliance, and digital presence for freelancers, startups, and small businesses in India." />
         <link rel="canonical" href="https://setupr.com/guides" />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "@id": "https://setupr.com/guides/#webpage",
+              "url": "https://setupr.com/guides",
+              "name": "Business Guides for Startups & Freelancers in India | Setupr",
+              "description": "Practical guides on business registration, compliance, and digital presence for freelancers, startups, and small businesses in India.",
+              "isPartOf": { "@id": "https://setupr.com/#website" }
+            }
+          `}
+        </script>
       </Helmet>
       
       <AnimatedGridBackground />

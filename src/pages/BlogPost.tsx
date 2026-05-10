@@ -33,6 +33,7 @@ const BlogPost = () => {
     "@type": "Article",
     "headline": post.title,
     "description": post.excerpt,
+    "image": post.image_url ? [post.image_url] : undefined,
     "author": {
       "@type": "Person",
       "name": post.author_name,

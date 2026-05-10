@@ -75,7 +75,22 @@ const About = () => {
         <meta property="og:description" content="Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses in India with company registration, compliance, and digital presence." />
         <meta property="og:url" content="https://setupr.com/about" />
         <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
+          {`
+            {
+              "@context": "https://schema.org",
+              "@graph": [
+                ${JSON.stringify(breadcrumbSchema)},
+                {
+                  "@type": "WebPage",
+                  "@id": "https://setupr.com/about/#webpage",
+                  "url": "https://setupr.com/about",
+                  "name": "About Setupr | Business Setup Platform for India",
+                  "description": "Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses in India with company registration, GST, MSME, compliance, and digital presence.",
+                  "isPartOf": { "@id": "https://setupr.com/#website" }
+                }
+              ]
+            }
+          `}
         </script>
       </Helmet>
       <AnimatedGridBackground className="opacity-40" />

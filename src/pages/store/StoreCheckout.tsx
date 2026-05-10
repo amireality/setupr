@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { useStoreAuth, useCustomerProfile } from "@/hooks/useStoreAuth";
 import { useCart } from "@/hooks/useCart";
@@ -177,6 +178,9 @@ const StoreCheckout = () => {
   if (paymentSuccess) {
     return (
       <div className="min-h-screen bg-background">
+        <Helmet>
+          <title>Order Successful | Setupr Store</title>
+        </Helmet>
         <StoreNavbar />
         <main className="pt-24 pb-16">
           <div className="container px-4 md:px-6 max-w-lg text-center">
@@ -213,6 +217,9 @@ const StoreCheckout = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Checkout | Setupr Store</title>
+      </Helmet>
       <StoreNavbar />
       <main className="pt-24 pb-16">
         <div className="container px-4 md:px-6 max-w-4xl">

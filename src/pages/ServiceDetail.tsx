@@ -109,6 +109,7 @@ const ServiceDetail = () => {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": `https://setupr.com/services/${service.service_id}`,
     "name": service.service_name,
     "description": service.description_short,
     "provider": {

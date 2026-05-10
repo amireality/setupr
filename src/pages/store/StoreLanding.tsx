@@ -1,4 +1,5 @@
 import StoreNavbar from "@/components/store/StoreNavbar";
+import { Helmet } from "react-helmet-async";
 import StoreHero from "@/components/store/StoreHero";
 import StoreFooter from "@/components/store/StoreFooter";
 import StoreProductCard from "@/components/store/StoreProductCard";
@@ -15,6 +16,11 @@ const StoreLanding = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Setupr Cloud Marketplace | SaaS & Business Tools</title>
+        <meta name="description" content="Shop official cloud software, email services, and business tools for your startup." />
+        <link rel="canonical" href="https://setupr.com/store" />
+      </Helmet>
       <StoreNavbar />
       <StoreHero />
 

@@ -20,6 +20,11 @@ const PricingSummary = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Your Setup Plan & Pricing | Setupr</title>
+        <meta name="description" content="Review your custom business setup plan and transparent pricing breakdown." />
+        <link rel="canonical" href="https://setupr.com/pricing-summary" />
+      </Helmet>
       <Navbar />
       <main className="pt-16">
         <PricingConfirmation />

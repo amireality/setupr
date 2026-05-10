@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useStoreAuth } from "@/hooks/useStoreAuth";
 import { lovable } from "@/integrations/lovable/index";
@@ -49,6 +50,11 @@ const StoreSignup = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Store Sign Up | Setupr Cloud Marketplace</title>
+        <meta name="description" content="Create an account for the Setupr Cloud Marketplace." />
+        <link rel="canonical" href="https://setupr.com/store/signup" />
+      </Helmet>
       <StoreNavbar />
       <main className="pt-24 pb-16 flex items-center justify-center">
         <div className="w-full max-w-md px-4">

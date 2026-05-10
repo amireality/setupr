@@ -94,6 +94,19 @@ const Contact = () => {
         <meta property="og:title" content="Contact Setupr | Get in Touch" />
         <meta property="og:description" content="Have questions about business registration or our services? Reach out to the Setupr team." />
         <meta property="og:url" content="https://setupr.com/contact" />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "@id": "https://setupr.com/contact/#webpage",
+              "url": "https://setupr.com/contact",
+              "name": "Contact Setupr | Get in Touch",
+              "description": "Have questions about business registration or our services? Reach out to the Setupr team. We respond within 24-48 hours.",
+              "isPartOf": { "@id": "https://setupr.com/#website" }
+            }
+          `}
+        </script>
       </Helmet>
       <Navbar />
       <main className="pt-24 pb-16">

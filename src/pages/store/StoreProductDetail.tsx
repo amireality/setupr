@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import StoreNavbar from "@/components/store/StoreNavbar";
 import StoreFooter from "@/components/store/StoreFooter";
 import StorePlanTable from "@/components/store/StorePlanTable";
@@ -85,6 +86,10 @@ const StoreProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{product.name} | Setupr Store</title>
+        <meta name="description" content={product.short_description} />
+      </Helmet>
       <StoreNavbar />
       <main className="pt-24 pb-16">
         <div className="container px-4 md:px-6">
