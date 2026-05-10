@@ -311,7 +311,7 @@ const ServiceDetail = () => {
                           className="overflow-hidden"
                         >
                           <div 
-                            className="prose-wrapper [&_h3]:font-display [&_h3]:font-semibold [&_h3]:text-lg [&_h3]:text-foreground [&_h3]:mb-2 [&_h3]:mt-6 [&_h3]:first:mt-0 [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4"
+                            className="rich-content"
                             dangerouslySetInnerHTML={{ __html: richContent }} 
                           />
                         </motion.div>
