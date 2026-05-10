@@ -1,9 +1,10 @@
-import { Rocket, Globe, Zap, ArrowRight } from "lucide-react";
+import { Rocket, Globe, Zap, ArrowRight, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { useDbBundles, useDbServices, formatPrice, calculateDbTotal } from "@/hooks/useServices";
 import { motion } from "framer-motion";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
+import { SectionHeader } from "./ui/section-header";
 
 const iconMap: Record<string, React.ElementType> = {
   Rocket,
@@ -55,20 +56,17 @@ const RecommendedBundles = () => {
       </div>
 
       <div className="container px-4 md:px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10 md:mb-14"
-        >
-          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">
-            Popular service <span className="text-primary">bundles</span> for new businesses
-          </h2>
-          <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
-            {sectionSubtitle}
-          </p>
-        </motion.div>
+        <SectionHeader
+          icon={<Package />}
+          badge="Save Money & Time"
+          title={
+            <>
+              Popular service <span className="text-primary">bundles</span> for new businesses
+            </>
+          }
+          subtitle={sectionSubtitle}
+          alignment="center"
+        />
 
         {/* Grid Layout: 3 columns for bundles */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-6xl mx-auto">

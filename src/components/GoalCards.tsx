@@ -1,8 +1,9 @@
-import { Lightbulb, FileCheck, TrendingUp } from "lucide-react";
+import { Lightbulb, FileCheck, TrendingUp, Compass } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
+import { SectionHeader } from "./ui/section-header";
 
 const Skeleton = ({
   variant = "default",
@@ -68,10 +69,17 @@ const GoalCards = () => {
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col justify-center items-center text-center pb-8 md:pb-12">
-            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4 text-balance">Whether you're a <span className="text-primary">freelancer</span>, consultant, or startup founder</h2>
-            <p className="text-muted-foreground text-sm md:text-base">{sectionSubtitle}</p>
-          </div>
+          <SectionHeader
+            icon={<Compass />}
+            badge="Your Journey"
+            title={
+              <>
+                Whether you're a <span className="text-primary">freelancer</span>, consultant, or startup founder
+              </>
+            }
+            subtitle={sectionSubtitle}
+            alignment="center"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {items.map((item, i) => (

@@ -1,8 +1,9 @@
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, MessageSquareHeart } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTestimonials } from "@/hooks/useTestimonials";
 import { cn } from "@/lib/utils";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
+import { SectionHeader } from "./ui/section-header";
 
 const TestimonialSkeleton = ({ quote }: { quote: string }) => {
   return (
@@ -71,26 +72,22 @@ const Testimonials = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
 
       <div className="container px-4 md:px-6 relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
-        >
-          <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full border border-primary/20">
-            {badge}
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
-            Trusted by <span className="text-primary">{title}</span>
-          </h2>
-          <p className="text-muted-foreground text-base mb-2">
-            {tagline}
-          </p>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {subtitle}
-          </p>
-        </motion.div>
+        <SectionHeader
+          icon={<MessageSquareHeart />}
+          badge={badge}
+          title={
+            <>
+              Trusted by <span className="text-primary">{title}</span>
+            </>
+          }
+          subtitle={
+            <>
+              {tagline && <span className="block mb-2 text-foreground font-medium">{tagline}</span>}
+              {subtitle}
+            </>
+          }
+          alignment="center"
+        />
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">

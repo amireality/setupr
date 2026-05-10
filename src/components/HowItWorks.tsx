@@ -1,7 +1,7 @@
-import { MessageCircle, FileCheck, Rocket } from "lucide-react";
+import { MessageCircle, FileCheck, Rocket, Workflow } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
-
+import { SectionHeader } from "./ui/section-header";
 const StepSkeleton = ({ step }: { step: string }) => {
   return (
     <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-primary/15 via-transparent to-primary/10 border border-border/20 relative overflow-hidden items-center justify-center">
@@ -72,14 +72,17 @@ const HowItWorks = () => {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              How Setupr helps you <span className="text-primary">register</span> your business
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              {getSetting("homepage_how_it_works_subtitle", "Simple 3-step process: Share your needs, get a clear plan with pricing, and we handle all the paperwork and filings.")}
-            </p>
-          </div>
+          <SectionHeader
+            icon={<Workflow />}
+            badge="Simple Process"
+            title={
+              <>
+                How Setupr helps you <span className="text-primary">register</span> your business
+              </>
+            }
+            subtitle={getSetting("homepage_how_it_works_subtitle", "Simple 3-step process: Share your needs, get a clear plan with pricing, and we handle all the paperwork and filings.")}
+            alignment="center"
+          />
           <BentoGrid className="md:auto-rows-[20rem]">
             {items.map((item, i) => (
               <BentoGridItem

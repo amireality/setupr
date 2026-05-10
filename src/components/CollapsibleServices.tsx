@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Building2, Globe, Shield, Users, ChevronRight, ChevronDown } from "lucide-react";
+import { Building2, Globe, Shield, Users, ChevronRight, ChevronDown, Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useDbCategories, useDbServices } from "@/hooks/useServices";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
+import { SectionHeader } from "./ui/section-header";
 
 const iconMap: Record<string, React.ElementType> = {
   Building2,
@@ -165,20 +166,17 @@ const CollapsibleServices = () => {
     <section className="py-20 md:py-28 relative bg-secondary/20 border-t border-primary/20">
 
       <div className="container px-4 md:px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-balance">
-            Business registration and setup <span className="text-primary">services</span> we offer
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            {sectionSubtitle}
-          </p>
-        </motion.div>
+        <SectionHeader
+          icon={<Briefcase />}
+          badge="Comprehensive Support"
+          title={
+            <>
+              Business registration and setup <span className="text-primary">services</span> we offer
+            </>
+          }
+          subtitle={sectionSubtitle}
+          alignment="center"
+        />
 
         {/* Two independent columns - cards in each column expand independently */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto items-start">

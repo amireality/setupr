@@ -2,6 +2,7 @@ import { Landmark, ShieldCheck, FileStack } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { SectionHeader } from "./ui/section-header";
 
 const features = [
   {
@@ -35,33 +36,17 @@ const LoansSection = () => {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-14">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-1">
+          <SectionHeader
+            icon={<Landmark />}
+            badge="Financing Simplified"
+            title={
+              <>
                 Setupr <span className="text-primary">Loans</span>
-              </h2>
-              <p className="text-sm md:text-base text-muted-foreground font-medium tracking-wide">
-                Financing Simplified
-              </p>
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base leading-relaxed mt-5"
-            >
-              Need a loan? We make it easy to get funded. Setupr has established
-              partnerships with almost every major bank and NBFC in India. We
-              connect you with the right lender to get the capital you need for
-              your business or personal goals.
-            </motion.p>
-          </div>
+              </>
+            }
+            subtitle="Need a loan? We make it easy to get funded. Setupr has established partnerships with almost every major bank and NBFC in India. We connect you with the right lender to get the capital you need for your business or personal goals."
+            alignment="center"
+          />
 
           {/* Features Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">

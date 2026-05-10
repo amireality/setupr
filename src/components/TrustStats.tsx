@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import AnimatedCounter from "./AnimatedCounter";
 import { Building2, Clock, Star, ShieldCheck } from "lucide-react";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
+import { SectionHeader } from "./ui/section-header";
 
 // Default stats used as fallback
 const defaultStats = [
@@ -107,23 +108,17 @@ const TrustStats = () => {
       
       <div className="container px-4 md:px-6 relative">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase">
-            {getSetting("homepage_trust_stats_badge", "Trusted by Freelancers, Startups & Small Businesses")}
-          </span>
-          <h2 className="text-2xl md:text-3xl font-display font-bold mt-2">
-            500+ <span className="text-primary">Businesses</span> Registered Across India
-          </h2>
-          <p className="text-muted-foreground text-sm mt-2 max-w-xl mx-auto">
-            {getSetting("homepage_trust_stats_subtitle", "From solo consultants to growing startups, we've helped entrepreneurs in 50+ cities get legally set up and build credibility.")}
-          </p>
-        </motion.div>
+        <SectionHeader 
+          icon={<ShieldCheck />}
+          badge={getSetting("homepage_trust_stats_badge", "Trusted by Freelancers, Startups & Small Businesses")}
+          title={
+            <>
+              500+ <span className="text-primary">Businesses</span> Registered Across India
+            </>
+          }
+          subtitle={getSetting("homepage_trust_stats_subtitle", "From solo consultants to growing startups, we've helped entrepreneurs in 50+ cities get legally set up and build credibility.")}
+          alignment="center"
+        />
 
         {/* Stats Grid */}
         <motion.div
