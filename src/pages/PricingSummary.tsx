@@ -8,6 +8,7 @@ import WhatsIncluded from "@/components/pricing/WhatsIncluded";
 import PricingCTA from "@/components/pricing/PricingCTA";
 import TrustNote from "@/components/pricing/TrustNote";
 import type { IntakeData } from "./Intake";
+import { Helmet } from "react-helmet-async";
 
 const PricingSummary = () => {
   const location = useLocation();
