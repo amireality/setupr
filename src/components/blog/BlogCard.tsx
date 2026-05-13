@@ -50,7 +50,26 @@ const BlogCard = ({ post, index = 0, className, variant = "default" }: BlogCardP
             isTall && "flex-1 min-h-[180px]",
             !isLarge && !isWide && !isTall && "h-[120px] md:h-[140px]"
           )}>
-            <BlogThumbnail category={post.category} className="w-full h-full" />
+            {post.featured_image_url ? (
+              <img
+                src={post.featured_image_url}
+                alt={post.title}
+                loading="lazy"
+                className="w-full h-full object-cover"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+              />
+            ) : (
+              <BlogThumbnail category={post.category} className="w-full h-full" />
+            )}
+            {/* Edge blend with background */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, transparent 55%, hsl(var(--background) / 0.55) 85%, hsl(var(--background)) 100%)",
+              }}
+            />
           </div>
 
           {/* Content */}
