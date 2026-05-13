@@ -184,9 +184,27 @@ const Blog = () => {
                     
                     <div className="relative glass-card rounded-2xl overflow-hidden transition-all duration-500 group-hover:shadow-[0_0_60px_-12px_hsl(24_95%_53%/0.3)] group-hover:border-primary/30">
                       <div className="grid md:grid-cols-2 gap-0">
-                        {/* Custom Thumbnail Graphic */}
-                        <div className="aspect-video md:aspect-auto min-h-[200px] sm:min-h-[250px]">
-                          <BlogThumbnail category={featuredPost.category} className="w-full h-full" />
+                        {/* Featured Image or Thumbnail */}
+                        <div className="relative aspect-video md:aspect-auto min-h-[200px] sm:min-h-[250px] overflow-hidden">
+                          {featuredPost.featured_image_url ? (
+                            <img
+                              src={featuredPost.featured_image_url}
+                              alt={featuredPost.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover"
+                              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                            />
+                          ) : (
+                            <BlogThumbnail category={featuredPost.category} className="w-full h-full" />
+                          )}
+                          <div
+                            aria-hidden
+                            className="pointer-events-none absolute inset-0"
+                            style={{
+                              background:
+                                "radial-gradient(ellipse at center, transparent 45%, hsl(var(--background) / 0.7) 80%, hsl(var(--background)) 100%)",
+                            }}
+                          />
                         </div>
 
                         {/* Content */}
