@@ -67,7 +67,7 @@ const BlogCard = ({ post, index = 0, className, variant = "default" }: BlogCardP
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 55%, hsl(var(--background) / 0.55) 85%, hsl(var(--background)) 100%)",
+                  "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background) / 0.75) 80%, hsl(var(--background)) 100%)",
               }}
             />
           </div>
