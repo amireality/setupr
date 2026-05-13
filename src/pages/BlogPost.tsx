@@ -199,13 +199,13 @@ const BlogPost = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="mb-10"
+            className="mb-10 relative overflow-hidden rounded-2xl"
           >
             {post.featured_image_url ? (
               <img
                 src={post.featured_image_url}
                 alt={post.title}
-                className="w-full aspect-video rounded-2xl object-cover"
+                className="w-full aspect-video object-cover"
                 loading="eager"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
@@ -214,9 +214,18 @@ const BlogPost = () => {
             ) : (
               <BlogThumbnail
                 category={post.category}
-                className="aspect-video rounded-2xl"
+                className="aspect-video"
               />
             )}
+            {/* Edge blend with background */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, transparent 55%, hsl(var(--background) / 0.6) 85%, hsl(var(--background)) 100%)",
+              }}
+            />
           </motion.div>
 
           {/* Content - using shared markdown renderer */}
