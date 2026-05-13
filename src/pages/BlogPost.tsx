@@ -201,10 +201,22 @@ const BlogPost = () => {
             transition={{ delay: 0.1, duration: 0.5 }}
             className="mb-10"
           >
-            <BlogThumbnail 
-              category={post.category} 
-              className="aspect-video rounded-2xl" 
-            />
+            {post.featured_image_url ? (
+              <img
+                src={post.featured_image_url}
+                alt={post.title}
+                className="w-full aspect-video rounded-2xl object-cover"
+                loading="eager"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            ) : (
+              <BlogThumbnail
+                category={post.category}
+                className="aspect-video rounded-2xl"
+              />
+            )}
           </motion.div>
 
           {/* Content - using shared markdown renderer */}
