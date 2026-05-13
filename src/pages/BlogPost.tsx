@@ -170,9 +170,14 @@ const BlogPost = () => {
             <span className="inline-block px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-full border border-primary/20 mb-4">
               {post.category}
             </span>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4 leading-tight">
               {post.title}
             </h1>
+            {post.excerpt && (
+              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
+                {post.excerpt}
+              </p>
+            )}
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <Link 
                 to={`/team/${authorSlug}`} 
@@ -223,7 +228,7 @@ const BlogPost = () => {
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 55%, hsl(var(--background) / 0.6) 85%, hsl(var(--background)) 100%)",
+                  "radial-gradient(ellipse at center, transparent 45%, hsl(var(--background) / 0.7) 82%, hsl(var(--background)) 100%)",
               }}
             />
           </motion.div>
