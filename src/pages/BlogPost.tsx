@@ -228,7 +228,7 @@ const BlogPost = () => {
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 55%, hsl(var(--background) / 0.6) 85%, hsl(var(--background)) 100%)",
+                  "radial-gradient(ellipse at center, transparent 45%, hsl(var(--background) / 0.7) 82%, hsl(var(--background)) 100%)",
               }}
             />
           </motion.div>
