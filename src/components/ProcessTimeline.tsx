@@ -30,8 +30,18 @@ const ProcessTimeline = ({ steps: propSteps, serviceId }: ProcessTimelineProps) 
   const { data: timelineSetting } = useSiteSetting(timelineKey);
   const { data: processingTimeSetting } = useSiteSetting(processingTimeKey);
 
-  // Priority: props > DB JSON > defaults
+  // Priority: props > DB JSON > AI Defaults > defaults
   let steps = propSteps || defaultSteps;
+  
+  if (!propSteps && serviceId && serviceId.startsWith('ai-')) {
+    steps = [
+      { step: 1, title: "Discovery & Scoping", description: "We analyze your specific needs and define the project scope.", duration: "1 day" },
+      { step: 2, title: "Setup & Configuration", description: "We build, integrate, and configure the tools for your use case.", duration: "3-7 days" },
+      { step: 3, title: "Testing & Refinement", description: "We test everything rigorously against real scenarios.", duration: "1-3 days" },
+      { step: 4, title: "Handover & Support", description: "Training and ongoing support to ensure you get value.", duration: "Ongoing" }
+    ];
+  }
+
   if (!propSteps && timelineSetting?.value) {
     try {
       const parsed = JSON.parse(timelineSetting.value);

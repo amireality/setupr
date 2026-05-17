@@ -36,7 +36,7 @@ const Skeleton = ({
 const defaultItems = [
   { title: "Thinking of starting a business?", description: "Freelancer or consultant exploring what's needed to register a business in India? We'll guide you from idea to legal entity.", link: "/intake?stage=thinking", skeletonTitle: "Dream It", skeletonSubtitle: "From idea to registered business", variant: "purple" as const, icon: <Lightbulb className="h-4 w-4 text-primary" /> },
   { title: "Ready to register your company?", description: "Get your Private Limited, LLP, or Proprietorship registered with GST, MSME, and compliance. All in one place.", link: "/intake?stage=legal", skeletonTitle: "Own It", skeletonSubtitle: "Legal registration done right", variant: "orange" as const, icon: <FileCheck className="h-4 w-4 text-primary" /> },
-  { title: "Registered but need to scale?", description: "Already have a business? Add website, professional email, Google listing, and ongoing compliance support to build credibility.", link: "/intake?stage=scale", skeletonTitle: "Grow It", skeletonSubtitle: "Build trust and visibility", variant: "green" as const, icon: <TrendingUp className="h-4 w-4 text-primary" /> },
+  { title: "Registered but need to scale?", description: "Already have a business? Add website, professional email, AI tools, automation, and ongoing compliance support to build credibility and scale efficiently.", link: "/intake?stage=scale", skeletonTitle: "Grow It", skeletonSubtitle: "Build trust, visibility, and automation", variant: "green" as const, icon: <TrendingUp className="h-4 w-4 text-primary" /> },
 ];
 
 const icons = [<Lightbulb className="h-4 w-4 text-primary" />, <FileCheck className="h-4 w-4 text-primary" />, <TrendingUp className="h-4 w-4 text-primary" />];

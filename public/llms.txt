@@ -51,6 +51,12 @@ Setupr handles Indian business formation end to end: Private Limited, LLP, OPC, 
 - [Payment gateway](/services/payment-gateway)
 - [Google Business profile](/services/google-business)
 
+### AI for Business
+- [AI Workflow Automation](/services/ai-workflow)
+- [AI Chatbot Setup](/services/ai-chatbot)
+- [CRM + AI Integration](/services/ai-crm)
+- [AI Tools Onboarding](/services/ai-tools)
+- [Custom AI Agent Setup](/services/ai-agent)
 ## Store
 
 - [Cloud software store](/store): Microsoft 365, Google Workspace, Adobe, AWS, Zoho.
