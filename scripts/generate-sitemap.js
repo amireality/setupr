@@ -73,7 +73,7 @@ async function generateSitemap() {
   // Add team members
   if (authors) {
     console.log(`Adding ${authors.length} authors to sitemap`);
-    authors.forEach(a => addUrl(`/author/${a.slug}`, '0.6', 'monthly'));
+    authors.forEach(a => addUrl(`/team/${a.slug}`, '0.6', 'monthly'));
   }
 
   xml += `</urlset>`;
