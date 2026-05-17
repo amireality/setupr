@@ -118,6 +118,11 @@ export default {
         "float": "float 6s ease-in-out infinite",
         spotlight: "spotlight 2s ease .75s 1 forwards",
       },
+      boxShadow: {
+        'glow': '0 0 20px hsl(var(--primary) / 0.15), 0 0 40px hsl(var(--primary) / 0.08)',
+        'glow-lg': '0 0 30px hsl(var(--primary) / 0.25), 0 0 60px hsl(var(--primary) / 0.12)',
+        'glow-sm': '0 0 10px hsl(var(--primary) / 0.12)',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',

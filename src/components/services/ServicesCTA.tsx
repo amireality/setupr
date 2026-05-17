@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 import type { DbService } from "@/hooks/useServices";
 import { formatPrice, calculateDbTotal } from "@/hooks/useServices";
 
@@ -20,48 +22,57 @@ const ServicesCTA = ({ selectedServices, services }: ServicesCTAProps) => {
   };
 
   return (
-    <section className="py-20 relative">
-      <div className="absolute inset-0 bg-secondary/20" />
-
-      <div className="container px-4 md:px-6 relative z-10">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="glass-card rounded-2xl p-8">
-            {selectedCount > 0 ? (
-              <>
-                <p className="text-sm text-muted-foreground mb-2">
+    <AnimatePresence>
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{
+          y: selectedCount > 0 ? 0 : 100,
+          opacity: selectedCount > 0 ? 1 : 0,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 350,
+          damping: 30,
+        }}
+        className="fixed bottom-0 left-0 right-0 z-40 p-4 pointer-events-none"
+      >
+        <div className="container max-w-2xl mx-auto pointer-events-auto">
+          <div
+            className={cn(
+              "floating-island rounded-2xl px-6 py-4 flex items-center justify-between gap-4",
+              selectedCount > 0 && "active"
+            )}
+          >
+            {/* Left side: selection info */}
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <ShoppingBag className="w-5 h-5 text-primary" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-foreground">
                   {selectedCount} service{selectedCount !== 1 ? "s" : ""} selected
                 </p>
-                <p className="text-2xl font-display font-bold text-primary mb-1">
-                  From ₹{formatPrice(total)}
+                <p className="text-xs text-muted-foreground truncate">
+                  From ₹{formatPrice(total)} · Final quote after call
                 </p>
-                <p className="text-xs text-muted-foreground mb-5">
-                  Final quote shared after a quick call
-                </p>
-              </>
-            ) : (
-              <p className="text-muted-foreground mb-5">
-                Select services above to continue
-              </p>
-            )}
-            
-            <Button 
-              variant="hero" 
-              size="xl" 
-              className="w-full sm:w-auto mb-5"
+              </div>
+            </div>
+
+            {/* Right side: continue button */}
+            <Button
+              variant="hero"
+              size="lg"
               onClick={handleContinue}
               disabled={selectedCount === 0}
+              className="flex-shrink-0 shadow-glow"
             >
               Continue
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <ArrowRight className="w-4 h-4 ml-1.5" />
             </Button>
-            
-            <p className="text-sm text-muted-foreground">
-              Next, we'll ask a few questions. No payment needed yet.
-            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

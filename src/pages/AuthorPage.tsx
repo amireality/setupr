@@ -10,6 +10,7 @@ import { AnimatedGridBackground } from "@/components/ui/animated-grid-background
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { useAuthor } from "@/hooks/useAuthors";
 import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
+import { LinkedInBadge } from "@/components/LinkedInBadge";
 
 const AuthorPage = () => {
   const { authorSlug } = useParams<{ authorSlug: string }>();
@@ -157,49 +158,65 @@ const AuthorPage = () => {
           >
             <div className="flex flex-col md:flex-row items-start gap-6">
               {/* Avatar */}
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-3xl font-display font-bold text-primary">
-                  {author.avatar_initials}
-                </span>
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center">
+                  <span className="text-3xl font-display font-bold text-primary">
+                    {author.avatar_initials}
+                  </span>
+                </div>
               </div>
 
               {/* Author Info */}
-              <div className="flex-1">
-                <h1 className="text-2xl md:text-3xl font-display font-bold mb-2">
-                  <span className="text-primary">{author.name}</span>
-                </h1>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {author.title}
-                </p>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  {author.bio}
-                </p>
+              <div className="flex-1 flex flex-col lg:flex-row gap-6 w-full">
+                <div className="flex-1">
+                  <h1 className="text-2xl md:text-3xl font-display font-bold mb-2">
+                    <span className="text-primary">{author.name}</span>
+                  </h1>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {author.title}
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    {author.bio}
+                  </p>
 
-                {/* Social Links */}
-                <div className="flex items-center gap-3">
-                  {author.twitter_url && (
-                    <a
-                      href={author.twitter_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
-                      aria-label="Twitter"
-                    >
-                      <Twitter className="w-4 h-4 text-muted-foreground" />
-                    </a>
-                  )}
-                  {author.linkedin_url && (
-                    <a
-                      href={author.linkedin_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
-                      aria-label="LinkedIn"
-                    >
-                      <Linkedin className="w-4 h-4 text-muted-foreground" />
-                    </a>
-                  )}
+                  {/* Social Links */}
+                  <div className="flex items-center gap-3">
+                    {author.twitter_url && (
+                      <a
+                        href={author.twitter_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
+                        aria-label="Twitter"
+                      >
+                        <Twitter className="w-4 h-4 text-muted-foreground" />
+                      </a>
+                    )}
+                    {author.linkedin_url && (
+                      <a
+                        href={author.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
+                        aria-label="LinkedIn"
+                      >
+                        <Linkedin className="w-4 h-4 text-muted-foreground" />
+                      </a>
+                    )}
+                  </div>
                 </div>
+                {/* LinkedIn Badge */}
+                {author.linkedin_url && (
+                  <div className="flex-shrink-0 w-full lg:w-72">
+                    <LinkedInBadge 
+                      vanity="" 
+                      name={author.name} 
+                      url={author.linkedin_url} 
+                      headline={author.title}
+                      subline="Setupr"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>

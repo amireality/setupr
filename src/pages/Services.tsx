@@ -125,18 +125,16 @@ const Services = () => {
         <main className="pt-16">
           <ServiceIntro />
           
-          {/* Search and Filter */}
-          <section className="py-8">
-            <div className="container px-4 md:px-6">
-              <ServiceSearch
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
-                selectedCategory={selectedCategory}
-                onCategoryChange={setSelectedCategory}
-                categories={categories}
-              />
-            </div>
-          </section>
+          {/* Search and Filter - now sticky */}
+          <div className="container px-4 md:px-6">
+            <ServiceSearch
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+              categories={categories}
+            />
+          </div>
 
           <ServiceCategories 
             selectedServices={selectedServices} 
@@ -154,6 +152,8 @@ const Services = () => {
             bundles={bundles}
             services={services}
           />
+          
+          {/* Floating CTA - renders as fixed bottom bar */}
           <ServicesCTA selectedServices={selectedServices} services={services} />
         </main>
         <Footer />
