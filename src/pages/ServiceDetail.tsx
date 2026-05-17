@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { AnimatedGridBackground } from "@/components/ui/animated-grid-background";
+import { ServiceIllustration } from "@/components/ui/ServiceIllustration";
 import { useDbServices, useDbCategories, formatPrice } from "@/hooks/useServices";
 import { cn } from "@/lib/utils";
 import ServiceComparison from "@/components/ServiceComparison";
@@ -180,26 +181,22 @@ const ServiceDetail = () => {
       <Navbar />
       <main className="pt-20 pb-16">
         {/* Hero Section */}
-        <section className="relative w-full overflow-hidden bg-background pt-16 pb-12 mb-8 border-b border-primary/20">
+        <section className="relative w-full overflow-hidden bg-background pt-16 pb-12 md:py-24 mb-8 border-b border-primary/20 flex items-center min-h-[360px] md:min-h-[420px]">
           <AnimatedGridBackground />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
-          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/95 z-0" />
           
-          <div className="container px-4 md:px-6 max-w-6xl relative z-10 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 text-center md:text-left">
-            {/* Category Icon */}
-            {(() => {
-              const Icon = service.category === 'formation' ? Building2 :
-                           service.category === 'digital' ? Globe :
-                           service.category === 'compliance' ? Shield :
-                           service.category === 'visibility' ? Users : Zap;
-              return (
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-primary/10 flex flex-shrink-0 items-center justify-center shadow-[0_0_30px_hsl(var(--primary)/0.3)] border border-primary/20">
-                  <Icon className="w-10 h-10 md:w-12 md:h-12 text-primary" />
-                </div>
-              );
-            })()}
-
-            <div className="flex-1">
+          {/* Immersive Scroll-Driven assembly backdrop positioned on the right */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-full md:w-1/2 h-full opacity-35 md:opacity-90 pointer-events-none z-0 overflow-visible flex items-center justify-center">
+            <ServiceIllustration
+              category={service.category}
+              serviceId={service.service_id}
+              size="lg"
+              className="w-[160%] h-[160%] max-w-[550px] aspect-square border-0 bg-transparent shadow-none hover:shadow-none hover:bg-transparent overflow-visible"
+            />
+          </div>
+          
+          <div className="container px-4 md:px-6 max-w-6xl relative z-10 flex flex-col items-center md:items-start gap-6 text-center md:text-left">
+            <div className="flex-1 max-w-2xl">
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-4">
                 {category && (
                   <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
@@ -216,7 +213,7 @@ const ServiceDetail = () => {
                 </span>
               </div>
               <h1 className="text-3xl md:text-5xl font-display font-bold mb-4">{service.service_name}</h1>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl">{service.description_short}</p>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">{service.description_short}</p>
             </div>
           </div>
         </section>

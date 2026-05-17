@@ -96,10 +96,10 @@ const Services = () => {
     <AuroraBackground className="min-h-screen">
       <Helmet>
         <title>Business Registration Services in India | Setupr</title>
-        <meta name="description" content="Company registration, GST, MSME, compliance, website, and digital presence services for freelancers, consultants, and startups in India. Transparent pricing, no hidden fees." />
+        <meta name="description" content="Company registration, GST, MSME, custom AI setups (Agents, Chatbots & Tools), website engineering, and compliance for freelancers, consultants, and startups in India. Transparent pricing." />
         <link rel="canonical" href="https://setupr.com/services" />
         <meta property="og:title" content="Business Registration Services in India | Setupr" />
-        <meta property="og:description" content="Company registration, GST, MSME, compliance, website, and digital presence services for freelancers, consultants, and startups in India." />
+        <meta property="og:description" content="Company registration, GST, MSME, custom AI setups (Agents, Chatbots & Tools), website engineering, and compliance for freelancers, consultants, and startups in India." />
         <meta property="og:url" content="https://setupr.com/services" />
         <script type="application/ld+json">
           {`

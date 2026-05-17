@@ -343,6 +343,7 @@ const Admin = () => {
                   />
                 </DialogContent>
               </Dialog>
+              </div>
             </div>
 
             {loadingServices ? (

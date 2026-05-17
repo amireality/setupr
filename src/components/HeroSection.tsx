@@ -26,7 +26,7 @@ const HeroSection = () => {
   const headlinePrefix = getSetting("homepage_hero_headline_prefix", "Set up your");
   const headlineSuffix = getSetting("homepage_hero_headline_suffix", "The right way.");
   
-  const heroSubtitle = getSetting("homepage_hero_subtitle", "Company registration, GST, MSME, website, and compliance. All handled for freelancers, consultants, and startups in India. No CA needed. No vendor chaos.");
+  const heroSubtitle = getSetting("homepage_hero_subtitle", "Company registration, GST, MSME, custom AI setups (Agents, Chatbots & Tools), website engineering, and compliance. All handled for freelancers, consultants, and startups in India. No CA needed. No vendor chaos.");
   const ctaPrimary = getSetting("homepage_cta_primary", "Start with your journey");
   const ctaSecondary = getSetting("homepage_cta_secondary", "See How It Works");
 

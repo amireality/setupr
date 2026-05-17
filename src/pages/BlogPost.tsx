@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthorBio from "@/components/blog/AuthorBio";
 import BlogThumbnail from "@/components/blog/BlogThumbnail";
+import { ServiceIllustration } from "@/components/ui/ServiceIllustration";
 import { useBlogPost, useBlogPosts } from "@/hooks/useBlogPosts";
 import { useAuthorByName } from "@/hooks/useAuthors";
 import { format } from "date-fns";
@@ -144,47 +145,54 @@ const BlogPost = () => {
       </Helmet>
 
       <Navbar />
-      <main className="pt-24 pb-16">
-        <article className="container px-4 md:px-6 max-w-4xl mx-auto">
-          {/* Back link */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Button variant="ghost" size="sm" asChild className="mb-6">
-              <Link to="/blog">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Blog
-              </Link>
-            </Button>
-          </motion.div>
+      <main className="pt-16 pb-16">
+        {/* Immersive Scroll-Driven Backdrop for Blog Hero */}
+        <section className="relative w-full overflow-hidden bg-background pt-16 pb-12 md:py-20 mb-10 border-b border-primary/20 flex items-center min-h-[340px]">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/95 z-0" />
+          
+          {/* Immersive scroll-driven illustration backdrop based on the blog's category */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-full md:w-1/2 h-full opacity-25 md:opacity-85 pointer-events-none z-0 overflow-visible flex items-center justify-center">
+            <ServiceIllustration
+              category={post.category}
+              size="lg"
+              className="w-[160%] h-[160%] max-w-[550px] aspect-square border-0 bg-transparent shadow-none hover:shadow-none hover:bg-transparent overflow-visible"
+            />
+          </div>
+          
+          <div className="container px-4 md:px-6 max-w-4xl mx-auto relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
+            {/* Back link */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-4"
+            >
+              <Button variant="ghost" size="sm" asChild className="hover:bg-primary/10 hover:text-primary transition-all">
+                <Link to="/blog">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back to Blog
+                </Link>
+              </Button>
+            </motion.div>
 
-          {/* Header */}
-          <motion.header
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
             <span className="inline-block px-3 py-1 text-xs font-medium text-primary bg-primary/10 rounded-full border border-primary/20 mb-4">
               {post.category}
             </span>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-display mb-4 leading-tight">
               {post.title}
             </h1>
             {post.excerpt && (
-              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed max-w-2xl">
                 {post.excerpt}
               </p>
             )}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm text-muted-foreground">
               <Link 
                 to={`/team/${authorSlug}`} 
                 className="flex items-center gap-1.5 hover:text-primary transition-colors"
               >
                 <User className="w-4 h-4" />
-                <span className="text-primary">{post.author_name}</span>
+                <span className="text-primary font-medium">{post.author_name}</span>
               </Link>
               {post.published_at && (
                 <span className="flex items-center gap-1.5">
@@ -197,41 +205,34 @@ const BlogPost = () => {
                 {post.read_time_minutes} min read
               </span>
             </div>
-          </motion.header>
+          </div>
+        </section>
 
-          {/* Category-specific featured visual */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="mb-10 relative overflow-hidden rounded-2xl"
-          >
-            {post.featured_image_url ? (
+        <article className="container px-4 md:px-6 max-w-4xl mx-auto">
+          {/* Cinematic glassmorphic featured image in reading flow */}
+          {post.featured_image_url && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="relative mb-10 rounded-2xl overflow-hidden border border-primary/10 shadow-[0_0_50px_rgba(234,88,12,0.08)] bg-secondary/15 p-1"
+            >
               <img
                 src={post.featured_image_url}
                 alt={post.title}
-                className="w-full aspect-video object-cover"
+                className="w-full rounded-xl aspect-[21/9] object-cover filter brightness-90 hover:brightness-100 transition-all duration-300"
                 loading="eager"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-xl"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, transparent 60%, hsl(var(--background) / 0.4) 100%)",
                 }}
               />
-            ) : (
-              <BlogThumbnail
-                category={post.category}
-                className="aspect-video"
-              />
-            )}
-            {/* Edge blend with background */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, transparent 45%, hsl(var(--background) / 0.7) 82%, hsl(var(--background)) 100%)",
-              }}
-            />
-          </motion.div>
+            </motion.div>
+          )}
 
           {/* Content - using shared markdown renderer */}
           <motion.div

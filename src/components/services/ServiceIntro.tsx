@@ -6,7 +6,7 @@ import { Shield, Zap, FileCheck, TrendingUp } from "lucide-react";
 const floatingWords = [
   { text: "GST", delay: 0, x: -180, y: -60 },
   { text: "MSME", delay: 0.3, x: 200, y: -40 },
-  { text: "Trademark", delay: 0.6, x: -220, y: 50 },
+  { text: "AI Setup", delay: 0.6, x: -220, y: 50 },
   { text: "Compliance", delay: 0.9, x: 160, y: 70 },
   { text: "PAN-TAN", delay: 1.2, x: -100, y: -90 },
   { text: "Domain", delay: 1.5, x: 240, y: -80 },
@@ -26,7 +26,7 @@ const ServiceIntro = () => {
     settings.find((s) => s.key === key)?.value || fallback;
 
   const introTitle = getSetting("services_intro_title", "Business registration services in India");
-  const introSubtitle = getSetting("services_intro_subtitle", "Company registration, GST, MSME, trademark & more — everything you need to go legit.");
+  const introSubtitle = getSetting("services_intro_subtitle", "Company registration, GST, MSME, custom AI setups, trademark & more — everything you need to go legit.");
   const introNote = getSetting("services_intro_note", "Pick individual services or choose a bundle. All prices exclude 18% GST.");
 
   return (
