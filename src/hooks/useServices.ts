@@ -48,6 +48,8 @@ export interface DbBundle {
   updated_at: string;
 }
 
+import { services as staticServices, serviceCategories as staticCategories } from "@/data/services";
+
 // Fetch all services from database
 export const useDbServices = () => {
   return useQuery({
@@ -59,7 +61,30 @@ export const useDbServices = () => {
         .order("sort_order");
       
       if (error) throw error;
-      return data as DbService[];
+      const dbServices = data as DbService[];
+      
+      const aiServices = staticServices.filter(s => s.category === "ai-business").map((s, index) => ({
+        id: s.service_id,
+        service_id: s.service_id,
+        category: s.category,
+        sub_category: s.sub_category,
+        service_name: s.service_name,
+        description_short: s.description_short,
+        who_its_for: s.who_its_for,
+        setupr_fee_inr: s.setupr_fee_inr,
+        govt_or_third_party_fee: String(s.govt_or_third_party_fee),
+        delivery_type: s.delivery_type as "coordination" | "done-for-you",
+        visibility: s.visibility as "public" | "add-on" | "bundle-only",
+        default_selected: s.default_selected,
+        sort_order: 1000 + index,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }));
+
+      if (!dbServices.some(s => s.category === "ai-business")) {
+        return [...dbServices, ...aiServices];
+      }
+      return dbServices;
     },
   });
 };
@@ -75,7 +100,23 @@ export const useDbCategories = () => {
         .order("sort_order");
       
       if (error) throw error;
-      return data as DbCategory[];
+      const dbCategories = data as DbCategory[];
+      
+      const aiCategory = staticCategories.find(c => c.category_id === "ai-business");
+      if (aiCategory && !dbCategories.some(c => c.category_id === "ai-business")) {
+        return [...dbCategories, {
+          id: aiCategory.category_id,
+          category_id: aiCategory.category_id,
+          title: aiCategory.title,
+          intro: aiCategory.intro,
+          icon: aiCategory.icon,
+          gradient: aiCategory.gradient,
+          sort_order: 1000,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        }];
+      }
+      return dbCategories;
     },
   });
 };
