@@ -11,10 +11,12 @@ import {
   useUpdateBundle,
   useDeleteBundle,
   useCreateBundle,
+  useCreateCategory,
   formatPrice,
   type DbService,
   type DbBundle,
 } from "@/hooks/useServices";
+import { services as staticServices, serviceCategories as staticCategories } from "@/data/services";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -78,11 +80,13 @@ const Admin = () => {
   const updateBundle = useUpdateBundle();
   const deleteBundle = useDeleteBundle();
   const createBundle = useCreateBundle();
+  const createCategory = useCreateCategory();
 
   const [editingService, setEditingService] = useState<DbService | null>(null);
   const [editingBundle, setEditingBundle] = useState<DbBundle | null>(null);
   const [isServiceDialogOpen, setIsServiceDialogOpen] = useState(false);
   const [isBundleDialogOpen, setIsBundleDialogOpen] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   // Redirect if not authenticated or not admin
   useEffect(() => {
@@ -136,6 +140,48 @@ const Admin = () => {
       toast({ title: "Service deleted" });
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
+    }
+  };
+
+  const handleSyncAIServices = async () => {
+    setIsSyncing(true);
+    try {
+      const aiCategory = staticCategories.find(c => c.category_id === "ai-business");
+      if (aiCategory && !categories?.some(c => c.category_id === "ai-business")) {
+        await createCategory.mutateAsync({
+          category_id: aiCategory.category_id,
+          title: aiCategory.title,
+          intro: aiCategory.intro,
+          icon: aiCategory.icon,
+          gradient: aiCategory.gradient,
+          sort_order: 1000,
+        });
+      }
+
+      const aiServices = staticServices.filter(s => s.category === "ai-business");
+      for (const [index, s] of aiServices.entries()) {
+        if (!services?.some(dbS => dbS.service_id === s.service_id)) {
+          await createService.mutateAsync({
+            service_id: s.service_id,
+            category: s.category,
+            sub_category: s.sub_category,
+            service_name: s.service_name,
+            description_short: s.description_short,
+            who_its_for: s.who_its_for,
+            setupr_fee_inr: s.setupr_fee_inr,
+            govt_or_third_party_fee: String(s.govt_or_third_party_fee),
+            delivery_type: s.delivery_type as "coordination" | "done-for-you",
+            visibility: s.visibility as "public" | "add-on" | "bundle-only",
+            default_selected: s.default_selected,
+            sort_order: 1000 + index,
+          });
+        }
+      }
+      toast({ title: "Sync Complete", description: "AI Services have been added to the CMS database." });
+    } catch (error: any) {
+      toast({ title: "Sync Failed", description: error.message, variant: "destructive" });
+    } finally {
+      setIsSyncing(false);
     }
   };
 
@@ -263,17 +309,26 @@ const Admin = () => {
               <h2 className="font-display text-lg font-semibold">
                 Manage Services ({services?.length || 0})
               </h2>
-              <Dialog open={isServiceDialogOpen} onOpenChange={setIsServiceDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button
-                    size="sm"
-                    onClick={() => setEditingService(null)}
-                    className="gradient-accent"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Service
-                  </Button>
-                </DialogTrigger>
+              <div className="flex items-center gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleSyncAIServices}
+                  disabled={isSyncing}
+                >
+                  {isSyncing ? "Syncing..." : "Sync AI Services to DB"}
+                </Button>
+                <Dialog open={isServiceDialogOpen} onOpenChange={setIsServiceDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button
+                      size="sm"
+                      onClick={() => setEditingService(null)}
+                      className="gradient-accent"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Service
+                    </Button>
+                  </DialogTrigger>
                 <DialogContent className="max-w-2xl max-h-[90vh] overflow-auto">
                   <DialogHeader>
                     <DialogTitle>
