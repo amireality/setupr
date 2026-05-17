@@ -226,7 +226,7 @@ const AuthorPage = () => {
               </div>
             ) : authorPosts.length === 0 ? (
               <div className="text-center py-12 glass-card rounded-2xl">
-                <BookOpen className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground">No articles yet.</p>
               </div>
             ) : (

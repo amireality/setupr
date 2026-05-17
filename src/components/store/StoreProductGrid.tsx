@@ -38,7 +38,7 @@ const StoreProductGrid = () => {
 
       {products.length === 0 ? (
         <div className="text-center py-20">
-          <Package className="w-12 h-12 mx-auto text-muted-foreground/50 mb-4" />
+          <Package className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
           <h3 className="font-display text-lg font-semibold mb-2">No products found</h3>
           <p className="text-sm text-muted-foreground">
             {search ? "Try a different search term" : "Products will appear here once added"}

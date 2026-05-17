@@ -83,7 +83,7 @@ const StoreLanding = () => {
       {featuredProducts.length === 0 && categories.length === 0 && (
         <section className="py-24">
           <div className="container px-4 md:px-6 text-center">
-            <Package className="w-16 h-16 mx-auto text-muted-foreground/30 mb-6" />
+            <Package className="w-16 h-16 mx-auto text-muted-foreground mb-6" />
             <h2 className="font-display text-2xl font-bold mb-3">Store Coming Soon</h2>
             <p className="text-muted-foreground max-w-md mx-auto mb-6">
               We're adding products to the marketplace. Check back soon for Microsoft 365, Adobe, AWS, and more.

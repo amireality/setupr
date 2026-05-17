@@ -157,7 +157,7 @@ const Blog = () => {
 
           {filteredPosts.length === 0 ? (
             <div className="text-center py-16">
-              <BookOpen className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+              <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <p className="text-muted-foreground">No articles found matching your criteria.</p>
             </div>
           ) : (
