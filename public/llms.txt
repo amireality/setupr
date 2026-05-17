@@ -1,0 +1,63 @@
+# Setupr
+
+> Setupr is a business setup platform for India. We help freelancers, consultants, and founders register their company, get GST and MSME, build a website, and stay compliant. One platform, no CA chasing, no vendor chaos.
+
+Setupr handles Indian business formation end to end: Private Limited, LLP, OPC, Partnership, and Proprietorship registration; PAN, TAN, GST, MSME, Trade License, and Shop Establishment; trademark filing; domain, email, website, and payment gateway setup; plus ongoing compliance support. We also run a cloud software marketplace for Microsoft 365, Google Workspace, Adobe, AWS, and Zoho.
+
+## Pages
+
+- [Home](/): Overview of Setupr and the full business setup journey.
+- [Services](/services): Full catalog of registration, digital, and compliance services.
+- [About](/about): Who we are and how we work.
+- [Contact](/contact): Talk to the Setupr team.
+- [Team](/team): The people behind Setupr.
+- [Career](/career): Open roles at Setupr.
+- [Intake](/intake): Start your setup with a guided intake form.
+- [Apply for a loan](/apply-loan): Business loan assistance for founders.
+
+## Guides
+
+- [Guides](/guides): Plain-language guides for Indian founders.
+- [Starting a business in India](/guides/starting-business-india): Step by step founder guide.
+- [Business types in India](/guides/business-types): Pvt Ltd vs LLP vs OPC vs Proprietorship.
+
+## Blog
+
+- [Blog](/blog): Articles on registration, compliance, GST, and digital presence in India.
+- [Complete guide to LLP registration in India](/blog/complete-guide-to-llp-registration-india)
+- [GST registration complete guide](/blog/gst-registration-complete-guide)
+- [Pvt Ltd vs LLP: which is right](/blog/pvt-ltd-vs-llp-which-is-right)
+- [Annual compliance checklist for startups](/blog/annual-compliance-checklist-startups)
+
+## Services
+
+- [Private Limited Company](/services/pvt-ltd)
+- [LLP](/services/llp)
+- [OPC](/services/opc)
+- [Partnership](/services/partnership)
+- [Proprietorship](/services/proprietorship)
+- [GST registration](/services/gst)
+- [MSME registration](/services/msme)
+- [Trademark](/services/trademark)
+- [PAN and TAN](/services/pan-tan)
+- [Current account](/services/current-account)
+- [Trade license](/services/trade-license)
+- [Shop and establishment](/services/shop-establishment)
+- [Compliance support](/services/compliance-support)
+- [Legal documents](/services/legal-docs)
+- [Website](/services/website)
+- [Domain and hosting](/services/domain-hosting)
+- [Professional email](/services/email)
+- [Payment gateway](/services/payment-gateway)
+- [Google Business profile](/services/google-business)
+
+## Store
+
+- [Cloud software store](/store): Microsoft 365, Google Workspace, Adobe, AWS, Zoho.
+- [Products](/store/products): Full product catalog.
+
+## Optional
+
+- [Terms](/terms)
+- [Privacy](/privacy)
+- [Refund](/refund)
