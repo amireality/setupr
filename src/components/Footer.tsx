@@ -173,8 +173,8 @@ const Footer = () => {
               <p className="text-xs text-muted-foreground/60">
                 {ownership}
               </p>
-              <span className="hidden sm:inline text-muted-foreground/30">•</span>
-              <p className="text-xs text-muted-foreground/50">
+              <span className="hidden sm:inline text-muted-foreground">•</span>
+              <p className="text-xs text-muted-foreground">
                 Built for <span className="font-medium text-muted-foreground/70">Bharat</span> 🇮🇳
               </p>
             </div>
