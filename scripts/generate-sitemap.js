@@ -46,10 +46,11 @@ async function generateSitemap() {
     xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
   };
 
-  // Add static
+  // Add static (homepage uses trailing slash to match canonical)
   staticRoutes.forEach(route => {
     const priority = route === '' ? '1.0' : (['/terms', '/privacy', '/refund'].includes(route) ? '0.3' : '0.8');
-    addUrl(route, priority, 'weekly');
+    const path = route === '' ? '/' : route;
+    addUrl(path, priority, 'weekly');
   });
 
   // Add dynamic services
