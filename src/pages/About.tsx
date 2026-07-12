@@ -46,22 +46,22 @@ const About = () => {
   });
 
   const heroTitle = getSetting("about_hero_title", "We help freelancers and startups become legitimate businesses");
-  const heroSubtitle = getSetting("about_hero_subtitle", "Setupr is a business setup platform that helps professionals in India register their companies, get GST and MSME, build digital presence, integrate custom AI setups (Agents, Chatbots & Tools), and stay compliant without expensive CAs or multiple vendors.");
+  const heroSubtitle = getSetting("about_hero_subtitle", "Setupr is a global business setup platform that helps professionals register their companies, build digital presence, integrate custom AI setups (Agents, Chatbots & Tools), and stay compliant globally without multiple vendors.");
   const missionTitle = getSetting("about_mission_title", "Built for freelancers, consultants & startups");
-  const missionContent = getSetting("about_mission_content", "Setupr exists because talented professionals shouldn't struggle with bureaucracy. We help people who ask: \"Should I register a company?\", \"Do I need GST?\", \"How do I look credible to clients?\"");
+  const missionContent = getSetting("about_mission_content", "Setupr exists because talented professionals shouldn't struggle with bureaucracy. We help people who ask: \"How do I register a company?\", \"What compliance do I need?\", \"How do I look credible to clients?\"");
   const founderName = getSetting("about_founder_name", "Amir Khan");
   const founderTitle = getSetting("about_founder_title", "Founder, Setupr");
-  const founderBio = getSetting("about_founder_bio", "Amir Khan is the founder of Setupr, a platform focused on simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams in India. He works on building systems and resources to help early founders start with clarity.");
+  const founderBio = getSetting("about_founder_bio", "Amir Khan is the founder of Setupr, a platform focused on simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams globally. He works on building systems and resources to help early founders start with clarity.");
   const founderInitials = founderName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
 
   return (
     <div className="min-h-screen bg-background relative selection:bg-primary/20 selection:text-primary">
       <Helmet>
-        <title>About Setupr | Business Setup Platform for India</title>
-        <meta name="description" content="Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses in India with company registration, GST, MSME, compliance, and digital presence." />
+        <title>About Setupr | Global Business Setup Platform</title>
+        <meta name="description" content="Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses globally with company registration, compliance, and digital presence." />
         <link rel="canonical" href="https://setupr.com/about" />
-        <meta property="og:title" content="About Setupr | Business Setup Platform for India" />
-        <meta property="og:description" content="Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses in India with company registration, compliance, and digital presence." />
+        <meta property="og:title" content="About Setupr | Global Business Setup Platform" />
+        <meta property="og:description" content="Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses globally with company registration, compliance, and digital presence." />
         <meta property="og:url" content="https://setupr.com/about" />
         <script type="application/ld+json">
           {`
@@ -327,7 +327,11 @@ const About = () => {
                   <div className="lg:col-span-7 flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left">
                     <div className="relative flex-shrink-0">
                       <div className="w-32 h-32 md:w-40 md:h-40 rounded-[2rem] bg-gradient-to-br from-primary/30 to-primary/5 flex items-center justify-center rotate-3 hover:rotate-0 transition-transform duration-500 shadow-xl border border-white/10 overflow-hidden">
-                        <span className="text-5xl md:text-6xl font-display font-bold text-foreground drop-shadow-md">
+                        <img src="/founder-image.jpg" alt={founderName} className="w-full h-full object-cover" onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.parentElement?.querySelector('span')?.classList.remove('hidden');
+                        }} />
+                        <span className="hidden text-5xl md:text-6xl font-display font-bold text-foreground drop-shadow-md">
                           {founderInitials}
                         </span>
                       </div>

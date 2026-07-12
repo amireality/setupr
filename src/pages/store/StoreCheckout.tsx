@@ -257,8 +257,8 @@ const StoreCheckout = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="gstin">GSTIN (Optional)</Label>
-                        <Input id="gstin" value={gstin} onChange={(e) => setGstin(e.target.value)} placeholder="22AAAAA0000A1Z5" />
+                        <Label htmlFor="gstin">Tax ID / VAT Number (Optional)</Label>
+                        <Input id="gstin" value={gstin} onChange={(e) => setGstin(e.target.value)} placeholder="e.g. GB123456789" />
                       </div>
                       <div>
                         <Label htmlFor="phone">Phone</Label>
@@ -312,7 +312,7 @@ const StoreCheckout = () => {
                       <span>₹{formatStorePrice(subtotal)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">GST (18%)</span>
+                      <span className="text-muted-foreground">Tax</span>
                       <span>₹{formatStorePrice(tax)}</span>
                     </div>
                     <div className="flex justify-between font-bold text-lg pt-2 border-t border-border/50">

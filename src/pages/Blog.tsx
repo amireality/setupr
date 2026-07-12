@@ -38,8 +38,8 @@ const Blog = () => {
   const { data: contentSettings = [] } = useSiteSettingsByCategory("content");
   
   const blogBadge = contentSettings.find(s => s.key === "blog_page_badge")?.value || "BUSINESS GUIDES & RESOURCES";
-  const blogTitle = contentSettings.find(s => s.key === "blog_page_title")?.value || "How to register and grow your business in India";
-  const blogSubtitle = contentSettings.find(s => s.key === "blog_page_subtitle")?.value || "Expert guides on company registration, GST, MSME, compliance, and building credibility. Written for freelancers, consultants, and startup founders.";
+  const blogTitle = contentSettings.find(s => s.key === "blog_page_title")?.value || "How to register and grow your business globally";
+  const blogSubtitle = contentSettings.find(s => s.key === "blog_page_subtitle")?.value || "Expert guides on company registration, compliance, and building credibility. Written for freelancers, consultants, and startup founders.";
   
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");

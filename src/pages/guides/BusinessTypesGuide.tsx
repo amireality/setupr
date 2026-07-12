@@ -23,7 +23,7 @@ const BusinessTypesGuide = () => {
       icon: User,
       name: "Sole Proprietorship",
       tagline: "Simplest option for solo operators",
-      bestFor: "Freelancers, consultants, small service providers with revenue under ₹20-30 lakhs",
+      bestFor: "Freelancers, consultants, small service providers with modest revenue",
       pros: [
         "Minimal registration requirements",
         "Lowest compliance burden",
@@ -35,8 +35,8 @@ const BusinessTypesGuide = () => {
         "Harder to raise external funding",
         "May appear less credible to large clients"
       ],
-      compliance: "GST returns (if registered), income tax filing",
-      cost: "From ₹3,000 setup"
+      compliance: "Tax/VAT returns (if registered), income tax filing",
+      cost: "Low setup cost"
     },
     {
       icon: Users,
@@ -54,8 +54,8 @@ const BusinessTypesGuide = () => {
         "All partners must be actively involved",
         "Less familiar to some investors"
       ],
-      compliance: "Annual return, statement of accounts, ITR",
-      cost: "From ₹8,000 setup"
+      compliance: "Annual return, statement of accounts, tax return",
+      cost: "Medium setup cost"
     },
     {
       icon: Building,
@@ -73,16 +73,16 @@ const BusinessTypesGuide = () => {
         "More expensive to maintain",
         "Complex documentation and governance"
       ],
-      compliance: "Annual filings, board meetings, audits, ROC returns",
-      cost: "From ₹15,000 setup"
+      compliance: "Annual filings, board meetings, audits, corporate returns",
+      cost: "Higher setup cost"
     }
   ];
 
   return (
     <div className="min-h-screen bg-background relative">
       <Helmet>
-        <title>Business Registration Types in India: Sole Prop vs LLP vs Pvt Ltd | Setupr</title>
-        <meta name="description" content="Understand the differences between Sole Proprietorship, LLP, and Private Limited company in India. Find out which business structure is right for your startup or freelance business." />
+        <title>Business Registration Types: Sole Prop vs LLP vs Pvt Ltd | Setupr</title>
+        <meta name="description" content="Understand the differences between Sole Proprietorship, LLP, and Private Limited company. Find out which business structure is right for your startup or freelance business." />
         <link rel="canonical" href="https://setupr.com/guides/business-types" />
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
@@ -113,7 +113,7 @@ const BusinessTypesGuide = () => {
               CORNERSTONE GUIDE
             </span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
-              Business Types in India: <span className="gradient-text">Which One Is Right for You?</span>
+              Business Types: <span className="gradient-text">Which One Is Right for You?</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
               A clear comparison of Sole Proprietorship, LLP, and Private Limited Company to help you make the right choice for your business stage.

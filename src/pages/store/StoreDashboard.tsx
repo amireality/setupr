@@ -223,7 +223,7 @@ const OrderHistory = ({ userId }: { userId: string }) => {
                       )}
                       <div className="flex justify-between text-xs text-muted-foreground mt-2 pt-2 border-t border-border/20">
                         <span>Subtotal: ₹{formatStorePrice(Number(order.subtotal_inr))}</span>
-                        <span>GST: ₹{formatStorePrice(Number(order.tax_inr))}</span>
+                        <span>Tax: ₹{formatStorePrice(Number(order.tax_inr))}</span>
                         <span className="font-semibold text-foreground">Total: ₹{formatStorePrice(Number(order.total_inr))}</span>
                       </div>
                     </div>
@@ -297,8 +297,8 @@ const AccountSettings = ({
           <Input id="dash-company" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
         </div>
         <div>
-          <Label htmlFor="dash-gstin">GSTIN</Label>
-          <Input id="dash-gstin" value={gstin} onChange={(e) => setGstin(e.target.value)} placeholder="22AAAAA0000A1Z5" />
+          <Label htmlFor="dash-gstin">Tax ID / VAT</Label>
+          <Input id="dash-gstin" value={gstin} onChange={(e) => setGstin(e.target.value)} placeholder="e.g. GB123456789" />
         </div>
         <div>
           <Label htmlFor="dash-phone">Phone</Label>

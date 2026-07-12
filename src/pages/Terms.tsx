@@ -14,11 +14,11 @@ By accessing and using Setupr services, you agree to be bound by these Terms and
 
 ### Services
 
-Setupr provides business registration, compliance, and related professional services in India.
+Setupr provides global business registration, compliance, and related professional services.
 
 ### Payment Terms
 
-- All fees are exclusive of GST (18%)
+- All fees are exclusive of applicable taxes
 - Payment is required before service commencement
 - Government fees are collected separately
 
@@ -38,7 +38,7 @@ const Terms = () => {
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>Terms & Conditions | Setupr</title>
-        <meta name="description" content="Read the terms and conditions for using Setupr's business registration and compliance services in India." />
+        <meta name="description" content="Read the terms and conditions for using Setupr's global business registration and compliance services." />
         <link rel="canonical" href="https://setupr.com/terms" />
       </Helmet>
       <Navbar />

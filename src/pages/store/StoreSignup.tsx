@@ -107,8 +107,8 @@ const StoreSignup = () => {
                 <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
               </div>
               <div>
-                <Label htmlFor="gstin">GSTIN (optional)</Label>
-                <Input id="gstin" value={gstin} onChange={(e) => setGstin(e.target.value)} placeholder="22AAAAA0000A1Z5" />
+                <Label htmlFor="gstin">Tax ID / VAT (optional)</Label>
+                <Input id="gstin" value={gstin} onChange={(e) => setGstin(e.target.value)} placeholder="e.g. GB123456789" />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Creating account..." : "Create Account"}

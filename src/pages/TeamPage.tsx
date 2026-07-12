@@ -15,7 +15,7 @@ const teamSchema = {
   name: "Setupr",
   url: "https://setupr.com",
   description:
-    "Setupr is a business setup platform that helps freelancers, consultants, and startups in India with company registration, GST, MSME, compliance, and digital presence.",
+    "Setupr is a global business setup platform that helps freelancers, consultants, and startups with company registration, compliance, and digital presence.",
 };
 
 const TeamPage = () => {
@@ -27,7 +27,7 @@ const TeamPage = () => {
 
   const pageTitle = getSetting("team_page_title", "Meet the People Behind Setupr");
   const pageSubtitle = getSetting("team_page_subtitle", "We're building systems and resources to help early founders start their journey with clarity.");
-  const aboutSetupr = getSetting("team_about_setupr", "Setupr is a business setup platform that helps freelancers, consultants, and startups in India with company registration, GST, MSME, compliance, and digital presence. Our mission is to simplify the early founder journey.");
+  const aboutSetupr = getSetting("team_about_setupr", "Setupr is a global business setup platform that helps freelancers, consultants, and startups with company registration, compliance, and digital presence. Our mission is to simplify the early founder journey.");
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -35,13 +35,13 @@ const TeamPage = () => {
         <title>Our Team | Setupr</title>
         <meta
           name="description"
-          content="Meet the team behind Setupr - simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams in India."
+          content="Meet the team behind Setupr - simplifying business setup, compliance, and digital presence for freelancers, startups, and small teams globally."
         />
         <link rel="canonical" href="https://setupr.com/team" />
         <meta property="og:title" content="Our Team | Setupr" />
         <meta
           property="og:description"
-          content="Meet the team behind Setupr - simplifying business setup for founders in India."
+          content="Meet the team behind Setupr - simplifying business setup for founders globally."
         />
         <meta property="og:url" content="https://setupr.com/team" />
         <script type="application/ld+json">{JSON.stringify(teamSchema)}</script>

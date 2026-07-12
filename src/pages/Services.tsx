@@ -95,11 +95,11 @@ const Services = () => {
   return (
     <AuroraBackground className="min-h-screen">
       <Helmet>
-        <title>Business Registration Services in India | Setupr</title>
-        <meta name="description" content="Company registration, GST, MSME, custom AI setups (Agents, Chatbots & Tools), website engineering, and compliance for freelancers, consultants, and startups in India. Transparent pricing." />
+        <title>Global Business Registration Services | Setupr</title>
+        <meta name="description" content="Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence for freelancers, consultants, and startups. Transparent pricing." />
         <link rel="canonical" href="https://setupr.com/services" />
-        <meta property="og:title" content="Business Registration Services in India | Setupr" />
-        <meta property="og:description" content="Company registration, GST, MSME, custom AI setups (Agents, Chatbots & Tools), website engineering, and compliance for freelancers, consultants, and startups in India." />
+        <meta property="og:title" content="Global Business Registration Services | Setupr" />
+        <meta property="og:description" content="Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence for freelancers, consultants, and startups." />
         <meta property="og:url" content="https://setupr.com/services" />
         <script type="application/ld+json">
           {`
@@ -111,8 +111,8 @@ const Services = () => {
                   "@type": "WebPage",
                   "@id": "https://setupr.com/services/#webpage",
                   "url": "https://setupr.com/services",
-                  "name": "Business Registration Services in India | Setupr",
-                  "description": "Company registration, GST, MSME, compliance, website, and digital presence services for freelancers, consultants, and startups in India.",
+                  "name": "Global Business Registration Services | Setupr",
+                  "description": "Company registration, custom AI setups, compliance, website, and digital presence services for freelancers, consultants, and startups globally.",
                   "isPartOf": { "@id": "https://setupr.com/#website" }
                 }
               ]

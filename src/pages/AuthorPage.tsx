@@ -22,7 +22,7 @@ const AuthorPage = () => {
     settings.find((s) => s.key === key)?.value || fallback;
 
   const articlesHeadingTemplate = getSetting("author_articles_heading", "Articles by {name}");
-  const aboutSetupr = getSetting("author_about_setupr", "Setupr is a business setup platform that helps freelancers, consultants, and startups in India with company registration, GST, MSME, compliance, and digital presence. Our mission is to simplify the early founder journey.");
+  const aboutSetupr = getSetting("author_about_setupr", "Setupr is a global business setup platform that helps freelancers, consultants, and startups with company registration, compliance, and digital presence. Our mission is to simplify the early founder journey.");
 
   // Filter posts by this author
   const authorPosts = posts.filter(

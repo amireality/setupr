@@ -13,17 +13,17 @@ const breadcrumbSchema = {
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://setupr.com/" },
     { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://setupr.com/guides" },
-    { "@type": "ListItem", "position": 3, "name": "Starting a Business in India", "item": "https://setupr.com/guides/starting-business-india" }
+    { "@type": "ListItem", "position": 3, "name": "Starting a Business", "item": "https://setupr.com/guides/starting-business-india" }
   ]
 };
 
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Complete Guide to Starting a Business in India (2025)",
+  "headline": "Complete Guide to Starting a Business (2025)",
   "author": { "@type": "Person", "name": "Amir Khan" },
   "publisher": { "@type": "Organization", "name": "Setupr" },
-  "description": "A step-by-step guide covering business registration, compliance, and digital presence for freelancers, startups, and small businesses in India."
+  "description": "A step-by-step guide covering business registration, compliance, and digital presence for freelancers, startups, and small businesses."
 };
 
 const StartingBusinessGuide = () => {
@@ -43,7 +43,7 @@ const StartingBusinessGuide = () => {
     {
       icon: Shield,
       title: "3. Get Essential Registrations",
-      content: "Apply for GST (if turnover exceeds ₹20L), MSME/Udyam registration (for government benefits), and PAN for the business entity.",
+      content: "Apply for Tax ID/VAT, local business licenses, and any industry-specific permits required in your jurisdiction.",
       link: "/services/gst-registration"
     },
     {
@@ -61,7 +61,7 @@ const StartingBusinessGuide = () => {
     {
       icon: BookOpen,
       title: "6. Stay Compliant",
-      content: "Understand ongoing compliance requirements: GST returns, annual filings, tax returns, and any industry-specific requirements.",
+      content: "Understand ongoing compliance requirements: Tax/VAT returns, annual filings, and any industry-specific requirements.",
       link: "/blog/compliance-checklist-after-company-registration"
     }
   ];
@@ -69,8 +69,8 @@ const StartingBusinessGuide = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <Helmet>
-        <title>Complete Guide to Starting a Business in India (2025) | Setupr</title>
-        <meta name="description" content="Step-by-step guide to starting a business in India. Covers business registration, GST, compliance, and digital presence for freelancers and startups." />
+        <title>Complete Guide to Starting a Business (2025) | Setupr</title>
+        <meta name="description" content="Step-by-step guide to starting a business. Covers business registration, compliance, and digital presence for freelancers and startups." />
         <link rel="canonical" href="https://setupr.com/guides/starting-business-india" />
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
@@ -102,10 +102,10 @@ const StartingBusinessGuide = () => {
               CORNERSTONE GUIDE
             </span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
-              Complete Guide to <span className="gradient-text">Starting a Business</span> in India
+              Complete Guide to <span className="gradient-text">Starting a Business</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              A practical, step-by-step guide for freelancers, consultants, and startup founders who want to start a legitimate business in India.
+              A practical, step-by-step guide for freelancers, consultants, and startup founders who want to start a legitimate business.
             </p>
             <div className="flex items-center gap-4 mt-6 text-sm text-muted-foreground">
               <span>By <Link to="/author/amir-khan" className="text-primary hover:underline">Amir Khan</Link></span>
@@ -126,7 +126,7 @@ const StartingBusinessGuide = () => {
             <div className="glass-card rounded-xl p-6 md:p-8 border border-border/50">
               <h2 className="text-xl font-semibold text-foreground mt-0 mb-4">Who is this guide for?</h2>
               <p className="text-muted-foreground mb-4">
-                This guide is designed for freelancers, consultants, solopreneurs, and early-stage startup founders in India who:
+                This guide is designed for freelancers, consultants, solopreneurs, and early-stage startup founders who:
               </p>
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex items-start gap-3">
@@ -187,7 +187,7 @@ const StartingBusinessGuide = () => {
           >
             <h2 className="text-2xl font-bold font-display mb-4">Ready to get started?</h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Setupr helps freelancers, consultants, and startups in India handle business registration, compliance, and digital presence so you can focus on your work.
+              Setupr helps freelancers, consultants, and startups handle business registration, compliance, and digital presence so you can focus on your work.
             </p>
             <Button asChild size="lg">
               <Link to="/intake">

@@ -4,11 +4,11 @@ import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 import { Shield, Zap, FileCheck, TrendingUp } from "lucide-react";
 
 const floatingWords = [
-  { text: "GST", delay: 0, x: -180, y: -60 },
-  { text: "MSME", delay: 0.3, x: 200, y: -40 },
+  { text: "Global", delay: 0, x: -180, y: -60 },
+  { text: "Formation", delay: 0.3, x: 200, y: -40 },
   { text: "AI Setup", delay: 0.6, x: -220, y: 50 },
   { text: "Compliance", delay: 0.9, x: 160, y: 70 },
-  { text: "PAN-TAN", delay: 1.2, x: -100, y: -90 },
+  { text: "Digital", delay: 1.2, x: -100, y: -90 },
   { text: "Domain", delay: 1.5, x: 240, y: -80 },
 ];
 
@@ -25,9 +25,9 @@ const ServiceIntro = () => {
   const getSetting = (key: string, fallback: string) => 
     settings.find((s) => s.key === key)?.value || fallback;
 
-  const introTitle = getSetting("services_intro_title", "Business registration services in India");
-  const introSubtitle = getSetting("services_intro_subtitle", "Company registration, GST, MSME, custom AI setups, trademark & more — everything you need to go legit.");
-  const introNote = getSetting("services_intro_note", "Pick individual services or choose a bundle. All prices exclude 18% GST.");
+  const introTitle = getSetting("services_intro_title", "Launch & Scale Your Digital Business");
+  const introSubtitle = getSetting("services_intro_subtitle", "Company registration, custom AI integrations, digital presence & automation — everything you need to launch globally.");
+  const introNote = getSetting("services_intro_note", "Pick individual solutions or choose a comprehensive bundle.");
 
   return (
     <section className="relative py-28 md:py-36 overflow-hidden">
@@ -81,7 +81,7 @@ const ServiceIntro = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Trusted by 1,200+ founders across India
+            Trusted by 1,200+ global founders
           </motion.div>
 
           <motion.h1

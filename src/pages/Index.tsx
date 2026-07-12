@@ -19,11 +19,11 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <Helmet>
-        <title>{seo?.title || "Company Registration Online in India | Pvt Ltd, LLP, GST, MSME | Setupr"}</title>
-        <meta name="description" content={seo?.description || "Register your Private Limited, LLP, OPC or Proprietorship company online in India. GST, MSME, trademark, compliance, website and business email handled end to end. Starts at ₹999."} />
+        <title>{seo?.title || "Setupr | Global Business Registration & Setup Services"}</title>
+        <meta name="description" content={seo?.description || "Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence. All handled for freelancers and startups."} />
         <link rel="canonical" href="https://setupr.com/" />
-        <meta property="og:title" content={seo?.ogTitle || seo?.title || "Company Registration Online in India | Pvt Ltd, LLP, GST | Setupr"} />
-        <meta property="og:description" content={seo?.ogDescription || seo?.description || "Register Pvt Ltd, LLP, OPC or Proprietorship online in India. GST, MSME, trademark, compliance and website handled end to end."} />
+        <meta property="og:title" content={seo?.ogTitle || seo?.title || "Setupr | Global Business Registration & Setup Services"} />
+        <meta property="og:description" content={seo?.ogDescription || seo?.description || "Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence. All handled for freelancers and startups."} />
         <meta property="og:url" content="https://setupr.com/" />
       </Helmet>
       {/* Global background removed for section differentiation */}
