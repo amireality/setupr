@@ -19,11 +19,11 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <Helmet>
-        <title>{seo?.title || "Setupr | Global Business Registration & Setup Services"}</title>
-        <meta name="description" content={seo?.description || "Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence. All handled for freelancers and startups."} />
+        <title>{seo?.title || "Setupr | Business Registration, Websites, Integrations & Automations"}</title>
+        <meta name="description" content={seo?.description || "We sit in the gap that makes your business legit and modern. Registration, websites, feature integrations (WhatsApp, payments, CRM), and automations. One team, worldwide."} />
         <link rel="canonical" href="https://setupr.com/" />
-        <meta property="og:title" content={seo?.ogTitle || seo?.title || "Setupr | Global Business Registration & Setup Services"} />
-        <meta property="og:description" content={seo?.ogDescription || seo?.description || "Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence. All handled for freelancers and startups."} />
+        <meta property="og:title" content={seo?.ogTitle || seo?.title || "Setupr | Business Registration, Websites, Integrations & Automations"} />
+        <meta property="og:description" content={seo?.ogDescription || seo?.description || "Registration, websites, feature integrations, and automations. One team, worldwide."} />
         <meta property="og:url" content="https://setupr.com/" />
       </Helmet>
       {/* Global background removed for section differentiation */}

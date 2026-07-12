@@ -15,7 +15,7 @@ const Footer = () => {
   const getSetting = (key: string, fallback: string) =>
     settings.find((s) => s.key === key)?.value || fallback;
 
-  const tagline = getSetting("footer_tagline", "Your trusted partner for business setup & compliance in India.");
+  const tagline = getSetting("footer_tagline", "Registration, websites, integrations, and automations. Built for founders worldwide.");
   const ownership = getSetting("footer_ownership", "Owned & operated by Altered.");
   const email = getSetting("footer_email", "info@setupr.com");
   const instagram = getSetting("footer_instagram", "https://www.instagram.com/setuprhq");
@@ -84,13 +84,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/guides/starting-business-india" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Starting a Business
-                </Link>
-              </li>
-              <li>
-                <Link to="/guides/business-types" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Business Types
+                <Link to="/store" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Cloud Marketplace
                 </Link>
               </li>
             </ul>
@@ -118,23 +113,23 @@ const Footer = () => {
             <h4 className="font-display font-semibold text-foreground mb-4">Services</h4>
             <ul className="space-y-3">
               <li>
-                <Link to="/services/company-registration" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Company Registration
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/gst-registration" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  GST Registration
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/domain-email" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Domain & Email
-                </Link>
-              </li>
-              <li>
                 <Link to="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   All Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/website" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Websites
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/ai-workflow" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Automations & AI
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/pvt-ltd" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Business Registration
                 </Link>
               </li>
             </ul>
@@ -175,7 +170,7 @@ const Footer = () => {
               </p>
               <span className="hidden sm:inline text-muted-foreground">•</span>
               <p className="text-xs text-muted-foreground">
-                Built for <span className="font-medium text-muted-foreground/70">Bharat</span> 🇮🇳
+                Serving founders <span className="font-medium text-muted-foreground/70">worldwide</span>
               </p>
             </div>
           </div>

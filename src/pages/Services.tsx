@@ -95,11 +95,11 @@ const Services = () => {
   return (
     <AuroraBackground className="min-h-screen">
       <Helmet>
-        <title>Global Business Registration Services | Setupr</title>
-        <meta name="description" content="Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence for freelancers, consultants, and startups. Transparent pricing." />
+        <title>Services | Registration, Websites, Integrations & Automations | Setupr</title>
+        <meta name="description" content="Business registration, custom websites, feature integrations (WhatsApp, payments, CRM), and workflow automations for founders worldwide. Transparent pricing." />
         <link rel="canonical" href="https://setupr.com/services" />
-        <meta property="og:title" content="Global Business Registration Services | Setupr" />
-        <meta property="og:description" content="Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence for freelancers, consultants, and startups." />
+        <meta property="og:title" content="Services | Registration, Websites, Integrations & Automations | Setupr" />
+        <meta property="og:description" content="Registration, websites, integrations, and automations for founders worldwide." />
         <meta property="og:url" content="https://setupr.com/services" />
         <script type="application/ld+json">
           {`
