@@ -367,6 +367,7 @@ export type Database = {
       }
       services: {
         Row: {
+          available_regions: string[]
           category: string
           created_at: string | null
           default_selected: boolean
@@ -374,6 +375,7 @@ export type Database = {
           description_short: string
           govt_or_third_party_fee: string
           id: string
+          is_regional: boolean
           service_id: string
           service_name: string
           setupr_fee_inr: number
@@ -384,6 +386,7 @@ export type Database = {
           who_its_for: string
         }
         Insert: {
+          available_regions?: string[]
           category: string
           created_at?: string | null
           default_selected?: boolean
@@ -391,6 +394,7 @@ export type Database = {
           description_short: string
           govt_or_third_party_fee?: string
           id?: string
+          is_regional?: boolean
           service_id: string
           service_name: string
           setupr_fee_inr: number
@@ -401,6 +405,7 @@ export type Database = {
           who_its_for: string
         }
         Update: {
+          available_regions?: string[]
           category?: string
           created_at?: string | null
           default_selected?: boolean
@@ -408,6 +413,7 @@ export type Database = {
           description_short?: string
           govt_or_third_party_fee?: string
           id?: string
+          is_regional?: boolean
           service_id?: string
           service_name?: string
           setupr_fee_inr?: number
