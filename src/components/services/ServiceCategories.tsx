@@ -108,7 +108,14 @@ const ServiceCard = ({
 
         {/* Service info */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-medium text-foreground text-sm leading-snug">{service.service_name}</h3>
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="font-medium text-foreground text-sm leading-snug">{service.service_name}</h3>
+            {service.is_regional && service.available_regions?.length ? (
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-medium bg-primary/10 text-primary border border-primary/20 whitespace-nowrap">
+                Available in: {service.available_regions.join(", ")}
+              </span>
+            ) : null}
+          </div>
           <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{service.description_short}</p>
         </div>
 

@@ -17,6 +17,8 @@ export interface DbService {
   visibility: "public" | "add-on" | "bundle-only";
   default_selected: boolean;
   sort_order: number;
+  available_regions?: string[] | null;
+  is_regional?: boolean | null;
   created_at: string;
   updated_at: string;
 }
