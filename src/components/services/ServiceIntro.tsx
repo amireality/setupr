@@ -4,17 +4,17 @@ import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 import { Shield, Zap, FileCheck, TrendingUp } from "lucide-react";
 
 const floatingWords = [
-  { text: "Global", delay: 0, x: -180, y: -60 },
-  { text: "Formation", delay: 0.3, x: 200, y: -40 },
-  { text: "AI Setup", delay: 0.6, x: -220, y: 50 },
-  { text: "Compliance", delay: 0.9, x: 160, y: 70 },
-  { text: "Digital", delay: 1.2, x: -100, y: -90 },
-  { text: "Domain", delay: 1.5, x: 240, y: -80 },
+  { text: "Websites", delay: 0, x: -180, y: -60 },
+  { text: "Integrations", delay: 0.3, x: 200, y: -40 },
+  { text: "Automations", delay: 0.6, x: -220, y: 50 },
+  { text: "AI Agents", delay: 0.9, x: 160, y: 70 },
+  { text: "WhatsApp", delay: 1.2, x: -100, y: -90 },
+  { text: "Registration", delay: 1.5, x: 240, y: -80 },
 ];
 
 const trustSignals = [
-  { icon: Shield, label: "100% Compliance" },
-  { icon: Zap, label: "Fast Processing" },
+  { icon: Shield, label: "Done Right" },
+  { icon: Zap, label: "Fast Turnaround" },
   { icon: FileCheck, label: "Expert-Led" },
   { icon: TrendingUp, label: "1,200+ Delivered" },
 ];
@@ -25,8 +25,8 @@ const ServiceIntro = () => {
   const getSetting = (key: string, fallback: string) => 
     settings.find((s) => s.key === key)?.value || fallback;
 
-  const introTitle = getSetting("services_intro_title", "Launch & Scale Your Digital Business");
-  const introSubtitle = getSetting("services_intro_subtitle", "Company registration, custom AI integrations, digital presence & automation — everything you need to launch globally.");
+  const introTitle = getSetting("services_intro_title", "Launch and Scale Your Digital Business");
+  const introSubtitle = getSetting("services_intro_subtitle", "Business registration, custom websites, feature integrations, and automations. Everything you need to look legit and run modern.");
   const introNote = getSetting("services_intro_note", "Pick individual solutions or choose a comprehensive bundle.");
 
   return (
@@ -81,7 +81,7 @@ const ServiceIntro = () => {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Trusted by 1,200+ global founders
+            Trusted by 1,200+ founders worldwide
           </motion.div>
 
           <motion.h1

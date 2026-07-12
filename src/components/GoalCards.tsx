@@ -34,9 +34,9 @@ const Skeleton = ({
 };
 
 const defaultItems = [
-  { title: "Thinking of starting a business?", description: "Freelancer or consultant exploring what's needed to register a business in India? We'll guide you from idea to legal entity.", link: "/intake?stage=thinking", skeletonTitle: "Dream It", skeletonSubtitle: "From idea to registered business", variant: "purple" as const, icon: <Lightbulb className="h-4 w-4 text-primary" /> },
-  { title: "Ready to register your company?", description: "Get your Private Limited, LLP, or Proprietorship registered with GST, MSME, and compliance. All in one place.", link: "/intake?stage=legal", skeletonTitle: "Own It", skeletonSubtitle: "Legal registration done right", variant: "orange" as const, icon: <FileCheck className="h-4 w-4 text-primary" /> },
-  { title: "Registered but need to scale?", description: "Already have a business? Add website, professional email, AI tools, automation, and ongoing compliance support to build credibility and scale efficiently.", link: "/intake?stage=scale", skeletonTitle: "Grow It", skeletonSubtitle: "Build trust, visibility, and automation", variant: "green" as const, icon: <TrendingUp className="h-4 w-4 text-primary" /> },
+  { title: "Thinking of starting a business?", description: "Exploring how to turn your idea into a real, credible business? We'll guide you from idea to launch, wherever you're based.", link: "/intake?stage=thinking", skeletonTitle: "Dream It", skeletonSubtitle: "From idea to launched business", variant: "purple" as const, icon: <Lightbulb className="h-4 w-4 text-primary" /> },
+  { title: "Ready to register your company?", description: "Get your business registered with the right structure, tools, and paperwork done. All handled in one place.", link: "/intake?stage=legal", skeletonTitle: "Own It", skeletonSubtitle: "Registration done right", variant: "orange" as const, icon: <FileCheck className="h-4 w-4 text-primary" /> },
+  { title: "Registered but need to scale?", description: "Already running a business? Add website, feature integrations, AI tools, and workflow automations to build trust and remove manual work.", link: "/intake?stage=scale", skeletonTitle: "Grow It", skeletonSubtitle: "Build trust, visibility, and automation", variant: "green" as const, icon: <TrendingUp className="h-4 w-4 text-primary" /> },
 ];
 
 const icons = [<Lightbulb className="h-4 w-4 text-primary" />, <FileCheck className="h-4 w-4 text-primary" />, <TrendingUp className="h-4 w-4 text-primary" />];
@@ -47,8 +47,8 @@ const GoalCards = () => {
   const getSetting = (key: string, fallback: string) =>
     settings.find((s) => s.key === key)?.value || fallback;
 
-  const sectionTitle = getSetting("homepage_goal_section_title", "Whether you're a freelancer, consultant, or startup founder");
-  const sectionSubtitle = getSetting("homepage_goal_section_subtitle", "Select where you are. We'll show you exactly what you need to get legally set up in India.");
+  const sectionTitle = getSetting("homepage_goal_section_title", "Whether you're a founder, freelancer, or scaling team");
+  const sectionSubtitle = getSetting("homepage_goal_section_subtitle", "Tell us where you are. We'll show you exactly what you need to get set up and running.");
 
   const items = defaultItems.map((def, i) => {
     const num = i + 1;

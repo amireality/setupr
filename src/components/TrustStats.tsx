@@ -110,13 +110,13 @@ const TrustStats = () => {
         {/* Section Header */}
         <SectionHeader 
           icon={<ShieldCheck />}
-          badge={getSetting("homepage_trust_stats_badge", "Trusted by Freelancers, Startups & Small Businesses")}
+          badge={getSetting("homepage_trust_stats_badge", "Trusted by founders, freelancers, and scaling teams")}
           title={
             <>
-              500+ <span className="text-primary">Businesses</span> Registered Across India
+              500+ <span className="text-primary">Businesses</span> Built and Launched
             </>
           }
-          subtitle={getSetting("homepage_trust_stats_subtitle", "From solo consultants to growing startups, we've helped entrepreneurs in 50+ cities get legally set up and build credibility.")}
+          subtitle={getSetting("homepage_trust_stats_subtitle", "From solo founders to growing teams, we've helped businesses in 50+ cities across the world get set up and running.")}
           alignment="center"
         />
 
@@ -175,12 +175,11 @@ const TrustStats = () => {
           className="mt-12 text-center"
         >
           <p className="text-sm text-muted-foreground">
-            <span className="text-foreground font-medium">Trusted by founders</span> from 
-            <span className="text-primary"> Bangalore</span>,
-            <span className="text-primary"> Mumbai</span>,
-            <span className="text-primary"> Delhi</span>,
-            <span className="text-primary"> Hyderabad</span>, and
-            <span className="text-primary"> 50+ cities</span> across India
+            <span className="text-foreground font-medium">Trusted by founders</span> across
+            <span className="text-primary"> North America</span>,
+            <span className="text-primary"> Europe</span>,
+            <span className="text-primary"> the Middle East</span>, and
+            <span className="text-primary"> Asia</span>
           </p>
         </motion.div>
       </div>

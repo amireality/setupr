@@ -22,13 +22,13 @@ const HeroSection = () => {
   };
 
   const typerWordsJson = settings.find(s => s.key === "homepage_hero_typer_words")?.value;
-  const businessTypes: string[] = typerWordsJson ? (() => { try { return JSON.parse(typerWordsJson); } catch { return ["Business", "Agency", "Startup", "Venture", "Company"]; } })() : ["Business", "Agency", "Startup", "Venture", "Company"];
-  const headlinePrefix = getSetting("homepage_hero_headline_prefix", "Set up your");
-  const headlineSuffix = getSetting("homepage_hero_headline_suffix", "The right way.");
+  const businessTypes: string[] = typerWordsJson ? (() => { try { return JSON.parse(typerWordsJson); } catch { return ["Business", "Brand", "Startup", "Studio", "Venture"]; } })() : ["Business", "Brand", "Startup", "Studio", "Venture"];
+  const headlinePrefix = getSetting("homepage_hero_headline_prefix", "Make your");
+  const headlineSuffix = getSetting("homepage_hero_headline_suffix", "Legit and modern.");
   
-  const heroSubtitle = getSetting("homepage_hero_subtitle", "Company registration, custom AI setups (Agents, Chatbots & Tools), website engineering, and digital presence. All handled for freelancers, consultants, and startups. Setup your company without vendor chaos.");
+  const heroSubtitle = getSetting("homepage_hero_subtitle", "We sit in the gap that makes your business legit and modern. Registration, websites, feature integrations like WhatsApp and payments, and automations. One team, done for you.");
   const ctaPrimary = getSetting("homepage_cta_primary", "Start with your journey");
-  const ctaSecondary = getSetting("homepage_cta_secondary", "See How It Works");
+  const ctaSecondary = getSetting("homepage_cta_secondary", "See how it works");
 
   return (
     <section className="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden bg-black">

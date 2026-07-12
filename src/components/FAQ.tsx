@@ -12,25 +12,25 @@ const defaultFaqGroups: Record<string, { label: string; faqs: { question: string
   "getting-started": {
     label: "Getting Started",
     faqs: [
-      { question: "How do I register a business in India?", answer: "To register a business in India, you need to choose a business structure (Proprietorship, LLP, or Private Limited), obtain a Digital Signature Certificate (DSC), apply for Director Identification Number (DIN) if needed, reserve your company name, and file incorporation documents with MCA. Setupr handles all these steps for you. Just provide basic documents like PAN, Aadhaar, and address proof." },
-      { question: "Do freelancers need GST registration?", answer: "Yes, if your annual turnover exceeds ₹20 lakh (₹10 lakh for special category states) or if you provide services to clients outside India. Even below this threshold, voluntary GST registration helps you look professional, claim input tax credits, and work with larger clients who require GST invoices. Setupr can help you register for GST in 3-5 working days." },
-      { question: "Can I start a business without a CA or lawyer?", answer: "Yes. While CAs and lawyers are helpful for complex matters, basic business registration, GST filing, and compliance can be handled without them. Setupr provides expert guidance and handles all documentation, filings, and follow-ups so you get professional-grade setup without expensive retainers." },
+      { question: "What does Setupr actually do?", answer: "Setupr helps founders build legit, modern businesses. We handle business registration, custom websites, feature integrations like WhatsApp and payment gateways, and workflow automations. One team, done for you, so you don't juggle five vendors." },
+      { question: "Do you work with founders outside India?", answer: "Yes. Our website, integrations, and automation work is delivered worldwide. Registration is supported in select regions, and we're actively expanding. Reach out and we'll tell you exactly what we can do for your country." },
+      { question: "Can I start without a technical team?", answer: "That's exactly who we're built for. You bring the business idea and direction. We handle the setup, the code, the integrations, and the automations so you can focus on running the business." },
     ],
   },
   "pricing-process": {
     label: "Pricing & Process",
     faqs: [
-      { question: "What is the cost of company registration in India?", answer: "The cost varies by business type. Private Limited registration typically costs ₹7,000-15,000 (Setupr fee) plus ₹5,000-10,000 government fees. LLP registration costs ₹5,000-10,000 plus government fees. Proprietorship is the most affordable at ₹1,500-3,000. Setupr shows all fees upfront with no hidden charges. You'll see both our service fee and government fees before you proceed." },
-      { question: "How long does it take to register a Private Limited company?", answer: "Private Limited company registration takes 10-15 working days from document submission. This includes DSC issuance (1-2 days), name approval (2-3 days), and incorporation certificate (5-7 days). LLP takes 7-10 days, while Proprietorship with MSME/GST can be done in 3-5 days. Setupr keeps you updated at every step via WhatsApp and email." },
-      { question: "What documents do I need to register a company?", answer: "Basic documents include: PAN card, Aadhaar card, passport-size photographs, address proof (electricity bill/rent agreement within 2 months), and a bank statement. For Pvt Ltd/LLP, you'll also need Digital Signature Certificates which Setupr helps you obtain. We provide a complete checklist based on your chosen business structure." },
+      { question: "How does pricing work?", answer: "Pricing is transparent and shown upfront on each service page. You can pick individual services or bundle them for a better rate. No hidden charges, and no retainer traps." },
+      { question: "How long does a typical project take?", answer: "Websites usually go live in 2 to 4 weeks. Integrations and automations depend on scope but most ship in 1 to 3 weeks. Registration timelines depend on the country and structure. You'll get a clear timeline before we start." },
+      { question: "What do you need from me to get started?", answer: "The intake form takes about 5 minutes. You tell us what you're trying to do; we come back with a clear plan, timeline, and quote. From there we handle the rest with regular updates via email and WhatsApp." },
     ],
   },
   "after-setup": {
-    label: "After Registration",
+    label: "After Launch",
     faqs: [
-      { question: "What services are required after company registration?", answer: "After registration, you'll need: GST registration (if applicable), professional tax registration, opening a current bank account, MSME/Udyam registration (for benefits), and setting up your digital presence (website, business email, Google listing). For companies, annual ROC filings and compliance are mandatory. Setupr offers all these as add-on services." },
-      { question: "Can Setupr handle both legal setup and digital presence?", answer: "Yes. Setupr provides end-to-end business setup, from legal registration (company formation, GST, MSME) to digital presence (professional website, business email, domain, Google Business Profile). This means one partner for everything instead of coordinating with multiple vendors." },
-      { question: "Do you provide ongoing compliance support after registration?", answer: "Absolutely. We provide reminders and assistance for all renewals including GST returns, company annual filings (ROC), professional tax, and MSME updates. Our proactive approach ensures you never miss a deadline or face penalties. Many clients continue working with us for years for their compliance needs." },
+      { question: "Can Setupr handle everything under one roof?", answer: "Yes. Registration, website, professional email, payment gateway, CRM integration, WhatsApp Business, AI chatbot, workflow automations. One team for all of it means fewer handoffs and faster launches." },
+      { question: "Do you offer ongoing support after launch?", answer: "Yes. We offer maintenance, iteration, and support plans so your site, integrations, and automations stay reliable and keep evolving with your business." },
+      { question: "What if I need something India-specific like GST?", answer: "We still support the full India stack (GST, MSME, PAN, trademark, Indian company types). It's not front-and-center on the site anymore, but you can request any of it and we'll set it up." },
     ],
   },
 };
