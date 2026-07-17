@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "sdk_version": "0.23.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "setupr-mcp",
+      "version": "0.1.0",
+      "title": "Setupr"
+    },
+    "tools": [
+      {
+        "name": "list_services",
+        "title": "List Setupr services",
+        "description": "List Setupr's public services catalog (business registration, websites & integrations, automations & AI). Returns service id, name, category, short description, who it's for, Setupr fee (INR), delivery type, and regional availability.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "category": {
+              "description": "Optional category filter: 'business-registration', 'websites-integrations', 'automations-ai', etc.",
+              "type": "string"
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_blog_posts",
+        "title": "List Setupr blog posts",
+        "description": "List published Setupr blog posts (title, slug, excerpt, category, author, published date, read time, featured image). Returns most recently published first.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "category": {
+              "description": "Optional category filter.",
+              "type": "string"
+            },
+            "limit": {
+              "description": "Max number of posts to return. Defaults to 20, capped at 50.",
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_blog_post",
+        "title": "Get a Setupr blog post",
+        "description": "Fetch the full content of a single published Setupr blog post by slug (markdown content, title, excerpt, author, category, published date, featured image).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The blog post slug, e.g. 'starting-a-business-in-india'."
+            }
+          },
+          "required": [
+            "slug"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
