@@ -1,28 +1,25 @@
-User-agent: Googlebot
-Allow: /
-Disallow: /admin
-Disallow: /admin/login
-
-User-agent: Bingbot
-Allow: /
-Disallow: /admin
-Disallow: /admin/login
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+#   _____      _                  
+#  / ____|    | |                 
+# | (___   ___| |_ _   _ _ __  _ __ 
+#  \___ \ / _ \ __| | | | '_ \| '__|
+#  ____) |  __/ |_| |_| | |_) | |   
+# |_____/ \___|\__|\__,_| .__/|_|   
+#                       | |         
+#                       |_|         
+#
+# Hello there! 
+# We're thrilled you're exploring under the hood. 
+# Setupr is built to help global founders launch and scale.
+# 
+# Join us at: https://setupr.com/
 
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /admin/login
-Disallow: /store/login
-Disallow: /store/signup
-Disallow: /store/dashboard
-Disallow: /store/checkout
-Disallow: /login
-Disallow: /signup
 
+# Prevent indexing of internal/dashboard routes
+Disallow: /admin/
+Disallow: /store/dashboard/
+Disallow: /api/
+
+# Sitemap location
 Sitemap: https://setupr.com/sitemap.xml
