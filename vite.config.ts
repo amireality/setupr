@@ -47,8 +47,8 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        navigateFallbackDenylist: [/^\/~oauth/],
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+        navigateFallbackDenylist: [/^\/~oauth/, /^\/robots\.txt/, /^\/sitemap\.xml/],
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,txt,xml}"],
       },
     }),
   ].filter(Boolean),
