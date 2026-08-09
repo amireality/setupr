@@ -21,6 +21,8 @@ import {
 import { useDbCategories, useDbServices } from "@/hooks/useServices";
 import { useStoreAuth } from "@/hooks/useStoreAuth";
 import { cn } from "@/lib/utils";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
