@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Sparkles, X } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 type Announcement = {
   id: string;
@@ -29,17 +29,13 @@ const announcements: Announcement[] = [
 
 const AnnouncementBanner = () => {
   const [index, setIndex] = useState(0);
-  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    if (dismissed) return;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % announcements.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, [dismissed]);
-
-  if (dismissed) return null;
+  }, []);
 
   const item = announcements[index];
 
@@ -53,6 +49,10 @@ const AnnouncementBanner = () => {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault();
+                window.open(item.href, "_blank", "noopener,noreferrer");
+              }}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -71,15 +71,6 @@ const AnnouncementBanner = () => {
               <ArrowRight className="h-3.5 w-3.5 shrink-0 text-primary sm:hidden" />
             </motion.a>
           </AnimatePresence>
-
-          <button
-            type="button"
-            onClick={() => setDismissed(true)}
-            aria-label="Dismiss announcement"
-            className="absolute right-0 flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
         </div>
       </div>
     </div>
