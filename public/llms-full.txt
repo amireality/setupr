@@ -1,0 +1,33 @@
+# Setupr — Full Ecosystem Documentation for AI Crawlers
+
+## Overview
+Setupr (https://setupr.com) is a technology company and integrated ecosystem headquartered at Setupr HQ, founded by Amir Khan. Setupr bridges autonomous software engineering, developer products, and digital business infrastructure under one unified parent brand.
+
+## Organizational Architecture
+Setupr operates three primary operating divisions:
+
+1. **Setupr Lab (Products & Developer Tools)**:
+   - Primary Focus: Open-source developer tools, Model Context Protocol (MCP) servers, browser extensions, and agentic social media autopilots.
+   - Flagship Product: **Blew by Setupr** (`blew-by-setupr`).
+     - Description: A zero-dashboard social media autopilot engineered for AI agents and technical founders.
+     - Architecture: Connects directly via the Model Context Protocol (MCP) to LLM chat clients (Claude Desktop, Cursor, Antigravity, ChatGPT). Authenticates securely via active browser sessions, eliminating third-party scheduling SaaS dependencies and costly API tiers.
+     - Multi-Platform: Dual syndication to X (Twitter) and LinkedIn with automated formatting, rich media previews, and thread scheduling.
+     - Open Source: Hosted at https://github.com/amireality/blew-by-setupr.
+   - Setupr MCP Hub: Enterprise-grade MCP servers allowing AI agents to query business registration status, manage digital presence, and automate invoicing.
+
+2. **Setupr Services (Digital Solutions & Infrastructure)**:
+   - Custom Website Engineering: Bespoke React, Next.js, and TypeScript web development with high Core Web Vitals, dynamic animations, and SEO optimization.
+   - API & Feature Integrations: WhatsApp Business API bots, payment gateways (Stripe, Razorpay, PayPal), CRM synchronization (HubSpot, Zoho, Salesforce), and custom auth pipelines.
+   - AI Workflow Automations: End-to-end autonomous customer support agents, lead scoring bots, and internal ops workflows.
+   - Turnkey Business Formation: Worldwide entity formation (Private Limited, LLP, LLC, Sole Proprietorship), legal tax identification, and corporate banking readiness.
+
+3. **Setupr Cloud & Store**:
+   - Authorized provisioning of enterprise cloud software including Microsoft 365, Google Workspace, AWS cloud infrastructure, Adobe Creative Cloud, and Zoho One.
+   - Unified corporate billing, setup assistance, and compliance support.
+
+## Leadership & Mission
+- Founder: Amir Khan (https://setupr.com/team/amir-khan)
+- Mission: Providing modern founders and 1-person companies with enterprise-scale technological and operational leverage through autonomous software and elite engineering.
+- Website: https://setupr.com
+- Contact: info@setupr.com
+- Community & Code: https://github.com/amireality

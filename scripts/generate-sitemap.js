@@ -19,7 +19,7 @@ async function generateSitemap() {
   
   // Static routes
   const staticRoutes = [
-    '', '/services', '/about', '/blog', '/contact', '/intake', 
+    '', '/lab', '/labs', '/services', '/about', '/blog', '/contact', '/intake', 
     '/career', '/team', '/guides', '/guides/starting-business-india', 
     '/guides/business-types', '/store', '/store/products', '/apply-loan',
     '/terms', '/privacy', '/refund'
@@ -35,40 +35,47 @@ async function generateSitemap() {
     { data: authors }
   ] = await Promise.all([
     supabase.from('services').select('service_id'),
-    supabase.from('blog_posts').select('slug').eq('is_published', true),
-    supabase.from('store_products').select('slug').eq('is_active', true),
+    supabase.from('blog_posts').select('slug, updated_at, published_at').eq('is_published', true),
+    supabase.from('store_products').select('slug, updated_at').eq('is_active', true),
     supabase.from('authors').select('slug').eq('is_active', true)
   ]);
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-  const addUrl = (path, priority = '0.8', changefreq = 'monthly') => {
-    xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
+  const today = new Date().toISOString().split('T')[0];
+  const addUrl = (path, priority = '0.8', changefreq = 'monthly', lastmod = today) => {
+    xml += `  <url>\n    <loc>${baseUrl}${path}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
   };
 
   // Add static (homepage uses trailing slash to match canonical)
   staticRoutes.forEach(route => {
-    const priority = route === '' ? '1.0' : (['/terms', '/privacy', '/refund'].includes(route) ? '0.3' : '0.8');
+    const priority = route === '' ? '1.0' : (['/terms', '/privacy', '/refund'].includes(route) ? '0.3' : (route === '/lab' ? '0.9' : '0.8'));
     const path = route === '' ? '/' : route;
-    addUrl(path, priority, 'weekly');
+    addUrl(path, priority, 'weekly', today);
   });
 
   // Add dynamic services
   if (services) {
     console.log(`Adding ${services.length} services to sitemap`);
-    services.forEach(s => addUrl(`/services/${s.service_id}`, '0.9', 'monthly'));
+    services.forEach(s => addUrl(`/services/${s.service_id}`, '0.9', 'monthly', today));
   }
 
   // Add blogs
   if (blogs) {
     console.log(`Adding ${blogs.length} blog posts to sitemap`);
-    blogs.forEach(b => addUrl(`/blog/${b.slug}`, '0.7', 'weekly'));
+    blogs.forEach(b => {
+      const bDate = (b.updated_at || b.published_at || today).split('T')[0];
+      addUrl(`/blog/${b.slug}`, '0.7', 'weekly', bDate);
+    });
   }
 
   // Add store products
   if (products) {
     console.log(`Adding ${products.length} store products to sitemap`);
-    products.forEach(p => addUrl(`/store/products/${p.slug}`, '0.8', 'weekly'));
+    products.forEach(p => {
+      const pDate = (p.updated_at || today).split('T')[0];
+      addUrl(`/store/products/${p.slug}`, '0.8', 'weekly', pDate);
+    });
   }
 
   // Add team members

@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import { EcosystemSection } from "@/components/EcosystemSection";
 import TrustStats from "@/components/TrustStats";
 import GoalCards from "@/components/GoalCards";
 import RecommendedBundles from "@/components/RecommendedBundles";
@@ -19,11 +20,11 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <Helmet>
-        <title>{seo?.title || "Setupr | Business Registration, Websites, Integrations & Automations"}</title>
-        <meta name="description" content={seo?.description || "We sit in the gap that makes your business legit and modern. Registration, websites, feature integrations (WhatsApp, payments, CRM), and automations. One team, worldwide."} />
+        <title>{seo?.title || "Setupr | Tech Ecosystem, AI Tools, Custom Websites & Business Setup"}</title>
+        <meta name="description" content={seo?.description || "Setupr is a technology ecosystem building autonomous AI tools (Blew), custom web engineering, feature integrations, and turnkey business setup for global founders."} />
         <link rel="canonical" href="https://setupr.com/" />
-        <meta property="og:title" content={seo?.ogTitle || seo?.title || "Setupr | Business Registration, Websites, Integrations & Automations"} />
-        <meta property="og:description" content={seo?.ogDescription || seo?.description || "Registration, websites, feature integrations, and automations. One team, worldwide."} />
+        <meta property="og:title" content={seo?.ogTitle || seo?.title || "Setupr | Tech Ecosystem, AI Tools, Custom Websites & Business Setup"} />
+        <meta property="og:description" content={seo?.ogDescription || seo?.description || "Setupr is a technology ecosystem building autonomous AI tools (Blew), custom web engineering, feature integrations, and turnkey business setup for global founders."} />
         <meta property="og:url" content="https://setupr.com/" />
       </Helmet>
       {/* Global background removed for section differentiation */}
@@ -31,6 +32,7 @@ const Index = () => {
       <main className="relative z-10">
         <HeroSection />
         <TrustStats />
+        <EcosystemSection />
         <GoalCards />
         <RecommendedBundles />
         <StorePromo />

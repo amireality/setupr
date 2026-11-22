@@ -46,10 +46,10 @@ interface PillarData {
 }
 
 const defaultPillars: PillarData[] = [
-  { title: "Business formation", description: "Get your business registered with the right structure. We handle Pvt Ltd, LLP, OPC, and Proprietorship registrations with GST, PAN/TAN, and MSME.", features: ["Company Registration", "GST", "MSME", "PAN/TAN"], variant: "formation", statLabel: "7-15 Days", statSublabel: "Typical registration time" },
-  { title: "Digital presence", description: "Your professional website, domain, and business email, all set up and ready. Mobile-responsive design with hosting included.", features: ["Website", "Domain", "Email", "Hosting"], variant: "digital", statLabel: "24-48 Hrs", statSublabel: "Website setup time" },
-  { title: "Basic compliance", description: "Never miss a deadline. We handle annual filings, GST returns, and keep you 100% compliant with government requirements.", features: ["Annual Filings", "GST Returns", "Reminders"], variant: "compliance", statLabel: "100%", statSublabel: "Compliance rate" },
-  { title: "Ongoing help", description: "We stay available for questions, updates, and renewals. Direct liaison with government departments and expert CA/CS assistance.", features: ["365 Days Support", "Expert CA/CS", "Renewals"], variant: "support", statLabel: "365 Days", statSublabel: "Year-round support" },
+  { title: "Business formation", description: "Get your business registered with the right legal structure. We handle incorporation end-to-end including filings, legal documents, and tax registration.", features: ["Company Formation", "Tax IDs", "Legal Documentation", "Bank Readiness"], variant: "formation", statLabel: "7-15 Days", statSublabel: "Typical turnaround" },
+  { title: "Digital presence", description: "Your professional website, custom domain, and business email, all engineered and ready. Modern responsive design with high-performance hosting.", features: ["Web Development", "Custom Domain", "Business Email", "Fast Hosting"], variant: "digital", statLabel: "24-48 Hrs", statSublabel: "Rapid deployment" },
+  { title: "AI & Automations", description: "Scale operations without headcount. Custom AI agents, workflow automations, and WhatsApp / CRM pipelines engineered for your workflow.", features: ["AI Agents", "Workflow Automations", "CRM Sync", "WhatsApp Bots"], variant: "compliance", statLabel: "10x", statSublabel: "Efficiency boost" },
+  { title: "Ongoing support", description: "We stay available for updates, infrastructure scaling, and technical guidance. One dedicated team for both code and business operations.", features: ["Dedicated Support", "Tech Maintenance", "Annual Filings"], variant: "support", statLabel: "365 Days", statSublabel: "Year-round partnership" },
 ];
 
 const colSpans = ["md:col-span-2", "md:col-span-1", "md:col-span-1", "md:col-span-2"];

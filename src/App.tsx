@@ -38,6 +38,7 @@ const StoreSignup = lazy(() => import("./pages/store/StoreSignup"));
 const StoreDashboard = lazy(() => import("./pages/store/StoreDashboard"));
 const StoreCheckout = lazy(() => import("./pages/store/StoreCheckout"));
 const ApplyLoan = lazy(() => import("./pages/ApplyLoan"));
+const Lab = lazy(() => import("./pages/Lab"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Install = lazy(() => import("./pages/Install"));
@@ -85,6 +86,8 @@ const AnimatedRoutes = () => {
       >
         <ErrorBoundary><Suspense fallback={<PageFallback />}><Routes location={location}>
           <Route path="/" element={<Index />} />
+          <Route path="/lab" element={<Lab />} />
+          <Route path="/labs" element={<Lab />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/:serviceId" element={<ServiceDetail />} />
           <Route path="/intake" element={<Intake />} />

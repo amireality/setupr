@@ -31,7 +31,7 @@ const RecommendedBundles = () => {
   const { data: settings = [] } = useSiteSettingsByCategory("homepage");
   
   const sectionTitle = settings.find(s => s.key === "homepage_bundles_title")?.value || "Popular service bundles for new businesses";
-  const sectionSubtitle = settings.find(s => s.key === "homepage_bundles_subtitle")?.value || "Save money with pre-built packages. Includes company registration, GST, digital presence, and compliance essentials.";
+  const sectionSubtitle = settings.find(s => s.key === "homepage_bundles_subtitle")?.value || "Save money with pre-built packages. Includes company registration, custom web engineering, digital presence, and AI workflows.";
 
   if (bundlesLoading || servicesLoading) {
     return (
@@ -74,7 +74,7 @@ const RecommendedBundles = () => {
             const Icon = iconMap[bundle.icon] || Rocket;
             
             const getOutcomeLine = (name: string) => {
-              if (name.includes("New Business Starter")) return "Company registered. GST done. You're official.";
+              if (name.includes("New Business Starter")) return "Company registered. Setup complete. You're official.";
               if (name.includes("Professional Online Presence")) return "Website live. Email active. Brand credible.";
               if (name.includes("Just One Thing")) return "Pick exactly what you need. Nothing more.";
               return "Complete business setup solutions.";

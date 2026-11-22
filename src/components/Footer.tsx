@@ -15,7 +15,7 @@ const Footer = () => {
   const getSetting = (key: string, fallback: string) =>
     settings.find((s) => s.key === key)?.value || fallback;
 
-  const tagline = getSetting("footer_tagline", "Registration, websites, integrations, and automations. Built for founders worldwide.");
+  const tagline = getSetting("footer_tagline", "Autonomous AI tools, custom web engineering, and global business setup. One technology ecosystem.");
   const ownership = getSetting("footer_ownership", "Owned & operated by Altered.");
   const email = getSetting("footer_email", "info@setupr.com");
   const instagram = getSetting("footer_instagram", "https://www.instagram.com/setuprhq");
@@ -30,9 +30,9 @@ const Footer = () => {
 
       <div className="container px-4 md:px-6 relative z-10">
         {/* Main Footer Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 mb-12">
           {/* Logo & Tagline */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2 sm:col-span-3 md:col-span-1">
             <Link to="/" className="inline-block mb-4">
               <img
                 src="/setupr-logo-animated.gif"
@@ -47,63 +47,44 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Company Links */}
+          {/* Setupr Lab Links */}
           <div>
-            <h4 className="font-display font-semibold text-foreground mb-4">Company</h4>
+            <h4 className="font-display font-semibold text-foreground mb-4 flex items-center gap-2">
+              <span>Setupr Lab</span>
+              <span className="px-1.5 py-0.2 text-[9px] font-mono font-bold uppercase rounded-full bg-primary/20 text-primary border border-primary/30">
+                R&D
+              </span>
+            </h4>
             <ul className="space-y-3">
               <li>
-                <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  About Us
+                <Link to="/lab" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Lab Overview
                 </Link>
               </li>
               <li>
-                <Link to="/career" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Careers
+                <a 
+                  href="https://github.com/amireality/blew-by-setupr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+                >
+                  Blew (Social MCP)
+                </a>
+              </li>
+              <li>
+                <Link to="/lab" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  MCP Servers Hub
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources Links */}
-          <div>
-            <h4 className="font-display font-semibold text-foreground mb-4">Resources</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link to="/guides" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Guides
-                </Link>
-              </li>
-              <li>
-                <Link to="/store" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Cloud Marketplace
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Store Links */}
-          <div>
-            <h4 className="font-display font-semibold text-foreground mb-4">Store</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/store" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Cloud Marketplace
-                </Link>
-              </li>
-              <li>
-                <Link to="/store/products" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  All Products
-                </Link>
+                <a 
+                  href="https://github.com/amireality" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  GitHub @amireality
+                </a>
               </li>
             </ul>
           </div>
@@ -119,17 +100,49 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/services/website" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Websites
+                  Websites &amp; Apps
                 </Link>
               </li>
               <li>
                 <Link to="/services/ai-workflow" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Automations & AI
+                  AI &amp; Automations
                 </Link>
               </li>
               <li>
                 <Link to="/services/pvt-ltd" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Business Registration
+                  Business Setup
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Cloud & Company Links */}
+          <div>
+            <h4 className="font-display font-semibold text-foreground mb-4">Ecosystem</h4>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/store" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Cloud Marketplace
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  About Setupr
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Blog &amp; Insights
+                </Link>
+              </li>
+              <li>
+                <Link to="/career" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -141,7 +154,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Terms & Conditions
+                  Terms &amp; Conditions
                 </Link>
               </li>
               <li>

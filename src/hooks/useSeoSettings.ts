@@ -9,14 +9,42 @@ export interface SeoSettings {
 }
 
 const defaultSeo: Record<string, SeoSettings> = {
-  homepage: { title: "Setupr | Business Registration & Setup Services in India", description: "Company registration, GST, MSME, website, and compliance. All handled for freelancers, consultants, and startups in India." },
-  about: { title: "About Setupr | Our Mission & Values", description: "Learn about Setupr's mission to simplify business registration and compliance for Indian entrepreneurs." },
-  blog: { title: "Business Guides & Resources | Setupr Blog", description: "Expert guides on company registration, GST, MSME, compliance, and building credibility for freelancers, consultants, and startup founders in India." },
-  services: { title: "Business Setup Services | Registration, GST, Website & More | Setupr", description: "Explore all business setup services: company registration, GST, MSME, website development, compliance, and more." },
-  team: { title: "Meet the Setupr Team", description: "The experts behind Setupr. Experienced professionals in business registration, compliance, and digital setup." },
-  career: { title: "Careers at Setupr | Join Our Team", description: "Explore fellowship and career opportunities at Setupr. Work directly with founders on real business challenges." },
-  contact: { title: "Contact Setupr | Get in Touch", description: "Have questions about business registration or our services? Reach out to the Setupr team." },
-  guides: { title: "Business Guides | Starting & Registering Your Business in India", description: "Step-by-step guides for starting, registering, and growing your business in India." },
+  homepage: { 
+    title: "Setupr | Tech Ecosystem, AI Tools, Custom Websites & Business Setup", 
+    description: "Setupr is a technology ecosystem building autonomous AI tools, custom web engineering, feature integrations, and turnkey business setup for global founders." 
+  },
+  lab: {
+    title: "Setupr Lab | Open-Source AI Tools, MCP Servers & Extensions",
+    description: "Explore Setupr Lab: creator of Blew by Setupr (social media autopilot for AI agents), Model Context Protocol (MCP) servers, and developer toolkits."
+  },
+  about: { 
+    title: "About Setupr | The Technology Ecosystem for Modern Founders", 
+    description: "Learn about Setupr's mission: engineering open-source AI tools, bespoke digital infrastructure, and global business setup for modern founders worldwide." 
+  },
+  blog: { 
+    title: "Setupr Engineering & Insights | AI Agents, Web & Startup Architecture", 
+    description: "Engineering guides, AI agent architecture, developer insights, and business infrastructure strategies for founders worldwide." 
+  },
+  services: { 
+    title: "Setupr Services | Web Engineering, Integrations, Automations & Setup", 
+    description: "Explore Setupr solutions: custom website development, payment & WhatsApp integrations, AI automations, and turnkey business formation worldwide." 
+  },
+  team: { 
+    title: "Meet the Setupr Team | Builders & Engineers", 
+    description: "The engineers, builders, and operators behind the Setupr technology ecosystem." 
+  },
+  career: { 
+    title: "Careers at Setupr | Join Our Engineering & Growth Team", 
+    description: "Explore opportunities at Setupr. Work on cutting-edge open-source AI tools, developer products, and high-impact digital platforms." 
+  },
+  contact: { 
+    title: "Contact Setupr | Get in Touch with Our Team", 
+    description: "Have questions about Setupr Lab products, custom engineering services, or business setup? Reach out to our team." 
+  },
+  guides: { 
+    title: "Founder & Developer Guides | Setupr", 
+    description: "Comprehensive guides on launching digital products, configuring AI agents, building web infrastructure, and legal business formation." 
+  },
 };
 
 export const useSeoSettings = (page: string) => {

@@ -19,11 +19,26 @@
 #
 # Hello there! 
 # We're thrilled you're exploring under the hood. 
-# Setupr is built to help global founders launch and scale.
+# Setupr is a technology ecosystem building autonomous AI tools, 
+# custom web applications, and global business infrastructure.
 # 
+# Explore Setupr Lab: https://setupr.com/lab
 # Join us at: https://setupr.com/
 
 User-agent: *
+Allow: /
+
+# AI Crawlers & LLM Agents
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 # Prevent indexing of internal/dashboard routes

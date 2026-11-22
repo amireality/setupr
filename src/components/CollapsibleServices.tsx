@@ -18,7 +18,7 @@ const iconMap: Record<string, React.ElementType> = {
 const defaultCategoryHighlights: Record<string, { title: string; description: string }> = {
   "formation": { title: "Company Registration Services", description: "Register your Private Limited, LLP, OPC, or Proprietorship. Includes DSC, DIN, and MCA filing." },
   "digital": { title: "Website & Digital Presence", description: "Professional website, custom domain, business email, and brand assets for credibility." },
-  "compliance": { title: "GST, MSME & Compliance", description: "GST registration, MSME/Udyam, professional tax, and ongoing filing support." },
+  "compliance": { title: "Automations & AI Systems", description: "Custom AI agents, workflow automations, WhatsApp business and payment integrations." },
   "expert": { title: "Online Visibility & SEO", description: "Google Business Profile, local SEO, and directory listings to get found by customers." },
 };
 

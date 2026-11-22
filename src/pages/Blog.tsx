@@ -79,11 +79,11 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <Helmet>
-        <title>Business Guides & Resources | Setupr Blog</title>
-        <meta name="description" content="Expert guides on company registration, GST, MSME, compliance, and building credibility for freelancers, consultants, and startup founders in India." />
+        <title>Setupr Engineering & Insights | Tech, AI & Architecture</title>
+        <meta name="description" content="Engineering guides, AI agent architecture, web systems, and modern startup infrastructure for founders worldwide." />
         <link rel="canonical" href="https://setupr.com/blog" />
-        <meta property="og:title" content="Business Guides & Resources | Setupr Blog" />
-        <meta property="og:description" content="Expert guides on company registration, GST, MSME, compliance, and building credibility for freelancers, consultants, and startup founders in India." />
+        <meta property="og:title" content="Setupr Engineering & Insights | Tech, AI & Architecture" />
+        <meta property="og:description" content="Engineering guides, AI agent architecture, web systems, and modern startup infrastructure for founders worldwide." />
         <meta property="og:url" content="https://setupr.com/blog" />
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
@@ -316,10 +316,10 @@ const Blog = () => {
             />
             <div className="relative glass-card rounded-2xl p-8 md:p-12">
               <h2 className="text-2xl md:text-3xl font-bold font-display mb-4">
-                Ready to register your business?
+                Ready to build and scale your business?
               </h2>
               <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                Setupr handles company registration, GST, MSME, website, and compliance for freelancers and startups in India.
+                Setupr provides open-source AI tools, custom web engineering, feature integrations, and global company setup for modern founders.
               </p>
               <Button asChild size="lg" className="shadow-[0_0_30px_-8px_hsl(24_95%_53%/0.5)]">
                 <Link to="/services">Explore Services</Link>

@@ -73,8 +73,8 @@ const About = () => {
                   "@type": "WebPage",
                   "@id": "https://setupr.com/about/#webpage",
                   "url": "https://setupr.com/about",
-                  "name": "About Setupr | Business Setup Platform for India",
-                  "description": "Setupr is a business setup platform founded by Amir Khan. We help freelancers, startups, and small businesses in India with company registration, GST, MSME, compliance, and digital presence.",
+                  "name": "About Setupr | The Technology Ecosystem for Modern Founders",
+                  "description": "Setupr is a technology ecosystem founded by Amir Khan. We build open-source AI tools (Setupr Lab), custom web applications, integrations, and turnkey business setups for global founders.",
                   "isPartOf": { "@id": "https://setupr.com/#website" }
                 }
               ]
@@ -253,7 +253,7 @@ const About = () => {
                       </div>
                       <p>
                         <strong className="text-foreground font-semibold block mb-1">What we provide:</strong>
-                        Company registration (Private Limited, LLP, OPC, Proprietorship), GST registration, MSME/Udyam registration, custom AI setups (Agents, Chatbots & Tools), professional website, business email, domain setup, Google Business Profile, and ongoing compliance support.
+                        Setupr Lab open-source AI tools &amp; MCP servers (Blew), bespoke modern web development, payment &amp; WhatsApp integrations, workflow automations, and global company formation.
                       </p>
                     </div>
                     <div className="flex gap-4">

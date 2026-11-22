@@ -192,6 +192,29 @@ const Navbar = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
+            {/* Setupr Lab Link */}
+            <Link 
+              to="/lab" 
+              className={cn(
+                "relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1.5",
+                isActive('/lab') || location.pathname.startsWith('/lab')
+                  ? 'text-foreground bg-secondary' 
+                  : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+              )}
+            >
+              <span>Lab</span>
+              <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase rounded-full bg-primary/20 text-primary border border-primary/30">
+                New
+              </span>
+              {(isActive('/lab') || location.pathname.startsWith('/lab')) && (
+                <motion.div
+                  layoutId="navbar-indicator"
+                  className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+            </Link>
+
             <Link 
               to="/store" 
               className={cn(
@@ -445,6 +468,23 @@ const Navbar = () => {
                       onClick={() => setIsOpen(false)}
                     >
                       Services
+                    </Link>
+                  </motion.div>
+                  <motion.div variants={mobileItemVariants}>
+                    <Link
+                      to="/lab" 
+                      className={cn(
+                        "px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-between",
+                        isActive('/lab') || location.pathname.startsWith('/lab')
+                          ? 'text-foreground bg-secondary' 
+                          : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <span>Setupr Lab</span>
+                      <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase rounded-full bg-primary/20 text-primary border border-primary/30">
+                        New
+                      </span>
                     </Link>
                   </motion.div>
                   <motion.div variants={mobileItemVariants}>

@@ -17,19 +17,19 @@ const defaultItems = [
   {
     title: "Share your requirements",
     description:
-      "Tell us if you need company registration, GST, website, or compliance. Answer a few questions about your business type and goals.",
+      "Tell us your goals — whether you need custom web development, feature integrations, AI automations, or turnkey business setup.",
     icon: <MessageCircle className="h-5 w-5 text-primary" />,
   },
   {
-    title: "Get a clear plan with pricing",
+    title: "Get a clear blueprint & pricing",
     description:
-      "We provide an exact checklist of services, documents needed, timeline, and transparent pricing. Setupr fee plus government fees, nothing hidden.",
+      "We provide an exact roadmap of technical specifications, deliverables, timeline, and transparent pricing with zero surprises.",
     icon: <FileCheck className="h-5 w-5 text-primary" />,
   },
   {
-    title: "We handle everything",
+    title: "We engineer and deliver",
     description:
-      "Our experts manage all filings, registrations, and follow-ups. You get updates via WhatsApp and email until your business is fully set up.",
+      "Our team deploys your web systems, connects APIs, automates workflows, or completes legal formation with regular transparent updates.",
     icon: <Rocket className="h-5 w-5 text-primary" />,
   },
 ];
@@ -40,7 +40,7 @@ const HowItWorks = () => {
   const getSetting = (key: string, fallback: string) => 
     settings.find((s) => s.key === key)?.value || fallback;
 
-  const sectionTitle = getSetting("homepage_how_it_works_title", "How Setupr helps you register your business");
+  const sectionTitle = getSetting("homepage_how_it_works_title", "How Setupr accelerates your business");
   
   const items = [
     {
