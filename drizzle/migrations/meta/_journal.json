@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1795365799019,
+      "tag": "0000_tighten_selected_public_data_policies",
+      "breakpoints": true
+    }
+  ]
+}
