@@ -47,6 +47,17 @@ const defaultSeo: Record<string, SeoSettings> = {
   },
 };
 
+const isLegacySeo = (val?: string) => {
+  if (!val) return false;
+  return (
+    val.includes("in India") ||
+    val.includes("Indian entrepreneurs") ||
+    val.includes("GST, MSME") ||
+    val.includes("for Indian entrepreneurs") ||
+    val.includes("for freelancers, consultants, and startups in India")
+  );
+};
+
 export const useSeoSettings = (page: string) => {
   return useQuery({
     queryKey: ["seo-settings", page],
@@ -62,11 +73,16 @@ export const useSeoSettings = (page: string) => {
       const fallback = defaultSeo[page] || { title: "Setupr", description: "" };
       const map = Object.fromEntries((data || []).map(r => [r.key, r.value]));
 
+      const rawTitle = map[`seo_${page}_title`];
+      const rawDesc = map[`seo_${page}_description`];
+      const rawOgTitle = map[`seo_${page}_og_title`];
+      const rawOgDesc = map[`seo_${page}_og_description`];
+
       return {
-        title: map[`seo_${page}_title`] || fallback.title,
-        description: map[`seo_${page}_description`] || fallback.description,
-        ogTitle: map[`seo_${page}_og_title`] || map[`seo_${page}_title`] || fallback.title,
-        ogDescription: map[`seo_${page}_og_description`] || map[`seo_${page}_description`] || fallback.description,
+        title: (rawTitle && !isLegacySeo(rawTitle)) ? rawTitle : fallback.title,
+        description: (rawDesc && !isLegacySeo(rawDesc)) ? rawDesc : fallback.description,
+        ogTitle: (rawOgTitle && !isLegacySeo(rawOgTitle)) ? rawOgTitle : ((rawTitle && !isLegacySeo(rawTitle)) ? rawTitle : fallback.title),
+        ogDescription: (rawOgDesc && !isLegacySeo(rawOgDesc)) ? rawOgDesc : ((rawDesc && !isLegacySeo(rawDesc)) ? rawDesc : fallback.description),
       };
     },
   });

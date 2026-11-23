@@ -131,7 +131,7 @@ const TrustStats = () => {
               variants={itemVariants}
               className="group relative"
             >
-              <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/70 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 text-center h-full transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] hover:-translate-y-1">
+              <div className="rounded-2xl border border-white/[0.12] bg-[#141726]/90 hover:bg-[#171b2d] hover:border-white/[0.22] p-6 text-center h-full transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.6),0_0_24px_-4px_rgba(245,158,11,0.08)] hover:-translate-y-1">
                 {/* Icon */}
                 <div className="w-10 h-10 mx-auto mb-4 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-400 group-hover:text-primary group-hover:border-primary/30 transition-all duration-300">
                   <stat.icon className="w-5 h-5" />
