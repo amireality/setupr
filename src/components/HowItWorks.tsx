@@ -4,7 +4,7 @@ import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 import { SectionHeader } from "./ui/section-header";
 const StepSkeleton = ({ step }: { step: string }) => {
   return (
-    <div className="flex flex-1 w-full h-full min-h-[6.5rem] rounded-xl bg-[#0c0d12]/80 border border-white/[0.08] relative overflow-hidden items-center justify-between p-6">
+    <div className="flex flex-1 w-full h-full min-h-[6.5rem] rounded-xl bg-[#141726]/90 border border-white/[0.12] relative overflow-hidden items-center justify-between p-6 shadow-sm">
       <div className="flex flex-col gap-1 z-10">
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">
           EXECUTION PHASE

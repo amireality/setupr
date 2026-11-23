@@ -348,21 +348,21 @@ const Lab = () => {
               <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/60 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-secondary border border-border/80 flex items-center justify-center text-foreground mb-5">
-                    <Boxes className="w-6 h-6" />
+                    <Workflow className="w-6 h-6 text-primary" />
                   </div>
                   <div className="inline-block px-2.5 py-0.5 rounded-full bg-secondary text-[10px] font-mono font-bold text-muted-foreground mb-3">
-                    DIVISION 03 • CLOUD
+                    DIVISION 03 • AUTOMATIONS
                   </div>
                   <h3 className="font-display text-xl font-bold text-foreground mb-2">
-                    Setupr Cloud &amp; Store
+                    Setupr Automations
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                    Enterprise SaaS provisioning, Google Workspace, Microsoft 365, AWS, and Zoho subscriptions with localized billing and support.
+                    Autonomous operations for modern scale. Custom WhatsApp bots, automated payment reconciliation, multi-app CRM sync, and AI assistants.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-border/50">
-                  <Link to="/store" className="text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
-                    Visit Cloud Marketplace <ArrowRight className="w-3.5 h-3.5" />
+                  <Link to="/services" className="text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+                    Explore Automations Catalog <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>

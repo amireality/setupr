@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Cpu, Layers, Boxes, ArrowRight, Sparkles, ExternalLink, Bot, Code2, Globe } from "lucide-react";
+import { Cpu, Layers, Boxes, ArrowRight, Sparkles, ExternalLink, Bot, Code2, Globe, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const EcosystemSection = () => {
@@ -48,15 +48,15 @@ export const EcosystemSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-white/[0.1] bg-[#0c0d12]/80 hover:bg-[#0c0d12] hover:border-white/[0.2] p-6 sm:p-8 flex flex-col justify-between relative group transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]"
+            className="rounded-2xl border border-white/[0.12] bg-[#141726]/90 hover:bg-[#171b2d] hover:border-white/[0.22] p-6 sm:p-8 flex flex-col justify-between relative group transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_40px_-6px_rgba(0,0,0,0.6),0_0_24px_-4px_rgba(245,158,11,0.08)]"
           >
-            <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono font-medium text-zinc-300 flex items-center gap-1.5">
+            <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/[0.1] text-[10px] font-mono font-medium text-zinc-300 flex items-center gap-1.5 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               <span>FLAGSHIP: BLEW</span>
             </div>
 
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary mb-6 group-hover:scale-105 transition-transform duration-300">
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.1] flex items-center justify-center text-primary mb-6 group-hover:scale-105 transition-transform duration-300 shadow-sm">
                 <Cpu className="w-5 h-5" />
               </div>
 
@@ -68,30 +68,33 @@ export const EcosystemSection = () => {
                 Setupr Lab
               </h3>
 
-              <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-                Our autonomous software lab. Home to <strong className="text-zinc-200">Blew by Setupr</strong> (the zero-dashboard social media autopilot for AI agents), Model Context Protocol (MCP) servers, and open-source founder toolkits.
+              <p className="text-sm text-zinc-300 leading-relaxed mb-4">
+                Our autonomous software lab. Home to <strong className="text-zinc-100 font-semibold">Blew by Setupr</strong> (the zero-dashboard social media autopilot for AI agents), Model Context Protocol (MCP) servers, and open-source founder toolkits.
               </p>
 
-              {/* Visual Micro Terminal Artifact */}
-              <div className="p-3 rounded-xl bg-black/60 border border-white/[0.06] font-mono text-[11px] mb-5 space-y-1">
-                <div className="flex items-center justify-between text-zinc-500 text-[10px]">
-                  <span>mcp://blew.local</span>
-                  <span className="text-emerald-400">● ACTIVE</span>
+              {/* Visual Micro Product Artifact */}
+              <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.08] text-xs mb-5 space-y-1">
+                <div className="flex items-center justify-between text-zinc-400 text-[10px]">
+                  <span>BLEW MCP SERVER</span>
+                  <span className="text-emerald-400 font-mono">● LIVE RUNTIME</span>
                 </div>
-                <div className="text-zinc-300 font-medium">$ npx -y @setupr/blew</div>
-                <div className="text-emerald-400 text-[10px]">✔ Auto-syndicating to X &amp; LinkedIn</div>
+                <div className="text-zinc-200 font-semibold flex items-center justify-between pt-0.5">
+                  <span>Autonomous Multi-Platform Engine</span>
+                  <span className="text-primary text-[10px] font-mono">INSTANT SYNC</span>
+                </div>
+                <div className="text-[10px] text-zinc-400">Direct syndication across X, LinkedIn &amp; Threads</div>
               </div>
 
-              <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
-                <li className="flex items-center gap-2 text-zinc-300">
+              <ul className="space-y-2 mb-6 text-xs text-zinc-300 font-mono">
+                <li className="flex items-center gap-2">
                   <Bot className="w-3.5 h-3.5 text-primary" />
-                  <span>Blew MCP Server &amp; Extension</span>
+                  <span>Blew MCP Server &amp; Chrome Extension</span>
                 </li>
-                <li className="flex items-center gap-2 text-zinc-300">
+                <li className="flex items-center gap-2">
                   <Code2 className="w-3.5 h-3.5 text-primary" />
                   <span>Agent-to-Social Autopilots (X &amp; LinkedIn)</span>
                 </li>
-                <li className="flex items-center gap-2 text-zinc-300">
+                <li className="flex items-center gap-2">
                   <Globe className="w-3.5 h-3.5 text-primary" />
                   <span>Open-source developer utilities</span>
                 </li>
@@ -122,10 +125,10 @@ export const EcosystemSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/60 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]"
+            className="rounded-2xl border border-white/[0.12] bg-[#141726]/90 hover:bg-[#171b2d] hover:border-white/[0.22] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_40px_-6px_rgba(0,0,0,0.6),0_0_24px_-4px_rgba(99,102,241,0.08)]"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-300 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.1] flex items-center justify-center text-zinc-200 mb-6 group-hover:scale-105 transition-transform duration-300 shadow-sm">
                 <Layers className="w-5 h-5 text-primary" />
               </div>
 
@@ -137,33 +140,33 @@ export const EcosystemSection = () => {
                 Setupr Services
               </h3>
 
-              <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+              <p className="text-sm text-zinc-300 leading-relaxed mb-4">
                 End-to-end digital infrastructure for modern businesses. Custom website engineering, WhatsApp &amp; payment gateway integrations, CRM workflows, and global company setup.
               </p>
 
               {/* Visual Micro Architecture Artifact */}
-              <div className="p-3 rounded-xl bg-black/60 border border-white/[0.06] font-mono text-[11px] mb-5 space-y-1">
-                <div className="flex items-center justify-between text-zinc-500 text-[10px]">
+              <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.08] text-xs mb-5 space-y-1">
+                <div className="flex items-center justify-between text-zinc-400 text-[10px]">
                   <span>EDGE ARCHITECTURE</span>
-                  <span className="text-primary font-bold">22ms TTFB</span>
+                  <span className="text-primary font-mono font-bold">22ms TTFB</span>
                 </div>
-                <div className="text-zinc-200 flex items-center gap-2">
+                <div className="text-zinc-200 flex items-center gap-2 pt-0.5 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>React 18 + Stripe + WhatsApp Bot</span>
                 </div>
-                <div className="text-[10px] text-zinc-500">Live webhook synchronization</div>
+                <div className="text-[10px] text-zinc-400">Live webhook synchronization</div>
               </div>
 
-              <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
-                <li className="flex items-center gap-2 text-zinc-300">
+              <ul className="space-y-2 mb-6 text-xs text-zinc-300 font-mono">
+                <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>Custom React / Next.js Web Development</span>
                 </li>
-                <li className="flex items-center gap-2 text-zinc-300">
+                <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>WhatsApp API, Stripe &amp; CRM Integrations</span>
                 </li>
-                <li className="flex items-center gap-2 text-zinc-300">
+                <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>Turnkey Business Registration &amp; Formation</span>
                 </li>
@@ -171,7 +174,7 @@ export const EcosystemSection = () => {
             </div>
 
             <div className="pt-4 border-t border-white/[0.06]">
-              <Button variant="outline" size="sm" asChild className="w-full rounded-lg bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.18] text-zinc-300">
+              <Button variant="outline" size="sm" asChild className="w-full rounded-lg bg-white/[0.04] border-white/[0.1] hover:bg-white/[0.08] hover:border-white/[0.2] text-zinc-200">
                 <Link to="/services" className="inline-flex items-center justify-center gap-1.5">
                   Explore Services Catalog
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -180,64 +183,64 @@ export const EcosystemSection = () => {
             </div>
           </motion.div>
 
-          {/* Pillar 3: Setupr Cloud */}
+          {/* Pillar 3: Setupr Automations */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/60 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]"
+            className="rounded-2xl border border-white/[0.12] bg-[#141726]/90 hover:bg-[#171b2d] hover:border-white/[0.22] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_40px_-6px_rgba(0,0,0,0.6),0_0_24px_-4px_rgba(16,185,129,0.08)]"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-300 mb-6">
-                <Boxes className="w-5 h-5 text-primary" />
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.1] flex items-center justify-center text-zinc-200 mb-6 group-hover:scale-105 transition-transform duration-300 shadow-sm">
+                <Workflow className="w-5 h-5 text-primary" />
               </div>
 
               <div className="text-xs font-mono font-semibold text-zinc-400 uppercase tracking-wider mb-2">
-                Division 03 • Cloud &amp; Subscriptions
+                Division 03 • AI &amp; Workflow Systems
               </div>
 
               <h3 className="font-display text-2xl font-bold text-foreground mb-3">
-                Setupr Cloud
+                Setupr Automations
               </h3>
 
-              <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-                Direct enterprise SaaS provisioning. Get Google Workspace, Microsoft 365, AWS, and Zoho subscriptions with localized billing, instant onboarding, and support.
+              <p className="text-sm text-zinc-300 leading-relaxed mb-4">
+                Automated operations for modern scale. Custom WhatsApp bots, automated payment reconciliation, multi-app CRM sync, and AI assistants.
               </p>
 
-              {/* Visual Micro SaaS License Artifact */}
-              <div className="p-3 rounded-xl bg-black/60 border border-white/[0.06] font-mono text-[11px] mb-5 space-y-1">
-                <div className="flex items-center justify-between text-zinc-500 text-[10px]">
-                  <span>ENTERPRISE LICENSES</span>
-                  <span className="text-emerald-400">INSTANT ACCESS</span>
+              {/* Visual Micro Automation Artifact */}
+              <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.08] text-xs mb-5 space-y-1">
+                <div className="flex items-center justify-between text-zinc-400 text-[10px]">
+                  <span>AUTOMATION ENGINE</span>
+                  <span className="text-emerald-400 font-mono font-semibold">● 24/7 ACTIVE</span>
                 </div>
-                <div className="text-zinc-200 flex items-center justify-between pt-0.5">
-                  <span className="text-xs">Google Workspace &amp; M365</span>
-                  <span className="text-primary text-[10px] font-bold">SAVINGS // 20%</span>
+                <div className="text-zinc-200 flex items-center justify-between pt-0.5 font-medium">
+                  <span>Webhook → AI Triage → WhatsApp</span>
+                  <span className="text-primary text-[10px] font-mono font-bold">0ms DELAY</span>
                 </div>
-                <div className="text-[10px] text-zinc-500">Consolidated corporate invoicing</div>
+                <div className="text-[10px] text-zinc-400">Autonomous workflow orchestration</div>
               </div>
 
-              <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
-                <li className="flex items-center gap-2 text-zinc-300">
+              <ul className="space-y-2 mb-6 text-xs text-zinc-300 font-mono">
+                <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  <span>Google Workspace &amp; Microsoft 365</span>
+                  <span>WhatsApp Cloud API &amp; Customer Bots</span>
                 </li>
-                <li className="flex items-center gap-2 text-zinc-300">
+                <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  <span>AWS &amp; Zoho Business Subscriptions</span>
+                  <span>Stripe &amp; Payment Gateway Automations</span>
                 </li>
-                <li className="flex items-center gap-2 text-zinc-300">
+                <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  <span>Unified Invoicing &amp; Setup Assistance</span>
+                  <span>Custom CRM Pipelines &amp; Lead Ingestion</span>
                 </li>
               </ul>
             </div>
 
             <div className="pt-4 border-t border-white/[0.06]">
-              <Button variant="outline" size="sm" asChild className="w-full rounded-lg bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.18] text-zinc-300">
-                <Link to="/store" className="inline-flex items-center justify-center gap-1.5">
-                  Browse Cloud Store
+              <Button variant="outline" size="sm" asChild className="w-full rounded-lg bg-white/[0.04] border-white/[0.1] hover:bg-white/[0.08] hover:border-white/[0.2] text-zinc-200">
+                <Link to="/services" className="inline-flex items-center justify-center gap-1.5">
+                  Explore Automations
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </Button>

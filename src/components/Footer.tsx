@@ -119,11 +119,13 @@ const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4">Ecosystem</h4>
             <ul className="space-y-3">
+              {/* Store hidden temporarily
               <li>
                 <Link to="/store" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Cloud Marketplace
                 </Link>
               </li>
+              */}
               <li>
                 <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   About Setupr

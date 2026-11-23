@@ -55,8 +55,9 @@ const GoalCards = () => {
   });
 
   return (
-    <section id="journey-cards" className="py-12 md:py-28 relative bg-[#090a0d] border-t border-white/[0.06]">
+    <section id="journey-cards" className="py-12 md:py-28 relative bg-[#0e111a] border-t border-white/[0.08]">
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`, backgroundSize: "60px 60px" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-primary/[0.04] blur-[150px] rounded-full pointer-events-none" />
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
@@ -76,7 +77,7 @@ const GoalCards = () => {
             {items.map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i + 1) * 0.1, duration: 0.5 }}>
                 <Link to={item.link} className="block group h-full">
-                  <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/70 hover:bg-[#0c0d12] hover:border-white/[0.18] p-5 flex flex-col h-full overflow-hidden transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] hover:-translate-y-1">
+                  <div className="rounded-2xl border border-white/[0.12] bg-[#141726]/90 hover:bg-[#171b2d] hover:border-white/[0.22] p-5 flex flex-col h-full overflow-hidden transition-all duration-300 shadow-[0_8px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.6),0_0_24px_-4px_rgba(245,158,11,0.08)] hover:-translate-y-1">
                     <Skeleton title={item.skeletonTitle} subtitle={item.skeletonSubtitle} />
                     <div className="mt-4">
                       <div className="flex items-center gap-2 mb-1.5">

@@ -1,26 +1,27 @@
-#                                    +hdh+
-#   :++oosssyyyhhhhdhs`            +NMNNNNNh:
-# /NNNNNNNNNNNNNNNNNNMN          :mNNNNNNNNNNmy-
-# hNNNNNNNNNNNNNNNNNNNN-       .hNNNNNNNNNNNNNNNmo`
-# oNNNNNNNNNNNNNNNNNNNN:      yNNNNNNNNNNNNNNNNNNNNd/
-# +MNNNNNNNNNNNNNNNNNNN+    +NNNNNNNNNNNNNNNNNNNNNNNMh
-# :NNNNNNNNNNNNNNNNNNNNs   yMNNNNNNNNNNNNNNNNNNNNNNNN+
-# -NNNNNNNNNNNNNNNNNNNNy   /NNNNNNNNNNNNNNNNNNNNNNNh`
-# `NNNNNNNNNNNNNNNNNNNNd     /dNNNNNNNNNNNNNNNNNNm-
-#  NNNNNNNNNNNNNNNNNNNMh       `omNNNNNNNNNNNNNm/
-#  :dNNNNNmmmmmmmmdddh+           .smNNNNNNNNNo
-#                           `.--     :hNNNNNy`
-#                  `-:+shdmNNNNNNo      :/:`
-#             :hdmNNNNMNNNNNNNNNNM.
-#            /MNNNNNNNNNNNNNNNNNNNh
-#            -NNNNNNNNNNNNNNNNNNNNN-
-#             hNNNNNNNNNNNNNNNNNNNNd
-#             `NNNNNNNNNNNNNNNNNNNNN-
-#              yNNNNNNNNNNNNNNNNNNNNm
-#              `NNNNNNNNNNNNNNNNNNNNM`
-#               yMNNNNNNNNNNNNMNNNNm+
-#                mMNNMNNNNmdhs+:.`
-#                 :oo+:.`
+#                                       -dmNNmh-
+#  -shhhhhdddddmmmmmmmmdo             :hNNNNNNNNmy-
+# dNNNNNNNNNNNNNNNNNNNNNNs           yNNNNNNNNNNNNNms:
+# NNNNNNNNNNNNNNNNNNNNNNNd         smNNNNNNNNNNNNNNNNNdo
+# mNNNNNNNNNNNNNNNNNNNNNNm       omNNNNNNNNNNNNNNNNNNNNNmd+
+# mNNNNNNNNNNNNNNNNNNNNNNm     +mNNNNNNNNNNNNNNNNNNNNNNNNNNm
+# hNNNNNNNNNNNNNNNNNNNNNNm    hNNNNNNNNNNNNNNNNNNNNNNNNNNNNm
+# yNNNNNNNNNNNNNNNNNNNNNNN:   dNNNNNNNNNNNNNNNNNNNNNNNNNNNy
+# sNNNNNNNNNNNNNNNNNNNNNNN-    smNNNNNNNNNNNNNNNNNNNNNNNh:
+# oNNNNNNNNNNNNNNNNNNNNNNN+      -ymNNNNNNNNNNNNNNNNNNd-
+#  mNNNNNNNNNNNNNNNNNNNNNd          -ymNNNNNNNNNNNNNd+
+#   shddhhhhhyyyyyssssoo:              +hmNNNNNNNNmo
+#                           -+oyhdhy+     ohmNNmmo
+#                 -+osydmmmNNNNNNNNNNy       ::
+#              smmNNNNNNNNNNNNNNNNNNNN:
+#             oNNNNNNNNNNNNNNNNNNNNNNNd
+#             :mNNNNNNNNNNNNNNNNNNNNNNN+
+#              sNNNNNNNNNNNNNNNNNNNNNNNm
+#               mNNNNNNNNNNNNNNNNNNNNNNNo
+#               oNNNNNNNNNNNNNNNNNNNNNNNm
+#                mNNNNNNNNNNNNNNNNNNNNNNNo
+#                +NNNNNNNNNNNNNNNNNNNNNNm:
+#                 dNNNNNNNNNNNNNmmmdhso-
+#                  hmNNNmmdyso+:
 #
 # ==============================================================================
 #  SETUPR TECHNOLOGIES INC. — AUTONOMOUS ECOSYSTEM & DIGITAL INFRASTRUCTURE
@@ -29,7 +30,7 @@
 #  Setupr is a technology ecosystem building autonomous AI tools, developer
 #  infrastructure (MCP servers, browser agents), and turnkey digital platforms.
 #
-#  Setupr Lab:   https://setupr.com/lab
+#  Setupr Lab:    https://setupr.com/lab
 #  Documentation: https://setupr.com/llms.txt
 #  Explore:       https://setupr.com/
 # ==============================================================================
@@ -68,5 +69,5 @@ Disallow: /admin/
 Disallow: /store/dashboard/
 Disallow: /api/
 
-# Sitemaps & LLM Context
+# Sitemaps
 Sitemap: https://setupr.com/sitemap.xml

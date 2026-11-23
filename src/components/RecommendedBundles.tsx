@@ -88,8 +88,8 @@ const RecommendedBundles = () => {
                   to={`/services?bundle=${bundle.bundle_id}`}
                   className={cn(
                     "block rounded-2xl transition-all duration-300 p-5",
-                    "bg-[#0c0d12]/70 hover:bg-[#0c0d12] border border-white/[0.08] hover:border-white/[0.18]",
-                    "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] hover:-translate-y-1",
+                    "bg-[#141726]/90 hover:bg-[#171b2d] border border-white/[0.12] hover:border-white/[0.22]",
+                    "shadow-[0_8px_24px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.6),0_0_24px_-4px_rgba(245,158,11,0.08)] hover:-translate-y-1",
                     "h-full flex flex-col group"
                   )}
                 >

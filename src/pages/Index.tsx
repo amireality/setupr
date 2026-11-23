@@ -37,10 +37,11 @@ const Index = () => {
         <EcosystemSection />
         <GoalCards />
         <RecommendedBundles />
-        <StorePromo />
+        {/* Store & Loans hidden temporarily as requested */}
+        {/* <StorePromo /> */}
         <CollapsibleServices />
         <HowItWorks />
-        <LoansSection />
+        {/* <LoansSection /> */}
         <Testimonials />
         <FAQ />
         <FinalCTA />

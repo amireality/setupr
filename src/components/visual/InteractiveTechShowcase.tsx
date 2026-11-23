@@ -42,15 +42,16 @@ export const InteractiveTechShowcase = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 relative bg-[#090a0d] border-t border-white/[0.06] overflow-hidden">
+    <section className="py-20 md:py-28 relative bg-[#0e111a] border-t border-white/[0.08] overflow-hidden">
       {/* Subtle ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/[0.03] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/[0.05] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 right-1/4 w-[400px] h-[300px] bg-indigo-500/[0.05] rounded-full blur-[140px] pointer-events-none" />
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.1] text-xs font-mono text-zinc-300 mb-4 shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-primary" />
               <span>Interactive Architecture Showcase</span>
             </div>
@@ -62,7 +63,7 @@ export const InteractiveTechShowcase = () => {
             </p>
 
             {/* Interactive Switcher Tabs */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mt-8 p-1.5 bg-[#0c0d12] border border-white/[0.08] rounded-2xl w-fit mx-auto shadow-xl">
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-8 p-1.5 bg-[#141724] border border-white/[0.08] rounded-2xl w-fit mx-auto shadow-xl">
               <button
                 onClick={() => { setActiveDemo("social-autopilot"); setSimulationStep(0); }}
                 className={`px-4 py-2 rounded-xl text-xs font-mono font-medium transition-all flex items-center gap-2 ${

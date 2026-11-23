@@ -77,8 +77,8 @@ const CollapsibleServices = () => {
       >
         <div
           className={cn(
-            "rounded-2xl border border-white/[0.08] bg-[#0c0d12]/70 backdrop-blur-sm transition-all duration-300 overflow-hidden group/bento",
-            isOpen ? "border-white/[0.18] bg-[#0e1017]" : "hover:border-white/[0.15] hover:bg-[#0c0d12]"
+            "rounded-2xl border border-white/[0.12] bg-[#141726]/90 backdrop-blur-md transition-all duration-300 overflow-hidden group/bento shadow-[0_6px_20px_rgba(0,0,0,0.35)]",
+            isOpen ? "border-white/[0.22] bg-[#171b2d] shadow-[0_12px_32px_rgba(0,0,0,0.5),0_0_20px_-2px_rgba(245,158,11,0.08)]" : "hover:border-white/[0.2] hover:bg-[#161a2a]"
           )}
         >
           {/* Clickable Header */}

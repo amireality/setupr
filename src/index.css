@@ -4,23 +4,23 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background: 240 10% 4%;
+    --background: 230 18% 7%;
     --foreground: 0 0% 98%;
 
-    --card: 240 6% 8%;
+    --card: 228 15% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 6% 8%;
+    --popover: 228 16% 11%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 22 92% 51%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 5% 12%;
+    --secondary: 228 14% 16%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 240 4% 15%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 228 12% 18%;
+    --muted-foreground: 226 8% 68%;
 
     --accent: 22 92% 51%;
     --accent-foreground: 0 0% 100%;
@@ -28,23 +28,23 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 5% 16%;
-    --input: 240 5% 16%;
+    --border: 228 14% 18%;
+    --input: 228 14% 18%;
     --ring: 22 92% 51%;
 
     --radius: 0.875rem;
 
-    /* Glass tokens - refined for architectural depth */
-    --glass-bg: 240 7% 8% / 0.75;
-    --glass-border: 0 0% 100% / 0.08;
-    --glass-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
-    --glass-shadow-hover: 0 16px 48px -8px rgba(0, 0, 0, 0.7);
+    /* Glass tokens - refined for architectural depth & luminous clarity */
+    --glass-bg: 228 16% 11% / 0.82;
+    --glass-border: 0 0% 100% / 0.1;
+    --glass-shadow: 0 10px 36px -4px rgba(0, 0, 0, 0.55), 0 0 20px -2px rgba(245, 158, 11, 0.05);
+    --glass-shadow-hover: 0 20px 50px -8px rgba(0, 0, 0, 0.75), 0 0 30px -4px rgba(245, 158, 11, 0.12);
 
     /* Gradients */
-    --gradient-hero: radial-gradient(circle at 50% 0%, hsl(240 8% 10%) 0%, hsl(240 10% 4%) 75%);
+    --gradient-hero: radial-gradient(ellipse 90% 60% at 50% -10%, hsl(226 25% 16%) 0%, hsl(230 18% 7%) 85%);
     --gradient-accent: linear-gradient(135deg, hsl(22 92% 52%) 0%, hsl(28 95% 48%) 100%);
-    --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(22 92% 51% / 0.06) 0%, transparent 70%);
+    --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(22 92% 51% / 0.08) 0%, transparent 70%);
     
     /* Shadows - restrained, subtle, architectural */
     --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.5);
@@ -55,34 +55,34 @@
     --font-display: 'Sora', sans-serif;
     --font-body: 'Outfit', sans-serif;
 
-    --sidebar-background: 240 8% 6%;
+    --sidebar-background: 230 16% 9%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 22 92% 51%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 5% 12%;
+    --sidebar-accent: 228 14% 15%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 240 5% 16%;
+    --sidebar-border: 228 14% 18%;
     --sidebar-ring: 22 92% 51%;
   }
 
   .dark {
-    --background: 240 10% 4%;
+    --background: 230 18% 7%;
     --foreground: 0 0% 98%;
 
-    --card: 240 6% 8%;
+    --card: 228 15% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 6% 8%;
+    --popover: 228 16% 11%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 22 92% 51%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 5% 12%;
+    --secondary: 228 14% 16%;
     --secondary-foreground: 0 0% 95%;
 
-    --muted: 240 4% 15%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 228 12% 18%;
+    --muted-foreground: 226 8% 68%;
 
     --accent: 22 92% 51%;
     --accent-foreground: 0 0% 100%;
@@ -90,17 +90,17 @@
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 5% 16%;
-    --input: 240 5% 16%;
+    --border: 228 14% 18%;
+    --input: 228 14% 18%;
     --ring: 22 92% 51%;
 
-    --sidebar-background: 240 8% 6%;
+    --sidebar-background: 230 16% 9%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 22 92% 51%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 5% 12%;
+    --sidebar-accent: 228 14% 15%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 240 5% 16%;
+    --sidebar-border: 228 14% 18%;
     --sidebar-ring: 22 92% 51%;
   }
 }
@@ -200,6 +200,18 @@
 
   .bg-gradient-radial {
     background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+  }
+
+  .ambient-glow-amber {
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(245, 158, 11, 0.09), transparent 75%);
+  }
+
+  .ambient-glow-indigo {
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(99, 102, 241, 0.09), transparent 75%);
+  }
+
+  .ambient-glow-emerald {
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(16, 185, 129, 0.08), transparent 75%);
   }
 }
 

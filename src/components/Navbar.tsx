@@ -215,6 +215,7 @@ const Navbar = () => {
               )}
             </Link>
 
+            {/* Store link hidden temporarily
             <Link 
               to="/store" 
               className={cn(
@@ -233,6 +234,7 @@ const Navbar = () => {
                 />
               )}
             </Link>
+            */}
 
             <Link
               to="/blog" 
@@ -351,11 +353,13 @@ const Navbar = () => {
                         <LayoutDashboard className="w-4 h-4" /> Dashboard
                       </Link>
                     </DropdownMenuItem>
+                    {/* Store hidden temporarily
                     <DropdownMenuItem asChild>
                       <Link to="/store" className="flex items-center gap-2">
                         <ShoppingBag className="w-4 h-4" /> Store
                       </Link>
                     </DropdownMenuItem>
+                    */}
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleSignOut} className="flex items-center gap-2 text-destructive">
                       <LogOut className="w-4 h-4" /> Sign Out
@@ -442,6 +446,7 @@ const Navbar = () => {
                       Home
                     </Link>
                   </motion.div>
+                  {/* Store hidden temporarily
                   <motion.div variants={mobileItemVariants}>
                     <Link 
                       to="/store" 
@@ -456,6 +461,7 @@ const Navbar = () => {
                       Store
                     </Link>
                   </motion.div>
+                  */}
                   <motion.div variants={mobileItemVariants}>
                     <Link
                       to="/services" 
