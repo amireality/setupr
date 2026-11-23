@@ -69,7 +69,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-transparent relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/50 after:to-transparent after:shadow-[0_0_8px_hsl(var(--primary)/0.4)]">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#090a0d]/85 backdrop-blur-xl border-b border-white/[0.08] transition-all duration-300">
       <AnnouncementBanner />
       <div className="container px-4 md:px-6">
 
@@ -203,8 +203,8 @@ const Navbar = () => {
               )}
             >
               <span>Lab</span>
-              <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase rounded-full bg-primary/20 text-primary border border-primary/30">
-                New
+              <span className="px-1.5 py-0.5 text-[9px] font-mono font-medium uppercase rounded-md bg-white/[0.06] text-primary border border-white/[0.1]">
+                R&amp;D
               </span>
               {(isActive('/lab') || location.pathname.startsWith('/lab')) && (
                 <motion.div
@@ -482,8 +482,8 @@ const Navbar = () => {
                       onClick={() => setIsOpen(false)}
                     >
                       <span>Setupr Lab</span>
-                      <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase rounded-full bg-primary/20 text-primary border border-primary/30">
-                        New
+                      <span className="px-1.5 py-0.5 text-[9px] font-mono font-medium uppercase rounded-md bg-white/[0.06] text-primary border border-white/[0.1]">
+                        R&amp;D
                       </span>
                     </Link>
                   </motion.div>

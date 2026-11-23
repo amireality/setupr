@@ -7,23 +7,15 @@ import { SectionHeader } from "./ui/section-header";
 
 const TestimonialSkeleton = ({ quote }: { quote: string }) => {
   return (
-    <div className="flex flex-1 w-full h-full min-h-[8rem] rounded-xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent border border-border/20 relative overflow-hidden">
-      {/* Animated dot pattern */}
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: "radial-gradient(circle, hsl(var(--primary) / 0.4) 1px, transparent 1px)",
-          backgroundSize: "16px 16px",
-        }}
-      />
-      {/* Warm glow */}
-      <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/25 rounded-full blur-3xl group-hover/bento:w-32 group-hover/bento:h-32 transition-all duration-500" />
+    <div className="flex flex-1 w-full h-full min-h-[8rem] rounded-xl bg-white/[0.02] border border-white/[0.06] relative overflow-hidden">
+      {/* Subtle micro grid */}
+      <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.03]" />
       
       {/* Quote content */}
-      <div className="absolute inset-0 flex items-center p-4">
+      <div className="absolute inset-0 flex items-center p-5">
         <div className="flex gap-3">
-          <Quote className="w-6 h-6 text-primary/60 flex-shrink-0 mt-1" />
-          <p className="text-sm md:text-base text-foreground/90 leading-relaxed line-clamp-4">
+          <Quote className="w-5 h-5 text-primary/80 shrink-0 mt-0.5" />
+          <p className="text-sm md:text-base text-zinc-200 leading-relaxed line-clamp-4 font-normal">
             "{quote}"
           </p>
         </div>
@@ -67,9 +59,9 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 relative bg-black border-t border-primary/20 overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
+    <section className="py-20 md:py-28 relative bg-[#090a0d] border-t border-white/[0.06] overflow-hidden">
+      {/* Subtle ambient accent */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
       <div className="container px-4 md:px-6 relative">
         <SectionHeader
@@ -77,7 +69,7 @@ const Testimonials = () => {
           badge={badge}
           title={
             <>
-              Trusted by <span className="text-primary">{title}</span>
+              Trusted by <span className="gradient-text">{title}</span>
             </>
           }
           subtitle={
@@ -99,9 +91,9 @@ const Testimonials = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className={cn(
-                "row-span-1 rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-4",
-                "bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40",
-                "flex flex-col overflow-hidden",
+                "row-span-1 rounded-2xl group/bento transition-all duration-300 p-4",
+                "bg-[#0c0d12]/70 hover:bg-[#0c0d12] border border-white/[0.08] hover:border-white/[0.18]",
+                "flex flex-col overflow-hidden hover:-translate-y-1",
                 getGridClass(index)
               )}
             >

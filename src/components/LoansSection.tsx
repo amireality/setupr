@@ -27,10 +27,10 @@ const features = [
 
 const LoansSection = () => {
   return (
-    <section className="py-20 md:py-28 relative bg-secondary/20 border-t border-primary/20 overflow-hidden">
+    <section className="py-20 md:py-28 relative bg-[#090a0d] border-t border-white/[0.06] overflow-hidden">
       {/* Background accents */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-primary/8 rounded-full blur-[180px]" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/[0.04] rounded-full blur-[140px]" />
       </div>
 
       <div className="container px-4 md:px-6 relative z-10">
@@ -41,10 +41,10 @@ const LoansSection = () => {
             badge="Financing Simplified"
             title={
               <>
-                Setupr <span className="text-primary">Loans</span>
+                Setupr <span className="gradient-text">Capital & Credit</span>
               </>
             }
-            subtitle="Need a loan? We make it easy to get funded. Setupr has established partnerships with almost every major bank and NBFC in India. We connect you with the right lender to get the capital you need for your business or personal goals."
+            subtitle="Need capital? We connect your business with institutional credit. Setupr has established partnerships with leading financial institutions to match your balance sheet with low-friction growth financing."
             alignment="center"
           />
 
@@ -57,9 +57,9 @@ const LoansSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group rounded-2xl p-6 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-glow hover:scale-[1.02] hover:-translate-y-1"
+                className="group rounded-2xl p-6 bg-[#0c0d12]/70 hover:bg-[#0c0d12] border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+                <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary mb-4 group-hover:border-primary/30 group-hover:bg-primary/[0.08] transition-colors duration-300">
                   {feature.icon}
                 </div>
                 <h3 className="font-display text-base font-semibold text-foreground mb-2">
@@ -81,7 +81,7 @@ const LoansSection = () => {
             className="text-center"
           >
             <Button asChild size="lg" variant="hero">
-              <Link to="/apply-loan">Apply Now</Link>
+              <Link to="/apply-loan">Explore Capital Options</Link>
             </Button>
           </motion.div>
         </div>

@@ -16,7 +16,7 @@ const FinalCTA = () => {
   const ctaButtonText = getSetting("homepage_cta_primary", "Start with your journey");
 
   return (
-    <section className="relative overflow-hidden bg-black border-t border-primary/20">
+    <section className="relative overflow-hidden bg-[#090a0d] border-t border-white/[0.06]">
       <LampContainer>
         <motion.h2
           initial={{ opacity: 0.5, y: 100 }}
@@ -26,9 +26,9 @@ const FinalCTA = () => {
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-center"
+          className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-center tracking-tight"
         >
-          Ready to make your business <span className="text-primary">official</span>?
+          Ready to build, automate, and scale your <span className="gradient-text">ecosystem</span>?
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 50 }}
@@ -38,7 +38,7 @@ const FinalCTA = () => {
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed max-w-lg mx-auto text-center"
+          className="text-base md:text-lg text-muted-foreground mb-10 leading-relaxed max-w-xl mx-auto text-center"
         >
           {ctaSubtitle}
         </motion.p>
@@ -52,7 +52,7 @@ const FinalCTA = () => {
             ease: "easeInOut",
           }}
         >
-          <Button variant="hero" size="xl" asChild className="shadow-glow">
+          <Button variant="hero" size="xl" asChild className="hover:scale-[1.02] transition-transform">
             <Link to="/intake">
               {ctaButtonText}
               <ArrowRight className="w-5 h-5" />

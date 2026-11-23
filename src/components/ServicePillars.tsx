@@ -6,21 +6,13 @@ import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 const iconMap: Record<string, React.ElementType> = { FileText, Globe, Shield, Layers };
 const iconOrder = ["FileText", "Globe", "Shield", "Layers"];
 
-const Skeleton = ({ variant, label, sublabel }: { variant: string; label: string; sublabel: string }) => {
-  const patterns: Record<string, string> = {
-    formation: "from-primary/20 via-primary/5 to-transparent",
-    digital: "from-transparent via-primary/15 to-primary/10",
-    compliance: "from-primary/10 via-transparent to-primary/15",
-    support: "from-primary/15 via-primary/10 to-transparent",
-  };
-
+const Skeleton = ({ label, sublabel }: { variant: string; label: string; sublabel: string }) => {
   return (
-    <div className={`flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br ${patterns[variant] || patterns.formation} border border-border/20 relative overflow-hidden`}>
-      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle, hsl(var(--primary) / 0.4) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
-      <div className="absolute bottom-0 right-0 w-20 h-20 bg-primary/25 rounded-full blur-3xl group-hover/bento:w-28 group-hover/bento:h-28 transition-all duration-500" />
-      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-        <span className="text-2xl md:text-3xl font-bold font-display text-primary">{label}</span>
-        <span className="text-xs md:text-sm text-muted-foreground mt-1">{sublabel}</span>
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-white/[0.02] border border-white/[0.06] relative overflow-hidden items-center justify-center p-4 text-center">
+      <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.03]" />
+      <div className="relative z-10 flex flex-col items-center">
+        <span className="text-2xl md:text-3xl font-bold font-display text-primary tracking-tight">{label}</span>
+        <span className="text-xs text-muted-foreground mt-1 font-mono uppercase tracking-wider">{sublabel}</span>
       </div>
     </div>
   );
@@ -29,7 +21,7 @@ const Skeleton = ({ variant, label, sublabel }: { variant: string; label: string
 const FeatureChips = ({ features }: { features: string[] }) => (
   <div className="flex flex-wrap gap-2 mt-3">
     {features.map((feature, idx) => (
-      <span key={idx} className="px-2.5 py-1 text-xs font-medium text-foreground/80 bg-secondary/60 backdrop-blur-sm rounded-lg border border-border/30">
+      <span key={idx} className="px-2.5 py-1 text-xs font-medium text-zinc-300 bg-white/[0.04] rounded-lg border border-white/[0.08]">
         {feature}
       </span>
     ))}

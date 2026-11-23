@@ -6,7 +6,6 @@ import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 import { SectionHeader } from "./ui/section-header";
 
 const Skeleton = ({
-  variant = "default",
   title,
   subtitle,
 }: {
@@ -14,20 +13,12 @@ const Skeleton = ({
   title: string;
   subtitle: string;
 }) => {
-  const gradients = {
-    purple: "from-primary/25 via-primary/15 to-transparent",
-    orange: "from-primary/30 via-primary/15 to-transparent",
-    green: "from-primary/25 via-primary/15 to-transparent",
-    default: "from-primary/20 via-transparent to-transparent",
-  };
-
   return (
-    <div className={cn("flex flex-1 w-full h-full min-h-[80px] rounded-xl bg-gradient-to-br border border-border/20 relative overflow-hidden", gradients[variant])}>
-      <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(circle, hsl(var(--primary) / 0.5) 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
-      <div className="absolute bottom-0 right-0 w-20 h-20 bg-primary/30 rounded-full blur-3xl group-hover/bento:w-32 group-hover/bento:h-32 transition-all duration-500" />
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-3">
-        <span className="font-display text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-1">{title}</span>
-        <span className="text-xs text-muted-foreground">{subtitle}</span>
+    <div className="flex flex-1 w-full h-full min-h-[90px] rounded-xl bg-white/[0.02] border border-white/[0.06] relative overflow-hidden flex flex-col items-center justify-center text-center p-4">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:16px_16px]" />
+      <div className="relative z-10">
+        <span className="font-display text-base md:text-lg font-bold text-zinc-100 tracking-tight block mb-0.5">{title}</span>
+        <span className="text-[11px] font-mono text-zinc-400">{subtitle}</span>
       </div>
     </div>
   );
@@ -64,7 +55,7 @@ const GoalCards = () => {
   });
 
   return (
-    <section id="journey-cards" className="py-12 md:py-28 relative bg-black border-t border-primary/20">
+    <section id="journey-cards" className="py-12 md:py-28 relative bg-[#090a0d] border-t border-white/[0.06]">
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`, backgroundSize: "60px 60px" }} />
 
       <div className="container px-4 md:px-6 relative z-10">
@@ -74,7 +65,7 @@ const GoalCards = () => {
             badge="Your Journey"
             title={
               <>
-                Whether you're a <span className="text-primary">freelancer</span>, consultant, or startup founder
+                Whether you're an <span className="gradient-text">engineer</span>, freelancer, or scaling founder
               </>
             }
             subtitle={sectionSubtitle}
@@ -85,14 +76,14 @@ const GoalCards = () => {
             {items.map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i + 1) * 0.1, duration: 0.5 }}>
                 <Link to={item.link} className="block group h-full">
-                  <div className="rounded-2xl group/bento hover:shadow-glow transition-all duration-300 p-4 bg-secondary/40 backdrop-blur-sm border border-border/20 hover:border-primary/40 flex flex-col h-full overflow-hidden cursor-pointer hover:scale-[1.02] hover:-translate-y-1">
-                    <Skeleton variant={item.variant} title={item.skeletonTitle} subtitle={item.skeletonSubtitle} />
-                    <div className="group-hover/bento:translate-x-2 transition duration-200 mt-3">
-                      <div className="flex items-center gap-2 mb-1">
-                        {item.icon}
-                        <h3 className="font-display text-sm md:text-base font-semibold text-foreground">{item.title}</h3>
+                  <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/70 hover:bg-[#0c0d12] hover:border-white/[0.18] p-5 flex flex-col h-full overflow-hidden transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] hover:-translate-y-1">
+                    <Skeleton title={item.skeletonTitle} subtitle={item.skeletonSubtitle} />
+                    <div className="mt-4">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <div className="text-primary">{item.icon}</div>
+                        <h3 className="font-display text-base font-semibold text-zinc-100">{item.title}</h3>
                       </div>
-                      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                      <p className="text-xs md:text-sm text-zinc-400 leading-relaxed">{item.description}</p>
                     </div>
                   </div>
                 </Link>

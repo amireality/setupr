@@ -50,18 +50,14 @@ const RecommendedBundles = () => {
   }
 
   return (
-    <section className="py-16 md:py-28 relative bg-secondary/20 border-t border-primary/20">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute bottom-0 left-1/4 w-[500px] h-[400px] bg-primary/5 rounded-full blur-[150px]" />
-      </div>
-
+    <section className="py-20 md:py-28 relative border-t border-white/[0.06] bg-black/20">
       <div className="container px-4 md:px-6 relative z-10">
         <SectionHeader
           icon={<Package />}
-          badge="Save Money & Time"
+          badge="Curated Solutions"
           title={
             <>
-              Popular service <span className="text-primary">bundles</span> for new businesses
+              Popular Pre-Engineered Solution Bundles
             </>
           }
           subtitle={sectionSubtitle}
@@ -69,7 +65,7 @@ const RecommendedBundles = () => {
         />
 
         {/* Grid Layout: 3 columns for bundles */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-6xl mx-auto">
           {bundles.map((bundle, index) => {
             const Icon = iconMap[bundle.icon] || Rocket;
             
@@ -91,11 +87,10 @@ const RecommendedBundles = () => {
                 <Link
                   to={`/services?bundle=${bundle.bundle_id}`}
                   className={cn(
-                    "block rounded-2xl group/bento transition-all duration-300 p-4",
-                    "bg-secondary/40 backdrop-blur-sm border border-border/20",
-                    "hover:shadow-glow hover:border-primary/40",
-                    "hover:scale-[1.02] hover:-translate-y-1",
-                    "h-full flex flex-col"
+                    "block rounded-2xl transition-all duration-300 p-5",
+                    "bg-[#0c0d12]/70 hover:bg-[#0c0d12] border border-white/[0.08] hover:border-white/[0.18]",
+                    "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] hover:-translate-y-1",
+                    "h-full flex flex-col group"
                   )}
                 >
                   <BundleSkeleton 
@@ -104,33 +99,30 @@ const RecommendedBundles = () => {
                     subtitle="" 
                   />
                   
-                  <div className="group-hover/bento:translate-x-2 transition duration-200 mt-3 flex-1 flex flex-col">
+                  <div className="mt-4 flex-1 flex flex-col">
                     <div className="flex items-start gap-3 mb-2">
-                      <div className={cn(
-                        "w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300",
-                        "bg-background/50 group-hover/bento:bg-primary/20"
-                      )}>
-                        <Icon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-white/[0.04] border border-white/[0.08] text-primary group-hover:border-primary/30 transition-colors">
+                        <Icon className="w-4 h-4" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h3 className="font-display text-sm md:text-base font-semibold text-foreground">
+                        <h3 className="font-display text-base font-semibold text-zinc-100">
                           {bundle.bundle_name}
                         </h3>
-                        <p className="text-xs text-muted-foreground line-clamp-2">
+                        <p className="text-xs text-zinc-400 line-clamp-2 mt-0.5">
                           {bundle.who_its_for}
                         </p>
                       </div>
                     </div>
                     
                     {bundle.included_service_ids.length > 0 && (
-                      <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
+                      <p className="text-xs text-zinc-500 mb-2 line-clamp-2">
                         {bundle.govt_fee_note}
                       </p>
                     )}
 
-                    <div className="flex items-center justify-end mt-auto pt-2 border-t border-border/20">
-                      <div className="flex items-center gap-1 text-primary text-sm font-medium">
-                        View <ArrowRight className="w-4 h-4 group-hover/bento:translate-x-1 transition-transform" />
+                    <div className="flex items-center justify-end mt-auto pt-3 border-t border-white/[0.06]">
+                      <div className="flex items-center gap-1 text-primary text-xs font-mono font-medium">
+                        Configure <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </div>

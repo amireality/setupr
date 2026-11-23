@@ -62,8 +62,8 @@ const FAQ = () => {
   }
 
   return (
-    <section className="py-20 md:py-28 relative bg-secondary/20 border-t border-primary/20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent opacity-50" />
+    <section className="py-20 md:py-28 relative bg-[#090a0d] border-t border-white/[0.06] overflow-hidden">
+      <div className="absolute inset-0 bg-radial-gradient from-primary/[0.03] via-transparent to-transparent opacity-40 pointer-events-none" />
 
       <div className="container px-4 md:px-6 relative">
         <motion.div
@@ -73,8 +73,8 @@ const FAQ = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-1.5 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full border border-primary/20">
-            FAQ
+          <span className="inline-block px-3.5 py-1 mb-4 text-xs font-mono font-medium tracking-wide text-zinc-300 bg-white/[0.04] rounded-full border border-white/[0.08]">
+            FAQ // SYSTEM KNOWLEDGE
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-4">
             {faqTitle.includes(" ") ? (
@@ -87,7 +87,7 @@ const FAQ = () => {
             )}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Got questions? We've got answers.
+            Got questions? Clear answers about our technology, services, and execution.
           </p>
         </motion.div>
 
@@ -118,7 +118,7 @@ const FAQ = () => {
                     <AccordionItem
                       key={index}
                       value={`item-${index}`}
-                      className="glass-card rounded-xl px-6 border-border/50 data-[state=open]:border-primary/30 transition-colors"
+                      className="rounded-xl px-6 bg-[#0c0d12]/70 border border-white/[0.08] data-[state=open]:border-white/[0.18] transition-colors"
                     >
                       <AccordionTrigger className="text-left text-base md:text-lg font-medium py-5 hover:no-underline hover:text-primary transition-colors">
                         {faq.question}

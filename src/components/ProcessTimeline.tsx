@@ -98,7 +98,7 @@ const ProcessTimeline = ({ steps: propSteps, serviceId }: ProcessTimelineProps) 
                 <motion.div 
                   className={cn(
                     "w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold transition-all duration-300 z-10", 
-                    activeStep === item.step ? "bg-primary text-primary-foreground scale-110 shadow-glow" : "bg-secondary text-foreground group-hover:bg-primary/20"
+                    activeStep === item.step ? "bg-primary text-primary-foreground scale-105 shadow-[0_0_20px_-5px_hsl(var(--primary)/0.5)]" : "bg-white/[0.04] border border-white/[0.08] text-foreground group-hover:border-primary/40"
                   )}
                   initial={{ scale: 1, backgroundColor: "hsl(var(--secondary))", color: "hsl(var(--foreground))" }}
                   whileInView={{ 

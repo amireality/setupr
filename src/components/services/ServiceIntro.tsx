@@ -38,9 +38,8 @@ const ServiceIntro = () => {
       />
 
       {/* Background glow layers */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[120px]" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/[0.03] rounded-full blur-[140px]" />
       </div>
 
       {/* Floating keywords orbiting the hero */}
@@ -78,10 +77,10 @@ const ServiceIntro = () => {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-6"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Trusted by 1,200+ founders worldwide
+            <span>Digital Infrastructure &amp; Engineering Services</span>
           </motion.div>
 
           <motion.h1

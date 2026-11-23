@@ -102,21 +102,18 @@ const TrustStats = () => {
   });
 
   return (
-    <section className="py-16 md:py-20 relative overflow-hidden bg-secondary/20 border-t border-primary/20">
-      {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent" />
-      
+    <section className="py-20 md:py-28 relative overflow-hidden border-t border-white/[0.06] bg-black/30">
       <div className="container px-4 md:px-6 relative">
         {/* Section Header */}
         <SectionHeader 
           icon={<ShieldCheck />}
-          badge={getSetting("homepage_trust_stats_badge", "Trusted by founders, freelancers, and scaling teams")}
+          badge={getSetting("homepage_trust_stats_badge", "Proven Global Track Record")}
           title={
             <>
-              500+ <span className="text-primary">Businesses</span> Built and Launched
+              500+ Businesses Launched Across the Globe
             </>
           }
-          subtitle={getSetting("homepage_trust_stats_subtitle", "From solo founders to growing teams, we've helped businesses in 50+ cities across the world get set up and running.")}
+          subtitle={getSetting("homepage_trust_stats_subtitle", "From solo founders to scaling teams, we engineer the digital presence and technical infrastructure powering modern ventures.")}
           alignment="center"
         />
 
@@ -126,7 +123,7 @@ const TrustStats = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -134,14 +131,14 @@ const TrustStats = () => {
               variants={itemVariants}
               className="group relative"
             >
-              <div className="glass-card glass-card-hover rounded-2xl p-6 text-center h-full transition-all duration-300">
+              <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/70 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 text-center h-full transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] hover:-translate-y-1">
                 {/* Icon */}
-                <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <stat.icon className="w-6 h-6 text-primary" />
+                <div className="w-10 h-10 mx-auto mb-4 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-400 group-hover:text-primary group-hover:border-primary/30 transition-all duration-300">
+                  <stat.icon className="w-5 h-5" />
                 </div>
 
                 {/* Value */}
-                <div className="text-3xl md:text-4xl font-display font-bold text-foreground mb-1">
+                <div className="text-3xl md:text-4xl font-display font-bold text-foreground mb-1 tracking-tight">
                   <AnimatedCounter
                     value={stat.value}
                     suffix={stat.suffix}

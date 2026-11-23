@@ -12,16 +12,23 @@ type Announcement = {
 
 const announcements: Announcement[] = [
   {
+    id: "blew",
+    label: "Setupr Lab",
+    text: "Blew by Setupr: Zero-dashboard social media autopilot for AI agents (MCP + Chrome extension)",
+    cta: "Explore Blew",
+    href: "/lab",
+  },
+  {
     id: "brain",
-    label: "New",
-    text: "Give ChatGPT and Claude infinite memory. Discover the SetuprAI Brain MCP",
+    label: "MCP Hub",
+    text: "Give ChatGPT, Cursor and Claude infinite memory with SetuprAI Brain MCP",
     cta: "Discover",
     href: "https://mcp.setupr.com",
   },
   {
     id: "extension",
-    label: "New",
-    text: "Introducing the SetuprAI Chrome Extension: Refine your prompts before you send them, right on top of your AI agents.",
+    label: "Extension",
+    text: "SetuprAI Chrome Extension: Refine your prompts live on top of your AI agents.",
     cta: "Install now",
     href: "https://chromewebstore.google.com/detail/setuprai/noeomffmnjlmdiolapemafcoabgenong",
   },
@@ -40,7 +47,7 @@ const AnnouncementBanner = () => {
   const item = announcements[index];
 
   return (
-    <div className="relative overflow-hidden border-b border-primary/15 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent">
+    <div className="relative overflow-hidden border-b border-white/[0.06] bg-[#0a0b0e]/95 backdrop-blur-md">
       <div className="container px-4 md:px-6">
         <div className="relative flex h-10 items-center justify-center gap-3">
           <AnimatePresence mode="wait">

@@ -33,8 +33,8 @@ export const SectionHeader = ({
       )}
     >
       {/* Icon */}
-      <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-primary/10 flex flex-shrink-0 items-center justify-center shadow-[0_0_30px_hsl(var(--primary)/0.3)] border border-primary/20">
-        <div className="w-8 h-8 md:w-10 md:h-10 text-primary flex items-center justify-center [&>svg]:w-full [&>svg]:h-full">
+      <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex flex-shrink-0 items-center justify-center shadow-sm">
+        <div className="w-5 h-5 md:w-6 md:h-6 text-primary flex items-center justify-center [&>svg]:w-full [&>svg]:h-full">
            {icon}
         </div>
       </div>
@@ -42,14 +42,14 @@ export const SectionHeader = ({
       {/* Content */}
       <div className={cn("flex-1", alignment === "center" && "flex flex-col items-center")}>
         {(badge || badge2) && (
-          <div className={cn("flex flex-wrap items-center gap-3 mb-4", alignment === "center" ? "justify-center" : "justify-center md:justify-start")}>
+          <div className={cn("flex flex-wrap items-center gap-2.5 mb-4", alignment === "center" ? "justify-center" : "justify-center md:justify-start")}>
             {badge && (
-              <span className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
+              <span className="px-3 py-1 text-xs font-mono uppercase tracking-wider bg-primary/10 text-primary rounded-full border border-primary/20">
                 {badge}
               </span>
             )}
             {badge2 && (
-              <span className="px-3 py-1 text-xs font-medium bg-secondary text-foreground rounded-full border border-border">
+              <span className="px-3 py-1 text-xs font-mono uppercase tracking-wider bg-white/[0.04] text-zinc-300 rounded-full border border-white/[0.08]">
                 {badge2}
               </span>
             )}

@@ -5,11 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export const EcosystemSection = () => {
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden bg-black/60 border-y border-border/40">
-      {/* Glow Effects */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[300px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[250px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-
+    <section className="py-20 md:py-28 relative overflow-hidden border-y border-white/[0.06] bg-[#090a0d]/60">
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <motion.div
@@ -17,9 +13,9 @@ export const EcosystemSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/25 text-xs font-mono text-primary mb-4"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-4"
           >
-            <Sparkles className="w-3.5 h-3.5" />
+            <Sparkles className="w-3.5 h-3.5 text-primary" />
             <span>THE SETUPR ECOSYSTEM</span>
           </motion.div>
 
@@ -28,9 +24,9 @@ export const EcosystemSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4"
+            className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-4 text-balance"
           >
-            One Parent Ecosystem. Three High-Impact <span className="gradient-text">Divisions</span>.
+            One Unified Architecture. Three Strategic <span className="gradient-text">Divisions</span>.
           </motion.h2>
 
           <motion.p
@@ -38,9 +34,9 @@ export const EcosystemSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-base md:text-lg text-muted-foreground leading-relaxed"
+            className="text-base md:text-lg text-zinc-400 leading-relaxed text-balance"
           >
-            Just as modern tech leaders unify research, platforms, and services, Setupr scales your vision through specialized, interoperable divisions.
+            Just as modern tech ecosystems operate distinct research and commercial arms, Setupr scales your venture through three specialized, interoperable divisions.
           </motion.p>
         </div>
 
@@ -52,15 +48,16 @@ export const EcosystemSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="rounded-3xl border border-primary/40 bg-gradient-to-b from-card/90 via-card/50 to-background p-6 sm:p-8 flex flex-col justify-between relative group hover:border-primary transition-all duration-300 shadow-[0_0_40px_-15px_hsl(var(--primary)/0.15)]"
+            className="rounded-2xl border border-white/[0.1] bg-[#0c0d12]/80 hover:bg-[#0c0d12] hover:border-white/[0.2] p-6 sm:p-8 flex flex-col justify-between relative group transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]"
           >
-            <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-primary/20 border border-primary/30 text-[10px] font-mono font-bold text-primary">
-              FEATURED PRODUCT: BLEW
+            <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono font-medium text-zinc-300 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span>FLAGSHIP: BLEW</span>
             </div>
 
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Cpu className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary mb-6 group-hover:scale-105 transition-transform duration-300">
+                <Cpu className="w-5 h-5" />
               </div>
 
               <div className="text-xs font-mono font-semibold text-primary uppercase tracking-wider mb-2">
@@ -71,38 +68,38 @@ export const EcosystemSection = () => {
                 Setupr Lab
               </h3>
 
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Our autonomous software lab. Home to <strong className="text-foreground">Blew by Setupr</strong> (the zero-dashboard social media autopilot for AI agents), Model Context Protocol (MCP) servers, and open-source founder toolkits.
+              <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+                Our autonomous software lab. Home to <strong className="text-zinc-200">Blew by Setupr</strong> (the zero-dashboard social media autopilot for AI agents), Model Context Protocol (MCP) servers, and open-source founder toolkits.
               </p>
 
-              <ul className="space-y-2 mb-6 text-xs text-muted-foreground font-mono">
-                <li className="flex items-center gap-2 text-foreground/90">
+              <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <Bot className="w-3.5 h-3.5 text-primary" />
                   <span>Blew MCP Server &amp; Extension</span>
                 </li>
-                <li className="flex items-center gap-2 text-foreground/90">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <Code2 className="w-3.5 h-3.5 text-primary" />
                   <span>Agent-to-Social Autopilots (X &amp; LinkedIn)</span>
                 </li>
-                <li className="flex items-center gap-2 text-foreground/90">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <Globe className="w-3.5 h-3.5 text-primary" />
                   <span>Open-source developer utilities</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-4 border-t border-border/50 flex items-center justify-between">
-              <Button variant="hero" size="sm" asChild className="shadow-glow">
+            <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
+              <Button variant="hero" size="sm" asChild className="rounded-lg shadow-sm">
                 <Link to="/lab" className="inline-flex items-center gap-1.5">
                   Enter Setupr Lab
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </Button>
               <a 
                 href="https://github.com/amireality/blew-by-setupr" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                className="text-xs text-zinc-400 hover:text-zinc-200 inline-flex items-center gap-1 transition-colors"
               >
                 GitHub <ExternalLink className="w-3 h-3" />
               </a>
@@ -115,14 +112,14 @@ export const EcosystemSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-3xl border border-border/70 bg-card/40 p-6 sm:p-8 flex flex-col justify-between hover:border-primary/50 transition-all duration-300"
+            className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/60 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]"
           >
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-secondary border border-border flex items-center justify-center text-foreground mb-6">
-                <Layers className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-300 mb-6">
+                <Layers className="w-5 h-5 text-primary" />
               </div>
 
-              <div className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+              <div className="text-xs font-mono font-semibold text-zinc-400 uppercase tracking-wider mb-2">
                 Division 02 • Digital Solutions
               </div>
 
@@ -130,31 +127,31 @@ export const EcosystemSection = () => {
                 Setupr Services
               </h3>
 
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              <p className="text-sm text-zinc-400 leading-relaxed mb-6">
                 End-to-end digital infrastructure for modern businesses. Custom website engineering, WhatsApp &amp; payment gateway integrations, CRM workflows, and global company setup.
               </p>
 
-              <ul className="space-y-2 mb-6 text-xs text-muted-foreground font-mono">
-                <li className="flex items-center gap-2 text-foreground/90">
+              <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>Custom React / Next.js Web Development</span>
                 </li>
-                <li className="flex items-center gap-2 text-foreground/90">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>WhatsApp API, Stripe &amp; CRM Integrations</span>
                 </li>
-                <li className="flex items-center gap-2 text-foreground/90">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>Turnkey Business Registration &amp; Formation</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-4 border-t border-border/50">
-              <Button variant="outline" size="sm" asChild className="w-full">
+            <div className="pt-4 border-t border-white/[0.06]">
+              <Button variant="outline" size="sm" asChild className="w-full rounded-lg bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.18] text-zinc-300">
                 <Link to="/services" className="inline-flex items-center justify-center gap-1.5">
                   Explore Services Catalog
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </Button>
             </div>
@@ -166,14 +163,14 @@ export const EcosystemSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="rounded-3xl border border-border/70 bg-card/40 p-6 sm:p-8 flex flex-col justify-between hover:border-primary/50 transition-all duration-300"
+            className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/60 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]"
           >
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-secondary border border-border flex items-center justify-center text-foreground mb-6">
-                <Boxes className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-300 mb-6">
+                <Boxes className="w-5 h-5 text-primary" />
               </div>
 
-              <div className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+              <div className="text-xs font-mono font-semibold text-zinc-400 uppercase tracking-wider mb-2">
                 Division 03 • Cloud &amp; Subscriptions
               </div>
 
@@ -181,31 +178,31 @@ export const EcosystemSection = () => {
                 Setupr Cloud
               </h3>
 
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+              <p className="text-sm text-zinc-400 leading-relaxed mb-6">
                 Direct enterprise SaaS provisioning. Get Google Workspace, Microsoft 365, AWS, and Zoho subscriptions with localized billing, instant onboarding, and support.
               </p>
 
-              <ul className="space-y-2 mb-6 text-xs text-muted-foreground font-mono">
-                <li className="flex items-center gap-2 text-foreground/90">
+              <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>Google Workspace &amp; Microsoft 365</span>
                 </li>
-                <li className="flex items-center gap-2 text-foreground/90">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>AWS &amp; Zoho Business Subscriptions</span>
                 </li>
-                <li className="flex items-center gap-2 text-foreground/90">
+                <li className="flex items-center gap-2 text-zinc-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span>Unified Invoicing &amp; Setup Assistance</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-4 border-t border-border/50">
-              <Button variant="outline" size="sm" asChild className="w-full">
+            <div className="pt-4 border-t border-white/[0.06]">
+              <Button variant="outline" size="sm" asChild className="w-full rounded-lg bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.18] text-zinc-300">
                 <Link to="/store" className="inline-flex items-center justify-center gap-1.5">
                   Browse Cloud Store
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </Button>
             </div>
@@ -215,3 +212,5 @@ export const EcosystemSection = () => {
     </section>
   );
 };
+
+export default EcosystemSection;

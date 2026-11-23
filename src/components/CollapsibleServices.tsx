@@ -77,8 +77,8 @@ const CollapsibleServices = () => {
       >
         <div
           className={cn(
-            "rounded-2xl border border-border/30 bg-secondary/40 backdrop-blur-sm transition-all duration-300 overflow-hidden group/bento",
-            isOpen ? "border-primary/40 shadow-glow" : "hover:border-primary/30 hover:shadow-[0_0_40px_-15px_hsl(var(--primary)/0.3)]"
+            "rounded-2xl border border-white/[0.08] bg-[#0c0d12]/70 backdrop-blur-sm transition-all duration-300 overflow-hidden group/bento",
+            isOpen ? "border-white/[0.18] bg-[#0e1017]" : "hover:border-white/[0.15] hover:bg-[#0c0d12]"
           )}
         >
           {/* Clickable Header */}
@@ -92,12 +92,12 @@ const CollapsibleServices = () => {
                 "w-full flex items-center p-4 md:p-5 rounded-t-2xl bg-gradient-to-br relative overflow-hidden",
                 category.gradient
               )}>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.25)_0%,transparent_60%)]" />
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-xs" />
                 
                 <div className="flex items-center gap-3 relative z-10 w-full">
                   <div className={cn(
-                    "w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0",
-                    isOpen ? "bg-primary/30" : "bg-background/50 group-hover/bento:bg-primary/20"
+                    "w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center transition-all duration-300 shrink-0 border",
+                    isOpen ? "bg-primary/20 border-primary/30" : "bg-white/[0.04] border-white/[0.08] group-hover/bento:border-white/[0.16]"
                   )}>
                     <Icon className="w-5 h-5 text-primary" />
                   </div>
@@ -134,10 +134,10 @@ const CollapsibleServices = () => {
                       <Link
                         key={service.id}
                         to={`/services/${service.service_id}`}
-                        className="flex items-center gap-2 p-3 rounded-xl bg-background/50 hover:bg-primary/10 border border-border/20 hover:border-primary/30 transition-all group"
+                        className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.06] hover:border-white/[0.14] transition-all group"
                       >
                         <ChevronRight className="w-4 h-4 text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
-                        <span className="text-sm text-foreground group-hover:text-primary transition-colors">{service.service_name}</span>
+                        <span className="text-sm text-foreground/90 group-hover:text-foreground transition-colors">{service.service_name}</span>
                       </Link>
                     ))}
                   </div>
@@ -163,7 +163,7 @@ const CollapsibleServices = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 relative bg-secondary/20 border-t border-primary/20">
+    <section className="py-20 md:py-28 relative bg-[#090a0d] border-t border-white/[0.06]">
 
       <div className="container px-4 md:px-6 relative z-10">
         <SectionHeader

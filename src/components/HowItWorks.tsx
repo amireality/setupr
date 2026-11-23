@@ -4,11 +4,19 @@ import { useSiteSettingsByCategory } from "@/hooks/useSiteSettings";
 import { SectionHeader } from "./ui/section-header";
 const StepSkeleton = ({ step }: { step: string }) => {
   return (
-    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-primary/15 via-transparent to-primary/10 border border-border/20 relative overflow-hidden items-center justify-center">
-      <span className="font-display text-6xl md:text-7xl font-bold text-primary/20">
+    <div className="flex flex-1 w-full h-full min-h-[6.5rem] rounded-xl bg-[#0c0d12]/80 border border-white/[0.08] relative overflow-hidden items-center justify-between p-6">
+      <div className="flex flex-col gap-1 z-10">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">
+          EXECUTION PHASE
+        </span>
+        <span className="font-mono text-xs font-semibold text-primary">
+          STAGE // {step}
+        </span>
+      </div>
+      <span className="font-mono text-5xl md:text-6xl font-bold text-white/[0.08] select-none z-10">
         {step}
       </span>
-      <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/20 rounded-full blur-3xl group-hover/bento:w-32 group-hover/bento:h-32 transition-all duration-500" />
+      <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:12px_12px] opacity-[0.03]" />
     </div>
   );
 };
@@ -67,20 +75,20 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 md:py-28 relative bg-black border-t border-primary/20">
+    <section id="how-it-works" className="py-20 md:py-28 relative bg-[#090a0d] border-t border-white/[0.06]">
 
       <div className="container px-4 md:px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <SectionHeader
             icon={<Workflow />}
-            badge="Simple Process"
+            badge="Engineering Pipeline"
             title={
               <>
-                How Setupr helps you <span className="text-primary">register</span> your business
+                How Setupr deploys your <span className="gradient-text">technology & business</span>
               </>
             }
-            subtitle={getSetting("homepage_how_it_works_subtitle", "Simple 3-step process: Share your needs, get a clear plan with pricing, and we handle all the paperwork and filings.")}
+            subtitle={getSetting("homepage_how_it_works_subtitle", "A disciplined 3-phase execution model: Scope requirements, blueprint exact architectures and timelines, then deploy production-grade software and corporate compliance.")}
             alignment="center"
           />
           <BentoGrid className="md:auto-rows-[20rem]">

@@ -1,34 +1,43 @@
-#      SETUPRSETUPRSET                 SE
-#     PRSETUPRSETUPRSET              TUPRSE
-#     UPRSETUPRSETUPRSE            ETUPRSETUP
-#     TUPRSETUPRSETUPRS          PRSETUPRSETUPR
-#     SETUPRSETUPRSETUP        SETUPRSETUPRSETUPR
-#     PRSETUPRSETUPRSET       UPRSETUPRSETUPRSETUP
-#     UPRSETUPRSETUPRSE         SETUPRSETUPRSETUP
-#      RSETUPRSETUPRSE            PRSETUPRSETUP
-#                                   SETUPRSET
-#                                     UPRSE
-#               PRSETUPRSETUPRSET
-#              TUPRSETUPRSETUPRSETU
-#              UPRSETUPRSETUPRSETUP
-#              PRSETUPRSETUPRSETUPR
-#              RSETUPRSETUPRSETUPRS
-#              SETUPRSETUPRSETUPRSE
-#              ETUPRSETUPRSETUPRSET
-#               TUPRSETUPRSETUPRSE
+#                                    +hdh+
+#   :++oosssyyyhhhhdhs`            +NMNNNNNh:
+# /NNNNNNNNNNNNNNNNNNMN          :mNNNNNNNNNNmy-
+# hNNNNNNNNNNNNNNNNNNNN-       .hNNNNNNNNNNNNNNNmo`
+# oNNNNNNNNNNNNNNNNNNNN:      yNNNNNNNNNNNNNNNNNNNNd/
+# +MNNNNNNNNNNNNNNNNNNN+    +NNNNNNNNNNNNNNNNNNNNNNNMh
+# :NNNNNNNNNNNNNNNNNNNNs   yMNNNNNNNNNNNNNNNNNNNNNNNN+
+# -NNNNNNNNNNNNNNNNNNNNy   /NNNNNNNNNNNNNNNNNNNNNNNh`
+# `NNNNNNNNNNNNNNNNNNNNd     /dNNNNNNNNNNNNNNNNNNm-
+#  NNNNNNNNNNNNNNNNNNNMh       `omNNNNNNNNNNNNNm/
+#  :dNNNNNmmmmmmmmdddh+           .smNNNNNNNNNo
+#                           `.--     :hNNNNNy`
+#                  `-:+shdmNNNNNNo      :/:`
+#             :hdmNNNNMNNNNNNNNNNM.
+#            /MNNNNNNNNNNNNNNNNNNNh
+#            -NNNNNNNNNNNNNNNNNNNNN-
+#             hNNNNNNNNNNNNNNNNNNNNd
+#             `NNNNNNNNNNNNNNNNNNNNN-
+#              yNNNNNNNNNNNNNNNNNNNNm
+#              `NNNNNNNNNNNNNNNNNNNNM`
+#               yMNNNNNNNNNNNNMNNNNm+
+#                mMNNMNNNNmdhs+:.`
+#                 :oo+:.`
 #
-# Hello there! 
-# We're thrilled you're exploring under the hood. 
-# Setupr is a technology ecosystem building autonomous AI tools, 
-# custom web applications, and global business infrastructure.
-# 
-# Explore Setupr Lab: https://setupr.com/lab
-# Join us at: https://setupr.com/
+# ==============================================================================
+#  SETUPR TECHNOLOGIES INC. — AUTONOMOUS ECOSYSTEM & DIGITAL INFRASTRUCTURE
+# ==============================================================================
+#  Welcome, crawler / engineer / LLM agent!
+#  Setupr is a technology ecosystem building autonomous AI tools, developer
+#  infrastructure (MCP servers, browser agents), and turnkey digital platforms.
+#
+#  Setupr Lab:   https://setupr.com/lab
+#  Documentation: https://setupr.com/llms.txt
+#  Explore:       https://setupr.com/
+# ==============================================================================
 
 User-agent: *
 Allow: /
 
-# AI Crawlers & LLM Agents
+# LLM Agents & Autonomous Crawlers
 User-agent: GPTBot
 Allow: /
 
@@ -41,10 +50,23 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-# Prevent indexing of internal/dashboard routes
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Protected / Private Routes
 Disallow: /admin/
 Disallow: /store/dashboard/
 Disallow: /api/
 
-# Sitemap location
+# Sitemaps & LLM Context
 Sitemap: https://setupr.com/sitemap.xml

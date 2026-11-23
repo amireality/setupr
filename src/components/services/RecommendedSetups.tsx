@@ -83,11 +83,11 @@ const RecommendedSetups = ({ selectedServices, onApply, bundles, services }: Rec
                 whileTap={{ scale: 0.98 }}
                 onClick={() => onApply(bundle.included_service_ids)}
                 className={cn(
-                  "rounded-2xl group/bento transition-all duration-300 p-5 text-left relative overflow-hidden",
+                  "rounded-2xl group/bento transition-all duration-300 p-6 text-left relative overflow-hidden",
                   "backdrop-blur-sm border",
                   isActive 
-                    ? "border-primary/40 shadow-glow bg-secondary/50" 
-                    : "border-border/15 bg-secondary/30 hover:border-primary/25 hover:shadow-glow-sm"
+                    ? "border-primary/50 shadow-[0_0_30px_-5px_hsl(var(--primary)/0.2)] bg-[#11131a]" 
+                    : "border-white/[0.08] bg-[#0c0d12]/70 hover:border-white/[0.18] hover:bg-[#0c0d12]"
                 )}
               >
                 {/* Animated gradient mesh background */}

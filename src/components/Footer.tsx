@@ -23,10 +23,9 @@ const Footer = () => {
   const linkedin = getSetting("footer_linkedin", "https://linkedin.com/company/setupr");
 
   return (
-    <footer className="bg-background py-12 md:py-16 relative z-20">
-      {/* Gradient glow border at top */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
-      <div className="absolute top-0 left-1/4 right-1/4 h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent blur-sm" />
+    <footer className="bg-[#07080a] py-12 md:py-16 relative z-20 border-t border-white/[0.08]">
+      {/* Subtle top specular highlight */}
+      <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="container px-4 md:px-6 relative z-10">
         {/* Main Footer Grid */}
@@ -51,7 +50,7 @@ const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4 flex items-center gap-2">
               <span>Setupr Lab</span>
-              <span className="px-1.5 py-0.2 text-[9px] font-mono font-bold uppercase rounded-full bg-primary/20 text-primary border border-primary/30">
+              <span className="px-1.5 py-0.5 text-[9px] font-mono font-medium uppercase rounded-md bg-white/[0.04] text-zinc-300 border border-white/[0.08]">
                 R&D
               </span>
             </h4>

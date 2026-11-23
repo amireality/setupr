@@ -42,6 +42,7 @@ const Lab = lazy(() => import("./pages/Lab"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Install = lazy(() => import("./pages/Install"));
+const RobotsView = lazy(() => import("./pages/RobotsView"));
 
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 
@@ -118,6 +119,7 @@ const AnimatedRoutes = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/install" element={<Install />} />
+          <Route path="/robots.txt" element={<RobotsView />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes></Suspense></ErrorBoundary>

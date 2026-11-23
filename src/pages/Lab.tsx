@@ -97,9 +97,9 @@ const Lab = () => {
         </script>
       </Helmet>
 
-      {/* Ambient background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-radial from-primary/15 via-primary/5 to-transparent blur-[140px] pointer-events-none z-0" />
-      <AnimatedGridBackground className="opacity-30" />
+      {/* Ambient background micro-glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/[0.04] blur-[140px] pointer-events-none z-0" />
+      <AnimatedGridBackground className="opacity-20" />
       
       <Navbar />
 
@@ -112,10 +112,10 @@ const Lab = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/25 text-xs font-medium text-primary mb-6 shadow-[0_0_20px_-5px_hsl(var(--primary)/0.3)]"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-6"
             >
-              <Cpu className="w-3.5 h-3.5 animate-pulse" />
-              <span>Setupr Lab • Product & R&D Hub</span>
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span>Setupr Lab • Product &amp; R&amp;D Hub</span>
             </motion.div>
 
             {/* Main Headline */}
@@ -161,15 +161,15 @@ const Lab = () => {
         {/* Flagship Product: Blew by Setupr */}
         <section className="container px-4 md:px-6 mb-24 md:mb-32">
           <div className="max-w-5xl mx-auto">
-            <div className="relative rounded-3xl border border-primary/30 bg-gradient-to-b from-card/90 via-card/50 to-background p-6 sm:p-8 md:p-12 shadow-[0_0_50px_-15px_hsl(var(--primary)/0.2)] overflow-hidden">
-              {/* Decorative background aura */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+            <div className="relative rounded-3xl border border-white/[0.1] bg-[#0c0d12]/90 backdrop-blur-xl p-6 sm:p-8 md:p-12 overflow-hidden shadow-2xl">
+              {/* Subtle top highlight */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               
               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 {/* Left Column: Product Details */}
                 <div className="lg:col-span-7 space-y-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 border border-primary/30 text-xs font-mono text-primary uppercase tracking-wider font-semibold">
-                    <Sparkles className="w-3.5 h-3.5" />
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 uppercase tracking-wider font-semibold">
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
                     Flagship Product
                   </div>
 
@@ -177,8 +177,8 @@ const Lab = () => {
                     Blew by Setupr
                   </h2>
 
-                  <p className="text-xl font-medium text-primary/90 leading-snug">
-                    The zero-dashboard social media autopilot for AI agents & founders.
+                  <p className="text-xl font-medium text-zinc-200 leading-snug">
+                    The zero-dashboard social media autopilot for AI agents &amp; founders.
                   </p>
 
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
@@ -301,13 +301,12 @@ const Lab = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Division 1: Setupr Lab */}
-              <div className="rounded-2xl border border-primary/40 bg-card/60 p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between hover:border-primary transition-all duration-300">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="rounded-2xl border border-white/[0.1] bg-[#0c0d12]/80 hover:bg-[#0c0d12] hover:border-white/[0.2] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center text-primary mb-5">
-                    <Cpu className="w-6 h-6" />
+                  <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary mb-5">
+                    <Cpu className="w-5 h-5" />
                   </div>
-                  <div className="inline-block px-2.5 py-0.5 rounded-full bg-primary/15 text-[10px] font-mono font-bold text-primary mb-3">
+                  <div className="inline-block px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono font-medium text-zinc-300 mb-3">
                     DIVISION 01 • R&amp;D
                   </div>
                   <h3 className="font-display text-xl font-bold text-foreground mb-2">
@@ -317,18 +316,18 @@ const Lab = () => {
                     Open-source software, Model Context Protocol (MCP) servers, browser extensions (Blew), and autonomous AI agent toolkits.
                   </p>
                 </div>
-                <div className="pt-4 border-t border-border/50 text-xs text-primary font-medium flex items-center gap-1">
+                <div className="pt-4 border-t border-white/[0.06] text-xs text-primary font-medium flex items-center gap-1">
                   Active Innovation Hub <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               </div>
 
               {/* Division 2: Setupr Services */}
-              <div className="rounded-2xl border border-border/80 bg-card/40 p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between hover:border-primary/50 transition-all duration-300">
+              <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/60 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-secondary border border-border/80 flex items-center justify-center text-foreground mb-5">
-                    <Layers className="w-6 h-6" />
+                  <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary mb-5">
+                    <Layers className="w-5 h-5" />
                   </div>
-                  <div className="inline-block px-2.5 py-0.5 rounded-full bg-secondary text-[10px] font-mono font-bold text-muted-foreground mb-3">
+                  <div className="inline-block px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono font-medium text-zinc-400 mb-3">
                     DIVISION 02 • SOLUTIONS
                   </div>
                   <h3 className="font-display text-xl font-bold text-foreground mb-2">
@@ -338,7 +337,7 @@ const Lab = () => {
                     Bespoke web engineering, WhatsApp &amp; payment gateway integrations, custom CRM automations, and turnkey business formation.
                   </p>
                 </div>
-                <div className="pt-4 border-t border-border/50">
+                <div className="pt-4 border-t border-white/[0.06]">
                   <Link to="/services" className="text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
                     Explore Services Catalog <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
@@ -346,7 +345,7 @@ const Lab = () => {
               </div>
 
               {/* Division 3: Setupr Cloud */}
-              <div className="rounded-2xl border border-border/80 bg-card/40 p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between hover:border-primary/50 transition-all duration-300">
+              <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12]/60 hover:bg-[#0c0d12] hover:border-white/[0.18] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between transition-all duration-300">
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-secondary border border-border/80 flex items-center justify-center text-foreground mb-5">
                     <Boxes className="w-6 h-6" />

@@ -72,10 +72,10 @@ const ServiceCard = ({
       onMouseMove={handleMouseMove}
       className={cn(
         "spotlight-card w-full p-4 rounded-xl text-left transition-all duration-200 cursor-pointer group/service",
-        "bg-background/40 border border-border/20",
+        "bg-[#0c0d12]/70 border border-white/[0.08]",
         isSelected
-          ? "border-primary/50 bg-primary/5 shadow-glow"
-          : "hover:border-primary/20 hover:bg-background/60"
+          ? "border-primary/50 bg-primary/[0.05] shadow-[0_0_20px_-5px_hsl(var(--primary)/0.25)]"
+          : "hover:border-white/[0.18] hover:bg-[#0c0d12]"
       )}
       onClick={() => onToggle(service.service_id)}
       whileTap={{ scale: 0.97 }}
@@ -201,12 +201,12 @@ const ServiceCategories = ({
                   }}
                   className={cn(
                     "rounded-2xl group/bento transition-all duration-300 p-4",
-                    "bg-secondary/30 backdrop-blur-sm border border-border/15",
+                    "bg-[#0c0d12]/70 backdrop-blur-sm border border-white/[0.08]",
                     "flex flex-col overflow-hidden",
-                    "hover:border-primary/25 hover:shadow-glow-sm"
+                    "hover:border-white/[0.18]"
                   )}
                 >
-                  {/* Category header with gradient glow */}
+                  {/* Category header */}
                   <div
                     className={cn(
                       "w-full rounded-xl bg-gradient-to-br relative overflow-hidden",
@@ -214,8 +214,7 @@ const ServiceCategories = ({
                     )}
                   >
                     <div className="h-28 w-full relative">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,hsl(var(--primary)/0.12)_0%,transparent_55%)]" />
-                      <div className="absolute bottom-0 right-0 w-20 h-20 bg-primary/20 rounded-full blur-2xl" />
+                      <div className="absolute inset-0 bg-black/40 backdrop-blur-xs" />
 
                       <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
                         <span className="text-xl md:text-2xl font-bold font-display text-primary">
