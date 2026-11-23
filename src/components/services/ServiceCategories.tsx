@@ -215,12 +215,16 @@ const ServiceCategories = ({
                   >
                     <div className="h-28 w-full relative">
                       <div className="absolute inset-0 bg-black/40 backdrop-blur-xs" />
+                      <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:12px_12px] opacity-[0.04]" />
 
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
-                        <span className="text-xl md:text-2xl font-bold font-display text-primary">
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center z-10">
+                        <span className="px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono text-zinc-400 mb-1.5 uppercase tracking-wider">
+                          SYSTEM PILLAR
+                        </span>
+                        <span className="text-xl md:text-2xl font-bold font-display text-white tracking-tight">
                           {content.label}
                         </span>
-                        <span className="text-xs text-muted-foreground mt-0.5">
+                        <span className="text-xs text-zinc-400 mt-0.5">
                           {content.sublabel}
                         </span>
                       </div>

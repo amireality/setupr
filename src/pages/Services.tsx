@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServiceIntro from "@/components/services/ServiceIntro";
+import { InteractiveTechShowcase } from "@/components/visual/InteractiveTechShowcase";
 import ServiceCategories from "@/components/services/ServiceCategories";
 import RecommendedSetups from "@/components/services/RecommendedSetups";
 import ServicesCTA from "@/components/services/ServicesCTA";
@@ -124,6 +125,7 @@ const Services = () => {
         <Navbar />
         <main className="pt-16">
           <ServiceIntro />
+          <InteractiveTechShowcase />
           
           {/* Search and Filter - now sticky */}
           <div className="container px-4 md:px-6">

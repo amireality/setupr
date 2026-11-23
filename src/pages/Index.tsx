@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import { EcosystemSection } from "@/components/EcosystemSection";
 import TrustStats from "@/components/TrustStats";
+import { InteractiveTechShowcase } from "@/components/visual/InteractiveTechShowcase";
 import GoalCards from "@/components/GoalCards";
 import RecommendedBundles from "@/components/RecommendedBundles";
 import StorePromo from "@/components/StorePromo";
@@ -32,6 +33,7 @@ const Index = () => {
       <main className="relative z-10">
         <HeroSection />
         <TrustStats />
+        <InteractiveTechShowcase />
         <EcosystemSection />
         <GoalCards />
         <RecommendedBundles />

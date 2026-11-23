@@ -68,9 +68,19 @@ export const EcosystemSection = () => {
                 Setupr Lab
               </h3>
 
-              <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+              <p className="text-sm text-zinc-400 leading-relaxed mb-4">
                 Our autonomous software lab. Home to <strong className="text-zinc-200">Blew by Setupr</strong> (the zero-dashboard social media autopilot for AI agents), Model Context Protocol (MCP) servers, and open-source founder toolkits.
               </p>
+
+              {/* Visual Micro Terminal Artifact */}
+              <div className="p-3 rounded-xl bg-black/60 border border-white/[0.06] font-mono text-[11px] mb-5 space-y-1">
+                <div className="flex items-center justify-between text-zinc-500 text-[10px]">
+                  <span>mcp://blew.local</span>
+                  <span className="text-emerald-400">● ACTIVE</span>
+                </div>
+                <div className="text-zinc-300 font-medium">$ npx -y @setupr/blew</div>
+                <div className="text-emerald-400 text-[10px]">✔ Auto-syndicating to X &amp; LinkedIn</div>
+              </div>
 
               <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
                 <li className="flex items-center gap-2 text-zinc-300">
@@ -127,9 +137,22 @@ export const EcosystemSection = () => {
                 Setupr Services
               </h3>
 
-              <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+              <p className="text-sm text-zinc-400 leading-relaxed mb-4">
                 End-to-end digital infrastructure for modern businesses. Custom website engineering, WhatsApp &amp; payment gateway integrations, CRM workflows, and global company setup.
               </p>
+
+              {/* Visual Micro Architecture Artifact */}
+              <div className="p-3 rounded-xl bg-black/60 border border-white/[0.06] font-mono text-[11px] mb-5 space-y-1">
+                <div className="flex items-center justify-between text-zinc-500 text-[10px]">
+                  <span>EDGE ARCHITECTURE</span>
+                  <span className="text-primary font-bold">22ms TTFB</span>
+                </div>
+                <div className="text-zinc-200 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>React 18 + Stripe + WhatsApp Bot</span>
+                </div>
+                <div className="text-[10px] text-zinc-500">Live webhook synchronization</div>
+              </div>
 
               <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
                 <li className="flex items-center gap-2 text-zinc-300">
@@ -178,9 +201,22 @@ export const EcosystemSection = () => {
                 Setupr Cloud
               </h3>
 
-              <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+              <p className="text-sm text-zinc-400 leading-relaxed mb-4">
                 Direct enterprise SaaS provisioning. Get Google Workspace, Microsoft 365, AWS, and Zoho subscriptions with localized billing, instant onboarding, and support.
               </p>
+
+              {/* Visual Micro SaaS License Artifact */}
+              <div className="p-3 rounded-xl bg-black/60 border border-white/[0.06] font-mono text-[11px] mb-5 space-y-1">
+                <div className="flex items-center justify-between text-zinc-500 text-[10px]">
+                  <span>ENTERPRISE LICENSES</span>
+                  <span className="text-emerald-400">INSTANT ACCESS</span>
+                </div>
+                <div className="text-zinc-200 flex items-center justify-between pt-0.5">
+                  <span className="text-xs">Google Workspace &amp; M365</span>
+                  <span className="text-primary text-[10px] font-bold">SAVINGS // 20%</span>
+                </div>
+                <div className="text-[10px] text-zinc-500">Consolidated corporate invoicing</div>
+              </div>
 
               <ul className="space-y-2 mb-6 text-xs text-zinc-400 font-mono">
                 <li className="flex items-center gap-2 text-zinc-300">
